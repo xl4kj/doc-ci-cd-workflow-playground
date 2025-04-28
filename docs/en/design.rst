@@ -13,5 +13,7 @@ To ensure service quality from a User Experience perspective, Primary Actors, bo
 
 - **Consistency**: Technical Solutions MUST be designed and maintained in adherence to the IT-Wallet System’s Brand Identity and User Experience functional requirements in this document, to promote the recognizability of components, to ensure the overall system consistency, and to minimize the User's cognitive load.
 
+Hello world.
+
 .. include:: brand-identity.rst
 .. include:: functionalities.rst
