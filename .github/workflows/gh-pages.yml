@@ -149,7 +149,7 @@ jobs:
           <body>
               <p>Redirecting to versione-corrente page. <a href=\"../main/\">Click here</a> if you are not redirected automatically.</p>
           </body>
-          </html>' >> html/index.html
+          </html>' > html/index.html
           
 
 
