@@ -52,6 +52,7 @@ jobs:
           python -m pip install -r requirements-dev.txt
 
       - name: Build branch
+        id: build-branches
         run: |-
         
           # Debug information
@@ -78,7 +79,7 @@ jobs:
             if [[ "$BRANCH" == "main" ]]; then
               # For main branch, also create a copy in the root (latest)
               echo "This is a main branch build (will also create latest)"
-              DO_LATEST="yes"
+              MAKE_LATEST="yes"
             else
               echo "This is a branch build: $BRANCH"
             fi
@@ -93,8 +94,8 @@ jobs:
           echo "Publishing html/$SUBPATH/it"
           echo "Publishing html/$SUBPATH/en"
 
-          sphinx-build -b html docs/it/  html/$SUBPATH/it
-          sphinx-build -b html docs/en/  html/$SUBPATH/en
+          sphinx-build -b html docs/it/ html/$SUBPATH/it
+          sphinx-build -b html docs/en/ html/$SUBPATH/en
           
           # Create index file in this version's directory
           echo "
@@ -113,10 +114,15 @@ jobs:
           </body>
           </html>
           " > "html/${SUBPATH}/index.html"
+          
+          echo "subpath=$SUBPATH" >> $GITHUB_OUTPUT
+          echo "make_latest=${MAKE_LATEST:-no}" >> $GITHUB_OUTPUT
 
       # Runs a single command using the runners shell
       - name: Create GH page index
         run: |-
+          SUBPATH="${{ steps.build-branches.outputs.subpath }}"
+
           touch html/.nojekyll
           
           # Create main index.html with links to all versions
@@ -152,7 +158,7 @@ jobs:
           # List all subdirectories in html with version links
           find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
             version=$(basename "$dir")
-            echo "  <li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
+            echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
           done
           
           echo '
@@ -160,6 +166,13 @@ jobs:
           </body>
           </html>
           ' >> html/index.html
+          
+          # For main branch, also create a copy in root (latest)
+          if [[ "${{ steps.build-branches.outputs.make_latest }}" == "yes" ]]; then
+            echo "Also creating latest copy in root directory"
+            cp -r "html/${SUBPATH}it" html/it
+            cp -r "html/${SUBPATH}en" html/en
+          fi
 
       - name: Deploy to GitHub Pages
         if: success()
