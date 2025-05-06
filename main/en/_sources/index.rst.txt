@@ -5,6 +5,8 @@ IT-Wallet System Technical Specifications
 
 This document provides the technical architecture, implementation framework and design requirements to be adopted by the IT-Wallet System Technical Solutions.
 
+Maggio 2025
+
 Index of content
 ----------------
 
