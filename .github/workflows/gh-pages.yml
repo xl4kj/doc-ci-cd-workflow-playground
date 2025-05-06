@@ -90,7 +90,10 @@ jobs:
           # Create output directories
           mkdir -p "html/${SUBPATH}it"
           mkdir -p "html/${SUBPATH}en"
-          
+
+          echo "Publishing html/$SUBPATH/it"
+          echo "Publishing html/$SUBPATH/en"
+
           sphinx-build -b html docs/it/  html/$SUBPATH/it
           sphinx-build -b html docs/en/  html/$SUBPATH/en
 
