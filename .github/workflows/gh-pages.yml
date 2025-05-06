@@ -161,6 +161,32 @@ jobs:
             echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
           done
           
+          
+          pwd
+          ls
+          
+          cd tags
+          # List all subdirectories in html with version links
+          find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
+            version=$(basename "$dir")
+            echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
+          done
+          cd ..
+          
+          pwd
+          ls
+          
+          cd prs
+          # List all subdirectories in html with version links
+          find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
+            version=$(basename "$dir")
+            echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
+          done
+          cd ..
+          
+          pwd
+          ls
+          
           echo '
           </ul>
           </body>
