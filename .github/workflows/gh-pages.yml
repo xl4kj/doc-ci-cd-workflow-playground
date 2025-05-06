@@ -170,8 +170,8 @@ jobs:
           # For main branch, also create a copy in root (latest)
           if [[ "${{ steps.build-branches.outputs.make_latest }}" == "yes" ]]; then
             echo "Also creating latest copy in root directory"
-            cp -r "html/${SUBPATH}it" html/it
-            cp -r "html/${SUBPATH}en" html/en
+            cp -r "html/$SUBPATH/it" html/it
+            cp -r "html/$SUBPATH/en" html/en
           fi
 
       - name: Deploy to GitHub Pages
