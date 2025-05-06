@@ -63,18 +63,18 @@ jobs:
           # Determine correct path for content
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
             # For tags, extract the version number and create a versioned folder
-            TAG=${GITHUB_REF#refs/tags/}
-            SUBPATH="tags/${TAG}/"
+            TAG=${GITHUB_REF#refs/}
+            SUBPATH="${TAG}" # ex. tags/v1.0.0
             echo "This is a tag build: $TAG"
           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
             # For pull requests, use the PR number
             PR_NUMBER="${{ github.event.pull_request.number }}"
-            SUBPATH="prs/pr-${PR_NUMBER}/"
+            SUBPATH="prs/pr-${PR_NUMBER}" # ex. prs/pr-53
             echo "This is a PR build: $PR_NUMBER"
           else
             # For branch pushes, use the branch name
             BRANCH=${GITHUB_REF#refs/heads/}
-            SUBPATH="${BRANCH}/"
+            SUBPATH="${BRANCH}" # ex. main, warning-removal
             if [[ "$BRANCH" == "main" ]]; then
               # For main branch, also create a copy in the root (latest)
               echo "This is a main branch build (will also create latest)"
@@ -87,34 +87,79 @@ jobs:
           echo "Publishing $SUBPATH"
           
           # Create output directories
-          mkdir -p "html/${SUBPATH}it"
-          mkdir -p "html/${SUBPATH}en"
+          mkdir -p "html/${SUBPATH}/it"
+          mkdir -p "html/${SUBPATH}/en"
 
           echo "Publishing html/$SUBPATH/it"
           echo "Publishing html/$SUBPATH/en"
 
           sphinx-build -b html docs/it/  html/$SUBPATH/it
           sphinx-build -b html docs/en/  html/$SUBPATH/en
+          
+          # Create index file in this version's directory
+          echo "
+          <html>
+          <head>
+            <title>EUDI Wallet Documentation - $SUBPATH</title>
+            <meta name=\"viewport\" content=\"initial-scale=1.0\">
+          </head>
+          <body>
+          <h1>EUDI Wallet docs - ${SUBPATH%/}</h1>
+          
+          <ul>
+            <li><a href=\"it/\">Italian version</a></li>
+            <li><a href=\"en/\">English version</a></li>
+          </ul>
+          </body>
+          </html>
+          " > "html/${SUBPATH}/index.html"
 
       # Runs a single command using the runners shell
       - name: Create GH page index
         run: |-
           touch html/.nojekyll
+          
+          # Create main index.html with links to all versions
           echo '
           <html>
           <head>
-            <title>EUDI Wallet docs</title>
+            <title>EUDI Wallet Documentation</title>
             <meta name="viewport" content="initial-scale=1.0">
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+              h1 { color: #333; }
+              h2 { color: #555; margin-top: 30px; }
+              ul { list-style-type: none; padding: 0; }
+              li { margin-bottom: 10px; }
+              a { color: #0366d6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .version { font-weight: bold; }
+            </style>
           </head>
           <body>
-          <h1>EUDI Wallet docs</h1>
-
+          <h1>EUDI Wallet Documentation</h1>
+          
+          <h2>Latest Version</h2>
           <ul>
             <li><a href="it/">Italian version</a></li>
             <li><a href="en/">English version</a></li>
           </ul>
+          
+          <h2>All Versions</h2>
+          <ul>
+          ' > html/index.html
+          
+          # List all subdirectories in html with version links
+          find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
+            version=$(basename "$dir")
+            echo "  <li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
+          done
+          
+          echo '
+          </ul>
           </body>
-          </html>' > html/index.html
+          </html>
+          ' >> html/index.html
 
       - name: Deploy to GitHub Pages
         if: success()
