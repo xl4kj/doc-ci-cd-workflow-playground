@@ -165,23 +165,26 @@ jobs:
           pwd
           ls
           
-          cd tags
+          cd html/tags
           # List all subdirectories in html with version links
           find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
             version=$(basename "$dir")
             echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
           done
           cd ..
+          cd ..
+
           
           pwd
           ls
           
-          cd prs
+          cd html/prs
           # List all subdirectories in html with version links
           find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
             version=$(basename "$dir")
             echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
           done
+          cd ..
           cd ..
           
           pwd
