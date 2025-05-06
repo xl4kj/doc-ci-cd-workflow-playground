@@ -193,6 +193,14 @@ jobs:
             cp -r "html/$SUBPATH/it" html/it
             cp -r "html/$SUBPATH/en" html/en
           fi
+          
+          find . -type f -name "index.html" | while read -r file; do
+            # Estrai la directory contenente il file
+            dir=$(dirname "$file")
+    
+            # Stampa la directory
+            echo "$dir"
+         done
 
       - name: Deploy to GitHub Pages
         if: success()
