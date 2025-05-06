@@ -57,7 +57,7 @@ jobs:
           echo "$GITHUB_REF"
           
           echo "${{ github.event_name }}"
-          echo "${{ GITHUB_REF_TYPE }}"
+          echo "$GITHUB_REF_TYPE"
           echo "${{ github.event.pull_request.number }}"
           
           if [[ "$GITHUB_REF" = /refs/tags/* ]]; then
