@@ -200,7 +200,7 @@ jobs:
     
             # Stampa la directory
             echo "$dir"
-         done
+          done
 
       - name: Deploy to GitHub Pages
         if: success()
