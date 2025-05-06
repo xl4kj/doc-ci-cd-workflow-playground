@@ -115,9 +115,6 @@ jobs:
           </html>
           " > "html/${SUBPATH}/index.html"
           
-          echo "subpath=$SUBPATH" >> $GITHUB_OUTPUT
-          echo "make_latest=${MAKE_LATEST:-no}" >> $GITHUB_OUTPUT
-          
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
