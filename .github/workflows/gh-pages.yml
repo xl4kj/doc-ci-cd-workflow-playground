@@ -53,6 +53,13 @@ jobs:
 
       - name: Build branch
         run: |-
+        
+          echo "$GITHUB_REF"
+          
+          echo "${{ github.event_name }}"
+          echo "${{ GITHUB_REF_TYPE }}"
+          echo "${{ github.event.pull_request.number }}"
+          
           if [[ "$GITHUB_REF" = /refs/tags/* ]]; then
             TAG=$(echo "$GITHUB_REF" | sed "s/\/refs\/tags\///")
             SUBPATH="v$TAG/" # note the trailing slash
@@ -61,6 +68,7 @@ jobs:
             SUBPATH=$(echo "$GITHUB_REF" | sed "s/refs\/heads\///") # "${GITHUB_HEAD_REF}/" # note the trailing slash
             echo "Building for PR: $SUBPATH"
           fi
+          
           echo "Publishing $SUBPATH"
           #sphinx-build -b html docs/it/  html/$SUBPATH/it
           sphinx-build -b html docs/en/  html/$SUBPATH/en
