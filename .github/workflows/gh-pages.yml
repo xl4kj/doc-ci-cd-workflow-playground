@@ -161,37 +161,23 @@ jobs:
             echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
           done
           
-          
-          pwd
-          ls
-          
-          cd html
-          pwd
-          ls
-          
-          # List all subdirectories in html with version links
-          find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
-            version=$(basename "$dir")
-            echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
+          echo "<li><span class=\"version\">Tags:</span></li>" >> html/index.html
+          # List tag directories if they exist
+          if [ -d "html/tags" ]; then
+            find html/tags -maxdepth 1 -type d -not -path "html/tags" | sort -r | while read -r dir; do
+              tag=$(basename "$dir")
+              echo "<li>- <a href=\"tags/$tag/\">$tag</a> (<a href=\"tags/$tag/it/\">IT</a> | <a href=\"tags/$tag/en/\">EN</a>)</li>" >> html/index.html
           done
-          cd ..
-          cd ..
-
+          fi
           
-          pwd
-          ls
-          
-          cd html/prs
-          # List all subdirectories in html with version links
-          find html -maxdepth 1 -type d -not -path "html" -not -path "*/\.*" -not -path "*/it" -not -path "*/en" | sort -r | while read -r dir; do
-            version=$(basename "$dir")
-            echo "<li><span class=\"version\">$version:</span> <a href=\"$version/it/\">Italian</a> | <a href=\"$version/en/\">English</a></li>" >> html/index.html
+          echo "<li><span class=\"version\">Pull Requests:</span></li>" >> html/index.html
+          # List PR directories if they exist
+          if [ -d "html/prs" ]; then
+            find html/prs -maxdepth 1 -type d -not -path "html/prs" | sort -r | while read -r dir; do
+              pr=$(basename "$dir")
+              echo "<li>- <a href=\"prs/$pr/\">$pr</a> (<a href=\"prs/$pr/it/\">IT</a> | <a href=\"prs/$pr/en/\">EN</a>)</li>" >> html/index.html
           done
-          cd ..
-          cd ..
-          
-          pwd
-          ls
+          fi
           
           echo '
           </ul>
