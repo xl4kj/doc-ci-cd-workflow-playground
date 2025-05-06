@@ -54,23 +54,44 @@ jobs:
       - name: Build branch
         run: |-
         
-          echo "$GITHUB_REF"
+          # Debug information
+          echo "GitHub ref: $GITHUB_REF"
+          echo "GitHub head ref: $GITHUB_HEAD_REF"
+          echo "GitHub ref type: $GITHUB_REF_TYPE"
+          echo "Event name: ${{ github.event_name }}"
           
-          echo "${{ github.event_name }}"
-          echo "$GITHUB_REF_TYPE"
-          echo "${{ github.event.pull_request.number }}"
-          
-          if [[ "$GITHUB_REF" = /refs/tags/* ]]; then
-            TAG=$(echo "$GITHUB_REF" | sed "s/\/refs\/tags\///")
-            SUBPATH="v$TAG/" # note the trailing slash
-            echo "Building for TAG: $SUBPATH"
+          # Determine correct path for content
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            # For tags, extract the version number and create a versioned folder
+            TAG=${GITHUB_REF#refs/tags/}
+            TAG=${TAG#v}  # Remove 'v' prefix if present
+            SUBPATH="v${TAG}/"
+            echo "This is a tag build: $TAG"
+          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            # For pull requests, use the PR number
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            SUBPATH="pr-${PR_NUMBER}/"
+            echo "This is a PR build: $PR_NUMBER"
           else
-            SUBPATH=$(echo "$GITHUB_REF" | sed "s/refs\/heads\///") # "${GITHUB_HEAD_REF}/" # note the trailing slash
-            echo "Building for PR: $SUBPATH"
+            # For branch pushes, use the branch name
+            BRANCH=${GITHUB_REF#refs/heads/}
+            SUBPATH="${BRANCH}/"
+            if [[ "$BRANCH" == "main" ]]; then
+              # For main branch, also create a copy in the root (latest)
+              echo "This is a main branch build (will also create latest)"
+              DO_LATEST="yes"
+            else
+              echo "This is a branch build: $BRANCH"
+            fi
           fi
           
           echo "Publishing $SUBPATH"
-          #sphinx-build -b html docs/it/  html/$SUBPATH/it
+          
+          # Create output directories
+          mkdir -p "html/${SUBPATH}it"
+          mkdir -p "html/${SUBPATH}en"
+          
+          sphinx-build -b html docs/it/  html/$SUBPATH/it
           sphinx-build -b html docs/en/  html/$SUBPATH/en
 
       # Runs a single command using the runners shell
