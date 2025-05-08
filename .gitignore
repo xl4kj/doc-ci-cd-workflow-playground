@@ -14,9 +14,11 @@ Thumbs.db
 html
 env
 build
+latex
 env-preview
 .venv
 .vscode
+*.py
 *.cfg
 *.tmpl
 *.exe

@@ -2,11 +2,10 @@
 
 
 Technical References
-++++++++++++++++++++
+====================
 
 This section details the technical references, grouped by scope, that are part of the current implementation profile.
 This section includes international and national standards, draft specifications, architecture references and other relevant technical documents foundational for the interoperability and the compliance with industry standards.
-
 
 
 Wallet Paradigm Frameworks
@@ -66,7 +65,7 @@ Digital Credential Issuance
 
 
 Digital Credential Presentation
-----------------------------------------------
+-------------------------------
 
 .. list-table::
     :widths: 25 75
@@ -107,7 +106,7 @@ National Data Interoperability Platform Specifications
       - "Linee Guida sull'infrastruttura tecnologica della Piattaforma Digitale Nazionale Dati per l'interoperabilità dei sistemi informativi e delle basi di dati", December 2021, Version 1.0.
 
 National Digital Identity Platform Specifications
-------------------------------------------------------
+-------------------------------------------------
 
 .. list-table::
     :widths: 25 75

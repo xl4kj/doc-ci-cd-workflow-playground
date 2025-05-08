@@ -1,8 +1,8 @@
-.. _wallet-revocation.rst:
+.. include:: ../common/common_definitions.rst
 
 
 Wallet Instance Revocation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+==========================
 
 This section describes the involved entities and modalities to request a Wallet Instance revocation.
 
@@ -10,8 +10,8 @@ The Wallet Provider MUST ensure the security and reliability of Wallet Instances
 
 As shown in :numref:`fig_Wallet_Instance_Revoc_Entities`, other actors MAY trigger the Wallet Instance revocation process:
 
-- **Users**, connecting to the Wallet Provider’s web portal from their Wallet Instance or using an external browser.
-- **PID Providers** when notified by the Authentic Source of the PID (ANPR) of the User’s death.
+- **Users**, connecting to the Wallet Provider's web portal from their Wallet Instance or using an external browser.
+- **PID Providers** when notified by the Authentic Source of the PID (ANPR) of the User's death.
 - **Legal Authorities or the Supervisory Body** in cases of proven illegal activities.
 
 
@@ -24,14 +24,14 @@ As shown in :numref:`fig_Wallet_Instance_Revoc_Entities`, other actors MAY trigg
     Entities involved in the Wallet Instance revocation process.
 
 .. note::
-
   - The flow for the Wallet Instance Revocation triggered by the User is detailed below.
-  - The endpoint used by the PID Provider is detailed in the Wallet Provider Catalogue of e-Service PDND Catalogue (see Section :ref:`wp-catalogue` for technical details).
+  - The endpoint used by the PID Provider is detailed in the Wallet Provider Catalogue of e-Service PDND Catalogue (see Section :ref:`e-service-pdnd-catalogue:Wallet Provider Catalogue` for technical details).
   - The flow for Authorized Entities (e.g., Supervisory Bodies) is out of scope of this specification, it will be managed by each Wallet Provider.
 
 
+
 Wallet Instance Revocation Request
-...................................
+""""""""""""""""""""""""""""""""""
 
 Users MAY request the Wallet Instance revocation by:
 
@@ -41,7 +41,7 @@ Users MAY request the Wallet Instance revocation by:
 In both cases, by using the Wallet Provider portal:
 
 - Users MUST authenticate with at least a second-factor authentication mechanism, or have an active session that meets this requirement.
-- The Wallet Provider MUST allow Users to view the state of their Wallet Instances associated with their authenticated session and ask for revocation, sending a Wallet Instance Retrieval or Revocation Request, as applicable, to the :ref:`Wallet Instance Management endpoint` of the Wallet Provider Backend.
+- The Wallet Provider MUST allow Users to view the state of their Wallet Instances associated with their authenticated session and ask for revocation, sending a Wallet Instance Retrieval or Revocation Request, as applicable, to the :ref:`wallet-provider-endpoint:Wallet Instance Management endpoint` of the Wallet Provider Backend.
 
 Below is a non-normative example of a Wallet Instances Retrieval Request.
 
@@ -86,8 +86,11 @@ Below is a non-normative example of a Wallet Instance Revocation Request.
     }
 
 
+
+
 Wallet Instance Revocation Response
-...................................
+"""""""""""""""""""""""""""""""""""
+
 Upon a successful revocation, the Wallet Provider MUST return a confirmation response.
 Below is a non-normative example of a Wallet Instance Revocation Response.
 
@@ -98,15 +101,15 @@ Below is a non-normative example of a Wallet Instance Revocation Response.
 
 
 Revocation Check Mechanisms
-...................................
+"""""""""""""""""""""""""""
 
 The verification of the Wallet Instance validity MUST be performed:
 
 - **During Digital Credential issuance or presentation phase** by the Credential Issuers and Relying Parties, respectively. Only Wallet Instances in Operational or Valid state have valid Wallet Attestations. Thus, the verification of the validity of a Wallet Instance is indirectly performed by Credential Issuers and Relying Parties by checking the presence of a valid Wallet Attestation (i.e. not expired and signed by a trusted Wallet Provider). During proximity presentation the Wallet Instance might not be able to fetch a fresh Wallet Attestation, in this case, the Wallet Instance SHOULD send the latest version of the Wallet Attestation. It is left up to the Relying Party to determine whether a presentation with a valid but expired Wallet Attestation is valid or not.
 
-- **During the validity period of the Digital Credential**  by the Credential Issuers. Indeed, if the Wallet Instance is revoked, the PID hosted within it MUST be revoked. Any other Digital Credential obtained through the presentation of the PID MUST therefore be revoked too. In the current version of the specification, Credential Issuers are directly notified of a Wallet Instance revocation by the Wallet Provider using a PDND e-service.
+- **During the validity period of the Digital Credential** by the Credential Issuers. Indeed, if the Wallet Instance is revoked, the PID hosted within it MUST be revoked. Any other Digital Credential obtained through the presentation of the PID MUST therefore be revoked too. In the current version of the specification, Credential Issuers are directly notified of a Wallet Instance revocation by the Wallet Provider using a PDND e-service.
 
 
 .. note::
-   With the introduction of the **Wallet Trust Evidence (WTE)**, this section will be updated accordingly.
+  With the introduction of the **Wallet Trust Evidence (WTE)**, this section will be updated accordingly.
 

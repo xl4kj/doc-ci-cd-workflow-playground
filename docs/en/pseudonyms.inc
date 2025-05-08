@@ -4,7 +4,7 @@
 
 
 Pseudonyms
-++++++++++
+==========
 
 
 What it is useful for
@@ -21,12 +21,16 @@ In a social media platform, a user might choose the pseudonym "SunflowerDreamer"
 instead of using their real name "Jane Smith". This allows Jane
 to participate in discussions while maintaining her privacy.
 
+.. _sec_p_general_properties:
+
 General Properties
 ------------------
 - Uniqueness within a given context.
 - Consistency (the same entity always uses the same pseudonym in a given context).
 - Reversibility (optional, depending on the system's requirements).
 - Non-linkability to the real identity (without additional information).
+
+.. _sec_p_Requirements:
 
 Requirements
 ------------
@@ -35,6 +39,7 @@ Requirements
 - The system SHOULD maintain a secure mapping between pseudonyms and real identities (if reversibility is required).
 - The pseudonym generation process SHOULD be resistant to guessing attacks.
 
+.. _sec_ps_implementation_considerations:
 
 Implementation Considerations
 -----------------------------
