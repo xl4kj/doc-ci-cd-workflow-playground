@@ -114,6 +114,98 @@ jobs:
           </body>
           </html>
           " > "html/${SUBPATH}/index.html"
+
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages-content
+          
+      - name: Generate main index.html with all versions
+        run: |-
+          # Create a script to find all index.html files except those in en/ or it/ directories
+          cat > find_index_files.sh << 'EOF'
+          #!/bin/bash
+          
+          # Directory to search
+          search_dir="$1"
+          
+          # Find all index.html files
+          all_files=$(find "$search_dir" -type f -name "index.html")
+          
+          # Filter out files in en/ and it/ directories
+          filtered_files=$(echo "$all_files" | grep -v "en/index.html" | grep -v "it/index.html")
+          
+          # Output the filtered list
+          echo "$filtered_files"
+          EOF
+          
+          # Make the script executable
+          chmod +x find_index_files.sh
+          
+          # Run the script to find all relevant index.html files
+          index_files=$(./find_index_files.sh gh-pages-content)
+          
+          # Create a main index.html file with links to all versions
+          cat > gh-pages-content/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>IT-Wallet System Technical Specifications - All Versions</title>
+            <meta name="viewport" content="initial-scale=1.0">
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+              h1 { color: #333; }
+              h2 { color: #555; margin-top: 30px; }
+              ul { list-style-type: none; padding: 0; }
+              li { margin-bottom: 10px; }
+              a { color: #0366d6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .version { font-weight: bold; }
+              .version-container { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee; }
+            </style>
+          </head>
+          <body>
+            <h1>IT-Wallet System Technical Specifications</h1>
+            <h2>Available Versions</h2>
+            <div id="versions-list">
+          EOF
+          
+          # Process each index.html file and add a link to the main index
+          for file in $index_files; do
+            # Extract the relative path by removing gh-pages-content/ prefix
+            rel_path=${file#gh-pages-content/}
+            # Get the directory containing this index.html
+            dir_path=$(dirname "$rel_path")
+            
+            # Skip the root index.html (which is the one we're creating)
+            if [ "$dir_path" = "." ]; then
+              continue
+            fi
+            
+            # Add a link to this version in the main index.html
+            echo "    <div class=\"version-container\">" >> gh-pages-content/index.html
+            echo "      <div class=\"version\"><a href=\"${dir_path}/\">${dir_path}</a></div>" >> gh-pages-content/index.html
+            echo "      <ul>" >> gh-pages-content/index.html
+            echo "        <li><a href=\"${dir_path}/it/\">Italian version</a></li>" >> gh-pages-content/index.html
+            echo "        <li><a href=\"${dir_path}/en/\">English version</a></li>" >> gh-pages-content/index.html
+            echo "      </ul>" >> gh-pages-content/index.html
+            echo "    </div>" >> gh-pages-content/index.html
+          done
+          
+          # Complete the HTML file
+          cat >> gh-pages-content/index.html << 'EOF'
+            </div>
+            <p><em>Last updated: $(date)</em></p>
+          </body>
+          </html>
+          EOF
+          
+          # Copy the generated index.html to the deployment directory
+          cp gh-pages-content/index.html html/index.html
+          
+          echo "XXXXX"
+          cat html/index.html
           
       - name: Deploy to GitHub Pages
         if: success()
