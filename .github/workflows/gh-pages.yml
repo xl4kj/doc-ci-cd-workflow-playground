@@ -146,32 +146,13 @@ jobs:
           # Run the script to find all relevant index.html files
           index_files=$(./find_index_files.sh gh-pages-content)
           
-          # Create a main index.html file with links to all versions
-          cat > gh-pages-content/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>IT-Wallet System Technical Specifications - All Versions</title>
-            <meta name="viewport" content="initial-scale=1.0">
-            <style>
-              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-              h1 { color: #333; }
-              h2 { color: #555; margin-top: 30px; }
-              ul { list-style-type: none; padding: 0; }
-              li { margin-bottom: 10px; }
-              a { color: #0366d6; text-decoration: none; }
-              a:hover { text-decoration: underline; }
-              .version { font-weight: bold; }
-              .version-container { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee; }
-            </style>
-          </head>
-          <body>
-            <h1>IT-Wallet System Technical Specifications</h1>
-            <h2>Available Versions</h2>
-            <div id="versions-list">
-          EOF
+          # Create arrays to store paths by category
+          declare -a versione_corrente_paths=()
+          declare -a prs_paths=()
+          declare -a tags_paths=()
+          declare -a other_paths=()
           
-          # Process each index.html file and add a link to the main index
+          # Process each index.html file and categorize them
           for file in $index_files; do
             # Extract the relative path by removing gh-pages-content/ prefix
             rel_path=${file#gh-pages-content/}
@@ -183,27 +164,104 @@ jobs:
               continue
             fi
             
-            # Add a link to this version in the main index.html
-            echo "    <div class=\"version-container\">" >> gh-pages-content/index.html
-            echo "      <div class=\"version\"><a href=\"${dir_path}/\">${dir_path}</a></div>" >> gh-pages-content/index.html
-            echo "      <ul>" >> gh-pages-content/index.html
-            echo "        <li><a href=\"${dir_path}/it/\">Italian version</a></li>" >> gh-pages-content/index.html
-            echo "        <li><a href=\"${dir_path}/en/\">English version</a></li>" >> gh-pages-content/index.html
-            echo "      </ul>" >> gh-pages-content/index.html
-            echo "    </div>" >> gh-pages-content/index.html
+            # Categorize paths based on their prefixes
+            if [ "$dir_path" = "versione-corrente" ]; then
+              versione_corrente_paths+=("$dir_path")
+            elif [[ "$dir_path" == prs/* ]]; then
+              prs_paths+=("$dir_path")
+            elif [[ "$dir_path" == tags/* ]]; then
+              tags_paths+=("$dir_path")
+            else
+              other_paths+=("$dir_path")
+            fi
           done
           
+          # Sort arrays in descending order (reverse alphabetical)
+          IFS=$'\n' sorted_prs_paths=($(sort -r <<<"${prs_paths[*]}"))
+          unset IFS
+          IFS=$'\n' sorted_tags_paths=($(sort -r <<<"${tags_paths[*]}"))
+          unset IFS
+          IFS=$'\n' sorted_other_paths=($(sort -r <<<"${other_paths[*]}"))
+          unset IFS
+          
+          # Create a main index.html file with links to all versions
+          cat > html/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>IT-Wallet System Technical Specifications - All Versions</title>
+            <meta name="viewport" content="initial-scale=1.0">
+            <style>
+              body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+              h1 { color: #333; }
+              h2 { color: #555; margin-top: 30px; }
+              h3 { color: #666; margin-top: 20px; }
+              ul { list-style-type: none; padding: 0; }
+              li { margin-bottom: 10px; }
+              a { color: #0366d6; text-decoration: none; }
+              a:hover { text-decoration: underline; }
+              .version { font-weight: bold; }
+              .version-container { margin-bottom: 20px; padding: 10px; border-bottom: 1px solid #eee; }
+              .category { margin-top: 30px; margin-bottom: 10px; }
+            </style>
+          </head>
+          <body>
+            <h1>IT-Wallet System Technical Specifications</h1>
+            <div id="versions-list">
+          EOF
+          
+          # Function to append version link to the index.html
+          append_version_link() {
+            local dir_path="$1"
+            
+            echo "    <div class=\"version-container\">" >> html/index.html
+            echo "      <div class=\"version\"><a href=\"${dir_path}/\">${dir_path}</a></div>" >> html/index.html
+            echo "      <ul>" >> html/index.html
+            echo "        <li><a href=\"${dir_path}/it/\">Italian version</a></li>" >> html/index.html
+            echo "        <li><a href=\"${dir_path}/en/\">English version</a></li>" >> html/index.html
+            echo "      </ul>" >> html/index.html
+            echo "    </div>" >> html/index.html
+          }
+          
+          # Add versione-corrente first if it exists
+          if [ ${#versione_corrente_paths[@]} -gt 0 ]; then
+            echo "      <h2 class=\"category\">Current Version</h2>" >> html/index.html
+            append_version_link "versione-corrente"
+          fi
+          
+          # Add PR versions if they exist
+          if [ ${#sorted_prs_paths[@]} -gt 0 ]; then
+            echo "      <h2 class=\"category\">Pull Requests</h2>" >> html/index.html
+            for dir_path in "${sorted_prs_paths[@]}"; do
+              append_version_link "$dir_path"
+            done
+          fi
+          
+          # Add Tag versions if they exist
+          if [ ${#sorted_tags_paths[@]} -gt 0 ]; then
+            echo "      <h2 class=\"category\">Release Tags</h2>" >> html/index.html
+            for dir_path in "${sorted_tags_paths[@]}"; do
+              append_version_link "$dir_path"
+            done
+          fi
+          
+          # Add Other versions if they exist
+          if [ ${#sorted_other_paths[@]} -gt 0 ]; then
+            echo "      <h2 class=\"category\">Other Versions</h2>" >> html/index.html
+            for dir_path in "${sorted_other_paths[@]}"; do
+              append_version_link "$dir_path"
+            done
+          fi
+          
           # Complete the HTML file
-          cat >> gh-pages-content/index.html << 'EOF'
+          cat >> html/index.html << 'EOF'
             </div>
             <p><em>Last updated: $(date)</em></p>
           </body>
           </html>
           EOF
           
-          # Copy the generated index.html to the deployment directory
-          cp gh-pages-content/index.html html/index.html
-          
+          echo "Generated main index.html with all versions"
           echo "XXXXX"
           cat html/index.html
           
