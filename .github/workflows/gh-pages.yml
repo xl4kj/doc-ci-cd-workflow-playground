@@ -225,7 +225,7 @@ jobs:
           
           # Add versione-corrente first if it exists
           if [ ${#versione_corrente_paths[@]} -gt 0 ]; then
-            echo "      <h2 class=\"category\">Current Version</h2>" >> html/index.html
+            echo "      <h2 class=\"category\">Editor's Copy</h2>" >> html/index.html
             append_version_link "versione-corrente"
           fi
           
@@ -239,7 +239,7 @@ jobs:
           
           # Add Tag versions if they exist
           if [ ${#sorted_tags_paths[@]} -gt 0 ]; then
-            echo "      <h2 class=\"category\">Release Tags</h2>" >> html/index.html
+            echo "      <h2 class=\"category\">Releases</h2>" >> html/index.html
             for dir_path in "${sorted_tags_paths[@]}"; do
               append_version_link "$dir_path"
             done
@@ -253,8 +253,7 @@ jobs:
             done
           fi
           
-          # Complete the HTML file
-          cat >> html/index.html << 'EOF'
+          cat >> html/index.html << EOF
             </div>
             <p><em>Last updated: $(date)</em></p>
           </body>
@@ -262,8 +261,6 @@ jobs:
           EOF
           
           echo "Generated main index.html with all versions"
-          echo "XXXXX"
-          cat html/index.html
           
       - name: Deploy to GitHub Pages
         if: success()
