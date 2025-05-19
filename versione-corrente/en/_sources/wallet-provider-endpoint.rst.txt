@@ -394,10 +394,10 @@ The body of the Wallet Attestation SD-JWT contains the following claims:
       - REQUIRED. Credential type value MUST be an HTTPS URL String and it MUST be set to ``wallet.atestation.example/v1.0``.
       - Section 3.2.2.2 `SD-JWT-VC`_.
     * - **_sd**
-      - REQUIRED. String containing the hash algorithm used by the Wallet Provider to generate the digests.
+      - REQUIRED. JSON array containing a list of all disclusure's digests.
       - `SD-JWT`_.
     * - **sd_alg**
-      - REQUIRED. JSON array containing a list of the signing algorithms (alg values) supported.
+      - REQUIRED. String containing the hash algorithm used by the Wallet Provider to generate the disclusure's digests.
       - `SD-JWT`_.
     * - **sub**
       - REQUIRED. Identifier of the Wallet Instance which is the thumbprint of the Wallet Attestation JWK.
