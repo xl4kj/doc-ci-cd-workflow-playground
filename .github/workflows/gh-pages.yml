@@ -59,10 +59,11 @@ jobs:
           
           # Determine path for content
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
-            # For tags, extract the version number and create a versioned folder
+            # For tags, extract the version number and create a versioned folder in 'releases' directory
             TAG=${GITHUB_REF#refs/}
-            SUBPATH="${TAG}" # e.g. tags/v1.0.0
-            echo "This is a tag build: $TAG"
+            VERSION_NUMBER=${TAG#*/}
+            SUBPATH="releases/${VERSION_NUMBER}" # e.g. releases/v1.0.0
+            echo "This is a tag build: $TAG, will publish to $SUBPATH"
           elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
             # For pull requests, use the PR number
             PR_NUMBER="${{ github.event.pull_request.number }}"
@@ -92,7 +93,7 @@ jobs:
           <html>
           <head>
             <title>IT-Wallet System Technical Specifications - ($SUBPATH)</title>
-            <meta name="viewport" content="initial-scale=1.0">
+            <meta name=\"viewport\" content=\"initial-scale=1.0\">
             <style>
               body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
               h1 { color: #333; }
@@ -120,7 +121,7 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages-content
-          
+
       - name: Generate main index.html with all versions
         run: |-
           # Create a script to find all index.html files except those in en/ or it/ directories
@@ -149,7 +150,7 @@ jobs:
           # Create arrays to store paths by category
           declare -a versione_corrente_paths=()
           declare -a prs_paths=()
-          declare -a tags_paths=()
+          declare -a releases_paths=()  # Changed 'tags_paths' to 'releases_paths'
           declare -a other_paths=()
           
           # Process each index.html file and categorize them
@@ -169,8 +170,8 @@ jobs:
               versione_corrente_paths+=("$dir_path")
             elif [[ "$dir_path" == prs/* ]]; then
               prs_paths+=("$dir_path")
-            elif [[ "$dir_path" == tags/* ]]; then
-              tags_paths+=("$dir_path")
+            elif [[ "$dir_path" == releases/* ]]; then  # Changed 'tags/*' to 'releases/*'
+              releases_paths+=("$dir_path")  # Changed 'tags_paths' to 'releases_paths'
             else
               other_paths+=("$dir_path")
             fi
@@ -179,7 +180,7 @@ jobs:
           # Sort arrays in descending order (reverse alphabetical)
           IFS=$'\n' sorted_prs_paths=($(sort -r <<<"${prs_paths[*]}"))
           unset IFS
-          IFS=$'\n' sorted_tags_paths=($(sort -r <<<"${tags_paths[*]}"))
+          IFS=$'\n' sorted_releases_paths=($(sort -r <<<"${releases_paths[*]}"))  # Changed 'sorted_tags_paths' to 'sorted_releases_paths'
           unset IFS
           IFS=$'\n' sorted_other_paths=($(sort -r <<<"${other_paths[*]}"))
           unset IFS
@@ -237,10 +238,10 @@ jobs:
             done
           fi
           
-          # Add Tag versions if they exist
-          if [ ${#sorted_tags_paths[@]} -gt 0 ]; then
+          # Add Release versions if they exist (changed from Tag versions)
+          if [ ${#sorted_releases_paths[@]} -gt 0 ]; then
             echo "      <h2 class=\"category\">Releases</h2>" >> html/index.html
-            for dir_path in "${sorted_tags_paths[@]}"; do
+            for dir_path in "${sorted_releases_paths[@]}"; do
               append_version_link "$dir_path"
             done
           fi
@@ -261,7 +262,7 @@ jobs:
           EOF
           
           echo "Generated main index.html with all versions"
-          
+
       - name: Deploy to GitHub Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v2
