@@ -137,6 +137,28 @@ jobs:
           ref: gh-pages
           path: gh-pages-temp
 
+      # Clean up HTML content before rsync to avoid accumulating stale files
+      - name: Clean specific HTML directories
+        run: |
+          DEPLOYMENT_PATH="${{ steps.deployment.outputs.path }}"
+          
+          echo "Cleaning HTML content for deployment path: $DEPLOYMENT_PATH"
+          
+          # Remove the specific directory that we're about to regenerate
+          # This ensures we don't have stale files from previous builds of the same content
+          if [ -d "gh-pages-temp/$DEPLOYMENT_PATH" ]; then
+            echo "Removing existing directory: gh-pages-temp/$DEPLOYMENT_PATH"
+            rm -rf "gh-pages-temp/$DEPLOYMENT_PATH"
+          else
+            echo "Directory gh-pages-temp/$DEPLOYMENT_PATH does not exist, skipping removal"
+          fi
+          
+          # For main branch builds, also clean up any potential stale index files
+          if [[ "$DEPLOYMENT_PATH" == "$DEFAULT_BRANCH" ]]; then
+            echo "Main branch build - cleaning root index files if they exist"
+            rm -f gh-pages-temp/index.html
+          fi
+
       # Integrate new content and update gh-pages
       - name: Integrate and update gh-pages content
         env:

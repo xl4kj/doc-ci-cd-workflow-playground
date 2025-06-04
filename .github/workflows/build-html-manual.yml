@@ -85,6 +85,27 @@ jobs:
           ref: gh-pages
           path: gh-pages-temp
 
+      # Clean up HTML content before rsync to avoid accumulating stale files
+      - name: Clean specific PR HTML directory
+        run: |
+          DEPLOYMENT_PATH="${{ steps.deployment.outputs.path }}"
+          
+          echo "Cleaning HTML content for manual PR deployment: $DEPLOYMENT_PATH"
+          
+          # Remove the specific PR directory that we're about to regenerate
+          # This is especially important for manual builds where the same PR might be rebuilt multiple times
+          if [ -d "gh-pages-temp/$DEPLOYMENT_PATH" ]; then
+            echo "Removing existing PR directory: gh-pages-temp/$DEPLOYMENT_PATH"
+            rm -rf "gh-pages-temp/$DEPLOYMENT_PATH"
+          else
+            echo "PR directory gh-pages-temp/$DEPLOYMENT_PATH does not exist, skipping removal"
+          fi
+          
+          # Also clean any temporary files that might be left from previous manual builds
+          echo "Cleaning any temporary build artifacts in gh-pages-temp"
+          find gh-pages-temp -name "*.tmp" -type f -delete 2>/dev/null || true
+          find gh-pages-temp -name ".DS_Store" -type f -delete 2>/dev/null || true
+
       # Integrate new content and update gh-pages
       - name: Integrate and update gh-pages content
         env:
