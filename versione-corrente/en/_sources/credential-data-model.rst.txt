@@ -177,15 +177,15 @@ If the ``status`` parameter is set to ``status_list``, it is a JSON Object conta
      - REQUIRED. The idx (index) claim MUST specify an Integer that represents the index to check for status information in the Status List for the current Digital Credential. The value of idx MUST be a non-negative number, containing a value of zero or greater.
      - TOKEN-STATUS-LIST_
    * - **uri**
-     - REQUIRED. The uri (URI) claim MUST specify a String value that identifies the Status List Token containing the status information for the Digital Credential. The value of uri MUST be a URI conforming to [:rfc:`3986`].
+     - REQUIRED. The ``uri`` (URI) claim MUST specify a String value that identifies the Status List Token containing the status information for the Digital Credential. The value of ``uri`` MUST be a URI conforming to [:rfc:`3986`].
      - TOKEN-STATUS-LIST_
 
 
-If the ``status`` parameter is set to ``status_assertation``, it is a JSON Object containing the *credential_hash_alg* claim indicating the Algorithm used for hashing the Digital Credential to which the Status Assertion is bound. It is RECOMMENDED to use *sha-256*.
+If the ``status`` parameter is set to ``status_assertion``, it is a JSON Object containing the *credential_hash_alg* claim indicating the Algorithm used for hashing the Digital Credential to which the Status Assertion is bound. It is RECOMMENDED to use *sha-256*.
 
 
 .. note::
-  Credential Type Metadata JSON Document MAY be retrieved directly from the URL contained in the claim **vct**, using the HTTP GET method or using the vctm header parameter if provided. Unlike specified in Section 6.3.1 of `SD-JWT-VC`_ the **.well-known** endpoint is not included in the current implementation profile. Implementers may decide to use it for interoperability with other systems.
+  Credential Type Metadata JSON Document MAY be retrieved directly from the URL contained in the claim **vct**, using the HTTP GET method or using the ``vctm`` header parameter if provided. Unlike specified in Section 6.3.1 of `SD-JWT-VC`_ the **.well-known** endpoint is not included in the current implementation profile. Implementers may decide to use it for interoperability with other systems.
 
 
 Digital Credential Metadata Type
@@ -202,10 +202,10 @@ The Metadata type document MUST be a JSON object and contains the following para
       - **Description**
       - **Reference**
     * - **name**
-      - REQUIRED. Human-readable name of the Digital Credential type. In case of multiple languages, the language tags are added to the member name, delimited with the character ``#`` as defined in :rfc:`5646` (e.g. *name#it-IT*).
+      - REQUIRED. Human-readable name of the Digital Credential type. In case of multiple languages, the language tags are added to the member name, delimited with the character `#` as defined in :rfc:`5646` (e.g. *name#it-IT*).
       - [`SD-JWT-VC`_] Section 6.2 and [`OIDC`_] Section 5.2.
     * - **description**
-      - REQUIRED. A human-readable description of the Digital Credential type. In case of multiple languages, the language tags are added to the member name, delimited by a # character as defined in :rfc:`5646`.
+      - REQUIRED. A human-readable description of the Digital Credential type. In case of multiple languages, the language tags are added to the member name, delimited by a `#` character as defined in :rfc:`5646`.
       - [`SD-JWT-VC`_] Section 6.2 and [`OIDC`_] Section 5.2.
     * - **extends**
       - OPTIONAL. String Identifier of an extended metadata type document.
@@ -296,25 +296,25 @@ Depending on the Digital Credential type **vct**, additional claims data MAY be 
       - **Description**
       - **Reference**
     * - **given_name**
-      - [SD]. REQUIRED. Current First Name.
+      - [SD]. REQUIRED. Current First Name. (*String*)
       - Section 5.1 of `OIDC`_ and Commission Implementing Regulation `EU_2024/2977`_
     * - **family_name**
-      - [SD]. REQUIRED. Current Family Name.
+      - [SD]. REQUIRED. Current Family Name. (*String*)
       - Section 5.1 of `OIDC`_ and Commission Implementing Regulation `EU_2024/2977`_
     * - **birth_date**
-      - [SD]. REQUIRED. Date of Birth.
+      - [SD]. REQUIRED. Date of Birth. (*String, [ISO8601‑1] YYYY-MM-DD format*)
       - Commission Implementing Regulation `EU_2024/2977`_
     * - **birth_place**
-      - [SD]. REQUIRED. Place of Birth.
+      - [SD]. REQUIRED. Place of Birth. (*String*)
       - Commission Implementing Regulation `EU_2024/2977`_
-    * - **nationality**
-      - [SD]. REQUIRED. One or more alpha-2 country codes as specified in ISO 3166-1.
+    * - **nationalities**
+      - [SD]. REQUIRED. One or more alpha-2 country codes as specified in ISO 3166-1. (*Array of strings*)
       - Commission Implementing Regulation `EU_2024/2977`_
     * - **personal_administrative_number**
-      - [SD]. CONDITIONAL. REQUIRED if ``tax_id_code`` is not present. National unique identifier of a natural person generated by ANPR in string format.
+      - [SD]. CONDITIONAL. REQUIRED if ``tax_id_code`` is not present. National unique identifier of a natural person generated by ANPR in string format. (*String*)
       - Commission Implementing Regulation `EU_2024/2977`_
     * - **tax_id_code**
-      - [SD]. CONDITIONAL. REQUIRED if ``personal_administrative_number`` is not present. National tax identification code of natural person as a String format. It MUST be set according to ETSI EN 319 412-1. For example ``TINIT-<ItalianTaxIdentificationNumber>``
+      - [SD]. CONDITIONAL. REQUIRED if ``personal_administrative_number`` is not present. National tax identification code of natural person as a String format. It MUST be set according to ETSI EN 319 412-1. For example ``TINIT-<ItalianTaxIdentificationNumber>``. (*String*)
       -
 
 
@@ -395,14 +395,6 @@ The disclosure list is presented below.
   ``bWEiXQ``
 - Contents: ``["AJx-095VPrpTtN4QMOqROA", "birth_place", "Roma"]``
 
-**Claim** ``nationality``:
-
-- SHA-256 Hash: ``hP79TuWGBwIN0j9NH_fxn8Cvj-dNH_R7nFleeWCE2I4``
-- Disclosure:
-  ``WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgIm5hdGlvbmFsaXR5IiwgIklU``
-  ``Il0``
-- Contents: ``["Pc33JM2LchcU_lHggv_ufQ", "nationality", "IT"]``
-
 **Claim** ``personal_administrative_number``:
 
 - SHA-256 Hash: ``6WLNc09rBr-PwEtnWzxGKdzImjrpDxbr4qoIx838a88``
@@ -421,51 +413,59 @@ The disclosure list is presented below.
 - Contents: ``["lklxF5jMYlGTPUovMNIvCA", "tax_id_code",``
    ``"TINIT-XXXXXXXXXXXXXXXX"]``
 
+**Array Entry** of ``nationalities``:
+
+- SHA-256 Hash: ``yKeP1CWTQK8Sd9BeNvFhkLXgEu/1G3QQz4CWSlqEOFw``
+- Disclosure: ``WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgIklUIl0``
+- Contents: ``["Pc33JM2LchcU_lHggv_ufQ", "IT"]``
+
 The combined format for the PID issuance is given by:
 
 .. code-block:: text
 
   eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImRjK3NkLWp3dCIsICJraWQiOiAiZEI2N2dM
-  N2NrM1RGaUlBZjdONl83U0h2cWswTURZTUVRY29HR2xrVUFBdyJ9.eyJfc2QiOiBbIjZ
-  XTE5jMDlyQnItUHdFdG5XenhHS2R6SW1qcnBEeGJyNHFvSXg4MzhhODgiLCAiTHFydFU
-  ycmxBNTFVOTdjTWlZaHF3YS1pczY4NWJZaU9KSW1wOGE1S0dOQSIsICJWUUktUzFtVDF
-  LeGZxMm84Sjlpbzd4TU1YMk1JeGFHOU05UGVKVnFyTWNBIiwgIllyYy1zLVdTcjRleEV
-  ZdHFERXNtUmw3c3BvVmZtQnhpeFAxMmU0c3lxTkUiLCAiaDdFZ2w1SDlnVFBDX0ZDVTg
-  0NWFhZHZzQy0tZFRqeTlOcnN0eGgtY2FSbyIsICJoUDc5VHVXR0J3SU4wajlOSF9meG4
-  4Q3ZqLWROSF9SN25GbGVlV0NFMkk0IiwgInMxWEs1ZjJwTTMtYUZUYXVYaG12ZDlweVF
-  USjZGTVVoYy1KWGZIcnhoTGsiLCAidFNMLWUxbkxkV09VOXNGTVRDVXU1UDF0Q3p4QS1
-  UVy1WV2JIR3pZdFU3RSIsICJ6VmRnaGNtQ2xNVldsVWdHc0dwU2tDUGtFSFo0dTlvV2o
-  xU2xJQmxDYzFvIl0sICJleHAiOiAxODgzMDAwMDAwLCAiaXNzIjogImh0dHBzOi8vcGl
-  kcHJvdmlkZXIuZXhhbXBsZS5vcmciLCAic3ViIjogIk56YkxzWGg4dURDY2Q3bm9XWEZ
-  aQWZIa3hac1JHQzlYcyIsICJpc3N1aW5nX2F1dGhvcml0eSI6ICJJc3RpdHV0byBQb2x
-  pZ3JhZmljbyBlIFplY2NhIGRlbGxvIFN0YXRvIiwgImlzc3VpbmdfY291bnRyeSI6ICJ
-  JVCIsICJzdGF0dXMiOiB7InN0YXR1c19hc3NlcnRpb24iOiB7ImNyZWRlbnRpYWxfaGF
-  zaF9hbGciOiAic2hhLTI1NiJ9fSwgInZjdCI6ICJodHRwczovL3RydXN0LXJlZ2lzdHJ
-  5LmVpZC13YWxsZXQuZXhhbXBsZS5pdC9jcmVkZW50aWFscy92MS4wL3BlcnNvbmlkZW5
-  0aWZpY2F0aW9uZGF0YSIsICJ2Y3QjaW50ZWdyaXR5IjogImM1ZjczZTI1MGZlODY5ZjI
-  0ZDE1MTE4YWNjZTI4NmM5YmI1NmI2M2E0NDNkYzg1YWY2NTNjZDczZjYwNzhiMWYiLCA
-  iX3NkX2FsZyI6ICJzaGEtMjU2IiwgImNuZiI6IHsiandrIjogeyJrdHkiOiAiRUMiLCA
-  iY3J2IjogIlAtMjU2IiwgIngiOiAiVENBRVIxOVp2dTNPSEY0ajRXNHZmU1ZvSElQMUl
-  MaWxEbHM3dkNlR2VtYyIsICJ5IjogIlp4amlXV2JaTVFHSFZXS1ZRNGhiU0lpcnNWZnV
-  lY0NFNnQ0alQ5RjJIWlEifX19.ISeLw-Tqpmcos9ms7KQTfUhSm4srAtGOMNQe3M-toa
-  YhCcT4JnvZANmtBb8rOXdJ60oTtya4krCOjFNirEg3-g~WyIyR0xDNDJzS1F2ZUNmR2Z
-  yeU5STjl3IiwgImlhdCIsIDE2ODMwMDAwMDBd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
-  9BIiwgInZlcmlmaWNhdGlvbiIsIHsidHJ1c3RfZnJhbWV3b3JrIjogIml0X2NpZSIsIC
-  Jhc3N1cmFuY2VfbGV2ZWwiOiAiaGlnaCIsICJldmlkZW5jZSI6IHsidHlwZSI6ICJ2b3
-  VjaCIsICJ0aW1lIjogIjIwMjAtMDMtMTlUMTI6NDJaIiwgImF0dGVzdGF0aW9uIjogey
-  J0eXBlIjogImRpZ2l0YWxfYXR0ZXN0YXRpb24iLCAicmVmZXJlbmNlX251bWJlciI6IC
-  I2NDg1LTE2MTktMzk3Ni02NjcxIiwgImRhdGVfb2ZfaXNzdWFuY2UiOiAiMjAyMC0wMy
-  0xOVQxMjo0M1oiLCAidm91Y2hlciI6IHsib3JnYW5pemF0aW9uIjogIk1pbmlzdGVyby
-  BkZWxsJ0ludGVybm8ifX19fV0~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgImdpdm
-  VuX25hbWUiLCAiTWFyaW8iXQ~WyJlSThaV205UW5LUHBOUGVOZW5IZGhRIiwgImZhbWl
-  seV9uYW1lIiwgIlJvc3NpIl0~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImJpcnR
-  oX2RhdGUiLCAiMTk4MC0wMS0xMCJd~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgIm
-  JpcnRoX3BsYWNlIiwgIlJvbWEiXQ~WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgIm5
-  hdGlvbmFsaXR5IiwgIklUIl0~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgInBlcnN
-  vbmFsX2FkbWluaXN0cmF0aXZlX251bWJlciIsICJYWDAwMDAwWFgiXQ~WyJsa2x4RjVq
-  TVlsR1RQVW92TU5JdkNBIiwgInRheF9pZF9jb2RlIiwgIlRJTklULVhYWFhYWFhYWFhY
-  WFhYWFgiXQ~
-
+  N2NrM1RGaUlBZjdONl83U0h2cWswTURZTUVRY29HR2xrVUFBdyJ9.ewogICJfc2QiOiB
+  bCiAgICAiNldMTmMwOXJCci1Qd0V0bld6eEdLZHpJbWpycER4YnI0cW9JeDgzOGE4OCI
+  sCiAgICAiTHFydFUycmxBNTFVOTdjTWlZaHF3YS1pczY4NWJZaU9KSW1wOGE1S0dOQSI
+  sCiAgICAiVlFJLVMxbVQxS3hmcTJvOEo5aW83eE1NWDJNSXhhRzlNOVBlSlZxck1jQSI
+  sCiAgICAiWXJjLXMtV1NyNGV4RVl0cURFc21SbDdzcG9WZm1CeGl4UDEyZTRzeXFORSI
+  sCiAgICAiaDdFZ2w1SDlnVFBDX0ZDVTg0NWFhZHZzQy0tZFRqeTlOcnN0eGgtY2FSbyI
+  sCiAgICAiczFYSzVmMnBNMy1hRlRhdVhobXZkOXB5UVRKNkZNVWhjLUpYZkhyeGhMayI
+  sCiAgICAidFNMLWUxbkxkV09VOXNGTVRDVXU1UDF0Q3p4QS1UVy1WV2JIR3pZdFU3RSI
+  sCiAgICAielZkZ2hjbUNsTVZXbFVnR3NHcFNrQ1BrRUhaNHU5b1dqMVNsSUJsQ2MxbyI
+  KICBdLAogICJleHAiOiAxODgzMDAwMDAwLAogICJpc3MiOiAiaHR0cHM6Ly9waWRwcm9
+  2aWRlci5leGFtcGxlLm9yZyIsCiAgInN1YiI6ICJOemJMc1hoOHVEQ2NkN25vV1hGWkF
+  mSGt4WnNSR0M5WHMiLAogICJpc3N1aW5nX2F1dGhvcml0eSI6ICJJc3RpdHV0byBQb2x
+  pZ3JhZmljbyBlIFplY2NhIGRlbGxvIFN0YXRvIiwKICAiaXNzdWluZ19jb3VudHJ5Ijo
+  gIklUIiwKICAic3RhdHVzIjogewogICAgInN0YXR1c19hc3NlcnRpb24iOiB7CiAgICA
+  gICJjcmVkZW50aWFsX2hhc2hfYWxnIjogInNoYS0yNTYiCiAgICB9CiAgfSwKICAibmF
+  0aW9uYWxpdGllcyI6IFsKCXsKICAgICAgIi4uLiI6ICJ5S2VQMUNXVFFLOFNkOUJlTnZ
+  GaGtMWGdFdS8xRzNRUXo0Q1dTbHFFT0Z3IgogICAgfQogIF0sCiAgInZjdCI6ICJodHR
+  wczovL3RydXN0LXJlZ2lzdHJ5LmVpZC13YWxsZXQuZXhhbXBsZS5pdC9jcmVkZW50aWF
+  scy92MS4wL3BlcnNvbmlkZW50aWZpY2F0aW9uZGF0YSIsCiAgInZjdCNpbnRlZ3JpdHk
+  iOiAiYzVmNzNlMjUwZmU4NjlmMjRkMTUxMThhY2NlMjg2YzliYjU2YjYzYTQ0M2RjODV
+  hZjY1M2NkNzNmNjA3OGIxZiIsCiAgIl9zZF9hbGciOiAic2hhLTI1NiIsCiAgImNuZiI
+  6IHsKICAgICJqd2siOiB7CiAgICAgICJrdHkiOiAiRUMiLAogICAgICAiY3J2IjogIlA
+  tMjU2IiwKICAgICAgIngiOiAiVENBRVIxOVp2dTNPSEY0ajRXNHZmU1ZvSElQMUlMaWx
+  EbHM3dkNlR2VtYyIsCiAgICAgICJ5IjogIlp4amlXV2JaTVFHSFZXS1ZRNGhiU0lpcnN
+  WZnVlY0NFNnQ0alQ5RjJIWlEiCiAgICB9CiAgfQp9.ISeLw-Tqpmcos9ms7KQTfUhSm4
+  srAtGOMNQe3M-toaYhCcT4JnvZANmtBb8rOXdJ60oTtya4krCOjFNirEg3-g~WyIyR0x
+  DNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImlhdCIsIDE2ODMwMDAwMDBd~WyJlbHVWNU9nM2
+  dTTklJOEVZbnN4QV9BIiwgInZlcmlmaWNhdGlvbiIsIHsidHJ1c3RfZnJhbWV3b3JrIj
+  ogIml0X2NpZSIsICJhc3N1cmFuY2VfbGV2ZWwiOiAiaGlnaCIsICJldmlkZW5jZSI6IH
+  sidHlwZSI6ICJ2b3VjaCIsICJ0aW1lIjogIjIwMjAtMDMtMTlUMTI6NDJaIiwgImF0dG
+  VzdGF0aW9uIjogeyJ0eXBlIjogImRpZ2l0YWxfYXR0ZXN0YXRpb24iLCAicmVmZXJlbm
+  NlX251bWJlciI6ICI2NDg1LTE2MTktMzk3Ni02NjcxIiwgImRhdGVfb2ZfaXNzdWFuY2
+  UiOiAiMjAyMC0wMy0xOVQxMjo0M1oiLCAidm91Y2hlciI6IHsib3JnYW5pemF0aW9uIj
+  ogIk1pbmlzdGVybyBkZWxsJ0ludGVybm8ifX19fV0~WyI2SWo3dE0tYTVpVlBHYm9TNX
+  RtdlZBIiwgImdpdmVuX25hbWUiLCAiTWFyaW8iXQ~WyJlSThaV205UW5LUHBOUGVOZW5
+  IZGhRIiwgImZhbWlseV9uYW1lIiwgIlJvc3NpIl0~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+  pcm9BIiwgImJpcnRoX2RhdGUiLCAiMTk4MC0wMS0xMCJd~WyJBSngtMDk1VlBycFR0Tj
+  RRTU9xUk9BIiwgImJpcnRoX3BsYWNlIiwgIlJvbWEiXQ~WyJQYzMzSk0yTGNoY1VfbEh
+  nZ3ZfdWZRIiwgIklUIl0~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgInBlcnNvbmF
+  sX2FkbWluaXN0cmF0aXZlX251bWJlciIsICJYWDAwMDAwWFgiXQ~WyJsa2x4RjVqTVls
+  R1RQVW92TU5JdkNBIiwgInRheF9pZF9jb2RlIiwgIlRJTklULVhYWFhYWFhYWFhYWFhY
+  WFgiXQ~
 
 (Q)EAA non-normative Examples
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -772,7 +772,7 @@ The `MobileSecurityObject` MUST have the following attributes, unless otherwise 
       - [ISO 18013-5#9.1.2.4]
     * - **status**
       - *(map, CONDITIONAL)*. REQUIRED only if the Digital Credential is long-lived. Contains the MSO revocation information. If present, it includes a *status_list* based on the TOKEN-STATUS-LIST_ mechanism. This mechanism uses a bit array to mark revoked MSOs by their index position.
-        The `status_list` MUST contain the following sub-value:
+        The `status_list` MUST contain the following sub-values:
 
           * **idx**. Position index in the status list.
           * **uri**. URI pointing to the status list resource.
@@ -835,7 +835,7 @@ For SD-JWT-VC, parameters are marked with `(hdr)` if they are located in the JOS
    * - **Information Related To**
      - **SD-JWT-VC Parameters**
      - **mdoc-CBOR Parameters**
-   * - Digital Credential definition
+   * - Digital Credential type definition
      - vct (pld)
      - | issuerAuth.doctype
        | issuerAuth.version
@@ -874,7 +874,7 @@ For SD-JWT-VC, parameters are marked with `(hdr)` if they are located in the JOS
        | issuerAuth.validityInfo.validUntil
        | issuerAuth.validityInfo.validFrom
    * - Status mechanism
-     - | status_assertation (pld)
+     - | status_assertion (pld)
        | status_list (pld)
      - | -
        | issuerAuth.status_list

@@ -1,57 +1,63 @@
 .. include:: ../common/common_definitions.rst
 
 
-Wallet Instance Revocation
-==========================
+Revoca dell'Istanza del Wallet
+==============================
 
-This section describes the involved entities and modalities to request a Wallet Instance revocation.
+Questa sezione descrive le entità coinvolte e le modalità per richiedere la revoca di un'Istanza del Wallet.
 
-The Wallet Provider MUST ensure the security and reliability of Wallet Instances, keeping them updated and compliant with security requirements. When, for technical security reasons (e.g., relating to the compromise of cryptographic material) the security of the Wallet Instance is compromised, the Wallet Provider MUST revoke the Wallet Instance.
+Il Fornitore di Wallet DEVE garantire la sicurezza e l'affidabilità delle Istanze del Wallet, mantenendole aggiornate e conformi ai requisiti di sicurezza. Quando, per motivi tecnici di sicurezza (ad esempio, relativi alla compromissione del materiale crittografico) la sicurezza dell'Istanza del Wallet è compromessa, il Fornitore di Wallet DEVE revocare l'Istanza del Wallet.
 
-As shown in :numref:`fig_Wallet_Instance_Revoc_Entities`, other actors MAY trigger the Wallet Instance revocation process:
+Come mostrato in :numref:`fig_Wallet_Instance_Revoc_Entities`, altri attori POSSONO attivare il processo di revoca dell'Istanza del Wallet:
 
-- **Users**, connecting to the Wallet Provider's web portal from their Wallet Instance or using an external browser.
-- **PID Providers** when notified by the Authentic Source of the PID (ANPR) of the User's death.
-- **Legal Authorities or the Supervisory Body** in cases of proven illegal activities.
+- **Utenti**, collegandosi al portale web del Fornitore di Wallet dalla propria Istanza del Wallet o utilizzando un browser esterno.
+- **Fornitori di Attestati Elettronici di Dati di Identificazione Personale** quando notificati dalla Fonte Autentica del PID (ANPR) del decesso dell'Utente.
+- **Autorità Legali o Organismo di Supervisione** in casi di comprovate attività illegali.
 
 
 .. _fig_Wallet_Instance_Revoc_Entities:
-.. figure:: ../../images/wallet_instance_revocation.svg
-    :figwidth: 80%
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/fL9TZn8z5BwVNt5URbusSPSRhxnQ5oOHuog1tHYJJIPbMk74JZksf-1e_E-UKmiguvqafFIXpyVvk8sa0gNELl-XQstI1lP4VNmncmLrlDaXxTCsHHDQxyWukcbzD-kjSiAvZgGjRcVpvzShWHxltymw5Sa4XfgvxthlXDEBVlLgkQYRpKEzhjyzV5ZLqwkgMfaGlPkA_ZEOFF8nuRDsX3I0FpfqEw2zWIVtNbbh29QEyxhMJ9XyvvFJAWpJO_wlYGCxTymlRpVvFhc2RnNmvnpdz1wBbZ0kr1cIxxroQcSYIBx_8ooGsw4ip8FHh8FAHixnL-q--0DghkealIh0IRhS8rnOWt8QZcOBR7d0reZ3zwhwPQ0IxSMyRQ9F8QT_UO9Waw6HXpGM5570RIA-ayzTNSQOJCYENQbKu8Eog6K0d8YI13YxD_MNdmbymAz6Drkl1mbmHY3F3aqyPTYaNWg9FWnmnw-ps-kaiKLbeH1fO9FVQiGSJ2fOBaQTowdZ7wdbcTnBr-Db0wjgRMpPiei1ZOSFQtFmhIBqZdz-PYyI2L4OSSUR9EHFvdAg4a84fB1_3J5UW7Extdh2ZuECMzRroMcZQ5-iHrCRPoZq9UCx6KvBU432dFxME9qw-mC0
+.. plantuml:: plantuml/wallet-instance-revocation-entities.puml
+    :width: 99%
+    :alt: La figura illustra le Entità coinvolte nel processo di revoca dell'Istanza del Wallet.
+    :caption: `Entità coinvolte nel processo di revoca dell'Istanza del Wallet. <https://www.plantuml.com/plantuml/svg/fLDHYnD137xVNn7xuXq8ljoZo7djWXNKqfw8SB1CTs8RtCxKcSpMLVpl9kDsJpk-MIZRfCdtVVcIlOri0gT31xLZOi88v7hVzMZb1_0UuQFfEcHOEYbrBKB0thU6oJiu1jzYZDKJScsNBCAB-Stp-KqpzuUZT-ZuPLMzNYxgPdDVh-ltzvzMzTLrLQqmHE-kKiJm36OVv36JPnOmW3yvShlC_E0kk6VIVEUJioOCLwVyNnE7o7YG_h5sa-FPDVoeG3wJb7CzZLZISOakAVs-DSxiC8BgUnfXGJjYqy4ye1KSCbqK7V_45ZzwiZBL6Ner9ixGOnmBKuspSC8j26LFBIh3pwfw9329zqhUDj6daDM_EgTWarC5XneBXZdGDh74xBEhonWJXinu62VLT6ywihe0KSH91KpiJVtjjm8Vw3lQPklje0Acp7GyPmsRTDH1eWy3t4brPdkJBBLY7uoDF0Z97pDI5gOJB1U5Srbr_4krbcaykXul3QogDNRZbLqig5m-h1_FUerVXOiLGX6AtlAIjFbByQge20NGmVvNH7a0artlFDFdGTUjv_hWB1hUZzJ5raeDO_jIyZjTJilK4rDMVulEfaFt2m00>`_
 
-    Entities involved in the Wallet Instance revocation process.
+
+.. .. figure:: ../../images/wallet_instance_revocation.svg
+..     :figwidth: 80%
+..     :align: center
+..     :target: https://www.plantuml.com/plantuml/svg/fL9TZn8z5BwVNt5URbusSPSRhxnQ5oOHuog1tHYJJIPbMk74JZksf-1e_E-UKmiguvqafFIXpyVvk8sa0gNELl-XQstI1lP4VNmncmLrlDaXxTCsHHDQxyWukcbzD-kjSiAvZgGjRcVpvzShWHxltymw5Sa4XfgvxthlXDEBVlLgkQYRpKEzhjyzV5ZLqwkgMfaGlPkA_ZEOFF8nuRDsX3I0FpfqEw2zWIVtNbbh29QEyxhMJ9XyvvFJAWpJO_wlYGCxTymlRpVvFhc2RnNmvnpdz1wBbZ0kr1cIxxroQcSYIBx_8ooGsw4ip8FHh8FAHixnL-q--0DghkealIh0IRhS8rnOWt8QZcOBR7d0reZ3zwhwPQ0IxSMyRQ9F8QT_UO9Waw6HXpGM5570RIA-ayzTNSQOJCYENQbKu8Eog6K0d8YI13YxD_MNdmbymAz6Drkl1mbmHY3F3aqyPTYaNWg9FWnmnw-ps-kaiKLbeH1fO9FVQiGSJ2fOBaQTowdZ7wdbcTnBr-Db0wjgRMpPiei1ZOSFQtFmhIBqZdz-PYyI2L4OSSUR9EHFvdAg4a84fB1_3J5UW7Extdh2ZuECMzRroMcZQ5-iHrCRPoZq9UCx6KvBU432dFxME9qw-mC0
+
+..     Entities involved in the Wallet Instance revocation process.
 
 .. note::
-  - The flow for the Wallet Instance Revocation triggered by the User is detailed below.
-  - The endpoint used by the PID Provider is detailed in the Wallet Provider Catalogue of e-Service PDND Catalogue (see Section :ref:`e-service-pdnd-catalogue:Wallet Provider Catalogue` for technical details).
-  - The flow for Authorized Entities (e.g., Supervisory Bodies) is out of scope of this specification, it will be managed by each Wallet Provider.
+  - Il flusso per la Revoca dell'Istanza del Wallet attivato dall'Utente è dettagliato di seguito.
+  - L'endpoint utilizzato dal Fornitore di Attestati Elettronici di Dati di Identificazione Personale è dettagliato nel Catalogo e-Service del Fornitore di Wallet PDND (vedere la Sezione :ref:`wallet-provider-endpoint:Catalogo e-Service PDND del Fornitore di Wallet` per i dettagli tecnici).
+  - Il flusso per le Entità Autorizzate (ad esempio, Organismi di Supervisione) è fuori dall'ambito di questa specifica, sarà gestito da ciascun Fornitore di Wallet.
 
 
 
-Wallet Instance Revocation Request
-""""""""""""""""""""""""""""""""""
+Richiesta di Revoca dell'Istanza del Wallet
+"""""""""""""""""""""""""""""""""""""""""""
 
-Users MAY request the Wallet Instance revocation by:
+Gli Utenti POSSONO richiedere la revoca dell'Istanza del Wallet:
 
-- *Selecting the revocation functionality from their Wallet Instance*: this functionality may be used by Users before changing their phone.
-- *Using an external user agent*: this covers cases where Users lose their device, and so their access to their Wallet Instance.
+- *Selezionando la funzionalità di revoca all'interno dalla propria Istanza del Wallet*: questa funzionalità può essere utilizzata dagli Utenti prima di cambiare il proprio telefono.
+- *Utilizzando un user agent esterno*: questo copre i casi in cui gli Utenti perdono il loro dispositivo e quindi l'accesso alla loro Istanza del Wallet.
 
-In both cases, by using the Wallet Provider portal:
+In entrambi i casi, utilizzando il portale del Fornitore di Wallet:
 
-- Users MUST authenticate with at least a second-factor authentication mechanism, or have an active session that meets this requirement.
-- The Wallet Provider MUST allow Users to view the state of their Wallet Instances associated with their authenticated session and ask for revocation, sending a Wallet Instance Retrieval or Revocation Request, as applicable, to the :ref:`wallet-provider-endpoint:Wallet Instance Management endpoint` of the Wallet Provider Backend.
+- Gli Utenti DEVONO autenticarsi con almeno un meccanismo di autenticazione a due fattori, o avere una sessione attiva che soddisfi questo requisito.
+- Il Fornitore di Wallet DEVE consentire agli Utenti di visualizzare lo stato delle loro Istanze del Wallet associate alla loro sessione autenticata e chiedere la revoca, inviando una Richiesta di Recupero o Revoca dell'Istanza del Wallet, a seconda dei casi, all'endpoint :ref:`wallet-provider-endpoint:Endpoint di Gestione dell'Istanza di Wallet` del Backend del Fornitore del Portafoglio.
 
-Below is a non-normative example of a Wallet Instances Retrieval Request.
+Di seguito è riportato un esempio non normativo di una Richiesta di Recupero delle Istanze del Wallet.
 
 .. code:: http
 
    GET /wallet-instances HTTP/1.1
    Host: walletprovider.example.com
 
-Upon a successful retrieval, the Wallet Provider MUST return a confirmation response, with the status of all Wallet Instances associated with the User.
-Below is a non-normative example of a Wallet Instances Retrieval Response.
+In caso di recupero riuscito, il Fornitore di Wallet DEVE restituire una risposta di conferma, con lo stato di tutte le Istanze del Wallet associate all'Utente.
+Di seguito è riportato un esempio non normativo di una Risposta di Recupero delle Istanze del Wallet.
 
 .. code:: http
 
@@ -72,8 +78,8 @@ Below is a non-normative example of a Wallet Instances Retrieval Response.
      }
    ]
 
-Once the User identifies the Wallet Instance to be revoked, a Wallet Instance Revocation Request can be sent to the endpoint, including the Wallet Instance ID as a path parameter.
-Below is a non-normative example of a Wallet Instance Revocation Request.
+Una volta che l'Utente identifica l'Istanza del Wallet da revocare, può essere inviata una Richiesta di Revoca dell'Istanza del Wallet all'endpoint, includendo l'ID dell'Istanza del Wallet come parametro di percorso.
+Di seguito è riportato un esempio non normativo di una Richiesta di Revoca dell'Istanza del Wallet.
 
 .. code-block:: http
 
@@ -88,11 +94,11 @@ Below is a non-normative example of a Wallet Instance Revocation Request.
 
 
 
-Wallet Instance Revocation Response
-"""""""""""""""""""""""""""""""""""
+Risposta alla Revoca dell'Istanza del Wallet
+""""""""""""""""""""""""""""""""""""""""""""
 
-Upon a successful revocation, the Wallet Provider MUST return a confirmation response.
-Below is a non-normative example of a Wallet Instance Revocation Response.
+In caso di revoca riuscita, il Fornitore di Wallet DEVE restituire una risposta di conferma.
+Di seguito è riportato un esempio non normativo di una Risposta di Revoca dell'Istanza del Wallet.
 
 
 .. code-block:: http
@@ -100,16 +106,15 @@ Below is a non-normative example of a Wallet Instance Revocation Response.
    HTTP/1.1 204 No Content
 
 
-Revocation Check Mechanisms
-"""""""""""""""""""""""""""
+Meccanismi di Verifica della Revoca
+"""""""""""""""""""""""""""""""""""
 
-The verification of the Wallet Instance validity MUST be performed:
+La verifica della validità dell'Istanza del Wallet DEVE essere eseguita:
 
-- **During Digital Credential issuance or presentation phase** by the Credential Issuers and Relying Parties, respectively. Only Wallet Instances in Operational or Valid state have valid Wallet Attestations. Thus, the verification of the validity of a Wallet Instance is indirectly performed by Credential Issuers and Relying Parties by checking the presence of a valid Wallet Attestation (i.e. not expired and signed by a trusted Wallet Provider). During proximity presentation the Wallet Instance might not be able to fetch a fresh Wallet Attestation, in this case, the Wallet Instance SHOULD send the latest version of the Wallet Attestation. It is left up to the Relying Party to determine whether a presentation with a valid but expired Wallet Attestation is valid or not.
+- **Durante la fase di emissione o presentazione della Credenziale Elettronica** rispettivamente dai Credential Issuer e dalle Relying Party. Solo le Istanze del Wallet in stato Operativo o Valido hanno Attestati di Wallet validi. Pertanto, la verifica della validità di un'Istanza del Wallet viene eseguita indirettamente dai Credential Issuer e dalle Relying Party verificando la presenza di una Wallet Attestation valido (cioè non scaduto e firmato da un Fornitore di Wallet affidabile). Durante la presentazione di prossimità, l'Istanza del Wallet potrebbe non essere in grado di recuperare una Wallet Attestation aggiornato; in questo caso, l'Istanza del Wallet DOVREBBE inviare l'ultima versione della Wallet Attestation. Spetta alla Relying Party determinare se una presentazione con una Wallet Attestation valido ma scaduto sia valida o meno.
 
-- **During the validity period of the Digital Credential** by the Credential Issuers. Indeed, if the Wallet Instance is revoked, the PID hosted within it MUST be revoked. Any other Digital Credential obtained through the presentation of the PID MUST therefore be revoked too. In the current version of the specification, Credential Issuers are directly notified of a Wallet Instance revocation by the Wallet Provider using a PDND e-service.
+- **Durante il periodo di validità della Credenziale Elettronica** dai Credential Issuer. Infatti, se l'Istanza del Wallet viene revocata, il PID ospitato al suo interno DEVE essere revocato. Anche qualsiasi altra Credenziale Elettronica ottenuta attraverso la presentazione del PID DEVE quindi essere revocata. Nella versione attuale della specifica, i Credential Issuer vengono direttamente notificati della revoca di un'Istanza del Wallet dal Fornitore di Wallet utilizzando un e-service PDND.
 
 
 .. note::
-  With the introduction of the **Wallet Trust Evidence (WTE)**, this section will be updated accordingly.
-
+  Con l'introduzione del **Wallet Trust Evidence (WTE)**, questa sezione sarà aggiornata di conseguenza.

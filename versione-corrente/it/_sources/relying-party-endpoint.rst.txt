@@ -2,85 +2,85 @@
 
 .. "included" file, so we start with '-' title level
 
-Relying Party Endpoints
------------------------
+Endpoint della Relying Party
+----------------------------
 
-The Relying Party MUST expose a trust endpoint adhering to the OpenID Federation 1.0 Wallet Architecture specification, facilitating the Relying Party's identity and metadata distribution. In addition, in case the Relying Party supports proximity presentation, it MUST expose a set of endpoints for handling the lifecycle of Relying Party Instances (e.g., by providing nonce generation, hardware key registration, integrity validation, and Access Certificate issuance); their specific implementation details are left to the Relying Party's discretion.
-
-
-Relying Party Federation Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The Relying Party MUST provide its Entity Configuration through the ``/.well-known/openid-federation`` endpoint, according to Section :ref:`trust:Entity Configuration`. Technical details are provided in Section :ref:`relying-party-entity-configuration:Entity Configuration of Relying Parties`.
+La Relying Party DEVE esporre un Endpoint per verificare il trust conforme alla specifica OpenID Federation 1.0 Wallet Architecture, facilitando la distribuzione dell'identità e dei metadata della Relying Party. Inoltre, nel caso in cui il Relying Party supporti la presentazione di prossimità, DEVE esporre una serie di endpoint per gestire il ciclo di vita delle App di Verifica (ad esempio, fornendo generazione di nonce, registrazione delle chiavi hardware, convalida dell'integrità e rilascio del Certificato di Accesso); i dettagli specifici della loro implementazione sono lasciati alla discrezione della Relying Party.
 
 
-Relying Party Nonce Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint di Federazione della Relying Party
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Relying Party Nonce Endpoint allows the Relying Party Instance to request a cryptographic ``nonce`` from the Relying Party Backend. The ``nonce`` serves as an unpredictable, single-use challenge to ensure freshness and prevent replay attacks.
+La Relying Party DEVE fornire la propria Entity Configuration attraverso l'Endpoint ``/.well-known/openid-federation``, secondo la Sezione :ref:`trust:Entity Configuration`. I dettagli tecnici sono forniti nella Sezione :ref:`relying-party-entity-configuration:Entity Configuration Relying Party`.
 
-Further details on the Nonce Request and Response are provided in the :ref:`mobile-application-instance:Mobile Application Nonce Request` and :ref:`mobile-application-instance:Mobile Application Nonce Request` Sections, respectively.
 
-Relying Party Instance Initialization Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The Relying Party Instance Initialization Endpoint allows for the initialization of Relying Party Instances, consisting in the registration of a pair of long-lived, securely stored Cryptographic Hardware Keys.
-
-Further details on the Relying Party Instance Initialization Request and Response are provided in the :ref:`mobile-application-instance:Mobile Application Instance Initialization Request` and :ref:`mobile-application-instance:Mobile Application Instance Initialization Response` Sections, respectively.
-
-Relying Party Key Binding Endpoint
+Endpoint Nonce della Relying Party
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Relying Party Key Binding Endpoint enables Relying Party Instances to bind the newly created pair of keys, which will be associated with an Access Certificate, to the Relying Party Instance, by relying on a proof of possession of the Cryptographic Hardware Keys generated during the :ref:`mobile-application-instance:Mobile Application Instance Initialization` phase. Before completing the process, the Relying Party Backend also needs to verify the integrity of the Relying Party Instance.
+Il Nonce Endpoint della Relying Party consente all'App di Verifica di richiedere un ``nonce`` crittografico dal Backend della Relying Party. Il ``nonce``, un codice monouso e casuale, serve per garantire l'unicità e prevenire replay attacks.
 
-Relying Party Key Binding Request
-"""""""""""""""""""""""""""""""""
+Ulteriori dettagli sulla Richiesta e Risposta Nonce sono forniti rispettivamente nelle Sezioni :ref:`mobile-application-instance:Richiesta di Nonce dell'Applicazione Mobile` e :ref:`mobile-application-instance:Richiesta di Nonce dell'Applicazione Mobile`.
 
-Further details on the Relying Party Key Binding Request are provided in the :ref:`mobile-application-instance:Mobile Application Key Binding Request` section.
+Endpoint di Inizializzazione dell'Istanza di Relying Party
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+L'Endpoint di Inizializzazione dell'App di Verifica consente l'inizializzazione delle App di Verifica, consistente nella registrazione di una coppia di Cryptographic Hardware Keys a lunga durata, memorizzate in modo sicuro.
+
+Ulteriori dettagli sulla Richiesta e Risposta di Inizializzazione dell'App di Verifica sono forniti rispettivamente nelle Sezioni :ref:`mobile-application-instance:Richiesta di Inizializzazione dell'Istanza dell'Applicazione Mobile` e :ref:`mobile-application-instance:Risposta di Inizializzazione dell'Istanza dell'Applicazione Mobile`.
+
+Endpoint di Associazione Chiavi della Relying Party
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Il Key Binding Endpoint della Relying Party consente alle App di Verifica di associare la coppia di chiavi appena creata, che sarà associata a un Certificato di Accesso, all'App di Verifica, basandosi su una dimostrazione di possesso delle Cryptographic Hardware Keys generate durante la fase di :ref:`mobile-application-instance:Inizializzazione dell'Istanza dell'Applicazione Mobile`. Prima di completare il processo, il Backend della Relying Party deve anche verificare l'integrità dell'App di Verifica.
+
+Richiesta di Associazione Chiavi della Relying Party
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Ulteriori dettagli sulla Richiesta di Key Binding della Relying Party sono forniti nella sezione :ref:`mobile-application-instance:Richiesta di Associazione Chiave dell'Applicazione Mobile`.
 
 
-The ``typ`` header of the Integrity Request JWT assumes the value ``rp-kb+jwt``.
+L'header ``typ`` del JWT di Richiesta di Integrità assume il valore ``rp-kb+jwt``.
 
 
-Relying Party Key Binding Response
-""""""""""""""""""""""""""""""""""
+Risposta di Associazione Chiavi della Relying Party
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Upon a successful request, the Relying Party Backend provides an HTTP Response with a ``204 No Content`` status code.
+In caso di richiesta riuscita, il Backend della Relying Party fornisce una HTTP Response con Status Code ``204 No Content``.
 
-Below is a non-normative example of a Key Binding Request Response.
+Di seguito è riportato un esempio non normativo di una Risposta alla Richiesta di Associazione Chiavi.
 
 .. code-block:: http
 
     HTTP/1.1 204 No content
 
-If any errors occur during the process, an error response is returned. Further details on the error response are provided in the :ref:`mobile-application-instance:Mobile Application Key Binding Error Response` section.
+Se si verificano errori durante il processo, viene restituita una Error Response. Ulteriori dettagli sulla Error Response sono forniti nella sezione :ref:`mobile-application-instance:Risposta di Errore di Associazione Chiave dell'Applicazione Mobile`.
 
 
-Relying Party Access Certificate Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint del Certificato di Accesso della Relying Party
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Relying Party Access Certificate Endpoint enables Relying Party Instances to obtain an Access Certificate.
+L'Endpoint del Certificato di Accesso della Relying Party consente alle App di Verifica di ottenere un Certificato di Accesso.
 
 
-Relying Party Access Certificate Request
-""""""""""""""""""""""""""""""""""""""""
+Richiesta del Certificato di Accesso della Relying Party
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-The Access Certificate Request uses the HTTP POST method with ``Content-Type`` set to ``application/json``.
+La Richiesta del Certificato di Accesso utilizza il metodo HTTP POST con ``Content-Type`` impostato su ``application/json``.
 
-The request includes the following body parameter:
+La richiesta include il seguente parametro nel body:
 
 .. list-table::
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Parameter**
-      - **Description**
-      - **Reference**
+    * - **Parametro**
+      - **Descrizione**
+      - **Riferimento**
     * - **csr**
-      - The CSR generated by the Relying Party Instance, encoded in the ``base64url`` format as defined in :rfc:`2511`.
+      - Il CSR generato dall'Istanza di Relying Party, codificato nel formato ``base64url`` come definito in :rfc:`2511`.
       -
 
-Below is a non-normative example of an Access Certificate Request.
+Di seguito è riportato un esempio non normativo di una Richiesta di Certificato di Accesso.
 
 .. code-block:: http
 
@@ -93,23 +93,23 @@ Below is a non-normative example of an Access Certificate Request.
     }
 
 
-Relying Party Access Certificate Response
-"""""""""""""""""""""""""""""""""""""""""
+Risposta del Certificato di Accesso della Relying Party
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Upon a successful request, the Relying Party Access Certificate Endpoint provides an HTTP Response with a ``200 OK`` status code and the Access Certificate. The Access Certificate Response, which uses ``application/json`` as the ``Content-Type``, includes the following body parameters:
+In caso di richiesta riuscita, l'Access Certificate Endpoint della Relying Party fornisce un HTTP Response con Status Code ``200 OK`` e il Certificato di Accesso. La Risposta dell'Access Certificate Endpoint, che utilizza ``application/json`` come ``Content-Type``, include i seguenti parametri nel body:
 
 .. list-table::
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Parameter**
-      - **Description**
-      - **Reference**
+    * - **Parametro**
+      - **Descrizione**
+      - **Riferimento**
     * - **access_certificate**
-      - The Access Certificate generated by the CSR.
-      - This specification.
+      - Il Certificato di Accesso generato dal CSR.
+      - Questa specifica.
 
-Below is a non-normative example of an Access Certificate Response.
+Di seguito è riportato un esempio non normativo di Risposta dall'Access Certificate Endpoint.
 
 .. code-block:: http
 
@@ -120,12 +120,12 @@ Below is a non-normative example of an Access Certificate Response.
       "access_certificate": "hajdnhaghSDGns..."
     }
 
-If any errors occur, the Relying Party Access Certificate Endpoint returns an error response. The response uses ``application/json`` as the content type and includes the following parameters:
+Se si verificano errori, l'Access Certificate Endpoint della Relying Party restituisce una Error Response. La risposta utilizza ``application/json`` come tipo di contenuto e include i seguenti parametri:
 
-  - *error*. The error code.
-  - *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - *error*. Il codice di errore.
+  - *error_description*. Testo in forma leggibile che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
 
-Below is a non-normative example of an Access Certificate Error Response.
+Di seguito è riportato un esempio non normativo di una Error Response dell'Access Certificate Endpoint.
 
 .. code-block:: http
 
@@ -137,80 +137,81 @@ Below is a non-normative example of an Access Certificate Error Response.
         "error_description": "The public key in the CSR is different from the one associated with the Cryptographic Hardware Keys."
     }
 
-The following table lists HTTP Status Codes and related error codes that MUST be supported for the error response, unless otherwise specified:
+La seguente tabella elenca gli HTTP Status Code e i relativi codici di errore che DEVONO essere supportati per l'Error Response, se non diversamente specificato:
 
 .. list-table::
     :class: longtable
     :widths: 30 20 50
     :header-rows: 1
 
-    * - **HTTP Status Code**
-      - **Error Code**
-      - **Description**
+    * - **Codice di Stato HTTP**
+      - **Codice di Errore**
+      - **Descrizione**
     * - ``400 Bad Request``
       - ``bad_request``
-      - The request is malformed, missing required parameters (e.g., header parameters or integrity assertion), or includes invalid and unknown parameters.
+      - La richiesta non è conforme allo standard, mancano parametri richiesti (ad esempio, ``integrity_assertion``), oppure sono includi parametri non validi e sconosciuti.
     * - ``403 Forbidden``
       - ``invalid_request``
-      - The public key in the CSR does not match the public key associated with the Cryptographic Hardware Keys.
+      - La chiave pubblica nel CSR non corrisponde alla chiave pubblica associata alle Cryptographic Hardware Keys.
     * - ``500 Internal Server Error``
       - ``server_error``
-      - The request cannot be fulfilled because the Endpoint encountered an internal problem.
+      - La richiesta non può essere soddisfatta perché l'Endpoint ha riscontrato un problema interno.
     * - ``503 Service Unavailable``
       - ``temporarily_unavailable``
-      - The request cannot be fulfilled because the Endpoint is temporarily unavailable (e.g., due to maintenance or overload).
+      - La richiesta non può essere soddisfatta perché l'Endpoint è temporaneamente non disponibile (ad esempio, a causa di manutenzione o sovraccarico).
 
-Relying Party Erasure Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint di Cancellazione della Relying Party
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Erasure Endpoint, which is described in :ref:`relying-party-entity-configuration:Metadata for openid_credential_verifier`, allows Wallet Instances to request deletion of attributes presented to the Relying Party. It MUST be authenticated, i.e., the Relying Party MUST request User authentication before proceeding with the attribute deletion.
+L'Endpoint di Cancellazione, che è descritto in :ref:`relying-party-metadata:Metadati della Relying Party`, consente alle Istanze di Wallet di richiedere la cancellazione degli attributi presentati alla Relying Party. La Relying Party DEVE richiedere l'autenticazione dell'Utente prima di procedere con la cancellazione degli attributi.
 
-Erasure Request
-"""""""""""""""
+Richiesta di Cancellazione
+""""""""""""""""""""""""""
 
-The Erasure Request MUST be a GET request to the Erasure Endpoint. The Wallet Instance MUST also support a call back mechanism which enables the User-Agent to notify the Wallet Instance (and thus the User) once the Erasure Response is returned.
+La Richiesta di Cancellazione DEVE essere una richiesta GET all'Endpoint di Cancellazione. L'Istanza di Wallet DEVE anche supportare un meccanismo di callback che consenta allo User-Agent di notificare lo stato della richiesta all'Istanza di Wallet (e quindi all'Utente) una volta che viene restituita la Risposta di Cancellazione.
 
-Below is a non-normative example of an Erasure Request where the call back URL is passed as a query parameter.
+Di seguito è riportato un esempio non normativo di una Richiesta di Cancellazione in cui l'URL di callback viene passato come parametro di query.
 
 .. code-block:: http
 
   GET /erasure-endpoint?callback_url=https://wallet-instance/erasure_response HTTP/1.1
   Host: relying-party.example.org
 
-Erasure Response
-""""""""""""""""
-If the deletion of all attributes bound to the User have been successful, the Erasure Response MUST return a 204 HTTP status code.
+Risposta di Cancellazione
+"""""""""""""""""""""""""
 
-If instead the attributes deletion procedure fails due any circumstances, the Relying Party MUST return an error response with ``application/json`` as the content type and MUST include the following parameters:
+Se la cancellazione di tutti gli attributi associati all'Utente è avvenuta con successo, la Risposta di Cancellazione DEVE restituire un Status Code HTTP 204.
 
-    - ``error``: The error code.
-    - ``error_description``: Text in human-readable form providing further details to clarify the nature of the error encountered.
+Se invece la procedura di cancellazione degli attributi fallisce per qualsiasi circostanza, la Relying Party DEVE restituire una risposta di errore con ``application/json`` come tipo di contenuto e DEVE includere i seguenti parametri:
 
-The following table lists the HTTP Status Codes and related error codes that MUST be supported for the error response:
+    - ``error``: Il codice di errore.
+    - ``error_description``: Testo in forma leggibile che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
+
+La seguente tabella elenca gli Status Code HTTP e i relativi Error Codes che DEVONO essere supportati per la Error Response:
 
 .. list-table::
     :class: longtable
     :widths: 20 20 60
     :header-rows: 1
 
-    * - **Status Code**
-      - **Error Code**
-      - **Description**
+    * - **Codice di Stato**
+      - **Codice di Errore**
+      - **Descrizione**
     * - ``400 Bad Request``
       - ``bad_request``
-      - The request is malformed, missing required parameters (e.g., header parameters or integrity assertion), or includes invalid and unknown parameters.
+      - La richiesta è malformata, mancano parametri richiesti (ad esempio, parametri di intestazione o asserzione di integrità), o include parametri non validi e sconosciuti.
     * - ``401 Unauthorized``
       - ``unauthorized``
-      - The request could not be carried fulfilled due to invalid authentication by the User.
+      - La richiesta non può essere soddisfatta in quanto l'autenticazione da parte dell'Utente risulta fallita o non valida.
     * - ``500 Internal Server Error``
       - ``server_error``
-      - The request cannot be fulfilled because the Erasure Endpoint encountered an internal problem. (:rfc:`6749#section-4.1.2.1`).
+      - La richiesta non può essere soddisfatta perché l'Endpoint di Cancellazione ha riscontrato un problema interno. (:rfc:`6749#section-4.1.2.1`).
     * - ``503 Service Unavailable``
       - ``temporarily_unavailable``
-      - The request cannot be fulfilled because the Erasure Endpoint is temporarily unavailable (e.g., due to maintenance or overload). (:rfc:`6749#section-4.1.2.1`).
+      - La richiesta non può essere soddisfatta perché l'Endpoint di Cancellazione è temporaneamente non disponibile (ad esempio, a causa di manutenzione o sovraccarico). (:rfc:`6749#section-4.1.2.1`).
 
 
-The following is an example of an error response from Erasure Endpoint:
+Di seguito è riportato un esempio di Error Response dall'Endpoint di Cancellazione:
 
 .. code-block:: http
 
@@ -222,4 +223,4 @@ The following is an example of an error response from Erasure Endpoint:
    "error_description": "The request cannot be fulfilled due to an internal server error."
   }
 
-Upon receiving an error response, the Wallet Instance which made the Erasure Request MUST inform the User of the error condition in an appropriate manner.
+Alla ricezione di una Error Response, l'Istanza di Wallet che ha effettuato la Richiesta di Cancellazione DEVE informare l'Utente della condizione di errore in modo appropriato.

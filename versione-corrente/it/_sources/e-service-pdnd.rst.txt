@@ -4,22 +4,22 @@
 e-Service PDND
 ==============
 
-The `EIDAS-ARF`_ framework empowers Member States to establish the interfaces, terms, and conditions governing communication between Credential Issuers and Authentic Sources. In the Italian context, interoperability is established by leveraging the following guidelines:
+Il framework `EIDAS-ARF`_ consente agli Stati Membri di stabilire le interfacce, i termini e le condizioni che regolano la comunicazione tra i Fornitori di Credenziali e le Fonti Autentiche. Nel contesto italiano, l'interoperabilità è stabilita sfruttando le seguenti linee guida:
 
     - "Linee Guida sull'interoperabilità tecnica delle Pubbliche Amministrazioni" (`MODI`_);
     - "Linee Guida sull'infrastruttura tecnologica della Piattaforma Digitale Nazionale Dati per l'interoperabilità dei sistemi informativi e delle basi di dati" (`PDND`_).
 
-To leverage the PDND, entities MUST formally be subscribed becoming **Participants** (*Aderenti*). Within the PDND infrastructure, Participants MUST assume at least one of the the following roles:
+Per utilizzare la PDND, le entità DEVONO aderire formalmente, diventando **Aderenti**. All'interno dell'infrastruttura PDND, gli Aderenti DEVONO assumere almeno uno dei seguenti ruoli:
 
-    - **Providers** (*Erogatori*): expose e-Services to other Participants.
-    - **Consumers** (*Fruitori*): utilize e-Services offered by Providers within the PDND infrastructure.
+    - **Erogatori**: espongono e-Service ad altri Aderenti.
+    - **Fruitori**: utilizzano e-Service offerti dagli Erogatori all'interno dell'Infrastruttura PDND.
 
-Access to an e-Service requires Consumers to obtain a specific Access Token, known within the PDND infrastructure as a Voucher.
+L'accesso ad un e-Service richiede ai Fruitori di ottenere uno specifico Access Token, noto all'interno dell'infrastruttura PDND come Voucher.
 
-Requirements and Security Patterns
------------------------------------
+Requisiti e Pattern di Sicurezza
+--------------------------------
 
-This specification is based on the following set of requirements:
+Questa specifica si basa sul seguente insieme di requisiti:
 
 .. list-table::
   :class: longtable
@@ -27,130 +27,136 @@ This specification is based on the following set of requirements:
   :header-rows: 1
 
   * - **ID**
-    - **Description**
-    - **Type**
+    - **Descrizione**
+    - **Tipo**
   * - R1
-    - The Consumer and the Provider have both subscribed to the PDND infrastructure.
-    - Architectural
+    - Il Fruitore e l'Erogatore hanno entrambi aderito all'infrastruttura PDND.
+    - Architetturale
   * - R2
-    - The communication between the Consumer and the Provider MUST ensure data integrity, authenticity, non-repudiation and replay protection.
-    - Security
+    - La comunicazione tra il Fruitore e l'Erogatore DEVE garantire l'integrità dei dati, l'autenticità, la non ripudiabilità e la protezione contro attacchi di replay.
+    - Sicurezza
   * - R3
-    - The Provider MAY require the Consumer to provide tracked data to complement the request. In that case, there MUST be a correlation between the tracked data and the Voucher.
-    - Security
+    - L'Erogatore PUÒ richiedere al Fruitore di includere dati tracciati nella richiesta. In tal caso, DEVE esserci una correlazione tra i dati tracciati e il Voucher.
+    - Sicurezza
   * - R4
-    - The e-Services MUST be implemented in REST, thus SOAP protocol MUST NOT be used.
-    - Technical
+    - Gli e-Service DEVONO essere implementati in REST, quindi il protocollo SOAP NON DEVE essere utilizzato.
+    - Tecnico
   * - R5
-    - The Provider MUST ensure, with a high degree of certainty, the Consumer's proof of possession of the Voucher.
-    - Security
+    - L'Erogatore DEVE garantire, con un alto grado di certezza, la prova di possesso del Voucher da parte del Fruitore.
+    - Sicurezza
 
-`PDND`_ and `MODI`_ define several security patterns designed to enhance specific security properties in interactions between Participants. This specification adopts the following applicable security patterns for the interaction between Participants:
+`PDND`_ e `MODI`_ definiscono diversi pattern di sicurezza progettati per migliorare specifiche proprietà di sicurezza nelle interazioni tra gli Aderenti. Questa specifica adotta i seguenti pattern di sicurezza:
 
 .. list-table::
   :class: longtable
   :widths: 80 20
   :header-rows: 1
 
-  * - **Security Pattern**
-    - **Compliant With**
-  * - **[REST_JWS_2021_POP]** JWS POP Voucher Issuing Profile (*Annex 3 - Standards and technical details used for Voucher Authorization* [`PDND`_]): REQUIRED. It adds a proof of possession on the Voucher. The Consumer using the Voucher to access an e-service MUST demonstrate the proof of possession of the private key whose public is attested on the Voucher.
+  * - **Pattern di Sicurezza**
+    - **Conforme a**
+  * - **[REST_JWS_2021_POP]** Profilo di emissione dei Voucher JWS POP (*Allegato 3 - Standard e dettagli tecnici utilizzati per la fruizione dei Voucher di autorizzazione* [`PDND`_]): OBBLIGATORIO. Aggiunge una prova di possesso sul Voucher. Il Fruitore che utilizza il Voucher per accedere a un e-Service DEVE dimostrare la prova di possesso della chiave privata la cui chiave pubblica è attestata nel Voucher.
     - R2, R4, R5
-  * - **[ID_AUTH_CHANNEL_01]** Direct Trust Transport-Level Security (*Annex 2 - Security Patterns* [`MODI`_]): REQUIRED. It protects the communication between the Consumer and the Provider by ensuring confidentiality, integrity, identification of the Provider, and mitigation against replay attack and spoofing.
+  * - **[ID_AUTH_CHANNEL_01]** Direct Trust Transport-Level Security (*Allegato 2 - Pattern di sicurezza* [`MODI`_]): OBBLIGATORIO. Protegge la comunicazione tra il Fruitore e l'Erogatore garantendo riservatezza, integrità, identificazione dell'Erogatore e mitigazione contro attacchi di replay e spoofing.
     - R1, R2
-  * - **[INTEGRITY_REST_02]** REST Payload Integrity in PDND (*Annex 2 - Security Patterns* [`MODI`_]): CONDITIONAL. It ensures the integrity of the payload of the REST Consumer request, within the PDND Infrastructure. It is REQUIRED whenever the request carries a payload.
+  * - **[INTEGRITY_REST_02]** Integrità del payload delle richieste REST in PDND (*Allegato 2 - Pattern di sicurezza* [`MODI`_]): CONDIZIONALE. Garantisce l'integrità del payload della richiesta REST del Fruitore, all'interno dell'Infrastruttura PDND. È OBBLIGATORIO ogni volta che la richiesta contiene un payload.
     - R2, R4
-  * - **[AUDIT_REST_02]** Submission of audit data within the REST request with correlation (*Annex 2 - Security Patterns* [`MODI`_]): OPTIONAL. The Provider MAY request additional data tracked in the Consumer's domain, with a correlation between such data and the authentication method. In that case, this pattern MUST be used.
+  * - **[AUDIT_REST_02]** Inoltro dati tracciati nel dominio del Fruitore REST con correlazione (*Allegato 2 - Pattern di sicurezza* [`MODI`_]): OPZIONALE. L'Erogatore PUÒ richiedere dati aggiuntivi tracciati nel dominio del Fruitore, con una correlazione tra tali dati e il metodo di autenticazione. In tal caso, questo pattern DEVE essere utilizzato.
     - R3, R4
 
 .. note::
-    In these specifications, the ``REST_JWS_2021_POP`` security pattern is implemented by default in accordance with :rfc:`9449`. If DPoP is not supported by the PDND Infrastructure, the proof of possession is attested by the ``TrackingEvidence`` JWT (as detailed below). However, while the ``TrackingEvidence`` is defined in ``AUDIT_REST_02`` to provide additional tracked data, in this context, it acts as proof of possession of the Voucher. Such implementation choices will be referred to as ``POP_DPoP`` and ``POP_TPoP``, respectively.
+    In queste specifiche, il pattern di sicurezza ``REST_JWS_2021_POP`` è implementato di default in conformità con :rfc:`9449`. Se DPoP non è supportato dall'Infrastruttura PDND, la prova di possesso è attestata dal JWT ``TrackingEvidence`` (come dettagliato di seguito). Tuttavia, mentre il ``TrackingEvidence`` è definito in ``AUDIT_REST_02`` per fornire dati tracciati aggiuntivi, in questo contesto funge da prova di possesso del Voucher. Tali scelte di implementazione saranno indicate rispettivamente come ``POP_DPoP`` e ``POP_TPoP``.
 
-In addition, this specification defines and applies a custom security pattern:
+Inoltre, questa specifica definisce e applica il seguente pattern di sicurezza personalizzato:
 
 .. list-table::
   :widths: 80 20
   :header-rows: 1
 
-  * - **Security Pattern**
-    - **Compliant With**
-  * - REST Response Payload Integrity in PDND: REQUIRED. It ensures the integrity of the payload of the REST Provider response, within the PDND Infrastructure.
+  * - **Pattern di Sicurezza**
+    - **Conforme a**
+  * - Integrità del payload delle risposte REST in PDND: OBBLIGATORIO. Garantisce l'integrità del payload della risposta REST dell'Erogatore, all'interno dell'Infrastruttura PDND.
     - R2
 
 
-The following security patterns defined in `PDND`_ and `MODI`_ MUST NOT be used as they do not comply with the requirements defined above:
+I seguenti pattern di sicurezza definiti in `PDND`_ e `MODI`_ NON DEVONO essere utilizzati in quanto non conformi ai requisiti definiti in precedenza:
 
-    - The following patterns can only be used when the Consumer cannot subscribe to the PDND infrastructure (i.e., the trust between the Participants needs to be established in a direct form), thus not complying with **R1**:
+    - I seguenti pattern possono essere utilizzati solo quando il Fruitore non può iscriversi all'Infrastruttura PDND (ossia quando la trust tra gli Aderenti deve essere stabilita in forma diretta), pertanto non risultano conformi a **R1**:
 
-      - **[ID_AUTH_CHANNEL_02]** Direct Trust mutual Transport-Level Security (*Annex 2 - Security Patterns* [`MODI`_])
-      - **[ID_AUTH_REST_01]** Direct Trust based on X.509 certificate with REST (*Annex 2 - Security Patterns* [`MODI`_]).
-      - **[ID_AUTH_REST_02]** Direct Trust based on X.509 certificate with REST and token/message uniqueness (*Annex 2 - Security Patterns* [`MODI`_]).
-      - **[INTEGRITY_REST_01]** REST Payload Integrity (*Annex 2 - Security Patterns* [`MODI`_]).
+      - **[ID_AUTH_CHANNEL_02]** Direct Trust mutual Transport-Level Security (*Allegato 2 - Pattern di Sicurezza* [`MODI`_])
+      - **[ID_AUTH_REST_01]** Direct Trust con certificato X.509 su REST (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
+      - **[ID_AUTH_REST_02]** Direct Trust con certificato X.509 su REST con unicità del token/messaggio (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
+      - **[INTEGRITY_REST_01]** Integrità del payload messaggio REST (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
 
-    - The following pattern does not provide correlation between the tracked data and the Voucher, thus not complying with **R3**:
+    - Il seguente pattern non fornisce correlazione tra i dati tracciati e il Voucher, pertanto non risulta conforme a **R3**:
 
-      - **[AUDIT_REST_01]** Submission of audit data within the REST request (*Annex 2 - Security Patterns* [`MODI`_]).
+      - **[AUDIT_REST_01]** Inoltro dati tracciati nel dominio del Fruitore REST (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
 
-    - The following patterns are based on a SOAP architecture, thus not complying with **R4**:
+    - I seguenti pattern sono basati su un'architettura SOAP, pertanto non risultano conformi a **R4**:
 
-      - **[ID_AUTH_SOAP_01]** Direct Trust based on X.509 certificate with SOAP (*Annex 2 - Security Patterns* [`MODI`_]).
-      - **[ID_AUTH_SOAP_02]** Direct Trust based on X.509 certificate with SOAP and token/message uniqueness (*Annex 2 - Security Patterns* [`MODI`_]).
-      - **[INTEGRITY_SOAP_01]** SOAP Payload Integrity (*Annex 2 - Security Patterns* [`MODI`_]).
+      - **[ID_AUTH_SOAP_01]** Direct Trust con certificato X.509 su SOAP (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
+      - **[ID_AUTH_SOAP_02]** Direct Trust con certificato X.509 su SOAP con unicità del token/messaggio (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
+      - **[INTEGRITY_SOAP_01]** Integrità del payload del messaggio SOAP (*Allegato 2 - Pattern di sicurezza* [`MODI`_]).
 
-    - The following pattern does not guarantee proof of possession of the Voucher, thus not complying with **R5**:
+    - Il seguente pattern non garantisce la prova di possesso del Voucher, pertanto non risulta conforme a **R5**:
 
-      - **[REST_JWS_2021_Bearer]** JWS Bearer Voucher Issuing Profile (*Annex 3 - Standards and technical details used for Voucher Authorization* [`PDND`_]).
+      - **[REST_JWS_2021_Bearer]** Profilo di emissione dei Voucher JWS Bearer (*Allegato 3 - Standard e dettagli tecnici utilizzati per la fruizione dei Voucher di autorizzazione* [`PDND`_]).
 
 .. note::
-  In case of ``POP_TPoP`` implementation, the Voucher is issued as a Bearer token. However, since it is accompanied by a proof of possession, it still complies with the ``REST_JWS_2021_POP`` security pattern rather than ``REST_JWS_2021_Bearer``.
+  Nel caso di implementazione ``POP_TPoP``, il Voucher viene emesso come token Bearer. Tuttavia, poiché è accompagnato da una prova di possesso, è comunque conforme al pattern di sicurezza ``REST_JWS_2021_POP`` invece che ``REST_JWS_2021_Bearer``.
 
-PDND Voucher Issuance
-----------------------
+Emissione del Voucher PDND
+--------------------------
 
-The PDND infrastructure defines two different types of Vouchers:
+L'Infrastruttura PDND definisce due diversi tipi di Voucher:
 
-  - **For e-Service**: allow Consumers to request data from an e-Service.
-  - **For Interoperability API**: allow Participants to request data from the Interoperability API, exposed by the PDND Infrastructure.
+  - **Per e-Service**: consentono ai Fruitori di richiedere dati da un e-Service.
+  - **Per API di Interoperabilità**: consentono agli Aderenti di richiedere dati dall'API di Interoperabilità, esposta dall'Infrastruttura PDND.
 
-The two flows are described below.
+I due flussi sono descritti di seguito.
 
-PDND Voucher for e-Service
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Voucher PDND per e-Service
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-PDND Voucher for e-Services Prerequisites
-"""""""""""""""""""""""""""""""""""""""""
+Prerequisiti per il Voucher PDND per e-Service
+""""""""""""""""""""""""""""""""""""""""""""""
 
-The **Consumer** MUST comply with the following prerequisites:
+Il **Fruitore** DEVE rispettare i seguenti prerequisiti:
 
-    - Has successfully subscribed to the PDND Infrastructure (as per R1).
-    - Has created a new `Client e-service` to interact with the intended e-Service. Upon creation, it has been assigned a ``client_id`` by the PDND Platform.
-    - Has registered a key pair associated with the `Client e-service`.
-    - Has requested to enroll in the intended e-Service.
-    - Has defined a new purpose for the e-Service. Upon definition, it has been assigned a ``purposeId`` by the PDND Platform.
-    - Has associated the `Client e-service` with the defined purpose.
+    - Ha completato con successo l'adesione all'Infrastruttura PDND (come da R1).
+    - Ha creato un nuovo `Client e-service` per interagire con l'e-Service desiderato. Al momento della creazione, gli è stato assegnato un ``client_id`` dalla Piattaforma PDND.
+    - Ha registrato una coppia di chiavi associata al `Client e-service`.
+    - Ha richiesto di iscriversi all'e-Service desiderato.
+    - Ha definito un nuovo scopo per l'e-Service. Al momento della definizione, gli è stato assegnato un ``purposeId`` dalla Piattaforma PDND.
+    - Ha associato il `Client e-service` allo scopo definito.
 
-The **Provider** MUST comply with the following prerequisites:
+L'**Erogatore** DEVE rispettare i seguenti prerequisiti:
 
-    - Has successfully subscribed to the PDND Infrastructure (as per R1).
-    - Has created a new e-Service and published it within the PDND API Catalogue.
-    - Has approved the Consumer's request to enroll in the e-Service.
+    - Ha completato con successo l'adesione all'Infrastruttura PDND (come da R1).
+    - Ha creato un nuovo e-Service e lo ha pubblicato all'interno del Catalogo API PDND.
+    - Ha approvato la richiesta del Fruitore di iscriversi all'e-Service.
 
 
-PDND Voucher for e-Services Flow
-""""""""""""""""""""""""""""""""
+Flusso del Voucher PDND per e-Service
+"""""""""""""""""""""""""""""""""""""
 
 .. _fig_VoucherIssuance_eService_Flow:
-.. figure:: ../../images/Low-Level-Flow-AuthenticSource-Voucher-Issuance-eService.svg
-    :figwidth: 100%
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/TT5HRzCm40VmTt-AK_QoHLH2a-1X3sXHkcf52AAbm6FakRV6Ik8pvtDPz-cnGxSYjBr4iMF_xd-Nwo2Q9KwZ4YiZmW-AfaU6TGXHEuEm05oqo7jhK2aTXLoSxf6LkgT7ACkQN8WJSbd2sNfFV500FedMMA-TG56MtweeFTIZHITbMO0EKAyKkYqaujbfbb-NsQYU8kDRHduGsoSjbXpaLCX7iMfF8dc15J5KtvVhJNTtqswwzvSAKjN5ftfrrJ0c7U7ppmtyjearDFaH9tIY-G1RBHhEYsB3sWpMxMxsTelEO55Sg1DIfpjH4DhRwlB3H-Xrw84UuBLh6Riz_t__8davibBF8gDEuBAX1WOyWDUMGQUUF1CzpAUgzkhb1ztXhuX1CcxcqNPsMnJlu6MfGq3EWtfzjvE3nx-VTgoT7DUfHtOa2BH7Xgg5iozsrqjZtP2Rxz4C8SUU3obLjOiv_2bLyEG2vbZQ60oX4nhmc26__biO7xrb39rrkV1rOkCq_W40
+.. plantuml:: plantuml/pdnd-voucher-issuance.puml
+    :width: 80%
+    :alt: La figura illustra l'emissione del Voucher per e-Service - Flusso dettagliato.
+    :caption: `Emissione del Voucher per e-Service - Flusso dettagliato. <https://www.plantuml.com/plantuml/svg/VP71RjH0343lynLMUcaZLaALuD03QfHjrKK8ecQ1O-HEtCqeoJXuF4ktNqycj5s42fSeTkpdP-SoA8h6SO1l76r70fiG8dfBi09QrIHxPycequ7-Ns8mAliutf4OSySFaESb-n17aZo7aysUvM009XHrrate5R8y_r94xQ0S77dDymmmG7bjoBSm8vuvrVhpEZ6AnoZqBqPwiBX7LCSUaXN94x6eZqIU5AvPeFYwtcoRswjwsxmzDp1FNNqehoygePbEyF7x5dww6Mjvd0OQoIlA0LfKXDCismhQtldTrTwrv2rbsPavGigv9of1VLESltiF7OOE-1vUQqkmczE_ysU9DoiRyqmKGYLOLrn1JmUOq0cWRs4IvlkbggWlNdxGBVs853J1xNBQnhLPzWPUGWo191tgzMoZXub-Vze9UbtYPKVnh0Iy9u6YXfDFRjTfvNoVbk_8zY5fBqN65FLgaJzQXObzeAI5rb88ZN9FJmxfzS_1z30veT0udmPVpjWu3hy0>`_
 
-    Voucher Issuance for e-Service - Detailed flow
 
-**Steps 1-2 (Preparation of Tracked Data):** The Consumer prepares a JWT (``TrackingEvidence``) containing the tracked data that have to be sent to the Provider. Finally, it computes the SHA-256 hash of ``TrackingEvidence``.
+.. .. figure:: ../../images/Low-Level-Flow-AuthenticSource-Voucher-Issuance-eService.svg
+..     :figwidth: 100%
+..     :align: center
+..     :target: https://www.plantuml.com/plantuml/svg/TT5HRzCm40VmTt-AK_QoHLH2a-1X3sXHkcf52AAbm6FakRV6Ik8pvtDPz-cnGxSYjBr4iMF_xd-Nwo2Q9KwZ4YiZmW-AfaU6TGXHEuEm05oqo7jhK2aTXLoSxf6LkgT7ACkQN8WJSbd2sNfFV500FedMMA-TG56MtweeFTIZHITbMO0EKAyKkYqaujbfbb-NsQYU8kDRHduGsoSjbXpaLCX7iMfF8dc15J5KtvVhJNTtqswwzvSAKjN5ftfrrJ0c7U7ppmtyjearDFaH9tIY-G1RBHhEYsB3sWpMxMxsTelEO55Sg1DIfpjH4DhRwlB3H-Xrw84UuBLh6Riz_t__8davibBF8gDEuBAX1WOyWDUMGQUUF1CzpAUgzkhb1ztXhuX1CcxcqNPsMnJlu6MfGq3EWtfzjvE3nx-VTgoT7DUfHtOa2BH7Xgg5iozsrqjZtP2Rxz4C8SUU3obLjOiv_2bLyEG2vbZQ60oX4nhmc26__biO7xrb39rrkV1rOkCq_W40
+
+..     Emissione del Voucher per e-Service - Flusso dettagliato
+
+**Passi 1-2 (Preparazione dei dati tracciati):** Il Fruitore prepara un JWT (``TrackingEvidence``) contenente i dati tracciati che devono essere inviati all'Erogatore. Infine, calcola l'hash SHA-256 di ``TrackingEvidence``.
 
 .. code-block:: Json
-  :caption: Non-normative example of the ``TrackingEvidence`` header
+  :caption: Esempio non normativo dell'header di ``TrackingEvidence``
   :name: code_VoucherIssuance_eService_Flow_TrackingEvidence_Header
 
   {
@@ -161,7 +167,7 @@ PDND Voucher for e-Services Flow
 
 
 .. code-block:: json
-  :caption: Non-normative example of the ``TrackingEvidence`` payload
+  :caption: Esempio non normativo del payload di ``TrackingEvidence``
   :name: code_VoucherIssuance_eService_Flow_TrackingEvidence_Payload
 
   {
@@ -178,17 +184,17 @@ PDND Voucher for e-Services Flow
   }
 
 .. note::
-  Steps 1-2 are required only when complying with the ``AUDIT_REST_02`` security pattern or the ``POP_TPoP`` implementation.
+  I passi 1-2 sono richiesti solo quando si rispetta il pattern di sicurezza ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``.
 
-**Step 3 (DPoP Key Pair and Proof)**: The Consumer MUST create a new key pair for the DPoP and a fresh DPoP proof JWT following the instruction provided in the Section 4 of :rfc:`9449` for the token request to the PDND Authorization Server.
+**Passo 3 (Generazione coppia di chiavi e `DPoP proof`)**: Il Fruitore DEVE creare una nuova coppia di chiavi e un nuovo JWT di `DPoP proof`, seguendo le istruzioni fornite nella Sezione 4 di :rfc:`9449` per la richiesta di token all'Authorization Server PDND.
 
 .. note::
-  Step 3 is required only when complying with the ``POP_DPoP`` implementation.
+  Il passo 3 è richiesto solo quando si segue l'implementazione ``POP_DPoP``.
 
-**Step 4 (Voucher Request)**: The Consumer creates a Voucher Request and sends it to the PDND Authorization Server.
+**Passo 4 (Richiesta di Voucher)**: Il Fruitore crea una `Voucher Request` e la invia all'Authorization Server PDND.
 
 .. code-block:: http
-    :caption: Non-normative example of the Voucher Request
+    :caption: Esempio non normativo della `Voucher Request`
     :name: code_VoucherIssuance_eService_Flow_Request
 
     POST /authorization-server/token HTTP/1.1
@@ -203,7 +209,7 @@ PDND Voucher for e-Services Flow
 
 
 .. code-block:: json
-    :caption: Non-normative example of the ``client_assertion`` JOSE header
+    :caption: Esempio non normativo del JOSE header di ``client_assertion``
     :name: code_VoucherIssuance_eService_Flow_ClientAssertion_Header
 
     {
@@ -214,7 +220,7 @@ PDND Voucher for e-Services Flow
 
 
 .. code-block:: json
-    :caption: Non-normative example of the ``client_assertion`` payload
+    :caption: Esempio non normativo del payload di ``client_assertion``
     :name: code_VoucherIssuance_eService_Flow_ClientAssertion_Payload
 
     {
@@ -232,47 +238,47 @@ PDND Voucher for e-Services Flow
     }
 
 .. note::
-  The ``purposeId`` claim in the ``client_assertion`` payload is required only when requesting a Voucher for e-Service.
+  Il claim ``purposeId`` nel payload di ``client_assertion`` è richiesto solo quando si richiede un Voucher per e-Service.
 
 .. note::
-  The ``digest`` claim in the ``client_assertion`` payload is required only when complying with the ``AUDIT_REST_02`` security pattern or the ``POP_TPoP`` implementation.
+  Il claim ``digest`` nel payload di ``client_assertion`` è richiesto solo quando si rispetta il pattern di sicurezza ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``.
 
-Upon the receipt of the Voucher Request, the PDND Authorization Server MUST perform the following checks on the Voucher Request body parameters:
+Alla ricezione della `Voucher Request`, l'Authorization Server PDND DEVE eseguire i seguenti controlli sui parametri del relativo body:
 
-    - The claim ``client_assertion_type`` is set to ``urn:ietf:params:oauth:client-assertion-type:jwt-bearer``.
-    - The claim ``grant_type`` is set to ``client_credentials``.
+    - Il claim ``client_assertion_type`` è impostato su ``urn:ietf:params:oauth:client-assertion-type:jwt-bearer``.
+    - Il claim ``grant_type`` è impostato su ``client_credentials``.
 
-The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as follows:
+L'Authorization Server PDND DEVE anche validare il JWT ``client_assertion`` come segue:
 
     Header:
 
-      - Ensure that the ``typ`` claim is present and that its value is ``JWT``.
+      - Assicurarsi che il claim ``typ`` sia presente e che il suo valore sia ``JWT``.
 
-    Signature:
+    Firma:
 
-      - Obtain the Consumer's public key corresponding to the ``kid`` header parameter, by interacting with the PDND Interoperability API.
-      - Validate the signature of the JWT using the retrieved Consumer's public key and the algorithm specified by the ``alg`` header parameter.
+      - Ottenere la chiave pubblica del Fruitore corrispondente al parametro header ``kid``, interagendo con l'API di Interoperabilità PDND.
+      - Validare la firma del JWT utilizzando la chiave pubblica del Fruitore recuperata e l'algoritmo specificato dal parametro header ``alg``.
 
     Payload:
 
-      - The ``iss`` and ``sub`` claims MUST identify a Client registered in the PDND Infrastructure.
-      - The ``aud`` claim MUST represent the PDND Authorization Server.
-      - The ``exp`` claim MUST represent a time instant after the current time.
-      - If the ``nbf`` claim is present, it MUST represent a time instant prior to the current time.
-      - The ``iat`` claim MUST represent a time instant prior to the current time.
-      - The ``jti`` claim MUST NOT have been previously used.
-      - The ``purposeId`` claim MUST identify a purpose registered in the PDND Infrastructure and associated to the Client.
+      - I claim ``iss`` e ``sub`` DEVONO identificare un Client registrato nell'Infrastruttura PDND.
+      - Il claim ``aud`` DEVE rappresentare l'Authorization Server PDND.
+      - Il claim ``exp`` DEVE rappresentare un istante temporale successivo all'ora corrente.
+      - Se il claim ``nbf`` è presente, DEVE rappresentare un istante temporale precedente all'ora corrente.
+      - Il claim ``iat`` DEVE rappresentare un istante temporale precedente all'ora corrente.
+      - Il claim ``jti`` NON DEVE essere stato utilizzato in precedenza.
+      - Il claim ``purposeId`` DEVE identificare uno scopo registrato nell'Infrastruttura PDND e associato al Client.
 
 .. note::
-  The PDND Authorization Server does not need to perform any checks on the ``digest`` claim.
+  L'Authorization Server PDND non deve eseguire alcun controllo sul claim ``digest``.
 
 .. note::
-  Verification of the ``exp``, ``nbf``, ``iat``, and ``jti`` claims, as detailed above, MUST be performed for all JWTs described within this section. These checks will not be explicitly mentioned in subsequent references.
+  La verifica dei claim ``exp``, ``nbf``, ``iat`` e ``jti``, come dettagliato sopra, DEVE essere eseguita per tutti i JWT descritti in questa sezione. Questi controlli non saranno esplicitamente menzionati nei riferimenti successivi.
 
-**Step 6 (Voucher Issuance)**: In case of successful checks, the PDND Authorization Server issues a Voucher, which is included in the Voucher Response to the Consumer.
+**Passo 6 (Emissione del Voucher)**: Qualora i controlli abbiano successo, l'Authorization Server PDND emette un Voucher, che è incluso nella `Voucher Response` inviata al Fruitore.
 
 .. code-block:: http
-    :caption: Non-normative example of the Voucher Response
+    :caption: Esempio non normativo della `Voucher Response`
     :name: code_VoucherIssuance_eService_Flow_Response
 
     HTTP/1.1 200 OK
@@ -286,7 +292,7 @@ The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as
     }
 
 .. code-block:: json
-    :caption: Non-normative example of the ``access_token`` JOSE header
+    :caption: Esempio non normativo del JOSE header di ``access_token``
     :name: code_VoucherIssuance_eService_Flow_AccessToken_Header
 
     {
@@ -296,7 +302,7 @@ The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as
     }
 
 .. code-block:: json
-    :caption: Non-normative example of the ``access_token`` payload
+    :caption: Esempio non normativo del payload di ``access_token``
     :name: code_VoucherIssuance_eService_Flow_AccessToken_Payload
 
     {
@@ -319,35 +325,41 @@ The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as
     }
 
 .. note::
-  The ``digest`` claim in the ``access_token`` payload is required only when complying with the ``AUDIT_REST_02`` security pattern or the ``POP_TPoP`` implementation. If present, it corresponds to the value of the ``digest`` claim contained in the ``client_assertion``.
+  Il claim ``digest`` nel payload di ``access_token`` è richiesto solo quando si rispetta il pattern di sicurezza ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``. Se presente, corrisponde al valore del claim ``digest`` contenuto in ``client_assertion``.
 
-PDND Voucher for Interoperability API
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Voucher PDND per API di Interoperabilità
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-PDND Voucher for Interoperability API Prerequisites
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
+Prerequisiti per il Voucher PDND per API di Interoperabilità
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-The **Participant** MUST comply with the following prerequisites:
+L'**Aderente** DEVE rispettare i seguenti prerequisiti:
 
-  - Has successfully subscribed to the PDND Infrastructure.
-  - Has created a new `Client interop api` to interact with the Interoperability API. Upon creation, it has been assigned a ``client_id`` by the PDND Platform.
-  - Has registered a key pair associated with the `Client interop api`.
+  - Ha completato con successo l'adesione all'Infrastruttura PDND.
+  - Ha creato un nuovo `Client interop api` per interagire con l'API di Interoperabilità. Al momento della creazione, gli è stato assegnato un ``client_id`` dalla Piattaforma PDND.
+  - Ha registrato una coppia di chiavi associata al `Client interop api`.
 
-Voucher for Interoperability API Flow
-"""""""""""""""""""""""""""""""""""""""
+Flusso del Voucher per API di Interoperabilità
+""""""""""""""""""""""""""""""""""""""""""""""
 
 .. _fig_VoucherIssuance_InteroperabilityAPI_Flow:
-.. figure:: ../../images/Low-Level-Flow-AuthenticSource-Voucher-Issuance-InteroperabilityAPI.svg
-  :figwidth: 100%
-  :align: center
-  :target: https://www.plantuml.com/plantuml/svg/TP51ozf048Rl-ok6UD7GqFOg4WmH8L3Qq41FXR36mIp6tNHcLjHVtrqDwk7xBY4px_Ay3xjh5atYJuCI8mF27-Ux7WagPgzjXv11PGN9ZKXwPmOZLoZgIYdjnLb_sY4fjNCNIDAq3YJJcL5RITE_TiNcXillt_9vwIpxKw0wMdsDs_mjhScTpHvfCKK9pAgpewi265_0oFzLUEcX70p6WWGqGxbLQFSG11uMGMBpSvEcC2jkdl0pHlmuCZSjnbbeaCv84x5eNiHoc-L5itnUoc_yvv45vadItIrQiq-IB_0SDJDIP7wyRUKwuYCwK12QveLIP9qWkA0H163smnnwgOqzAe2on-x8KUf-IAcYoRAyt2vVLZmwonYrTDSXSolkY9D3_7qlnije2BarDXQl0pOy_dy0
+.. plantuml:: plantuml/pdnd-voucher-issuance-interoperability.puml
+    :width: 80%
+    :alt: La figura illustra l'emissione del Voucher per API di Interoperabilità - Flusso dettagliato.
+    :caption: `Emissione del Voucher per API di Interoperabilità - Flusso dettagliato. <https://www.plantuml.com/plantuml/svg/ZP11ozf048Rl-ok6UD7GqFOg4WmH8L3Qq41FXR0cWrbCTjEPsQ3--heQr4CBtoLavXsUzs6tB9h43ptyShxfaA1Wzjes20aKLf3SYAGFfZToWQmib1ZfySFNIdjnrWy79AKExWnH79UQn3Hcr5RY-BVTiBdY-kkNT9axotv00aURps6RlgKbkScqIAivYc1HJ8uk2c1y0GF_H-QbWxmt60eYq0pvNg5juIRmiBX9xBxluXWMsTKJ_eyHFexCLOjn5Yga2MacPjMBcE-JDAlMpqVvYNyyii0oYfgxHMtQAFe4pr4p8mNclxUrN4PyH4VILkPvfHHP9mXkGhe9mEARENPI6djI07c7pOc3rFr8gQnAaZJVhrzMF3hB6BHqqo1pBUw4iqFuVI_6ysW8kJOs56_Hjdxe_m80>`_
 
-  Voucher Issuance for Interoperability API - Detailed flow
 
-**Step 1 (Voucher Request)**: The Participant creates a Voucher Request and sends it to the PDND Authorization Server.
+.. .. figure:: ../../images/Low-Level-Flow-AuthenticSource-Voucher-Issuance-InteroperabilityAPI.svg
+..   :figwidth: 100%
+..   :align: center
+..   :target: https://www.plantuml.com/plantuml/svg/TP51ozf048Rl-ok6UD7GqFOg4WmH8L3Qq41FXR36mIp6tNHcLjHVtrqDwk7xBY4px_Ay3xjh5atYJuCI8mF27-Ux7WagPgzjXv11PGN9ZKXwPmOZLoZgIYdjnLb_sY4fjNCNIDAq3YJJcL5RITE_TiNcXillt_9vwIpxKw0wMdsDs_mjhScTpHvfCKK9pAgpewi265_0oFzLUEcX70p6WWGqGxbLQFSG11uMGMBpSvEcC2jkdl0pHlmuCZSjnbbeaCv84x5eNiHoc-L5itnUoc_yvv45vadItIrQiq-IB_0SDJDIP7wyRUKwuYCwK12QveLIP9qWkA0H163smnnwgOqzAe2on-x8KUf-IAcYoRAyt2vVLZmwonYrTDSXSolkY9D3_7qlnije2BarDXQl0pOy_dy0
+
+..   Emissione del Voucher per API di Interoperabilità - Flusso dettagliato
+
+**Passo 1 (Richiesta di Voucher)**: L'Aderente crea una `Voucher Request` e la invia all'Authorization Server PDND.
 
 .. code-block:: http
-  :caption: Non-normative example of the Voucher Request
+  :caption: Esempio non normativo della `Voucher Request`
   :name: code_VoucherIssuance_InteroperabilityAPI_Flow_Request
 
   POST /authorization-server/token HTTP/1.1
@@ -360,7 +372,7 @@ Voucher for Interoperability API Flow
   client_assertion=eyJhbGciOiJFUzI1NiIsImtpZCI6IjlhNGQ4ZTNmLThiN2QtNGM5OC05MjZmLTI3NDVjNmIxZjgzMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI1YTNjN2YyOC05MWI5LTRjNGUtODlhOS02ZTJmODVkOTI2MmIiLCJzdWIiOiI1YTNjN2YyOC05MWI5LTRjNGUtODlhOS02ZTJmODVkOTI2MmIiLCJhdWQiOiJpbnRlcm9wLnBhZ29wYS5pdC9hdXRob3JpemF0aW9uLXNlcnZlciIsImV4cCI6MTczMzIzMzUwMCwiaWF0IjoxNzMzMjMyMzAwLCJqdGkiOiJkMmM5YTdiNC0zZTgxLTRkMjctYjZmNy01MWE4YzlmMGEzYzYifQ.YDX7ekvvY3gPHTfZeqa3IcurU7kNBZPy3OHAdljdXSFLoC5cVVyIzl43aMbwLouI43ylxWktaf0-pXabmye1qA
 
 .. code-block:: json
-  :caption: Non-normative example of the ``client_assertion`` JOSE header
+  :caption: Esempio non normativo del JOSE header di ``client_assertion``
   :name: code_VoucherIssuance_InteroperabilityAPI_Flow_ClientAssertion_Header
 
   {
@@ -370,7 +382,7 @@ Voucher for Interoperability API Flow
   }
 
 .. code-block:: json
-  :caption: Non-normative example of the ``client_assertion`` payload
+  :caption: Esempio non normativo del payload di ``client_assertion``
   :name: code_VoucherIssuance_InteroperabilityAPI_Flow_ClientAssertion_Payload
 
   {
@@ -382,32 +394,32 @@ Voucher for Interoperability API Flow
       "jti": "d2c9a7b4-3e81-4d27-b6f7-51a8c9f0a3c6"
   }
 
-Upon the receipt of the Voucher Request, the PDND Authorization Server MUST perform the following checks on the Voucher Request body parameters:
+Alla ricezione della `Voucher Request`, l'Authorization Server PDND DEVE eseguire i seguenti controlli sui parametri del relativo body:
 
-  - The claim ``client_assertion_type`` is set to ``urn:ietf:params:oauth:client-assertion-type:jwt-bearer``.
-  - The claim ``grant_type`` is set to ``client_credentials``.
+  - Il claim ``client_assertion_type`` è impostato su ``urn:ietf:params:oauth:client-assertion-type:jwt-bearer``.
+  - Il claim ``grant_type`` è impostato su ``client_credentials``.
 
-The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as follows:
+L'Authorization Server PDND DEVE anche validare il JWT ``client_assertion`` come segue:
 
   Header:
 
-  - Ensure that the ``typ`` claim is present and that its value is ``JWT``.
+  - Assicurarsi che il claim ``typ`` sia presente e che il suo valore sia ``JWT``.
 
-  Signature:
+  Firma:
 
-  - Obtain the Participant's public key corresponding to the ``kid`` header parameter, by interacting with the PDND Interoperability API.
-  - Validate the signature of the JWT using the retrieved Participant's public key and the algorithm specified by the ``alg`` header parameter.
+  - Ottenere la chiave pubblica dell'Aderente corrispondente al parametro header ``kid``, interagendo con l'API di Interoperabilità PDND.
+  - Validare la firma del JWT utilizzando la chiave pubblica dell'Aderente recuperata e l'algoritmo specificato dal parametro header ``alg``.
 
   Payload:
 
-  - The ``iss`` and ``sub`` claims MUST identify a Client registered in the PDND Infrastructure.
-  - The ``aud`` claim MUST represent the PDND Authorization Server.
+  - I claim ``iss`` e ``sub`` DEVONO identificare un Client registrato nell'Infrastruttura PDND.
+  - Il claim ``aud`` DEVE rappresentare l'Authorization Server PDND.
 
 
-**Step 2 (Voucher Issuance)**: In case of successful checks, the PDND Authorization Server issues a Voucher, which is included in the Voucher Response to the Participant.
+**Passo 2 (Emissione del Voucher)**: Qualora i controlli abbiano successo, l'Authorization Server PDND emette un Voucher, che è incluso nella `Voucher Response` inviata all'Aderente.
 
 .. code-block:: http
-  :caption: Non-normative example of the Voucher Response
+  :caption: Esempio non normativo della `Voucher Response`
   :name: code_VoucherIssuance_InteroperabilityAPI_Flow_Response
 
   HTTP/1.1 200 OK
@@ -421,7 +433,7 @@ The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as
   }
 
 .. code-block:: json
-  :caption: Non-normative example of the ``access_token`` JOSE header
+  :caption: Esempio non normativo del JOSE header di ``access_token``
   :name: code_VoucherIssuance_InteroperabilityAPI_Flow_AccessToken_Header
 
   {
@@ -431,7 +443,7 @@ The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as
   }
 
 .. code-block:: json
-  :caption: Non-normative example of the ``access_token`` payload
+  :caption: Esempio non normativo del payload di ``access_token``
   :name: code_VoucherIssuance_InteroperabilityAPI_Flow_AccessToken_Payload
 
   {
@@ -446,75 +458,75 @@ The PDND Authorization Server MUST also validate the ``client_assertion`` JWT as
   }
 
 
-PDND Authorization Server Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint Authorization Server PDND
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The PDND Authorization Server Endpoint issues Vouchers to Participants. These Vouchers allow Consumers to access e-Service resources and enable Participants to interact with the Interoperability API.
+L'Endpoint Authorization Server PDND emette Voucher agli Aderenti. Questi Voucher consentono ai Fruitori di accedere alle risorse degli e-Service e agli Erogatori di interagire con l'API di Interoperabilità.
 
-PDND Voucher Request
-"""""""""""""""""""""
+Richiesta (Voucher PDND)
+"""""""""""""""""""""""""
 
-The request to the PDND Authorization Server Endpoint adheres to the Client Credentials Grant flow specified in :rfc:`6749`. The client authenticates itself by presenting a JWT-based client assertion as defined in :rfc:`7521` and :rfc:`7523`.
+La richiesta all'Endpoint Authorization Server PDND aderisce al flusso Client Credentials Grant specificato in :rfc:`6749`. Il client si autentica presentando un'asserzione client basata su JWT come definito in :rfc:`7521` e :rfc:`7523`.
 
-Following the specifications above, the request MUST be an HTTP POST request with a body encoded in ``application/x-www-form-urlencoded`` format.
+Seguendo le suddette specifiche, la richiesta DEVE essere una richiesta HTTP POST con un corpo codificato in formato ``application/x-www-form-urlencoded``.
 
-The Voucher Request MUST include the following HTTP header parameters (unless otherwise specified):
+La `Voucher Request` DEVE includere i seguenti parametri nell'header HTTP (se non diversamente specificato):
 
 .. list-table::
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **DPoP**
-    - DPoP proof JWT, to comply with the ``REST_JWS_2021_POP`` security pattern. It is mandatory only if the requested Voucher is for e-Service (i.e., not for Interoperability API) and follows the ``POP_DPoP`` implementation.
+    - JWT di `DPoP proof`, per rispettare il pattern di sicurezza ``REST_JWS_2021_POP``. È obbligatorio solo se il Voucher richiesto è per e-Service (quindi non per API di Interoperabilità) e segue l'implementazione ``POP_DPoP``.
     - [:rfc:`9449`], [`PDND`_]
 
-The Voucher Request MUST include the following body parameters:
+La `Voucher Request` DEVE includere i seguenti parametri nel body:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **client_id**
-    - The unique identifier of the Participant Client, assigned by the PDND.
+    - Identificativo univoco del Client dell'Aderente, assegnato dalla PDND.
     - [:rfc:`6749`], [:rfc:`7521`], [:rfc:`7523`], [`PDND`_]
   * - **client_assertion**
-    - A JWT representing the client assertion.
+    - Un JWT che rappresenta l'asserzione del client.
     - [:rfc:`7521`], [:rfc:`7523`], [`PDND`_]
   * - **client_assertion_type**
-    - MUST be set to ``urn:ietf:params:oauth:client-assertion-type:jwt-bearer``.
+    - DEVE essere impostato su ``urn:ietf:params:oauth:client-assertion-type:jwt-bearer``.
     - [:rfc:`7521`], [:rfc:`7523`]
   * - **grant_type**
-    - MUST be set to ``client_credentials``.
+    - DEVE essere impostato su ``client_credentials``.
     - [:rfc:`6749`], [:rfc:`7523`]
 
-The ``client_assertion`` JWT MUST include the following JOSE header parameters:
+Il JWT ``client_assertion`` DEVE includere i seguenti parametri nel JOSE header:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **alg**
-    - A digital signature algorithm identifier.
+    - Identificativo di un algoritmo di firma digitale.
     - [:rfc:`7515`]
   * - **kid**
-    - Unique identifier of the JWK used by the Participant to sign the ``client_assertion``.
+    - Identificativo univoco del JWK utilizzato dall'Aderente per firmare ``client_assertion``.
     - [:rfc:`7515`]
   * - **typ**
-    - MUST be set to ``JWT``.
+    - DEVE essere impostato su ``JWT``.
     - [:rfc:`7515`], [:rfc:`7519`]
 
-The ``client_assertion`` JWT MUST include the following payload claims (unless otherwise specified):
+Il JWT ``client_assertion`` DEVE includere i seguenti claim nel payload (se non diversamente specificato):
 
 .. list-table::
   :class: longtable
@@ -522,86 +534,86 @@ The ``client_assertion`` JWT MUST include the following payload claims (unless o
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - MUST be set to the same value as ``client_id``.
+    - DEVE essere impostato sullo stesso valore di ``client_id``.
     - [:rfc:`7523`]
   * - **sub**
-    - MUST be set to the same value as ``client_id``.
+    - DEVE essere impostato sullo stesso valore di ``client_id``.
     - [:rfc:`7523`]
   * - **aud**
-    - The identifier of the PDND Authorization Server Endpoint.
+    - Identificativo dell'Endpoint Authorization Server PDND.
     - [:rfc:`7523`]
   * - **exp**
-    - UNIX timestamp representing the JWT expiration time.
+    - Timestamp UNIX che rappresenta l'istante di scadenza del JWT.
     - [:rfc:`7523`]
   * - **nbf**
-    - UNIX timestamp representing the JWT first validity time (optional).
+    - Timestamp UNIX che rappresenta il primo istante di validità del JWT (opzionale).
     - [:rfc:`7519`]
   * - **iat**
-    - UNIX timestamp representing the JWT issuance time.
+    - Timestamp UNIX che rappresenta l'istante di emissione del JWT.
     - [:rfc:`7523`]
   * - **jti**
-    - Unique identifier of the JWT to prevent replay attacks.
+    - Identificativo univoco del JWT per prevenire attacchi di replay.
     - [:rfc:`7523`]
   * - **purposeId**
-    - The identifier of the purpose registered in the PDND Platform, associated with the intended e-Service. It is mandatory only if the requested Voucher is for e-Service (i.e., not for Interoperability API).
+    - Identificativo dello scopo registrato nella Piattaforma PDND, associato all'e-Service previsto. È obbligatorio solo se il Voucher richiesto è per e-Service (quindi non per API di Interoperabilità).
     - [`MODI`_], [`PDND`_]
   * - **digest**
-    - JSON object containing the digest of the ``TrackingEvidence`` JWT. It is mandatory only if the requested Voucher is for e-Service (i.e., not for Interoperability API), and when complying with ``AUDIT_REST_02`` or the ``POP_TPoP`` implementation. If present, it MUST contain the following claims:
+    - Oggetto JSON contenente il digest del JWT ``TrackingEvidence``. È obbligatorio solo se il Voucher richiesto è per e-Service (quindi non per API di Interoperabilità), e quando si rispetta ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``. Se presente, DEVE contenere i seguenti claim:
 
-      - **alg**: JSON string representing the hashing algorithm;
-      - **value**: JSON string representing the value of the digest.
+      - **alg**: stringa JSON che rappresenta l'algoritmo di hashing;
+      - **value**: stringa JSON che rappresenta il valore del digest.
     - [`MODI`_]
 
-PDND Voucher Response
-"""""""""""""""""""""""
+Risposta (Voucher PDND)
+"""""""""""""""""""""""""
 
-The Voucher Response MUST include the following body parameters:
+La `Voucher Response` DEVE includere i seguenti parametri nel body:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **access_token**
-    - A JWT representing the access token issued by the PDND Authorization Server Endpoint.
+    - JWT che rappresenta l'Access Token emesso dall'Endpoint Authorization Server PDND.
     - [:rfc:`6749`], [:rfc:`9449`], [`PDND`_]
   * - **token_type**
-    - It MUST be set to:
+    - DEVE essere impostato su:
 
-      - ``DPoP`` in case of Voucher for e-Service following the ``POP_DPoP`` implementation;
-      - ``Bearer`` in case of Voucher for Interoperability API, or Voucher for e-Service following the ``POP_TPoP`` implementation.
+      - ``DPoP`` in caso di Voucher per e-Service seguendo l'implementazione ``POP_DPoP``;
+      - ``Bearer`` in caso di Voucher per API di Interoperabilità, o Voucher per e-Service seguendo l'implementazione ``POP_TPoP``.
     - [:rfc:`6749`], [:rfc:`9449`]
   * - **expires_in**
-    - Number that represents the lifetime of the access token in seconds as a positive integer.
+    - Numero che rappresenta la durata dell'Access Token in secondi come intero positivo.
     - [:rfc:`6749`], [:rfc:`9449`]
 
-The ``access_token`` JWT MUST include the following JOSE header parameters:
+Il JWT ``access_token`` DEVE includere i seguenti parametri nel JOSE header:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **alg**
-    - A digital signature algorithm identifier.
+    - Identificativo di un algoritmo di firma digitale.
     - [:rfc:`7515`]
   * - **kid**
-    - Unique identifier of the JWK used by the PDND Authorization Server Endpoint to sign the ``access_token``.
+    - Identificativo univoco del JWK utilizzato dall'Endpoint Authorization Server PDND per firmare ``access_token``.
     - [:rfc:`7515`]
   * - **typ**
-    - MUST be set to ``at+jwt``.
+    - DEVE essere impostato su ``at+jwt``.
     - [:rfc:`9068`]
 
-The ``access_token`` JWT MUST include the following payload claims (unless otherwise specified):
+Il JWT ``access_token`` DEVE includere i seguenti claim nel payload (se non diversamente specificato):
 
 .. list-table::
   :class: longtable
@@ -609,49 +621,49 @@ The ``access_token`` JWT MUST include the following payload claims (unless other
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - The identifier of the PDND Authorization Server.
+    - Identificativo dell'Authorization Server PDND.
     - [:rfc:`7519`], [:rfc:`9068`]
   * - **sub**
-    - The identifier of the Participant, corresponding to the ``client_id`` body parameter in the Voucher Request.
+    - Identificativo dell'Aderente, corrispondente al parametro ``client_id`` nel body della `Voucher Request`.
     - [:rfc:`7519`], [:rfc:`9068`]
   * - **aud**
-    - The identifier of the e-Service.
+    - Identificativo dell'e-Service.
     - [:rfc:`7519`], [:rfc:`9068`]
   * - **exp**
-    - UNIX timestamp representing the JWT expiration time.
+    - Timestamp UNIX che rappresenta l'istante di scadenza del JWT.
     - [:rfc:`7519`], [:rfc:`9068`]
   * - **nbf**
-    - UNIX timestamp representing the JWT first validity time (optional).
+    - Timestamp UNIX che rappresenta il primo istante di validità del JWT (opzionale).
     - [:rfc:`7519`]
   * - **iat**
-    - UNIX timestamp representing the JWT issuance time.
+    - Timestamp UNIX che rappresenta l'istante di emissione del JWT.
     - [:rfc:`7519`], [:rfc:`9068`]
   * - **jti**
-    - Unique identifier of the JWT to prevent replay attacks.
+    - Identificativo univoco del JWT per prevenire attacchi di replay.
     - [:rfc:`7519`], [:rfc:`9068`]
   * - **client_id**
-    - MUST correspond to the ``client_id`` contained in the Voucher Request.
+    - DEVE corrispondere al ``client_id`` contenuto nella `Voucher Request`.
     - [:rfc:`7519`], [:rfc:`8963`], [:rfc:`9068`], [`PDND`_]
   * - **purposeId**
-    - MUST correspond to the value of the ``purposeId`` claim contained in the Voucher Request. It is mandatory only if the requested Voucher is for e-Service (i.e., not for Interoperability API).
+    - DEVE corrispondere al valore del claim ``purposeId`` contenuto nella `Voucher Request`. È obbligatorio solo se il Voucher richiesto è per e-Service (cioè, non per API di Interoperabilità).
     - [`MODI`_], [`PDND`_]
   * - **digest**
-    - MUST correspond to the value of the ``digest`` object contained in the Voucher Request. It is mandatory only when complying with ``AUDIT_REST_02`` or the ``POP_TPoP`` implementation.
+    - DEVE corrispondere al valore dell'oggetto ``digest`` contenuto nella `Voucher Request`. È obbligatorio solo quando si rispetta ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``.
     - [`MODI`_]
   * - **cnf**
-    - It MUST contain a **jkt** claim being JWK SHA-256 Thumbprint Confirmation Method. The value of the *jkt* member MUST be the base64url encoding (as defined in [:rfc:`7515`]) of the JWK SHA-256 Thumbprint of the DPoP public key (in JWK format) to which the Access Token is bound. It is mandatory only when complying with the ``POP_DPoP`` implementation.
-    - [:rfc:`9449`. Section 6.1] and [:rfc:`7638`].
+    - DEVE contenere un claim **jkt** che è il JWK SHA-256 Thumbprint Confirmation Method. Il valore del claim *jkt* DEVE essere la codifica base64url (come definito in [:rfc:`7515`]) del JWK SHA-256 Thumbprint della chiave pubblica DPoP (in formato JWK) a cui l'Access Token è associato. È obbligatorio solo quando si rispetta l'implementazione ``POP_DPoP``.
+    - [:rfc:`9449`. Sezione 6.1] e [:rfc:`7638`].
 
-If any errors occur during the validation of the Voucher Request, the PDND Authorization Server Endpoint MUST return an error response as defined in :rfc:`6749#section-5.2`. The response MUST use ``application/json`` as the content type and MUST include the following parameters:
+Se si verificano errori durante la validazione della `Voucher Request`, l'Endpoint Authorization Server PDND DEVE restituire una risposta di errore come definito in :rfc:`6749#section-5.2`. La risposta DEVE utilizzare ``application/json`` come ``Content-Type`` e DEVE includere i seguenti parametri:
 
-  - ``error``: The error code.
-  - ``error_description``: Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - ``error``: Il codice di errore.
+  - ``error_description``: Testo in forma leggibile dall'uomo che fornisce ulteriori dettagli per chiarire la natura dell'errore incontrato.
 
 .. code-block:: http
-  :caption: Non-normative example of a Voucher Error Response
+  :caption: Esempio non normativo di una `Voucher Error Response`
   :name: code_VoucherIssuance_Endpoint_AuthorizationServer_Error
 
   HTTP/1.1 400 Bad Request
@@ -664,68 +676,74 @@ If any errors occur during the validation of the Voucher Request, the PDND Autho
   }
 
 
-The following table lists the HTTP Status Codes and related error codes that MUST be supported for the error response:
+La seguente tabella elenca gli HTTP Status Code e i relativi codici di errore che DEVONO essere supportati per la risposta di errore:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 60
   :header-rows: 1
 
-  * - **Status Code**
-    - **Error Code**
-    - **Description**
+  * - **HTTP Status Code**
+    - **Codice di Errore**
+    - **Descrizione**
   * - ``400 Bad Request``
     - ``invalid_request``
-    - The request cannot be fulfilled because it is missing required parameters, contains invalid parameters, or is otherwise malformed [:rfc:`6749#section-5.2`].
+    - La richiesta non può essere soddisfatta perché mancano parametri richiesti, contiene parametri non validi o è in qualche modo malformata [:rfc:`6749#section-5.2`].
   * - ``400 Bad Request``
     - ``invalid_grant``
-    - The request cannot be fulfilled because the provided grant (i.e., ``client_assertion``) is expired, revoked, already used, or otherwise malformed [:rfc:`6749#section-5.2`].
+    - La richiesta non può essere soddisfatta perché il grant fornito (cioè, ``client_assertion``) è scaduto, revocato, già utilizzato o in qualche modo malformato [:rfc:`6749#section-5.2`].
   * - ``400 Bad Request``
     - ``unsupported_grant_type``
-    - The request cannot be fulfilled because the provided grant type is not supported by the PDND Authorization Server [:rfc:`6749#section-5.2`].
+    - La richiesta non può essere soddisfatta perché il tipo di grant fornito non è supportato dall'Authorization Server PDND [:rfc:`6749#section-5.2`].
   * - ``400 Bad Request``
     - ``invalid_scope``
-    - The request cannot be fulfilled because the provided ``purposeId`` is invalid, unknown, malformed, or not associated to the Client [:rfc:`6749#section-5.2`].
+    - La richiesta non può essere soddisfatta perché il ``purposeId`` fornito non è valido, è sconosciuto, malformato o non associato al Client [:rfc:`6749#section-5.2`].
   * - ``400 Bad Request``
     - ``invalid_dpop_proof``
-    - The request cannot be fulfilled because it contains an invalid *DPoP proof* [:rfc:`9449#section-5`].
+    - La richiesta non può essere soddisfatta perché contiene una *DPoP proof* non valida [:rfc:`9449#section-5`].
   * - ``401 Unauthorized``
     - ``invalid_client``
-    - The request cannot be fulfilled because Client Authentication failed (i.e., the ``client_assertion`` is malformed, incorrectly signed, missing, or unverifiable) [:rfc:`6749#section-5.2`].
+    - La richiesta non può essere soddisfatta perché l'autenticazione del Client è fallita (quindi ``client_assertion`` è malformato, firmato in modo errato, mancante o non verificabile) [:rfc:`6749#section-5.2`].
   * - ``500 Internal Server Error``
     - ``server_error``
-    - The request cannot be fulfilled because the PDND Authorization Server encountered an internal problem.
+    - La richiesta non può essere soddisfatta perché l'Authorization Server PDND ha riscontrato un problema interno.
   * - ``503 Service Unavailable``
     - ``temporarily_unavailable``
-    - The request cannot be fulfilled because the PDND Authorization Server is temporarily unavailable (e.g., due to maintenance or overload).
+    - La richiesta non può essere soddisfatta perché l'Authorization Server PDND è temporaneamente non disponibile (ad esempio, a causa di manutenzione o sovraccarico).
 
-Key Retrieval
-----------------------
+Reperimento delle Chiavi
+--------------------------
 
-PDND Authorization Server Keys
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Chiavi dell'Authorization Server PDND
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. _fig_KeyRetrieval_PDND_Flow:
-.. figure:: ../../images/Low-Level-Flow-AuthenticSource-KeyRetrieval-PDND.svg
-  :figwidth: 100%
-  :align: center
-  :target: https://www.plantuml.com/plantuml/svg/PS_1IWCn58NXVPxYK7U1-01Tb1Pc8GWgcSMiq_Q8eMbIRsvc79_UgOWAtHxuF-xTLWsYxPoCHat48sTugaIE8S7XfNlgZ0bDIsxdFSMOVVc0jTVTMjpjFflG09T5YOTu2LcnilP-OahkbCkKhLqXL0o6-OWb_XMaZF58kIeF9NFkEDr2pxkcR_2ifSc1w2aZvOVq_P_fUxSPrl1yRwoAroBVf-F4kHepEBVn_VhVj5tAvUil
+.. plantuml:: plantuml/pdnd-key-retrieval.puml
+    :width: 80%
+    :alt: La figura illustra il reperimento delle chiavi dell'Authorization Server PDND - Flusso dettagliato.
+    :caption: `Reperimento delle chiavi dell'Authorization Server PDND - Flusso dettagliato. <https://www.plantuml.com/plantuml/svg/RSx1IWCn58NXVPxYK7U1-01Tb1Qw40ILp6BMQNl4q4nIRsvc79_UgOWAkZsN_-DkgmRHDYJSSuQdIkGO4XoUzWzxer4J_p-PqBJaDXmenXpA6wozxjRYPlVUX0QuB7Gynal8YfMrjnDJSkTSfcpj2g6YDymdBF6t86MC9yfLkIkPyvxJN-Xnr_G5dhKqEH8TPQHyaRxxCNtdDlqQdg-DLV5SvFDrd3bNOthdDhvR_vgsIzc6z040>`_
 
-  Key Retrieval for PDND Keys - Detailed flow
 
-**Step 1 (Keys Request)**: The Provider requests for the keys used by the PDND to sign Vouchers.
+.. .. figure:: ../../images/Low-Level-Flow-AuthenticSource-KeyRetrieval-PDND.svg
+..   :figwidth: 100%
+..   :align: center
+..   :target: https://www.plantuml.com/plantuml/svg/PS_1IWCn58NXVPxYK7U1-01Tb1Pc8GWgcSMiq_Q8eMbIRsvc79_UgOWAtHxuF-xTLWsYxPoCHat48sTugaIE8S7XfNlgZ0bDIsxdFSMOVVc0jTVTMjpjFflG09T5YOTu2LcnilP-OahkbCkKhLqXL0o6-OWb_XMaZF58kIeF9NFkEDr2pxkcR_2ifSc1w2aZvOVq_P_fUxSPrl1yRwoAroBVf-F4kHepEBVn_VhVj5tAvUil
+
+..   Recupero delle Chiavi per le Chiavi PDND - Flusso dettagliato
+
+**Passo 1 (Richiesta delle chiavi)**: L'Erogatore richiede le chiavi utilizzate dalla PDND per firmare i Voucher.
 
 .. code-block:: http
-  :caption: Non-normative example of the Keys Request
+  :caption: Esempio non normativo della `Keys Request`
   :name: _code_KeyRetrieval_PDND_Flow_Request
 
   GET /.well-known/jwks.json HTTP/1.1
   Host: interop.pagopa.it
 
-**Step 2 (Keys Response)**: The .well-known Endpoint returns the list of keys used by the PDND to sign Vouchers, as a ``JWK Set`` [:rfc:`7517`].
+**Passo 2 (Risposta)**: L'Endpoint .well-known restituisce l'elenco delle chiavi utilizzate dalla PDND per firmare i Voucher, come un ``JWK Set`` [:rfc:`7517`].
 
 .. code-block:: http
-  :caption: Non-normative example of the Keys Response
+  :caption: Esempio non normativo della `Keys Response`
   :name: _code_KeyRetrieval_PDND_Flow_Response
 
   HTTP/1.1 200 OK
@@ -750,28 +768,28 @@ PDND Authorization Server Keys
     ]
   }
 
-PDND Authorization Server .well-known Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint .well-known dell'Authorization Server PDND
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The .well-known Endpoint is part of the PDND Infrastructure and used to retrieve the public keys used by the PDND Authorization Server to sign the Vouchers.
+L'Endpoint .well-known fa parte dell'Infrastruttura PDND ed è utilizzato per reperire le chiavi pubbliche utilizzate dall'Authorization Server PDND per firmare i Voucher.
 
-PDND Authorization Server Keys Request
-""""""""""""""""""""""""""""""""""""""
+Richiesta (Chiavi dell'Authorization Server PDND)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-The Keys Request is a ``GET`` HTTP request sent to the .well-known Endpoint. This endpoint allows Participants to retrieve the public keys necessary to verify digital signatures on Vouchers issued by the PDND Authorization Server.
+La `Keys Request` è una richiesta HTTP ``GET`` inviata all'Endpoint .well-known. Questo endpoint consente agli Aderenti di reperire le chiavi pubbliche necessarie per verificare le firme digitali sui Voucher emessi dall'Authorization Server PDND.
 
-PDND Authorization Server Keys Response
-"""""""""""""""""""""""""""""""""""""""
+Risposta (Chiavi dell'Authorization Server PDND)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-The .well-known Endpoint responds with a ``200 OK`` status code and a ``JWK Set`` [:rfc:`7517`] containing the public keys employed by the PDND Authorization Server to sign Vouchers.
+L'Endpoint .well-known risponde con un HTTP Status Code ``200 OK`` e un ``JWK Set`` [:rfc:`7517`] contenente le chiavi pubbliche impiegate dall'Authorization Server PDND per firmare i Voucher.
 
-If any errors occur during the retrieval of the keys, the .well-known Endpoint MUST return an error response. The response MUST use ``application/json`` as the content type and MUST include the following parameters:
+Se si verificano errori durante il reperimento delle chiavi, l'Endpoint .well-known DEVE restituire una risposta di errore. La risposta DEVE utilizzare ``application/json`` come ``Content-Type`` e DEVE includere i seguenti parametri:
 
-  - ``error``: The error code.
-  - ``error_description``: Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - ``error``: Il codice di errore.
+  - ``error_description``: Testo in forma leggibile dall'uomo che fornisce ulteriori dettagli per chiarire la natura dell'errore incontrato.
 
 .. code-block:: http
-  :caption: Non-normative example of a Keys Error Response
+  :caption: Esempio non normativo di una `Keys Error Response`
   :name: code_KeyRetrieval_Endpoint_WellKnown_Error
 
   HTTP/1.1 500 Internal Server Error
@@ -783,61 +801,67 @@ If any errors occur during the retrieval of the keys, the .well-known Endpoint M
   }
 
 
-The following table lists the HTTP Status Codes and related error codes that MUST be supported for the error response:
+La seguente tabella elenca gli HTTP Status Code e i relativi codici di errore che DEVONO essere supportati per la risposta di errore:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 60
   :header-rows: 1
 
-  * - **Status Code**
-    - **Error Code**
-    - **Description**
+  * - **HTTP Status Code**
+    - **Codice di Errore**
+    - **Descrizione**
   * - ``500 Internal Server Error``
     - ``server_error``
-    - The request cannot be fulfilled because the .well-known Endpoint encountered an internal problem.
+    - La richiesta non può essere soddisfatta perché l'Endpoint .well-known ha riscontrato un problema interno.
   * - ``503 Service Unavailable``
     - ``temporarily_unavailable``
-    - The request cannot be fulfilled because the .well-known Endpoint is temporarily unavailable (e.g., due to maintenance or overload).
+    - La richiesta non può essere soddisfatta perché l'Endpoint .well-known è temporaneamente non disponibile (ad esempio, a causa di manutenzione o sovraccarico).
 
-Participants' Keys
-^^^^^^^^^^^^^^^^^^
+Chiavi degli Aderenti
+^^^^^^^^^^^^^^^^^^^^^^^
 
-Participants' Key Retrieval Prerequisites
-"""""""""""""""""""""""""""""""""""""""""
+Prerequisiti per il Reperimento delle Chiavi degli Aderenti
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-The **Participant** who requests the key MUST comply with the following prerequisites:
+L'**Aderente** che richiede la chiave DEVE rispettare i seguenti prerequisiti:
 
-    - Has successfully subscribed to the PDND Infrastructure (as per R1).
-    - Has created a new `Client api interop` to interact with the PDND Interoperability API. Upon creation, it has been assigned a ``client_id`` by the PDND Platform.
-    - Has registered a key pair associated with the `Client api interop`.
-    - Has obtained a valid Voucher to query the PDND Interoperability API, related to the specific `Client api interop`.
+    - Ha completato con successo l'adesione all'Infrastruttura PDND (come da R1).
+    - Ha creato un nuovo `Client api interop` per interagire con l'API di Interoperabilità PDND. Al momento della creazione, gli è stato assegnato un ``client_id`` dalla Piattaforma PDND.
+    - Ha registrato una coppia di chiavi associata al `Client api interop`.
+    - Ha ottenuto un Voucher valido per interrogare l'API di Interoperabilità PDND, relativo allo specifico `Client api interop`.
 
-Participants' Key Retrieval Flow
-""""""""""""""""""""""""""""""""
+Flusso di Reperimento delle Chiavi degli Aderenti
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 .. _fig_KeyRetrieval_Participant_Flow:
-.. figure:: ../../images/Low-Level-Flow-AuthenticSource-KeyRetrieval-Participant.svg
-    :figwidth: 100%
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/fSp1IlGm5CNnVPxYa6_nGQ0lC8jXIbkm25fcxIPjx-XbqYGcDsfzUYk85Low_f_pEsMnIShYbB0umYsjE9CafXVhK67OAayShPUib2qIV5b6IagDuGt63ErTQmp-rUybaGBYleSsflT2AKHATcJ7ig8UUcCqR4QloC_Ob6zgltwADy7JsjBhR_I-BlA4nZ5v-SAQRjUQhZhsXpCz5yg2IqZu8V_FY6LqFE5AwuEVGagKO_0p-qT8G8uqyMNBMbzvrbf1zTMnwGv_CKxavxAu3m00
+.. plantuml:: plantuml/pdnd-key-retrieval-participant.puml
+    :width: 80%
+    :alt: La figura illustra il reperimento delle chiavi degli Aderenti - Flusso dettagliato.
+    :caption: `Reperimento delle chiavi degli Aderenti - Flusso dettagliato. <https://www.plantuml.com/plantuml/svg/fSp1IiGm4CRnUvxY8nw4mBx07fOjRS4YQDcpbxITrM7J92OJjJwz5SGAWXUlC__lTynYavJPuPOMd4WIqujrsA5Vxpnoj5wo4XP7VoVA5Wc-p0CbfORm1cFwvgun1bVLUqcaWBZrqCPqNYY5ICaEx5WML7rdZ8RDw1Jv2QloJMtJJ_4cU5eQUlsDtbT5db0x9YzVMDrkMjtk3jt-HC-5ik0S4dx8rncn38v7N6Xvy6D8YN8CVcB_20d8aKO-hs-jBpnfhQ2wtQ5kz_ynZkIdChiF>`_
 
-    Key Retrieval for Participant's Key - Detailed flow
 
-**Step 1 (Key Request)**: The Participant requests for the key used by another Participant, corresponding to a specific ``kid``, to the PDND Interoperability API.
+.. .. figure:: ../../images/Low-Level-Flow-AuthenticSource-KeyRetrieval-Participant.svg
+..     :figwidth: 100%
+..     :align: center
+..     :target: https://www.plantuml.com/plantuml/svg/fSp1IlGm5CNnVPxYa6_nGQ0lC8jXIbkm25fcxIPjx-XbqYGcDsfzUYk85Low_f_pEsMnIShYbB0umYsjE9CafXVhK67OAayShPUib2qIV5b6IagDuGt63ErTQmp-rUybaGBYleSsflT2AKHATcJ7ig8UUcCqR4QloC_Ob6zgltwADy7JsjBhR_I-BlA4nZ5v-SAQRjUQhZhsXpCz5yg2IqZu8V_FY6LqFE5AwuEVGagKO_0p-qT8G8uqyMNBMbzvrbf1zTMnwGv_CKxavxAu3m00
+
+..     Recupero delle Chiavi per la Chiave del Partecipante - Flusso dettagliato
+
+**Passo 1 (Richiesta della chiave)**: L'Aderente richiede la chiave utilizzata da un altro Aderente, corrispondente a uno specifico ``kid``, alle API di Interoperabilità PDND.
 
 .. code-block:: http
-    :caption: Non-normative example of the Key Request
+    :caption: Esempio non normativo della `Key Request`
     :name: _code_KeyRetrieval_Participant_Flow_Request
 
     GET /keys/c7e3d6a4-5b99-4298-9b84-d8f3a61279f1 HTTP/1.1
     Host: interop.pagopa.it
     Authorization: Bearer eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MzlmNGM3LTFlNWQtNGE4YS05ZmM2LTcyZDNiN2YwOTFlYyIsInR5cCI6ImF0K2p3dCJ9.eyJpc3MiOiJpbnRlcm9wLnBhZ29wYS5pdCIsInN1YiI6IjVhM2M3ZjI4LTkxYjktNGM0ZS04OWE5LTZlMmY4NWQ5MjYyYiIsImF1ZCI6Imh0dHBzOi8vaW50ZXJvcC5wYWdvcGEuaXQvYXBpL3YxIiwiZXhwIjoxNzMzMjM2NjgwLCJuYmYiOjE3MzMyMzMxNTgsImlhdCI6MTczMzIzMzA4MCwianRpIjoiZjg3ZTJkNWItOWY2NS00ZjBmLThhZDQtOTJlNThlNmIxM2M3IiwiY2xpZW50X2lkIjoiNWEzYzdmMjgtOTFiOS00YzRlLTg5YTktNmUyZjg1ZDkyNjJiIn0.SKDDap16Ubi6gYwpKVdBcuhmhF_XnGiHeoxkF8F4IAualYORu_TxnDZqeP_RCcBAxSRkJTFbMihPCLA7DoRQOw
 
-**Step 2 (Key Response)**: The Interoperability API Endpoint returns the requested key, as a ``JWK`` [:rfc:`7517`].
+**Passo 2 (Risposta)**: L'Endpoint API di Interoperabilità restituisce la chiave richiesta, come un ``JWK`` [:rfc:`7517`].
 
 .. code-block:: http
-  :caption: Non-normative example of the Key Response
+  :caption: Esempio non normativo della `Key Response`
   :name: _code_KeyRetrieval_Participant_Flow_Response
 
   HTTP/1.1 200 OK
@@ -856,54 +880,54 @@ Participants' Key Retrieval Flow
 
 
 .. note::
-  The Interoperability API includes an event notification endpoint that alerts subscribed Participants about changes within the PDND Infrastructure. Among these notifications, the ``/events/keys`` endpoint provides updates on modifications to cryptographic material, such as additions or deletions of keys. By leveraging this mechanism, Participants can implement a periodic polling strategy to retrieve all changed keys and update their local cache. This eliminates the need to request each key individually during the workflow.
+  L'API di Interoperabilità include un endpoint di notifica degli eventi che avvisa gli Aderenti iscritti sui cambiamenti all'interno dell'Infrastruttura PDND. Tra queste notifiche, l'endpoint ``/events/keys`` fornisce aggiornamenti sulle modifiche al materiale crittografico, come aggiunte o eliminazioni di chiavi. Sfruttando questo meccanismo, gli Aderenti possono implementare una strategia di polling periodico per recuperare tutte le chiavi modificate e aggiornare la loro cache locale. Ciò elimina la necessità di richiedere ogni chiave individualmente durante il flusso.
 
-PDND Interoperability API Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint API di Interoperabilità PDND
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Interoperability API Endpoint is part of the PDND Infrastructure and used to retrieve the public keys of other parties enrolled in the PDND.
+L'Endpoint API di Interoperabilità fa parte dell'Infrastruttura PDND ed è utilizzato per recuperare le chiavi pubbliche di altri Aderenti all'Infrastruttura PDND.
 
-PDND Interoperability API Key Request
-"""""""""""""""""""""""""""""""""""""
+Richiesta (Chiave da API di Interoperabilità PDND)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-The Key Request is a ``GET`` HTTP request sent to the ``/keys/<kid>`` API. This request is used to retrieve a specific key identified by its unique ``kid``.
+La `Key Request` è una richiesta HTTP ``GET`` inviata all'API ``/keys/<kid>``. Questa richiesta viene utilizzata per recuperare una chiave specifica identificata dal suo ``kid`` univoco.
 
-The Key Request MUST include the following HTTP header parameters:
+La `Key Request` DEVE includere i seguenti parametri di header HTTP:
 
 .. list-table::
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **Authorization**
-    - Voucher released by the PDND Authorization Server.
+    - Voucher rilasciato dall'Authorization Server PDND.
     - [:rfc:`9449`]
 
-PDND Interoperability API Key Response
-""""""""""""""""""""""""""""""""""""""
+Risposta (Chiave da API di Interoperabilità PDND)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-In case a public key with the provided ``kid`` exists, the Interoperability API Endpoint responds with a ``200 OK`` status code and a ``JWK`` [:rfc:`7517`] representing that key.
+Nel caso in cui esista una chiave pubblica con il ``kid`` fornito, l'Endpoint dell'API di Interoperabilità risponde con un codice di stato ``200 OK`` e un ``JWK`` [:rfc:`7517`] che rappresenta quella chiave.
 
-If any errors occur during the retrieval of the key, the Interoperability API Endpoint MUST return an error response, whose structure depends on the nature of the error.
+Se si verificano errori durante il reperimento della chiave, l'Endpoint API di Interoperabilità DEVE restituire un errore, la cui struttura dipende dalla natura dell'errore.
 
-In case of authentication issues (i.e., invalid or expired Voucher), the response MUST adhere to the error format defined in :rfc:`6750#section-3`, with specific reference to the use of the ``WWW-Authenticate`` header parameter.
+In caso di problemi di autenticazione (cioè, Voucher non valido o scaduto), la risposta DEVE aderire al formato di errore definito in :rfc:`6750#section-3`, con specifico riferimento all'uso del parametro di header ``WWW-Authenticate``.
 
 .. code-block:: http
-    :caption: Non-normative example of a Key Error Response in case of 401 errors
+    :caption: Esempio non normativo di una `Key Error Response` in caso di errori 401
     :name: code_KeyRetrieval_Endpoint_InteroperabilityAPI_Error_401
 
     HTTP/1.1 401 Unauthorized
     WWW-Authenticate: Bearer error="invalid_token", error_description="The access token expired"
 
-For all other errors, the response MUST adhere to the error format defined in :rfc:`6749#section-5.2`. The response MUST use ``application/json`` as the content type and MUST include the following parameters:
+Per tutti gli altri errori, la risposta DEVE aderire al formato di errore definito in :rfc:`6749#section-5.2`. La risposta DEVE utilizzare ``application/json`` come tipo di contenuto e DEVE includere i seguenti parametri:
 
-    - ``error``: The error code.
-    - ``error_description``: Text in human-readable form providing further details to clarify the nature of the error encountered.
+    - ``error``: Il codice di errore.
+    - ``error_description``: Testo in forma leggibile dall'uomo che fornisce ulteriori dettagli per chiarire la natura dell'errore incontrato.
 
 .. code-block:: http
-    :caption: Non-normative example of a Key Error Response in case of other errors
+    :caption: Esempio non normativo di una `Key Error Response` in caso di altri errori
     :name: code_KeyRetrieval_Endpoint_InteroperabilityAPI_Error_Others
 
     HTTP/1.1 400 Bad Request
@@ -915,66 +939,72 @@ For all other errors, the response MUST adhere to the error format defined in :r
     }
 
 
-The following table lists the HTTP Status Codes and related error codes that MUST be supported for the error response:
+La seguente tabella elenca gli HTTP Status Code e i relativi codici di errore che DEVONO essere supportati per la risposta di errore:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 60
   :header-rows: 1
 
-  * - **Status Code**
-    - **Error Code**
-    - **Description**
+  * - **HTTP Status Code**
+    - **Codice di Errore**
+    - **Descrizione**
   * - ``400 Bad Request``
     - ``invalid_request``
-    - The request cannot be fulfilled because it is missing required parameters, contains invalid parameters or is otherwise malformed [:rfc:`6750#section-3.1`].
+    - La richiesta non può essere soddisfatta perché mancano parametri richiesti, contiene parametri non validi o è in qualche modo malformata [:rfc:`6750#section-3.1`].
   * - ``401 Unauthorized``
     - ``invalid_token``
-    - The request cannot be fulfilled because the Voucher is expired, revoked, malformed, or otherwise invalid [:rfc:`6750#section-3.1`].
+    - La richiesta non può essere soddisfatta perché il Voucher è scaduto, revocato, malformato o in qualche modo non valido [:rfc:`6750#section-3.1`].
   * - ``404 Not Found``
     - ``not_found``
-    - The request cannot be fulfilled because no public key corresponding to the provided ``kid`` has been found.
+    - La richiesta non può essere soddisfatta perché non è stata trovata alcuna chiave pubblica corrispondente al ``kid`` fornito.
   * - ``500 Internal Server Error``
     - ``server_error``
-    - The request cannot be fulfilled because the Interoperability API Endpoint encountered an internal problem.
+    - La richiesta non può essere soddisfatta perché l'Endpoint API di Interoperabilità ha riscontrato un problema interno.
   * - ``503 Service Unavailable``
     - ``temporarily_unavailable``
-    - The request cannot be fulfilled because the Interoperability API Endpoint is temporarily unavailable (e.g., due to maintenance or overload).
+    - La richiesta non può essere soddisfatta perché l'Endpoint API di Interoperabilità è temporaneamente non disponibile (ad esempio, a causa di manutenzione o sovraccarico).
 
-e-Service Usage
------------------
+Utilizzo dell'e-Service
+-----------------------
 
-e-Service Usage Prerequisites
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Prerequisiti per l'Utilizzo dell'e-Service
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The **Consumer** MUST comply with the following prerequisites:
+Il **Fruitore** DEVE rispettare i seguenti prerequisiti:
 
-  - Has obtained a valid Voucher to interact with the intended e-Service, related to a specific `Client e-service`.
+  - Ha ottenuto un Voucher valido per interagire con l'e-Service desiderato, relativo a uno specifico `Client e-service`.
 
-The **Provider** MUST comply with the following prerequisites:
+L'**Erogatore** DEVE rispettare i seguenti prerequisiti:
 
-  - Has created a new key ring associated with the specific e-Service.
-  - Has registered a key pair associated with the key ring.
+  - Ha creato un nuovo portachiavi associato allo specifico e-Service.
+  - Ha registrato una coppia di chiavi associata al portachiavi.
 
 .. note::
-  The Provider's key ring is the counterpart to the Client on the Consumer's side. It stores cryptographic material, allowing Consumers to verify the integrity of responses from Providers.
+  Il portachiavi dell'Erogatore è la controparte del Client relativo al Fruitore. Memorizza materiale crittografico, consentendo ai Fruitori di verificare l'integrità delle risposte dagli Erogatori.
 
 
-e-Service Usage Flow
-^^^^^^^^^^^^^^^^^^^^^^^
+Flusso di Utilizzo dell'e-Service
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. _fig_Usage_Flow:
-.. figure:: ../../images/Low-Level-Flow-AuthenticSource-Usage.svg
-    :figwidth: 100%
-    :align: center
-    :target: https////www.plantuml.com/plantuml/svg/ZP1HRzCm4CVV_IbEtWjOgeHut0DQbQmmX5YLTF1OUSwHM4ryuNpkw3uzph8LAZJK5ykMx_-xd_vNKInB6debNde4NDJ8U-yGxg9jKIcRX48Qxf6LkgTVO4n18QO1sHYukDaJ7nJ0c27U-T460MtCxJ991qNlCOWn6co4OgKmD90HBvnr-RMS6Cl7nFWQOpg8_QCLJm4cD-HduhB-XyYqzyrizea27afyU0rSOQJ43a-PrL_COhNuKAmkrumPWF3v-mOUV4v6tmOhYH7UQ5s_FBH-Uun0mMW5eLpJ6aOc-Z5_LVKbb5PiNlupOPIPzusIwwPwEL0EKRR97d3nnRUTV6J4e02A3jqEj9wGMa-IJzFdXQnp6EDMQ8VX94oZm6te3xE8rikxycQphQxhpVRT-pm9y3_ydmKRjcxdGtizrHySFaMFQ_BbFCzZcIUILRsOMtrk3Hjeh5XrbKVIqFy6
+.. plantuml:: plantuml/pdnd-eservice-usage.puml
+    :width: 80%
+    :alt: La figura illustra l'Utilizzo dell'e-Service - Flusso dettagliato.
+    :caption: `Utilizzo dell'e-Service - Flusso dettagliato. <https://www.plantuml.com/plantuml/svg/ZP31RjGm48RlVegHUm5BAo6EFQ2kaYuK8RfAjd1SkSwGM9jumdYyPVlqE4sxiAfQzHB5zlpVVFelebYMDFI0Ynfvxnt2JRGjAl7IuxDRPPDGICCjibAtz0UCAIZ4D20R0sTNU-A30XWpr3i_sY2WZRbU9kcWw3q6CKQ3ZL2i58O6CkA9iow_bnDZUPyONs9C7s9_RyLJWCaD-P6uh9yHcVQ-cSs-KC13YNSlWIkCbDZXARFwZrci5f-ArVcQCGCGllxSm9tFoUZRO2KnmZkjwwU3rk-F4IWOhI2KQrh3o4I_vgUgFeVIYitBVoUCClD-K7BTL2y7oY7ADja3phxvjfFFZ1WKGD6Xsu7M4rBhIV9X-cqXwnp6k1NQOJW9qoXm7Vh3BABrygQyscohotgp_V0nJmAyXl-tOCFMxNneBwVwWyE7w75D_dcRvx7C4ycgNiojFhQ63JHMhBh88sde_m80>`_
 
-    e-Service Usage - Detailed flow
 
-**Step 1 (Signature Preparation):** The Consumer prepares a JWT (``Signature``) containing the signed headers of the message, to ensure integrity.
+.. .. figure:: ../../images/Low-Level-Flow-AuthenticSource-Usage.svg
+..     :figwidth: 100%
+..     :align: center
+..     :target: https////www.plantuml.com/plantuml/svg/ZP1HRzCm4CVV_IbEtWjOgeHut0DQbQmmX5YLTF1OUSwHM4ryuNpkw3uzph8LAZJK5ykMx_-xd_vNKInB6debNde4NDJ8U-yGxg9jKIcRX48Qxf6LkgTVO4n18QO1sHYukDaJ7nJ0c27U-T460MtCxJ991qNlCOWn6co4OgKmD90HBvnr-RMS6Cl7nFWQOpg8_QCLJm4cD-HduhB-XyYqzyrizea27afyU0rSOQJ43a-PrL_COhNuKAmkrumPWF3v-mOUV4v6tmOhYH7UQ5s_FBH-Uun0mMW5eLpJ6aOc-Z5_LVKbb5PiNlupOPIPzusIwwPwEL0EKRR97d3nnRUTV6J4e02A3jqEj9wGMa-IJzFdXQnp6EDMQ8VX94oZm6te3xE8rikxycQphQxhpVRT-pm9y3_ydmKRjcxdGtizrHySFaMFQ_BbFCzZcIUILRsOMtrk3Hjeh5XrbKVIqFy6
+
+..     Utilizzo dell'e-Service - Flusso dettagliato
+
+**Passo 1 (Preparazione della firma):** Il Fruitore prepara un JWT (``Signature``) contenente le intestazioni firmate del messaggio, per garantire l'integrità.
 
 .. code-block:: json
-    :caption: Non-normative example of the ``Signature`` header
+    :caption: Esempio non normativo dell'header di ``Signature``
     :name: _code_Usage_Flow_Signature_Header
 
     {
@@ -984,7 +1014,7 @@ e-Service Usage Flow
     }
 
 .. code-block:: json
-    :caption: Non-normative example of the ``Signature`` payload
+    :caption: Esempio non normativo del payload di ``Signature``
     :name: _code_Usage_Flow_Signature_Payload
 
     {
@@ -1002,17 +1032,17 @@ e-Service Usage Flow
     }
 
 .. note::
-  Step 1 is required to comply with the ``INTEGRITY_REST_02`` security pattern.
+  Il passo 1 è richiesto per rispettare il pattern di sicurezza ``INTEGRITY_REST_02``.
 
-**Step 2 (DPoP Proof for e-Service Endpoint)**: The Consumer MUST create a fresh DPoP Proof JWT following the instruction provided in the Section 4 of [:rfc:`9449`] for the token presentation to the e-Service Endpoint.
+**Passo 2 (`DPoP proof`)**: Il Fruitore DEVE creare un nuovo JWT di `DPoP proof` seguendo le istruzioni fornite nella Sezione 4 di [:rfc:`9449`] per la presentazione del token all'Endpoint e-Service.
 
 .. note::
-  Step 2 is required only when complying with the ``POP_DPoP`` implementation.
+  Il passo 2 è richiesto solo quando si rispetta l'implementazione ``POP_DPoP``.
 
-**Step 3 (e-Service Request):** The Consumer sends an e-Service Request to the Provider, including the Voucher.
+**Passo 3 (Richiesta e-Service):** Il Fruitore invia una `e-Service Request` all'Erogatore, includendo il Voucher.
 
 .. code-block:: http
-    :caption: Non-normative example of the e-Service Request
+    :caption: Esempio non normativo della `e-Service Request`
     :name: _code_Usage_Flow_Request
 
     POST /ente-example/v1/hello/echo/ HTTP/1.1
@@ -1029,80 +1059,80 @@ e-Service Usage Flow
         "parameter2": "value2"
     }
 
-The Provider MUST validate the DPoP proof [:rfc:`9449`].
+L'Erogatore DEVE validare la `DPoP proof` [:rfc:`9449`].
 
 .. note::
-  DPoP proof validation is required only when complying with the ``POP_DPoP`` implementation.
+  La validazione della `DPoP proof` è richiesta solo quando si rispetta l'implementazione ``POP_DPoP``.
 
-The Provider MUST validate the Voucher as follows:
+L'Erogatore DEVE validare il Voucher come segue:
 
     Header:
 
-      - Ensure that the ``typ`` claim is present and that its value is ``at+jwt``.
+      - Assicurarsi che il claim ``typ`` sia presente e che il suo valore sia ``at+jwt``.
 
-    Signature:
+    Firma:
 
-      - Retrieve the collection of public keys published at the .well-known endpoint. From this collection, select the public key whose identifier corresponds to the value of the ``kid`` header parameter in the Voucher.
-      - Validate the signature of the ``access_token`` using the retrieved public key and the algorithm specified by the ``alg`` header parameter.
+      - Reperire l'insieme di chiavi pubbliche pubblicate all'Endpoint .well-known. Da questo insieme, selezionare la chiave pubblica il cui identificatore corrisponde al valore del parametro header ``kid`` nel Voucher.
+      - Validare la firma dell'``access_token`` utilizzando la chiave pubblica recuperata e l'algoritmo specificato dal parametro header ``alg``.
 
     Payload:
 
-      - The ``iss`` claim MUST identify the domain of the PDND Authorization Server.
-      - The ``sub`` claim MUST correspond to the ``client_id`` claim.
-      - The ``aud`` claim MUST match the intended e-Service.
-      - In case of ``POP_DPoP`` implementation, the ``cnf.jkt`` claim MUST correspond to the SHA-256 Thumbprint of the DPoP public key in the ``jwk`` claim in the DPoP proof.
+      - Il claim ``iss`` DEVE identificare il dominio dell'Authorization Server PDND.
+      - Il claim ``sub`` DEVE corrispondere al claim ``client_id``.
+      - Il claim ``aud`` DEVE corrispondere all'e-Service previsto.
+      - In caso di implementazione ``POP_DPoP``, il claim ``cnf.jkt`` DEVE corrispondere al SHA-256 Thumbprint della chiave pubblica DPoP nel claim ``jwk`` nella prova DPoP.
 
 .. note::
-  If the Provider requires additional context about the request, it can interact with the PDND Interoperability API by passing the value of the ``purposeId`` as a parameter.
+  Se l'Erogatore richiede maggiori informazioni sul contesto della richiesta, può interagire con l'API di Interoperabilità PDND passando il valore del ``purposeId`` come parametro.
 
-The Provider MUST validate the ``TrackingEvidence`` JWT as follows:
+L'Erogatore DEVE validare il JWT ``TrackingEvidence`` come segue:
 
   Header:
 
-    - Ensure that the ``typ`` claim is present and that its value is ``JWT``.
+    - Assicurarsi che il claim ``typ`` sia presente e che il suo valore sia ``JWT``.
 
-  Signature:
+  Firma:
 
-    - Obtains the Consumer's public key corresponding to the ``kid`` header parameter, by interacting with the PDND Interoperability API.
-    - Validate the signature of the JWT using the retrieved Consumer's public key and the algorithm specified by the ``alg`` header parameter.
+    - Ottenere la chiave pubblica del Fruitore corrispondente al parametro header ``kid``, interagendo con l'API di Interoperabilità PDND.
+    - Validare la firma del JWT utilizzando la chiave pubblica del Fruitore recuperata e l'algoritmo specificato dal parametro header ``alg``.
 
   Payload:
 
-    - The ``iss`` claim MUST identify the Consumer Client.
-    - The ``aud`` claim MUST identify the Provider.
+    - Il claim ``iss`` DEVE identificare il Client del Fruitore.
+    - Il claim ``aud`` DEVE identificare l'Erogatore.
 
-In addition, the Provider MUST ensure that the hash of the ``TrackingEvidence`` JWT matches the value of the ``digest.value`` claim contained in the ``access_token`` payload.
+Inoltre, l'Erogatore DEVE assicurarsi che l'hash del JWT ``TrackingEvidence`` corrisponda al valore del claim ``digest.value`` contenuto nel payload ``access_token``.
 
 .. note::
-  The validation of the ``TrackingEvidence`` JWT is required only when complying with the ``AUDIT_REST_02`` security pattern or the ``POP_TPoP`` implementation.
+  La validazione del JWT ``TrackingEvidence`` è richiesta solo quando si rispetta il pattern di sicurezza ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``.
 
-The Provider MUST validate the ``Signature`` JWT as follows:
+L'Erogatore DEVE validare il JWT ``Signature`` come segue:
 
   Header:
 
-    - Ensure that the ``typ`` claim is present and that its value is ``JWT``.
+    - Assicurarsi che il claim ``typ`` sia presente e che il suo valore sia ``JWT``.
 
-  Signature:
+  Firma:
 
-    - Validate the signature of the JWT using the retrieved Consumer's public key and the algorithm specified by the ``alg`` header parameter.
+    - Validare la firma del JWT utilizzando la chiave pubblica del Fruitore recuperata e l'algoritmo specificato dal parametro header ``alg``.
 
   Payload:
 
-    - The ``iss`` and ``sub`` claims MUST identify the Consumer Client.
-    - The ``aud`` claim MUST identify the Provider.
+    - I claim ``iss`` e ``sub`` DEVONO identificare il Client del Fruitore.
+    - Il claim ``aud`` DEVE identificare l'Erogatore.
 
-In addition, the Provider MUST validate the integrity of the e-Service Request, by checking that:
+Inoltre, l'Erogatore DEVE validare l'integrità della `e-Service Request`, verificando che:
 
-  - The ``signed_headers.content-type`` claim matches the value of the ``Content-Type`` HTTP header of the e-Service Request.
-  - The ``signed_headers.digest`` claim matches the value of the digest of the payload of the e-Service Request, as well as the value of the ``Digest`` HTTP header of the e-Service Request.
+  - Il claim ``signed_headers.content-type`` corrisponda al valore dell'header HTTP ``Content-Type`` della `e-Service Request`.
+  - Il claim ``signed_headers.digest`` corrisponda al valore del digest del payload della `e-Service Request`, nonché al valore dell'header HTTP ``Digest`` della `e-Service Request`.
 
 
-If any of the previous checks fail, the Provider MUST reject the Request.
+Se uno qualsiasi dei controlli precedenti fallisce, l'Erogatore DEVE rifiutare la richiesta.
 
-**Step 4 (e-Service Response):** Upon successful checks, the Provider provides the Consumer with the requested data.
+**Passo 4 (Risposta):** Qualora i controlli abbiano successo, l'Erogatore fornisce al Fruitore i dati richiesti.
 
 .. code-block:: http
-  :caption: Non-normative example of the e-Service Response
+  :caption: Esempio non normativo della `e-Service Response`
   :name: _code_Usage_Flow_Response
 
   HTTP/1.1 200 OK
@@ -1112,7 +1142,7 @@ If any of the previous checks fail, the Provider MUST reject the Request.
 
 
 .. code-block:: json
-  :caption: Non-normative example of the e-Service Response JWT header
+  :caption: Esempio non normativo dell'header JWT della `e-Service Response`
   :name: _code_Usage_Flow_Response_JWT_Header
 
   {
@@ -1122,7 +1152,7 @@ If any of the previous checks fail, the Provider MUST reject the Request.
   }
 
 .. code-block:: json
-  :caption: Non-normative example of the e-Service Response JWT payload
+  :caption: Esempio non normativo del payload JWT della `e-Service Response`
   :name: _code_Usage_Flow_Response_JWT_Payload
 
   {
@@ -1138,76 +1168,76 @@ If any of the previous checks fail, the Provider MUST reject the Request.
   }
 
 
-The Consumer MUST perform the following steps to validate the e-Service Response JWT:
+Il Fruitore DEVE eseguire i seguenti passaggi per validare il JWT della `e-Service Response`:
 
   Header:
 
-  - Ensure that the ``typ`` claim is present and that its value is ``JWT``.
+  - Assicurarsi che il claim ``typ`` sia presente e che il suo valore sia ``JWT``.
 
-  Signature:
+  Firma:
 
-  - Obtain the Provider's public key corresponding to the ``kid`` header parameter, by interacting with the PDND Interoperability API.
-  - Validate the signature of the JWT using the retrieved Provider's public key and the algorithm specified by the ``alg`` header parameter.
+  - Ottenere la chiave pubblica dell'Erogatore corrispondente al parametro header ``kid``, interagendo con l'API di Interoperabilità PDND.
+  - Validare la firma del JWT utilizzando la chiave pubblica dell'Erogatore recuperata e l'algoritmo specificato dal parametro header ``alg``.
 
   Payload:
 
-  - The ``iss`` claim MUST identify the Provider.
-  - The ``aud`` claim MUST identify the Consumer Client itself.
+  - Il claim ``iss`` DEVE identificare l'Erogatore.
+  - Il claim ``aud`` DEVE identificare il Client del Fruitore stesso.
 
 
-e-Service Endpoint
-^^^^^^^^^^^^^^^^^^^^^^
+Endpoint e-Service
+^^^^^^^^^^^^^^^^^^
 
-e-Service Request
+Richiesta (e-Service)
 """""""""""""""""""""
 
-The e-Service Request MUST include the following HTTP header parameters (unless otherwise specified):
+La `e-Service Request` DEVE includere i seguenti parametri di header HTTP (se non diversamente specificato):
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **Authorization**
-    - Voucher released by the PDND Authorization Server.
+    - Voucher rilasciato dall'Authorization Server PDND.
     - [:rfc:`9449`], [`MODI`_], [`PDND`_]
   * - **DPoP**
-    - DPoP proof JWT, to comply with the ``REST_JWS_2021_POP`` security pattern. Is is mandatory only when following the ``POP_DPoP`` implementation.
+    - JWT di `DPoP proof`, per rispettare il pattern di sicurezza ``REST_JWS_2021_POP``. È obbligatorio solo quando si segue l'implementazione ``POP_DPoP``.
     - [:rfc:`9449`], [`PDND`_]
   * - **Agid-JWT-Signature**
-    - JWT containing the signature of the message headers whose integrity needs to be guaranteed, to comply with the ``INTEGRITY_REST_02`` security pattern.
+    - JWT contenente la firma delle intestazioni del messaggio la cui integrità deve essere garantita, per rispettare il pattern di sicurezza ``INTEGRITY_REST_02``.
     - [`MODI`_]
   * - **Digest**
-    - Digest of the message payload, to comply with the ``INTEGRITY_REST_02`` security pattern. According to :rfc:`3230`, the format MUST be the following: ``<digest-algorithm>=<encoded digest output>``.
+    - Digest del payload del messaggio, per rispettare il pattern di sicurezza ``INTEGRITY_REST_02``. Secondo :rfc:`3230`, il formato DEVE essere il seguente: ``<digest-algorithm>=<encoded digest output>``.
     - [:rfc:`3230`], [`MODI`_]
   * - **Agid-JWT-TrackingEvidence**
-    - JWT containing the data tracker in the Consumer's domain. It is mandatory only when complying with ``AUDIT_REST_02`` or the ``POP_TPoP`` implementation.
+    - JWT contenente i dati tracciati nel dominio del Fruitore. È obbligatorio solo quando si rispetta ``AUDIT_REST_02`` o l'implementazione ``POP_TPoP``.
     - [`MODI`_]
 
-The ``Signature`` JWT, contained in the ``Agid-JWT-Signature`` HTTP header, MUST include the following JOSE header parameters:
+Il JWT ``Signature``, contenuto nell'header HTTP ``Agid-JWT-Signature``, DEVE includere i seguenti parametri nel JOSE header:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **alg**
-    - A digital signature algorithm identifier.
+    - Identificativo di un algoritmo di firma digitale.
     - [:rfc:`7515`]
   * - **kid**
-    - Unique identifier of the JWK used by the Consumer to sign the JWT.
+    - Identificativo univoco del JWK utilizzata dal Fruitore per firmare il JWT.
     - [:rfc:`7515`]
   * - **typ**
-    - MUST be set to ``JWT``.
+    - DEVE essere impostato su ``JWT``.
     - [:rfc:`7515`], [:rfc:`7519`]
 
-The ``Signature`` JWT, contained in the ``Agid-JWT-Signature`` HTTP header, MUST include the following payload claims:
+Il JWT ``Signature``, contenuto nell'header HTTP ``Agid-JWT-Signature``, DEVE includere i seguenti claim nel payload:
 
 .. list-table::
   :class: longtable
@@ -1215,57 +1245,57 @@ The ``Signature`` JWT, contained in the ``Agid-JWT-Signature`` HTTP header, MUST
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - MUST be set to the same value as ``client_id``.
+    - DEVE essere impostato sullo stesso valore di ``client_id``.
     - [:rfc:`7519`]
   * - **sub**
-    - MUST be set to the same value as ``client_id``.
+    - DEVE essere impostato sullo stesso valore di ``client_id``.
     - [:rfc:`7519`]
   * - **aud**
-    - The identifier of the Provider.
+    - Identificativo dell'Erogatore.
     - [:rfc:`7519`]
   * - **exp**
-    - UNIX timestamp representing the JWT expiration time.
+    - Timestamp UNIX che rappresenta l'istante di scadenza del JWT.
     - [:rfc:`7519`]
   * - **nbf**
-    - UNIX timestamp representing the JWT first validity time (optional).
+    - Timestamp UNIX che rappresenta il primo istante di validità del JWT (opzionale).
     - [:rfc:`7519`]
   * - **iat**
-    - UNIX timestamp representing the JWT issuance time.
+    - Timestamp UNIX che rappresenta l'istante di emissione del JWT.
     - [:rfc:`7519`]
   * - **jti**
-    - Unique identifier of the JWT to prevent replay attacks.
+    - Identificativo univoco del JWT per prevenire attacchi di replay.
     - [:rfc:`7519`]
   * - **signed_headers**
-    - JSON object containing the signed headers whose integrity needs to be protected, to with ``INTEGRITY_REST_02``. It MUST contain the following claims:
+    - Oggetto JSON contenente le intestazioni firmate la cui integrità deve essere protetta, per rispettare ``INTEGRITY_REST_02``. DEVE contenere i seguenti claim:
 
-      - **digest**: JSON string representing the signature of the ``Digest`` HTTP header
-      - **content-type**: JSON string representing the signature of the ``Content-Type`` HTTP header
+      - **digest**: stringa JSON che rappresenta la firma dell'header HTTP ``Digest``
+      - **content-type**: stringa JSON che rappresenta la firma dell'header HTTP ``Content-Type``
     - [`MODI`_]
 
-If present, the ``TrackingEvidence`` JWT, contained in the ``Agid-JWT-TrackingEvidence`` HTTP header, MUST include the following JOSE header parameters:
+Se presente, il JWT ``TrackingEvidence``, contenuto nell'header HTTP ``Agid-JWT-TrackingEvidence``, DEVE includere i seguenti parametri nel JOSE header:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **alg**
-    - A digital signature algorithm identifier.
+    - Identificativo di un algoritmo di firma digitale.
     - [:rfc:`7515`]
   * - **kid**
-    - Unique identifier of the JWK used by the Consumer to sign the JWT.
+    - Identificativo univoco del JWK utilizzato dal Fruitore per firmare il JWT.
     - [:rfc:`7515`]
   * - **typ**
-    - MUST be set to ``JWT``.
+    - DEVE essere impostato su ``JWT``.
     - [:rfc:`7515`], [:rfc:`7519`]
 
-If present, the ``TrackingEvidence`` JWT, contained in the ``Agid-JWT-TrackingEvidence`` HTTP header, MUST include the following payload claims:
+Se presente, il JWT ``TrackingEvidence``, contenuto nell'header HTTP ``Agid-JWT-TrackingEvidence``, DEVE includere i seguenti claim nel payload:
 
 .. list-table::
   :class: longtable
@@ -1273,61 +1303,61 @@ If present, the ``TrackingEvidence`` JWT, contained in the ``Agid-JWT-TrackingEv
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - MUST be set to the same value as ``client_id``.
+    - DEVE essere impostato sullo stesso valore di ``client_id``.
     - [:rfc:`7519`]
   * - **aud**
-    - The identifier of the Provider.
+    - Identificativo dell'Erogatore.
     - [:rfc:`7519`]
   * - **exp**
-    - UNIX timestamp representing the JWT expiration time.
+    - Timestamp UNIX che rappresenta l'istante di scadenza del JWT.
     - [:rfc:`7519`]
   * - **nbf**
-    - UNIX timestamp representing the JWT first validity time (optional).
+    - Timestamp UNIX che rappresenta il primo istante di validità del JWT (opzionale).
     - [:rfc:`7519`]
   * - **iat**
-    - UNIX timestamp representing the JWT issuance time.
+    - Timestamp UNIX che rappresenta l'istante di emissione del JWT.
     - [:rfc:`7519`]
   * - **jti**
-    - Unique identifier of the JWT to prevent replay attacks.
+    - Identificativo univoco del JWT per prevenire attacchi di replay.
     - [:rfc:`7519`]
   * - **purposeId**
-    - The identifier of the purpose registered in the PDND Platform, associated with the intended e-Service.
+    - Identificativo dello scopo registrato nella Piattaforma PDND, associato all'e-Service previsto.
     - [`MODI`_]
   * - **dnonce**
-    - It MUST be a random string composed by integer numbers and with a length of 13 digits.
+    - DEVE essere una stringa casuale composta da numeri interi e con una lunghezza di 13 cifre.
     - [`MODI`_]
 
-When complying with the ``AUDIT_REST_02`` security pattern, the ``TrackingEvidence`` payload MUST also contain the tracked data agreed upon with the Provider.
+Quando si rispetta il pattern di sicurezza ``AUDIT_REST_02``, il payload ``TrackingEvidence`` DEVE contenere anche i dati tracciati concordati con l'Erogatore.
 
-e-Service Response
-"""""""""""""""""""
+Risposta (e-Service)
+""""""""""""""""""""""
 
-The e-Service Response is a JWT serialized in ``application/jwt`` format.
+La `e-Service Response` è un JWT serializzato in formato ``application/jwt``.
 
-The e-Service Response JWT MUST include the following JOSE header parameters:
+Il JWT della `e-Service Response` DEVE includere i seguenti parametri nel JOSE header:
 
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
-  * - **Parameter**
-    - **Description**
-    - **Reference**
+  * - **Parametro**
+    - **Descrizione**
+    - **Riferimento**
   * - **alg**
-    - A digital signature algorithm identifier.
+    - Identificativo di un algoritmo di firma digitale.
     - [:rfc:`7515`]
   * - **kid**
-    - Unique identifier of the JWK used by the Provider to sign the JWT.
+    - Identificativo univoco del JWK utilizzato dall'Erogatore per firmare il JWT.
     - [:rfc:`7515`]
   * - **typ**
-    - MUST be set to ``JWT``.
+    - DEVE essere impostato su ``JWT``.
     - [:rfc:`7515`], [:rfc:`7519`]
 
-The e-Service Response JWT MUST include the following payload claims:
+Il JWT della `e-Service Response` DEVE includere i seguenti claim nel payload:
 
 .. list-table::
   :class: longtable
@@ -1335,47 +1365,47 @@ The e-Service Response JWT MUST include the following payload claims:
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - The identifier of the e-Service.
+    - Identificativo dell'e-Service.
     - [:rfc:`7519`]
   * - **aud**
-    - The identifier of the Consumer.
+    - Identificativo del Fruitore.
     - [:rfc:`7519`]
   * - **exp**
-    - UNIX timestamp representing the JWT expiration time.
+    - Timestamp UNIX che rappresenta l'istante di scadenza del JWT.
     - [:rfc:`7519`]
   * - **nbf**
-    - UNIX timestamp representing the JWT first validity time (optional).
+    - Timestamp UNIX che rappresenta il primo istante di validità del JWT (opzionale).
     - [:rfc:`7519`]
   * - **iat**
-    - UNIX timestamp representing the JWT issuance time.
+    - Timestamp UNIX che rappresenta l'istante di emissione del JWT.
     - [:rfc:`7519`]
   * - **jti**
-    - Unique identifier of the JWT to prevent replay attacks.
+    - Identificativo univoco del JWT per prevenire attacchi di replay.
     - [:rfc:`7523`]
 
-The e-Service Response JWT payload includes specific claims related to the data elements provided to the Consumer.
+Il payload del JWT della `e-Service Response` include specifici claim relativi ai dati forniti al Fruitore.
 
-If any errors occur during the validation of the e-Service Request, the e-Service Endpoint MUST return an error response, whose structure depends on the nature of the error.
+Se si verificano errori durante la validazione della `e-Service Request`, l'Endpoint e-Service DEVE restituire un errore, la cui struttura dipende dalla natura dell'errore.
 
-In case of authentication issues (i.e., invalid or expired Voucher), the response MUST adhere to the error format defined in :rfc:`6750#section-3` and :rfc:`9449#section-7.1`, with specific reference to the use of the ``WWW-Authenticate`` header parameter.
+In caso di problemi di autenticazione (cioè, Voucher non valido o scaduto), la risposta DEVE aderire al formato di errore definito in :rfc:`6750#section-3` e :rfc:`9449#section-7.1`, con specifico riferimento all'uso del parametro di header ``WWW-Authenticate``.
 
 .. code-block:: http
-    :caption: Non-normative example of an e-Service Error Response in case of 401 errors
+    :caption: Esempio non normativo di una `e-Service Error Response` in caso di errori 401
     :name: code_Usage_Endpoint_eService_Error_401
 
     HTTP/1.1 401 Unauthorized
     WWW-Authenticate: DPoP error="invalid_token", error_description="The access token expired"
 
-For all other errors, the response MUST adhere to the error format defined in :rfc:`6749#section-5.2`. The response MUST use ``application/json`` as the content type and MUST include the following parameters:
+Per tutti gli altri errori, la risposta DEVE aderire al formato di errore definito in :rfc:`6749#section-5.2`. La risposta DEVE utilizzare ``application/json`` come ``Content-Type`` e DEVE includere i seguenti parametri:
 
-    - ``error``: The error code.
-    - ``error_description``: Text in human-readable form providing further details to clarify the nature of the error encountered.
+    - ``error``: Il codice di errore.
+    - ``error_description``: Testo in forma leggibile dall'uomo che fornisce ulteriori dettagli per chiarire la natura dell'errore incontrato.
 
 .. code-block:: http
-    :caption: Non-normative example of an e-Service Error Response in case of other errors
+    :caption: Esempio non normativo di una `e-Service Error Response` in caso di altri errori
     :name: code_Usage_Endpoint_eService_Error
 
     HTTP/1.1 400 Bad Request
@@ -1387,29 +1417,28 @@ For all other errors, the response MUST adhere to the error format defined in :r
     }
 
 
-The following table lists the HTTP Status Codes and related error codes that MUST be supported for the error response:
+La seguente tabella elenca gli HTTP Status Code e i relativi codici di errore che DEVONO essere supportati per la risposta di errore:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 60
   :header-rows: 1
 
-  * - **Status Code**
-    - **Error Code**
-    - **Description**
+  * - **HTTP Status Code**
+    - **Codice di Errore**
+    - **Descrizione**
   * - ``400 Bad Request``
     - ``invalid_request``
-    - The request cannot be fulfilled because it is missing required parameters, contains invalid parameters, or is otherwise malformed [:rfc:`6750#section-3.1`].
+    - La richiesta non può essere soddisfatta perché mancano parametri richiesti, contiene parametri non validi o è in qualche modo malformata [:rfc:`6750#section-3.1`].
   * - ``400 Bad Request``
     - ``invalid_dpop_proof``
-    - The request cannot be fulfilled because it contains an invalid *DPoP proof* [:rfc:`9449#section-5`].
+    - La richiesta non può essere soddisfatta perché contiene una *DPoP proof* non valida [:rfc:`9449#section-5`].
   * - ``401 Unauthorized``
     - ``invalid_token``
-    - The request cannot be fulfilled because the Voucher is expired, revoked, or otherwise malformed [:rfc:`6750#section-3.1`].
+    - La richiesta non può essere soddisfatta perché il Voucher è scaduto, revocato o in qualche modo malformato [:rfc:`6750#section-3.1`].
   * - ``500 Internal Server Error``
     - ``server_error``
-    - The request cannot be fulfilled because the e-Service Endpoint encountered an internal problem.
+    - La richiesta non può essere soddisfatta perché l'Endpoint e-Service ha riscontrato un problema interno.
   * - ``503 Service Unavailable``
     - ``temporarily_unavailable``
-    - The request cannot be fulfilled because the e-Service Endpoint is temporarily unavailable (e.g., due to maintenance or overload).
-
+    - La richiesta non può essere soddisfatta perché l'Endpoint e-Service è temporaneamente non disponibile (ad esempio, a causa di manutenzione o sovraccarico).

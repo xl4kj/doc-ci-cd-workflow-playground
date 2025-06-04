@@ -1,120 +1,132 @@
 .. include:: ../common/common_definitions.rst
 
+.. "included" file, so we start with '-' title level
+
+Brand Identity del Sistema IT-Wallet 
+------------------------------------
+
+La Brand Identity del Sistema IT-Wallet definisce la personalità del sistema e si declina in una serie di elementi codificati che la contraddistinguono, tra cui il naming e gli elementi propri dell'Identità Visiva. Questa consolida l'implementazione del Modello della Fiducia.
+
+È quindi importante che la consapevolezza dell'Utente e la sua fiducia nell'ecosistema siano favoriti dalla presenza di elementi grafici, da integrare nelle Soluzioni Tecniche e nei diversi Touchpoint. 
+
+Questa sezione illustra i requisiti minimi che gli Attori Primari devono rispettare per garantire una corretta applicazione della Brand Identity del Sistema IT-Wallet, quindi una sua presenza visiva uniforme, coerente e riconoscibile e un'Esperienza Utente di qualità. 
+
+Per indicazioni e strumenti a supporto, fare riferimento alle Risorse Ufficiali. 
+
+Naming 
+^^^^^^
+
+"Sistema IT-Wallet" (IT-Wallet System in inglese) o "IT-Wallet" in forma contratta è il nome ufficiale che DEVE essere utilizzato in contesti scritti o verbali, fisici o digitali. Di seguito i relativi requisiti per la corretta scrittura e pronuncia: 
+
+- si DEVE rispettare l'uso delle maiuscole nel termine “IT” e nelle iniziali di “Wallet” e “Sistema”; 
+
+- si DEVE rispettare l'uso del trattino tra i termini “IT” e “Wallet”, senza l'uso di spaziature; 
+
+- si DEVE rispettare la corretta pronuncia del termine “IT”, separando foneticamente le due lettere “I” e “T”. In italiano la fonetica corretta è /i ti/ e non /it/, mentre in inglese la fonetica corretta è /ˌaɪ ˈtiː/ e non /ɪt/, /aɪt/ o /ɪti/. 
+ 
+
+Identità Visiva
+^^^^^^^^^^^^^^^
+
+Il Sistema IT-Wallet ha una propria Identità Visiva. I partecipanti dell'ecosistema DEVONO applicarla in modo che si distingua e allo stesso tempo dialoghi e coesista con l'Identità Visiva propria e delle proprie Soluzioni Tecniche. In particolare, tutti gli Attori Primari DEVONO utilizzare le Risorse Ufficiali relative all'Identità Visiva del Sistema IT-Wallet. Il loro utilizzo ha lo scopo di rappresentare la partecipazione al Sistema IT-Wallet senza sostituire l'Identità Visiva della propria Soluzione Tecnica. 
+
+Logo 
+""""
+
+Il Logo è l'elemento grafico ufficiale che permette l'immediata riconoscibilità del Sistema IT-Wallet. 
+
+Di seguito i requisiti generali per il suo utilizzo, validi sia in riferimento a contesti di utilizzo fisici che digitali (e.g. siti web, applicazioni, documenti cartacei, materiali informativi stampati o video, etc.): 
+
+- il Logo PUÒ essere utilizzato da tutti coloro che intendono riferirsi al Sistema IT-Wallet; 
+
+- il Logo DEVE essere utilizzato per rappresentare il Sistema IT-Wallet o l'appartenenza ad esso e NON DEVE essere utilizzato per identificare una specifica Soluzione Tecnica; 
+
+- il Logo DEVE essere quello presente all'interno delle Risorse Ufficiali e DEVE seguire le relative specifiche di utilizzo disponibili nelle Risorse Ufficiali; 
+
+- il Logo DEVE essere utilizzato in formato ``application/svg+xml``; 
+
+- il Logo NON DEVE essere alterato, distorto, modificato o sostituito da loghi non ufficiali; 
+
+- il Logo DEVE essere utilizzato garantendo l'area di rispetto minima definita nelle Risorse Ufficiali, al fine di garantirne un'adeguata visibilità e riconoscibilità. Altri elementi grafici o testuali NON DEVONO interferire con questa area di rispetto; 
+
+- il Logo NON DEVE essere ridimensionato oltre i limiti minimi stabiliti dalle Risorse Ufficiali, in modo da garantire sempre una leggibilità ottimale su qualsiasi formato o dispositivo; 
+
+- il Logo NON DEVE essere utilizzato su sfondi di colore che ne compromettano la visibilità o la leggibilità. DEVE essere garantito un contrasto adeguato tra il Logo e lo sfondo, in conformità con quanto definito nelle Risorse Ufficiali; 
+
+- il Logo PUÒ essere associato a loghi, marchi o simboli di altri attori del sistema in accordo con le specifiche di coesistenza, in termini di proporzioni e visibilità, stabilite nelle Risorse Ufficiali. 
+
+Trust Mark 
+""""""""""
+
+Il Trust Mark è l'elemento grafico ufficiale che dà prova agli Utenti dell'appartenenza al Sistema IT-Wallet degli attori del Sistema IT-Wallet e delle relative Soluzioni Tecniche con cui interagisce.
+
+Di seguito i requisiti generali per il suo utilizzo, validi sia in riferimento a contesti di utilizzo fisici che digitali (e.g. siti web, applicazioni, documenti cartacei, materiali informativi stampati o video, etc.): 
+
+- il Trust Mark DEVE essere utilizzato esclusivamente per dare prova dell'appartenenza al Sistema IT-Wallet e non DEVE essere utilizzato per scopi diversi; 
+
+- il Trust Mark DEVE essere esposto esclusivamente dalle Soluzioni Tecniche che hanno concluso con successo il processo di certificazione; 
+
+- il Trust Mark DEVE essere quello presente all'interno delle Risorse Ufficiali e DEVE seguire le relative specifiche di utilizzo disponibili presso le Risorse Ufficiali, per garantirne un'adeguata visibilità in tutte le fasi dell'Esperienza Utente; 
+
+- il Trust Mark NON DEVE essere alterato, distorto, modificato o sostituito da loghi non ufficiali. 
+
+- il Trust Mark NON DEVE essere ridimensionato oltre i limiti minimi stabiliti dalle Risorse Ufficiali, in modo da garantire sempre una leggibilità ottimale su qualsiasi formato o dispositivo; 
+
+- il Trust Mark DEVE essere utilizzato garantendo l'area di rispetto minima definita nelle Risorse Ufficiali, al fine di garantirne un'adeguata visibilità e riconoscibilità. Altri elementi grafici o testuali NON DEVONO interferire con questa area di rispetto; 
+
+- il Trust Mark NON DEVE essere utilizzato su sfondi di colore che ne compromettano la visibilità o la leggibilità. DEVE essere garantito un contrasto adeguato tra il Logo e lo sfondo, in conformità con quanto definito nelle Risorse Ufficiali; 
+
+- il Trust Mark PUÒ essere associato a loghi, marchi o simboli di altri attori del sistema in accordo con le specifiche di coesistenza, in termini di proporzioni e visibilità, stabilite nelle Risorse Ufficiali. 
+
+Componenti 
+""""""""""
+
+Sono definiti componenti gli elementi del Sistema IT-Wallet che abilitano l'Utente a interagire con le diverse Soluzioni Tecniche tramite la propria Istanza del Wallet.
+
+Le Risorse Ufficiali mettono a disposizione sia componenti complessi, ovvero template relativi a interi flussi, sia componenti atomici, ovvero singoli elementi da integrare all'interno di interfacce preesistenti (e.g. i Pulsanti di Ingaggio). 
+
+Di seguito i requisiti generali: 
+
+- gli Attori Primari DEVONO utilizzare esclusivamente le Risorse Ufficiali e DEVONO rispettare le indicazioni descritte nelle Risorse Ufficiali; 
+
+- gli Attori Primari POSSONO scegliere quale configurazione, tra quelle rese disponibili, implementare, ma DEVONO comunque garantire il corretto utilizzo dei componenti atomici come i Pulsanti di Ingaggio; 
+
+- gli Attori Primari DEVONO garantire il costante aggiornamento dei componenti, in linea con l'ultima versione resa disponibile. 
+
+Pulsante di Autenticazione 
+""""""""""""""""""""""""""
+
+Il Pulsante di Autenticazione è un esempio di Pulsante di Ingaggio. 
+I Verificatori di Attestati Elettronici DEVONO rendere disponibile il Pulsante di Autenticazione all'interno della Discovery Page delle proprie Soluzioni Tecniche per permettere all'Utente di Autenticarsi ai propri servizi tramite un'Istanza del Wallet.
+
+Le modalità di integrazione del Pulsante di Autenticazione nella Discovery Page possono essere molteplici a seconda del layout della pagina stessa. Di seguito alcuni esempi illustrativi e non esaustivi di Discovery Page, rispettivamente con struttura a griglia, a tab e in lista. 
+
+.. only:: format_html
+
+  .. figure:: ./images/svg/discovery-page-layouts.svg
+    :alt: Esempi di layout di Discovery Page a griglia, a tab e in lista
+    :width: 100%
+
+    Esempi di layout di Discovery Page a griglia, a tab e in lista
+
+.. only:: format_latex 
+  
+  .. figure:: ./images/pdf/discovery-page-layouts.pdf
+    :alt: Esempi di layout di Discovery Page a griglia, a tab e in lista
+    :width: 100%
+
+    Esempi di layout di Discovery Page a griglia, a tab e in lista
+
+Per maggiori dettagli sull'utilizzo del Pulsante di Autenticazione vedi la sezione :ref:`functionalities:Autenticazione`. 
+
+Il Pulsante di Autenticazione è caratterizzato dai seguenti requisiti: 
+
+- il Pulsante di Autenticazione DEVE essere usato come delineato nelle Risorse Ufficiali; 
+
+- il Pulsante di Autenticazione DEVE essere visivamente distinto da altri Pulsanti di Autenticazione o altri pulsanti di azione;
+
+- il Pulsante di Autenticazione DEVE essere utilizzato esclusivamente nelle forme, dimensioni e proporzioni stabilite dalle Risorse Ufficiali e NON DEVE essere alterato, distorto o nascosto; 
+
+- il Pulsante di Autenticazione DEVE adattarsi a tutte le risoluzioni di schermo e DEVE garantire requisiti minimi di usabilità e accessibilità. 
 
 
-IT-Wallet System Brand Identity
-===============================
-
-
-The IT-Wallet Brand Identity defines the system's personality and it's expressed through a set of standardized elements, including its naming and Visual Identity. It strengthens and promotes the Trust Model at the basis of the entire ecosystem, that is to say the framework that legitimizes the Actors' participation in the IT-Wallet System and ensures the security and integrity of its processes.
-
-It is important to strengthen the User awareness and trust in the ecosystem by integrating coherent graphical elements into the Technical Solutions and across the various Touchpoints.
-
-This section outlines the minimum requirements that Primary Actors must meet to ensure a proper application of the IT-Wallet System Brand Identity, to achieve a uniform, consistent, and recognizable visual presence, and deliver a high-quality User Experience.
-
-For further details, please refer to the Official Resources.
-
-Naming
-------
-
-"IT-Wallet System" is the official name that MUST be used in all written and verbal contexts, both physical and digital. Below are the requirements for the correct spelling and pronunciation:
-
-- The use of uppercase letters for "IT" and the initials of "Wallet" and "System" MUST be followed;
-
-- The hyphen (“-”) between "IT" and "Wallet" MUST be used without any spacing;
-
-- The correct pronunciation of "IT" MUST be followed, with the two letters "I" and "T" pronounced separately. In Italian, the correct pronunciation is /i ti/, not /it/, while in English, it is /ai ti/, not /it/, /ait/, or /iti/.
-
-
-Visual Identity
----------------
-
-The IT-Wallet System has its own Visual Identity. All actors within the ecosystem MUST ensure that their Visual Identity and that of their Technical Solutions are distinct yet compatible and cohesive with the Visual Identity of IT-Wallet System. Specifically, all Primary Actors MAY use the Official Resources related to the Visual Identity of the IT-Wallet System. Their use MUST be exclusively aimed at representing the participation in the IT-Wallet System and not at replacing the Visual Identity of their own Technical Solutions.
-
-Logo
-^^^^
-
-The Logo is the official graphic element that ensures immediate recognition of the IT-Wallet System and promotes its reliability.
-
-The following requirements apply to its use in both physical and digital contexts (e.g., websites, apps, documents, printed materials, videos, etc.):
-
-- The Logo MAY be used by anyone referring to the IT-Wallet System;
-
-- The Logo MUST be used to represent the IT-Wallet System or the participation to the IT-Wallet System and MUST NOT be used to identify a specific Technical Solution;
-
-- The Logo MUST be used exactly as provided in the Official Resources and MUST comply with the usage specifications outlined in the Official Resources;
-
-- The Logo MUST be in the ``application/svg+xml`` data format;
-
-- The Logo MUST NOT be altered, distorted, modified, or replaced by unofficial logos;
-
-- The Logo MUST maintain the minimum clear space as defined in the Official Resources to ensure visibility and recognizability. No other graphic or textual elements MUST interfere with this space;
-
-- The Logo MUST NOT be resized below the minimum dimensions specified in the Official Resources to maintain legibility across formats and devices;
-
-- The Logo MUST NOT be placed on backgrounds that compromise its visibility or legibility. Adequate contrast between the Logo and the background MUST be ensured, in line with the Official Resources;
-
-- The Logo MAY be displayed alongside other actors' logos, trademarks, or symbols, in accordance with the coexistence specifications regarding proportions and visibility, as defined in the Official Resources.
-
-Trust Mark
-^^^^^^^^^^
-
-The Trust Mark is the official graphic element that guarantees the belonging of Primary Actors and their respective Technical Solutions to the IT-Wallet System.
-
-The following requirements apply to its use in both physical and digital contexts (e.g., websites, apps, documents, printed materials, videos, etc.):
-
-- The Trust Mark MUST be used exclusively to certify the participation in the IT-Wallet System and MUST NOT be used for any other purpose;
-
-- The Trust Mark MUST only be displayed by Technical Solutions that have successfully completed the Certification Process;
-
-- The Trust Mark MUST be used exactly as provided in the Official Resources and MUST comply with the usage specifications outlined in the Official Resources to ensure proper visibility throughout all the stages of the User Experience;
-
-- The Trust Mark MUST NOT be altered, distorted, modified, or replaced by unofficial elements;
-
-- The Trust Mark MUST NOT be resized below the minimum dimensions specified in the Official Resources to maintain legibility across formats and devices;
-
-- The Trust Mark MUST maintain the minimum clear space as defined in the Official Resources to ensure visibility and recognizability. Other graphic or textual elements MUST NOT interfere with this space;
-
-- The Trust Mark MUST NOT be placed on backgrounds that compromise its visibility or legibility. Adequate contrast between the Trust Mark and the background MUST be ensured, in line with the Official Resources;
-
-- The Trust Mark MAY be displayed alongside other actors' logos, trademarks, or symbols, in accordance with the coexistence specifications regarding proportions and visibility, as defined in the Official Resources.
-
-Components
-^^^^^^^^^^
-
-Components are the elements of the IT-Wallet System that enable the User to interact with several Technical Solutions via their Wallet Instance.
-
-The Official Resources provide both complex components, such as templates to support entire workflows, and atomic components, like individual elements (e.g. Engagement Buttons) to be integrated into existing interfaces. 
-
-The key requirements are as follows:
-
-- Primary Actors MUST use Official Resources and MUST comply with the usage specifications outlined in the Official Resources;
-
-- Primary Actors MAY choose from the available configurations, but MUST ensure the correct use of atomic components, such as the Engagement Buttons;
-
-- Primary Actors MUST keep components up to date, in line with the latest available version.
-
-Authentication Button
-^^^^^^^^^^^^^^^^^^^^^
-
-The Authentication Button is a type of Engagement Button.
-Verifiers MUST make the Authentication Button available within the Discovery Page of their Technical Solutions to allow the User to get authenticated into their services through the Wallet Instance.
-
-The integration of the Authentication Button within the Discovery Page may vary depending on the page layout. Below are illustrative, non-exhaustive examples of Discovery Pages using grid, tab, and list layouts, respectively.
-
-.. figure:: ../../images/discovery-page-layouts.svg
-  :name: Examples of Discovery Page layouts: grid, tab, and list
-  :alt: examples of Discovery Page layouts: grid, tab, and list
-  :width: 100%
-
-For further details on the use of the Authentication Button, please refer to the :ref:`functionalities:Authentication` section.
-
-The Authentication Button has the following requirements:
-
-- The Authentication Button MUST be used exactly as outlined in the Official Resources;
-
-- The Authentication Button MUST be visually distinguishable from other Authentication Buttons or action buttons;
-
-- The Authentication Button MUST be used only in the shapes, sizes, and proportions defined by the Official Resources and MUST NOT be altered, distorted, or hidden;
-
-- The Authentication Button MUST be responsive to all screen resolutions and MUST meet minimum usability and accessibility requirements.

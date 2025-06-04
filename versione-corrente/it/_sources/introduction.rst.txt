@@ -1,47 +1,54 @@
 .. include:: ../common/common_definitions.rst
 
 
-Introduction
+Introduzione
 ============
 
-Over the last decade, digitalization has radically transformed the way citizens and businesses interact with public and private services, introducing new secure, accessible and user-friendly forms of service access.
+Nell'ultimo decennio, la digitalizzazione ha trasformato radicalmente il modo in cui cittadini e imprese interagiscono con i servizi pubblici e privati, introducendo nuove forme di accesso ai servizi sicure, accessibili e user-friendly.
 
-In Italy, Decree-Law No. 19 of 2 March 2024, converted, with amendments, by Law No. 56 of 29 April 2024, introduced Article 64-quater of Legislative Decree No. 82 of 7 March 2005, establishing the Italian Digital Wallet System - IT-Wallet System. The IT-Wallet System allows natural or legal persons to access public and private services through the secure presentation of Digital Credential, attesting to entitlements, delegations, characteristics, licenses or qualifications. Article 64-quater also provides for the adoption of one or more implementing decrees (decreti attuativi) to define the rules governing the operation of the IT-Wallet System, including the roles of the entities involved, technical and security requirements, and principles of economic sustainability, of which these Technical Specifications – drafted through an open and collaborative process – form an integral part.
+In Italia, il Decreto-Legge n. 19 del 2 marzo 2024, convertito, con modificazioni, dalla Legge n. 56 del 29 aprile 2024, ha introdotto l'articolo 64-quater del Decreto Legislativo n. 82 del 7 marzo 2005, istituendo il Sistema di Portafoglio Digitale Italiano - Sistema IT-Wallet. Il Sistema IT-Wallet consente a persone fisiche o giuridiche di accedere a servizi pubblici e privati attraverso la presentazione sicura di Attestati Elettronici, attestanti diritti, deleghe, caratteristiche, licenze o qualifiche. L'articolo 64-quater prevede inoltre l'adozione di uno o più decreti attuativi per definire le regole che disciplinano il funzionamento del Sistema IT-Wallet, compresi i ruoli delle entità coinvolte, i requisiti tecnici e di sicurezza, e i principi di sostenibilità economica, di cui queste Specifiche Tecniche – redatte attraverso un processo aperto e collaborativo – costituiscono parte integrante.
 
-Thanks to the IT-Wallet System, natural and legal persons can directly provide, via their
-wallet, the information required for Authentication in the form of Digital Credentials. Similarly to a physical wallet, the IT-Wallet can contain identity or document-related data, such as a driver's license or health card, as well as a wide range of verifiable digital information, such as a professional qualification, educational diploma, licence or certified attribute.
+Grazie al Sistema IT-Wallet, le persone fisiche e giuridiche possono fornire direttamente, tramite il proprio Wallet, le informazioni necessarie per accedere ai servizi offerti da enti pubblici e privati sotto forma di Attestati Elettronici. Analogamente a un portafoglio fisico, un'Istanza del Wallet può contenere dati relativi all'identità o ai documenti, come la patente di guida o la tessera sanitaria, nonché una vasta gamma di informazioni digitali verificabili, come una qualifica professionale, un diploma di istruzione, una licenza o un attributo certificato.
 
-What distinguishes the IT-Wallet System from previous Authentication systems is that Digital Credentials refer to characteristics, qualities or properties, already authenticated at source. These Digital Credentials can be used by the User without the Credential Issuers being aware of their use. During the use of the Digital Credentials, no usage information is released to third parties as the relationship is exclusive between the User and the service provider, in a transparent and informed manner.
-The development of the IT-Wallet System includes a phased experimentation process, aimed at testing the Wallet and assessing its impact in real-world contexts. This process is designed to validate technical components, user experience elements, and interoperability mechanisms, while ensuring a progressive and controlled adoption of the System. Moreover, it supports the continuous improvement of the IT-Wallet and its gradual alignment with the European Digital Identity Wallet (EUDI Wallet), both in terms of architecture and compliance with evolving European specifications.
+I principali ruoli nell'ecosistema Wallet sono elencati di seguito:
 
-Scope
------
+- **Fornitore di Attestati Elettronici**: soggetti che rilasciano Attestati Elettronici agli Utenti;
+- **Verificatori di Attestati Elettronici**: soggetti che richiedono all'Utente presentazioni di Attestati Elettronici, per finalità di Autenticazione e autorizzazione;
+- **Utenti**: individui che possiedono un'Istanza del Wallet e hanno il controllo sugli Attestati Elettronici che possono richiedere, acquisire, memorizzare e presentare alle Verificatori di Attestati Elettronici;
 
-These Technical Specifications are intended to complement the Guidelines provided for in Article 64-quater of Legislative Decree No. 82/2005 (CAD). Both the Guidelines and these Technical Specifications, once formally adopted, will become part of the regulatory framework for the IT-Wallet System. They will be periodically updated, where necessary, in light of the results of the experimentation phase, the adoption of new national or European legislative acts, and evolving requirements in terms of security and interoperability. These Technical Specifications pursue two main objectives and represent a core component of the implementation framework for the IT-Wallet System.
+In questo modello, il Fornitore di Attestati Elettronici (ad esempio, un'istituzione educativa) fornisce Attestati Elettronici all'Utente, che può memorizzarle nella propria Istanza del Wallet.
+L'Istanza del Wallet è tipicamente fornita come applicazione mobile sullo smartphone dell'Utente.
 
-The first one is to provide a clear and structured set of recommendations, resources and design requirements related to the IT-Wallet System elements that impact on the User Experience.
-The document, by distinguishing between mandatory regulatory aspects and good design practices, aims to provide to public entities and private entities interested in taking part in the IT-Wallet System what is necessary to:
+Ciò che distingue questo nuovo approccio dai precedenti sistemi di gestione dell'accesso all'identità è che gli Attestati Elettronici si riferiscono a caratteristiche, qualità o proprietà, già autenticate alla fonte. Questi Attestati Elettronici possono essere utilizzate dall'Utente senza che i Fornitori di Attestati Elettronici siano a conoscenza del loro utilizzo. Durante l'uso degli Attestati Elettronici, nessuna informazione sull'utilizzo viene rilasciata a terze parti poiché la relazione è esclusiva tra l'Utente e il Verificatore di Attestati Elettronici, in modo trasparente e informato.
+Lo sviluppo del Sistema IT-Wallet include un processo di sperimentazione graduale, finalizzato a testare il Wallet e valutarne l'impatto in contesti reali. Questo processo è progettato per validare componenti tecniche, elementi di esperienza utente e meccanismi di interoperabilità, garantendo al contempo un'adozione progressiva e controllata del Sistema. Inoltre, supporta il miglioramento continuo del Sistema IT-Wallet e il suo graduale allineamento con il Portafoglio Europeo di Identità Digitale (EUDI Wallet), sia in termini di architettura che di conformità con le specifiche europee in evoluzione.
 
- - facilitate the understanding and adoption of the Service Model, increasing the number of potential services and usage opportunities for the User;
- - adopt the IT-Wallet System's Visual Identity in order to enhance its reliability and recognizability for the User;
- - ensure design consistency across macro-functionalities and single interactions between the User and the service Touchpoints;
- - maintain an adequate level of quality, promoting the principles of usability, accessibility and inclusivity.
+Altri elementi chiave che caratterizzano questo nuovo paradigma di Portafoglio di Identità Digitale includono:
 
+- **Riservatezza e controllo**: i Wallet consentono agli individui di mantenere il controllo sulle informazioni fornite all'interno degli Attestati Elettronici presentate. Possono scegliere quali attributi o Attestati Elettronici presentare e a chi;
+- **Sicurezza**: i Wallet sfruttano meccanismi crittografici per l'integrità e la sicurezza dei dati scambiati. Ciò evita il furto di identità, le frodi e gli accessi non autorizzati;
+- **Interoperabilità**: i Wallet promuovono l'interoperabilità consentendo a diversi sistemi e organizzazioni di riconoscere e verificare le identità, abilitando interazioni affidabili tra individui, organizzazioni e persino oltre i confini;
+- **Efficienza e riduzione dei costi**: gli individui possono gestire facilmente i propri Attestati Elettronici, evitare di gestire più token di identità e ridurre i processi ripetitivi di verifica dell'identità.
 
-The second focus is to define the technical architecture and reference framework that will serve as a guideline for all the parties involved in the development of the IT-Wallet System.
-This documentation defines the national implementation profile of the IT-Wallet System, detailing the technical specifications of its components, as listed below:
+Ambito
+------
 
- - Entities of the ecosystem according to `EIDAS-ARF`_;
- - Infrastructure of trust attesting reliability and eligibility of the participants;
- - PID and EAAs data schemes and attribute sets;
- - PID/EAA in MDL CBOR format;
- - PID/EAA in `SD-JWT`_ format;
- - Wallet Solution general architecture;
- - Wallet Attestation;
- - Issuance of PID/EAA according to `OpenID4VCI`_;
- - Presentation of PID/EAA according to `OpenID4VP`_;
- - PID/EAA backup and restore mechanisms;
- - PID/EAA revocation lists.
+Queste Specifiche Tecniche sono destinate a completare le Linee Guida previste dall'articolo 64-quater del Decreto Legislativo n. 82/2005 (CAD). Sia le Linee Guida che queste Specifiche Tecniche, una volta formalmente adottate, diventeranno parte del quadro normativo per il Sistema IT-Wallet. Saranno periodicamente aggiornate, ove necessario, alla luce dei risultati della fase di sperimentazione, dell'adozione di nuovi atti legislativi nazionali o europei e dei requisiti in evoluzione in termini di sicurezza e interoperabilità. Queste Specifiche Tecniche perseguono due obiettivi principali e rappresentano una componente fondamentale del quadro di implementazione per il Sistema IT-Wallet.
 
-Additional documentation, tools and resources - hereinafter defined Official Resources - for the design and development of the IT-Wallet System Technical Solutions will be made available on the upcoming website http://www.wallet.gov.it.
+Il primo obiettivo è quello di fornire un insieme chiaro e strutturato di raccomandazioni, risorse e requisiti di progettazione relativi agli elementi del Sistema IT-Wallet che impattano sull'Esperienza dell'Utente.
+Il documento, distinguendo tra aspetti normativi obbligatori e buone pratiche progettuali e implementative, mira a fornire agli enti pubblici e privati interessati a partecipare al Sistema IT-Wallet quanto necessario per:
 
+- facilitare la comprensione e l'adozione del Modello di Servizio, aumentando il numero di potenziali servizi e opportunità di utilizzo per l'Utente;
+- adottare l'Identità Visiva del Sistema IT-Wallet al fine di migliorarne l'affidabilità e la riconoscibilità per l'Utente;
+- garantire la coerenza di progettazione tra macro-funzionalità e singole interazioni tra l'Utente e i Touchpoint del servizio;
+- mantenere un adeguato livello di qualità, promuovendo i principi di usabilità, accessibilità e inclusività.
+
+Il secondo focus è definire l'architettura tecnica e il quadro di riferimento che servirà da linea guida per tutte le parti coinvolte nello sviluppo delle Soluzioni Tecniche del Sistema IT-Wallet.
+
+Documentazione, strumenti e risorse aggiuntive - di seguito definite Risorse Ufficiali - per la progettazione e lo sviluppo delle Soluzioni Tecniche del Sistema IT-Wallet saranno rese disponibili sul prossimo sito web http://www.wallet.gov.it.
+
+Linguaggio Normativo e Convenzioni
+----------------------------------
+
+Le parole chiave "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY" e "OPTIONAL" in questo documento devono essere interpretate come descritto in BCP 14 [RFC2119] [RFC8174] quando, e solo quando, appaiono in maiuscolo, come mostrato qui.
+
+.. include:: how-to-read-spec.rst

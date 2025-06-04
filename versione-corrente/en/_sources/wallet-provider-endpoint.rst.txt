@@ -2,6 +2,10 @@
 
 .. "included" file, so we start with '-' title level
 
+.. role:: raw-html(raw)
+  :format: html
+
+
 Wallet Provider Endpoints
 -------------------------
 
@@ -10,12 +14,12 @@ The Wallet Provider, responsible for delivering a Wallet Solution, MUST expose t
 Federation Endpoint
 ^^^^^^^^^^^^^^^^^^^
 
-The ``/.well-known/openid-federation`` endpoint serves as the discovery mechanism for trust establishment by retrieving the Wallet Provider Entity Configuration. 
+The ``/.well-known/openid-federation`` endpoint serves as the discovery mechanism for trust establishment by retrieving the Wallet Provider Entity Configuration.
 
 See Section :ref:`wallet-provider-entity-configuration:Wallet Provider Entity Configuration` for technical details.
 
 
-Wallet Solution Nonce Endpoint 
+Wallet Solution Nonce Endpoint
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This is a RESTful API endpoint that allows the Wallet Instance to request a cryptographic nonce from the Wallet Provider. The nonce serves as an unpredictable, single-use challenge to ensure freshness and prevent replay attacks.
@@ -314,7 +318,7 @@ Below is a non-normative example of the SD-JWT Wallet Attestation header and pay
     ],
     "typ": "jwt"
   }
-  
+
 .. code-block:: json
 
   {
@@ -394,10 +398,10 @@ The body of the Wallet Attestation SD-JWT contains the following claims:
       - REQUIRED. Credential type value MUST be an HTTPS URL String and it MUST be set to ``wallet.atestation.example/v1.0``.
       - Section 3.2.2.2 `SD-JWT-VC`_.
     * - **_sd**
-      - REQUIRED. String containing the hash algorithm used by the Wallet Provider to generate the digests.
+      - REQUIRED. JSON array containing a list of all disclusure's digests.
       - `SD-JWT`_.
-    * - **sd_alg**
-      - REQUIRED. JSON array containing a list of the signing algorithms (alg values) supported.
+    * - **_sd_alg**
+      - REQUIRED. String containing the hash algorithm used by the Wallet Provider to generate the disclusure's digests.
       - `SD-JWT`_.
     * - **sub**
       - REQUIRED. Identifier of the Wallet Instance which is the thumbprint of the Wallet Attestation JWK.
@@ -463,7 +467,7 @@ Below is a non-normative example of the SD-JWT Wallet Attestation header and pay
     ],
     "typ": "dc+sd-jwt"
   }
-  
+
 .. code-block:: json
 
   {
@@ -593,4 +597,36 @@ Below is a non-normative example of the mdoc Wallet Attestation in CBOR diagnost
       h'1AD0D6A7313EFDC…43DEBF48BF5A580D'
     ]
   }
+
+
+e-Service PDND Wallet Provider Catalogue
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+User's death leads to the revocation of the Wallet Instances of the User and the deletion of the User account at the Wallet Provider. For this reason, the Wallet Provider provides the following e-service through PDND.
+A PID Provider that has been notified by the Authentic Source of the PID of the User's death MUST send a notification to Wallet Providers using this endpoint.
+
+.. only:: html
+
+  .. note::
+    A complete OpenAPI Specification is available :raw-html:`<a href="OAS3-PDND-WP.html" target="_blank">here</a>`.
+
+.. only:: latex
+
+  .. note::
+    A complete OpenAPI Specification is available :ref:`appendix-oas-pdnd-wp:Wallet Provider PDND OpenAPI Specification`.
+
+Notify User Death
+"""""""""""""""""
+
+.. list-table::
+    :class: longtable
+    :widths: 20 80
+    :stub-columns: 1
+
+    * - **Description**
+      - This service is used to notify the Wallet Provider of the need to revoke the Wallet Instance and delete the User's account due to the User's death.
+    * - **Provider**
+      - Wallet Provider
+    * - **Consumer**
+      - PID Provider
 

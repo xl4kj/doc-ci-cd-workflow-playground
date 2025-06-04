@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="it" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>19. Digital Credentials Catalogue &#8212; IT-Wallet Technical Documentation - 1.0.0</title>
+    <title>6.3. Catalogo degli Attestati Elettronici &#8212; IT-Wallet Technical Documentation - Versione Corrente</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=9b2032db" />
     <link rel="stylesheet" type="text/css" href="_static/itwallet-override.css?v=63798874" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/documentation_options.js?v=3fd72285"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=da26b4cc"></script>
     <script src="_static/js/theme.js"></script>
     <script src="_static/js/petite-vue.js"></script>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/15377824?s=48&amp;v=4"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="20. e-Service PDND Catalogue" href="e-service-pdnd-catalogue.html" />
-    <link rel="prev" title="18. Backup and Restore" href="backup-restore.html" /> 
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="7. Flussi relativi agli Attestati Elettronici" href="digital-credential-flows.html" />
+    <link rel="prev" title="6.2. Ciclo di Vita degli Attestati Elettronici" href="credential-revocation.html" /> 
   </head><body data-dark_mode_code_blocks="true">
 
 <div id="top_nav">
@@ -32,7 +33,7 @@
         <p id="toggle_sidebar">
             <a href="#" title="Toggle sidebar">|||</a>
         </p>
-        <h1><a href="index.html" title="Go to homepage">IT-Wallet Technical Documentation - 1.0.0</a></h1>
+        <h1><a href="index.html" title="Go to homepage">IT-Wallet Technical Documentation - Versione Corrente</a></h1>
             <a id="source_link" href="https://github.com/italia/eudi-wallet-it-docs">
     
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
@@ -113,11 +114,11 @@
         <div class="searchbox_wrapper">
             
 <search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3 id="searchlabel">Ricerca veloce</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
+      <input type="submit" value="Vai" />
     </form>
     </div>
 </search>
@@ -128,38 +129,28 @@
 
     
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Indice dei Contenuti</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html">2. Normative References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html#defined-terms-and-acronyms">3. Defined Terms and Acronyms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html#normative-language-and-conventions">4. Normative Language and Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ssi-introduction.html">5. The Digital Identity Wallet Paradigm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design.html">6. Design Principles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="brand-identity.html">7. IT-Wallet System Brand Identity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functionalities.html">8. Functionalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trust.html">9. The Infrastructure of Trust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wallet-solution.html">10. Wallet Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-issuer-solution.html">11. Credential Issuer Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="relying-party-solution.html">12. Relying Party Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentic-sources.html">13. Authentic Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-data-model.html">14. Digital Credential Data Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-issuance.html">15. Digital Credential Issuance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-presentation.html">16. Digital Credential Presentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-revocation.html">17. Digital Credential Lifecycle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backup-restore.html">18. Backup and Restore</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">19. Digital Credentials Catalogue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e-service-pdnd-catalogue.html">20. e-Service PDND Catalogue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e-service-pdnd.html">21. e-Service PDND</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mobile-application-instance.html">22. Mobile Application Instance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="entity-configurations.html">23. Entity Configurations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms.html">24. Cryptographic Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="security-privacy-considerations.html">25. Security and Privacy Considerations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log-retention-policy.html">26. General Log Retention Policies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standards.html">27. Technical References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test-plans.html">28. Test Plans</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contribute.html">29. How to contribute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="open-source.html">30. Open Source Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduzione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">2. Principi di design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture-overview.html">3. Panoramica dell'Architettura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trust.html">4. L'Infrastruttura di Trust</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">5. Entità</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="digital-credential-management.html">6. Gestione degli Attestati Elettronici</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="credential-data-model.html">6.1. Modello di Dati degli Attestati Elettronici</a></li>
+<li class="toctree-l2"><a class="reference internal" href="credential-revocation.html">6.2. Ciclo di Vita degli Attestati Elettronici</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.3. Catalogo degli Attestati Elettronici</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="digital-credential-flows.html">7. Flussi relativi agli Attestati Elettronici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpoints.html">8. Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">9. Algoritmi Crittografici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security-privacy-considerations.html">10. Considerazioni di Sicurezza e Privacy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log-retention-policy.html">11. Politiche Generali di Conservazione dei Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defined-terms-and-references.html">12. Termini Definiti e Riferimenti</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">13. Come contribuire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open-source.html">14. Rilasci Open Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">15. Appendice</a></li>
 </ul>
 
         </div>
@@ -171,120 +162,127 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="digital-credentials-catalogue">
-<h1><span class="section-number">19. </span>Digital Credentials Catalogue<a class="headerlink" href="#digital-credentials-catalogue" title="Link to this heading">¶</a></h1>
-<p>The Digital Credentials Catalogue is the registry of all available Digital Credentials recognized within the IT-Wallet ecosystem. It is published by the Trust Anchor and publicly available by all Entities through a specialized Federation endpoint. It acts as a single reference point for all actors involved in the process of issuing, verifying and using Digital Credentials.</p>
-<p>The Digital Credential Catalogue aims to:</p>
+  <section id="catalogo-degli-attestati-elettronici">
+<h1><span class="section-number">6.3. </span>Catalogo degli Attestati Elettronici<a class="headerlink" href="#catalogo-degli-attestati-elettronici" title="Link to this heading">¶</a></h1>
+<p>Il Catalogo degli Attestati Elettronici è il registro di tutti gli Attestati Elettronici disponibili riconosciuti all'interno dell'ecosistema IT-Wallet. È pubblicato dal Trust Anchor ed è pubblicamente disponibile per tutte le Entità attraverso un endpoint di Federazione specializzato. Funge da punto di riferimento unico per tutti gli attori coinvolti nel processo di emissione, verifica e utilizzo degli Attestati Elettronici.</p>
+<p>Il Catalogo degli Attestati Elettronici mira a:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li><p>Facilitate Digital Credential discovery for Users.</p></li>
-<li><p>Standardize the technical and functional description of Digital Credentials.</p></li>
-<li><p>Enable interoperability between different Issuers and Relying Parties.</p></li>
-<li><p>Simplify the integration process for Wallet Providers and Relying Parties.</p></li>
-<li><p>Ensure trust in the ecosystem through certified information.</p></li>
-<li><p>Provide transparency on the ecosystem of available Digital Credentials.</p></li>
+<li><p>Facilitare la <em>discovery</em> degli Attestati Elettronici per gli Utenti.</p></li>
+<li><p>Standardizzare la descrizione tecnica e funzionale degli Attestati Elettronici.</p></li>
+<li><p>Abilitare l'interoperabilità tra diversi Fornitori di Attestati Elettronici e Relying Party.</p></li>
+<li><p>Semplificare il processo di integrazione per i Fornitori di Wallet e le Relying Party.</p></li>
+<li><p>Garantire la fiducia nell'ecosistema attraverso informazioni certificate.</p></li>
+<li><p>Fornire trasparenza sull'ecosistema degli Attestati Elettronici disponibili.</p></li>
 </ol>
 </div></blockquote>
-<p>The main Entities involved in the Digital Credential Catalogue are:</p>
+<p>Le principali Entità coinvolte nel Catalogo degli Attestati Elettronici sono:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>Trust Anchor</strong>: It manages and maintains the Digital Credential Catalogue, guaranteeing its authenticity and integrity.</p></li>
-<li><p><strong>Supervisory Body</strong>: It interacts with the Trust Anchor and the Digital Credential Catalogue to monitor the registration phase ensuring security and privacy according to national/European regulations, keeping all the information reliable and updated.</p></li>
-<li><p><strong>Digital Credential Issuers</strong>: The entities authorized to issue Digital Credentials, registering them in the Catalogue.</p></li>
-<li><p><strong>Relying Parties</strong>: They use the Digital Credential Catalogue to gather all the information needed about the Digital Credentials they intend to request during the presentation phase.</p></li>
-<li><p><strong>Wallet Providers</strong>: They access the Digital Credential Catalogue to identify the available Digital Credentials and to retrieve all necessary information for integrating them into their Wallet Solutions.</p></li>
-<li><p><strong>Users</strong>: The citizens who indirectly use the Digital Credentials Catalogue through their Wallet Instances to discover and request Digital Credentials.</p></li>
-<li><p><strong>Authentic Sources</strong>: The Entities that hold the original data that is attested in the Digital Credentials. They provide support to Issuers in registering the Digital Credentials in the Catalogue.</p></li>
+<li><p><strong>Trust Anchor</strong>: Gestisce e mantiene il Catalogo degli Attestati Elettronici, garantendone l'autenticità e l'integrità.</p></li>
+<li><p><strong>Organismo di Supervisione</strong>: Interagisce con il Trust Anchor e il Catalogo degli Attestati Elettronici per monitorare la fase di registrazione garantendo sicurezza e privacy secondo le normative nazionali/europee, mantenendo tutte le informazioni affidabili e aggiornate.</p></li>
+<li><p><strong>Fornitori di Attestati Elettronici</strong>: Le entità autorizzate a emettere Attestati Elettronici, registrandoli nel Catalogo.</p></li>
+<li><p><strong>Relying Party</strong>: Utilizzano il Catalogo degli Attestati Elettronici per raccogliere tutte le informazioni necessarie sugli Attestati Elettronici che intendono richiedere durante la fase di presentazione.</p></li>
+<li><p><strong>Fornitori di Wallet</strong>: Accedono al Catalogo degli Attestati Elettronici per identificare gli Attestati Elettronici disponibili e per recuperare tutte le informazioni necessarie per integrarli nelle loro Soluzioni Tecniche.</p></li>
+<li><p><strong>Utenti</strong>: Gli Utenti che utilizzano indirettamente il Catalogo degli Attestati Elettronici attraverso le loro Istanze del Wallet per visualizzare e richiedere Attestati Elettronici.</p></li>
+<li><p><strong>Fonti Autentiche</strong>: Le Entità che detengono i dati originali attestati negli Attestati Elettronici. Forniscono supporto ai Fornitori di Attestati Elettronici nella registrazione degli stessi nel Catalogo.</p></li>
 </ul>
 </div></blockquote>
-<figure class="align-center" id="fig-catalogue-svg" style="width: 100%">
-<a class="reference external image-reference" href="https://www.plantuml.com/plantuml/svg/ZLHDZnit3BtxLp16WMw1E3wqlHGeaDJR3mD9Qwopw751I_HOM8qq5JdhJdzzAMkyCnixs3aOy53aUq_aezwpO9AszhCtBXZVMeA3ICC_BPS9Z-yg9uTsrp8b4uDGa7Scril6OyWr2nRhtMwv-c6noQ7xJn-NDR9Gqj33AjPD3BccoVYpR-6MzYuGR3Ttwy-_RcTlRFbUh_xwy_xkumHYQHkqwVj1WDFJnLup5jma9yGz_t2R7dofvNKCHSh5uGa1ZyInfiMFIqD9tDuP59fMO55mXpmnsqVpE2qptvydQexLn4p5VA8qBVUHkkbAfsKw-s0msMd9zAyvOAZe0RrC70NneyHcMl8HlQSfm4iNM9oquiuUcisU_NrZKD37ggMtCBzrbTClM2MoUkRGCwpEvtDDkAFAiQGk_rzfHjBarCSWxa4b0JwXyxZp15VWjF2RulQVvsVZpRzJGHjA7CDD7eLYtpEb4uSJzny5XkCXWdLieauVC5Xb_QSbbjSuCfxY3zULrB9y2EOGCy_d_0NbC_FbtoSCM16VM6fqGVJ788ThzncwCoPLuoddjcEX-eRRHZthEARkbsWx9TWE4SYX4saCJcBYSpSn3mkQ0p811MwJ2nKm6VqZtKcQSZsXwSQyezKV-1rpIuclJXVMvJ0h-D2ADa6xRI4VYgDyQHJ80A_Eib-CWJQHxrJp1bD6ojOf0UWZypBbKr-VBGWIeK8D9N1X7rDTse2xs0gOwypZBHleot9iKdnojjp-xrC4-b1_PsE8-LA32q9LGg4nQOv6AC0l59JGm8tQoLnZjh5DIf29pY7eOvdzZ-WjnAID3UWXRmEW22c6LQvNEpuiTLuWRUyBRmyN6YpzTl1piL2xyuuFHSrlojBRZe9jeYOghi9UElZb3gs3QA4HXgEJm_MQiPolcZt5F8q2CDXsN5YU7qhNUWCkzAMN_J-3NHTxuTKnvUzVi-CL2GNkqdi3tc2v2EvKjkz63wQvm2hluGLYNXs6tjBhm8B143GbmSAkA-KFjpt0MC4wM9V8YE-UNrGUFwdyXOpt56nR-_y1"><img alt="_images/catalogue.svg" src="_images/catalogue.svg" /></a>
+<figure class="align-default" id="id1">
+<span id="fig-catalogue-svg"></span><p class="plantuml">
+<object data="_images/plantuml-944c55af858aa41e57195dcf451c634be13664a1.svg" type="image/svg+xml" style="width:99%">
+<a href="_images/plantuml-944c55af858aa41e57195dcf451c634be13664a1.png"><img src="_images/plantuml-944c55af858aa41e57195dcf451c634be13664a1.png" alt="La figura illustra le Entità degli Attestati Elettronici." style="width: 99.0%"/></a>
+
+</object></p>
+<figcaption>
+<p><span class="caption-number">Fig. 6.6 </span><span class="caption-text"><a class="reference external" href="https://www.plantuml.com/plantuml/svg/ZLJ1Rkis4BpxAxP6WQP00X-QtjeWgPEsFXGmuXGz6ZIvbeb8fCfTEbM__YrDELAUb6ST34khuSnmESjxOXKuLYKysiAoAc4PqA1ZcnwL57mH4Pwam1Pfzfrrkem6uPVbxM9vkrtwglPEy7UpsG_mY7lh43RhvzNBqwO7vbWh4tvQQ5zLtjsDVDbxnpVg3SbNUFFpGcDWkxTQCKv06p6wKpG5MdhzEW4M2GDDyUcBAJ1XEsAO07p5PgAx2J1hjbe5Cm69_-c3SWLkLSbJ-etqohwUW7nJPOaNAHVM4LkER5CuPhFtL5tfSmIlOJvCA7KHdGlW6GjB79hql1H4471eQ-3t85v07PKjrQv46A6JXTzJ7IpZh_DpfkO_Yg4r1lBkAlLTkF-MlvE6PVi_EeAtWmTZINivP53EYEg_4OalQIG-uU-soo4IFpXzy4dd9Rr1VarwwVUNSgf0EgbKoZgM7m4Vy9i3t1ULY8dcfY76wefYBT6qv4FpcpUD26ow2gJIITGxopxGkPig7HJK1qK8w2W6wmeWrFB0pScQQ1sLRlgwlP7kz2rHn42Zfmkh_34vU8WiJP1k6y3sBf9DAuP4SF4isq7eP0EMZNXUgv2OKdHo0ThAF9_ogQ_l4GJsK2Wf1R1kxqELsw1sFZBeSUN-O7NoUIhMmH-joRl_vrI1jjJkMMia6dgmZh48Yh4lcgeUCl471xdKQIlfP5gZDpu64KX2vnAqjQJ-foyD-22DTTBOD0sWc54uZ6XTx7Wtq6c0fBqVijrjg8lqTPVd7A6uAoqTiflVHQMD7JfJUm4Ahz0E4_nnXbQEPQ5c6LBBX_4rVJkVXZtuT1gPe8jjVs6-VZ2CzGQiQvSE-tyc6pSxo6fVyezFuZXc8TCDizVnTP7pO4_BzatlmjG3hdmV3XZJw12qaLuvOkKqGfq11dPDNhvzR0dw3bREs82Qo-RzHgN-bKfVsRYNECIg_080">Diagramma Entità-Relazione del Catalogo degli Attestati Elettronici.</a></span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
 </figure>
-<p>The following table summarizes the main information that MUST be provided by the Digital Credential Catalogue:</p>
-<table class="longtable docutils align-default" id="id1">
-<caption><span class="caption-number">Table 19.1 </span><span class="caption-text">Digital Credential Catalogue - Main information</span><a class="headerlink" href="#id1" title="Link to this table">¶</a></caption>
+<p>La seguente tabella riassume le principali informazioni che DEVONO essere fornite dal Catalogo degli Attestati Elettronici:</p>
+<table class="longtable docutils align-default" id="id2">
+<caption><span class="caption-number">Tabella 6.1 </span><span class="caption-text">Catalogo degli Attestati Elettronici - Informazioni principali</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
 <colgroup>
 <col style="width: 30.0%" />
 <col style="width: 70.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Information related to</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>Informazioni relative a</p></th>
+<th class="head"><p>Descrizione</p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Digital Credential Metadata</p></td>
-<td><p>Essential identifying information and characteristics of the Digital Credential, including:</p>
+<tr class="row-even"><td><p>Metadati dell'Attestato Elettronico</p></td>
+<td><p>Informazioni identificative essenziali e caratteristiche dell'Attestato Elettronico, tra cui:</p>
 <ul class="simple">
-<li><p><strong>Credential Unique identifier</strong>: A unique identifier string of each Digital Credential.</p></li>
-<li><p><strong>User authentication methods</strong>: User authentication mechanisms used to request the Digital Credential, if required by Issuers or Authentic Sources.</p></li>
-<li><p><strong>Minimum Level of Assurance</strong>: The minimum Level of Assurance required for the Digital Credential's reliability. It MUST take into account the Level of Assurance of User authentication, when applicable, and Wallet Instance.</p></li>
-<li><p><strong>Additional display characteristics</strong>: Visual and formatting specifications, such as a background reference image, logo, etc.</p></li>
+<li><p><strong>Identificatore univoco dell'Attestato Elettronico</strong>: Una stringa che identificativa univocamente il tipo di Attestato Elettronico.</p></li>
+<li><p><strong>Metodi di autenticazione dell'Utente</strong>: Meccanismi di autenticazione dell'Utente utilizzati per richiedere l'Attestato Elettronico, se richiesti dai Fornitori di Attestati Elettronici o dalle Fonti Autentiche.</p></li>
+<li><p><strong>Livello minimo di Garanzia</strong>: Il Livello di Garanzia minimo richiesto per l'affidabilità dell'Attestato Elettronico. DEVE tenere conto del Livello di Garanzia dell'autenticazione dell'Utente, quando applicabile, e dell'Istanza del Wallet.</p></li>
+<li><p><strong>Caratteristiche di visualizzazione aggiuntive</strong>: Specifiche visive e di formattazione, come un'immagine di riferimento di sfondo, logo, ecc.</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-odd"><td><p>Digital Credential Issuers</p></td>
-<td><p>Details about the organization authorized to issue the Digital Credential, such as:</p>
+<tr class="row-odd"><td><p>Fornitori di Attestati Elettronici</p></td>
+<td><p>Dettagli sull'organizzazione autorizzata a emettere l'Attestato Elettronico, come:</p>
 <ul class="simple">
-<li><p><strong>Issuer identifiers</strong>: Unique identifier for the Digital Credential issuer.</p></li>
-<li><p><strong>Issuer type</strong>: Classification as PID, (Q)EAA, or Pub-EAA Provider.</p></li>
-<li><p><strong>Additional information</strong>: Organizational details including name, code, and contact information.</p></li>
+<li><p><strong>Identificatori del Fornitore di Attestati Elettronici</strong>: Identificativo univoco del Fornitore dell'Attestato Elettronico.</p></li>
+<li><p><strong>Tipologia di Fornitore di Attestati Elettronici</strong>: Classificazione come ad esempio Fornitore di Attestati Elettronici di Dati di Identificazione Personale, Fornitore di Attestati Elettronici di Attributi (Qualificati) o Fornitore di Attestati Elettronici Pubblici di Attributi.</p></li>
+<li><p><strong>Informazioni aggiuntive</strong>: Dettagli amministrativi come la denominazione, un codice amministrativo e informazioni di contatto.</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-even"><td><p>Authentic Sources</p></td>
-<td><p>Information about the authoritative data source, such as:</p>
+<tr class="row-even"><td><p>Fonti Autentiche</p></td>
+<td><p>Informazioni sulla Fonte Autentica dei dati, come:</p>
 <ul class="simple">
-<li><p><strong>Authentic Source identifiers</strong>: Unique identifier for the Digital Credential's authoritative source.</p></li>
-<li><p><strong>Authentic Source type</strong>: Classification as Public or Private entity.</p></li>
-<li><p><strong>Additional information</strong>: Organizational details including name, code, and contact information.</p></li>
+<li><p><strong>Identificativi della Fonte Autentica</strong>: Identificativo univoco della Fonte Autentica dell'Attestato Elettronico.</p></li>
+<li><p><strong>Tipologia di Fonte Autentica</strong>: Classificazione come Entità Pubblica o Privata.</p></li>
+<li><p><strong>Informazioni aggiuntive</strong>: Dettagli amministrativi come la denominazione, un codice amministrativo e informazioni di contatto.</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-odd"><td><p>Technical Specification</p></td>
-<td><p>Technical details, including:</p>
+<tr class="row-odd"><td><p>Specifiche Tecniche</p></td>
+<td><p>Dettagli tecnici, tra cui:</p>
 <ul class="simple">
-<li><p><strong>Digital Credential schemes</strong>: Framework and structure specifications.</p></li>
-<li><p><strong>Digital Credential formats</strong>: Data format and encoding standards.</p></li>
-<li><p><strong>Authentication policy</strong>: Methods and requirements for verification.</p></li>
+<li><p><strong>Schemi dell'Attestato Elettronico</strong>: Specifiche relative a framework e struttura dati.</p></li>
+<li><p><strong>Formati dell'Attestato Elettronico</strong>: Standard di formato dati e codifica.</p></li>
+<li><p><strong>Policy di autenticazione</strong>: Metodi e requisiti per la verifica.</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-even"><td><p>Terms of Use</p></td>
-<td><p>Conditions and limitations for Digital Credential usage, such as:</p>
+<tr class="row-even"><td><p>Termini di Utilizzo</p></td>
+<td><p>Condizioni e limitazioni per l'utilizzo dell'Attestato Elettronico, come:</p>
 <ul class="simple">
-<li><p><strong>Credential validity</strong>: Time period during which the Digital Credential is valid and, when applicable, mechanisms and technical details for invalidating Digital Credentials (revocation/suspension methods).</p></li>
-<li><p><strong>Restriction policy</strong>: If applicable, rules governing the Digital Credential's use and limitations according to national regulations. It is used, for example, to specify if only specific legal type Entities, for example Pub-EAA Provider and public Wallet Solutions, are allowed to issue and obtain the Digital Credential.</p></li>
-<li><p><strong>Pricing policy</strong>: Information related to pricing models of Digital Credential, such as <cite>free</cite>, <cite>issuance_based</cite>, <cite>verification_based</cite>.</p></li>
-<li><p><strong>Digital Credential purposes</strong>: Information related to the allowed purposes for which the Digital Credential can be used. Each Digital Credential type can be used for multiple purposes.</p></li>
+<li><p><strong>Validità della Credenziale</strong>: Periodo di tempo durante il quale l'Attestato Elettronico è valido e, quando applicabile, meccanismi e dettagli tecnici per invalidare gli Attestati Elettronici (metodi di revoca/sospensione).</p></li>
+<li><p><strong>Policy di restrizione</strong>: Se applicabile, regole che governano l'uso dell'Attestato Elettronico e limitazioni secondo le normative nazionali. È utilizzata, ad esempio, per specificare se solo tipologie specifiche di Entità autorizzate, ad esempio Fornitore di Attestati Elettronici Pubblici di Attributi e Soluzioni Wallet pubbliche, possono emettere e ottenere l'Attestato Elettronico.</p></li>
+<li><p><strong>Pricing Policy</strong>: Informazioni relative ai modelli tariffari dell'Attestato Elettronico, come <cite>free</cite>, <cite>issuance_based</cite>, <cite>verification_based</cite>.</p></li>
+<li><p><strong>Scopi dell'Attestato Elettronico</strong>: Informazioni relative agli scopi consentiti per cui l'Attestato Elettronico può essere utilizzato. Ogni tipo di Attestato Elettronico può essere utilizzato per più scopi.</p></li>
 </ul>
 </td>
 </tr>
-<tr class="row-odd"><td><p>Claims and Taxonomy References</p></td>
-<td><p>Content and classification information:</p>
+<tr class="row-odd"><td><p>Attributi dell'Utente e Riferimenti Tassonomici</p></td>
+<td><p>Informazioni sul contenuto e sulla classificazione:</p>
 <ul class="simple">
-<li><p><strong>List of displayed claims</strong>: Specific Digital Credential content displayed to the User.</p></li>
-<li><p><strong>Structured taxonomy references</strong>: Classification systems and controlled vocabularies used.</p></li>
+<li><p><strong>Elenco degli attributi visualizzati</strong>: Contenuto specifico dell'Attestato Elettronico visualizzato all'Utente.</p></li>
+<li><p><strong>Riferimenti tassonomici strutturati</strong>: Sistemi di classificazione e vocabolari controllati utilizzati.</p></li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>The Trust Anchor MUST publish and keep up to date all the information at the Digital Credential Catalogue <cite>.well-known</cite> endpoint ensuring data reliability, authenticity and integrity. In particular, the Digital Credential Catalogue, claims and taxonomy MUST be available through the <code class="docutils literal notranslate"><span class="pre">.well-known/credential-catalogue</span></code> endpoint.</p>
-<section id="digital-credentials-categories">
-<h2><span class="section-number">19.1. </span>Digital Credentials Categories<a class="headerlink" href="#digital-credentials-categories" title="Link to this heading">¶</a></h2>
-<p>Digital Credentials recognized within the IT-Wallet ecosystem are hierarchically classified and standardized according to the following main domains and categories. Additional categories MAY be added as the IT-Wallet ecosystem grows.</p>
-<table class="longtable docutils align-default" id="id2">
-<caption><span class="caption-number">Table 19.2 </span><span class="caption-text">Digital Credential Domains and Categories</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<p>Il Trust Anchor DEVE pubblicare e mantenere aggiornate tutte le informazioni all'endpoint <cite>.well-known</cite> del Catalogo degli Attestati Elettronici garantendo l'affidabilità, l'autenticità e l'integrità dei dati. In particolare, il Catalogo degli Attestati Elettronici, gli attributi e la tassonomia DEVONO essere disponibili attraverso l'endpoint <code class="docutils literal notranslate"><span class="pre">.well-known/credential-catalogue</span></code>.</p>
+<section id="categorie-di-attestati-elettronici">
+<h2><span class="section-number">6.3.1. </span>Categorie di Attestati Elettronici<a class="headerlink" href="#categorie-di-attestati-elettronici" title="Link to this heading">¶</a></h2>
+<p>Gli Attestati Elettronici riconosciuti all'interno dell'ecosistema IT-Wallet sono classificati gerarchicamente e standardizzati secondo i seguenti domini e categorie principali. Categorie aggiuntive POSSONO essere aggiunte man mano che l'ecosistema IT-Wallet cresce.</p>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-number">Tabella 6.2 </span><span class="caption-text">Domini e Categorie degli Attestati Elettronici</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
 <colgroup>
 <col style="width: 20.0%" />
 <col style="width: 30.0%" />
 <col style="width: 50.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p><strong>Domain</strong></p></th>
-<th class="head"><p><strong>Category</strong></p></th>
-<th class="head"><p><strong>Description</strong></p></th>
+<tr class="row-odd"><th class="head"><p><strong>Dominio</strong></p></th>
+<th class="head"><p><strong>Categoria</strong></p></th>
+<th class="head"><p><strong>Descrizione</strong></p></th>
 </tr>
 </thead>
 <tbody>
@@ -294,7 +292,7 @@
 <li><p>ELECTRONIC_RESIDENCY</p></li>
 </ul>
 </td>
-<td><p>Credentials that establish or verify the identity of a person, including physical and digital identity documents legally recognized by national laws.</p></td>
+<td><p>Attestati Elettronici che stabiliscono o verificano l'identità di una persona, inclusi documenti di identità fisici e digitali legalmente riconosciuti dalle leggi nazionali.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>AUTHORIZATION</em></p></td>
 <td><ul class="simple">
@@ -304,7 +302,7 @@
 <li><p>ACCESS_PERMIT</p></li>
 </ul>
 </td>
-<td><p>Credentials that grant specific permissions, rights or authorizations to perform certain activities or access restricted areas.</p></td>
+<td><p>Attestati Elettronici che concedono permessi specifici, diritti o autorizzazioni per svolgere determinate attività o accedere ad aree ristrette.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>EDUCATION</em></p></td>
 <td><ul class="simple">
@@ -313,7 +311,7 @@
 <li><p>TRAINING_RECOGNITION</p></li>
 </ul>
 </td>
-<td><p>Credentials related to educational achievements, qualifications, and professional training recognition.</p></td>
+<td><p>Credenziali relative a titoli di studio, qualifiche e certificati professionali.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>HEALTH</em></p></td>
 <td><ul class="simple">
@@ -322,7 +320,7 @@
 <li><p>MEDICAL_PRESCRIPTION</p></li>
 </ul>
 </td>
-<td><p>Credentials related to healthcare access, medical history, insurance coverage, and health-related documents.</p></td>
+<td><p>Attestati Elettronici relativi all'accesso all'assistenza sanitaria, alla storia medica, alla copertura assicurativa e ai documenti relativi alla salute.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>FINANCIAL</em></p></td>
 <td><ul class="simple">
@@ -331,7 +329,7 @@
 <li><p>FAMILY_ECONOMIC_STATUS</p></li>
 </ul>
 </td>
-<td><p>Credentials that attest to financial status, income levels, taxation, or economic situation of individuals or families.</p></td>
+<td><p>Attestati Elettronici che attestano lo stato finanziario, i livelli di reddito, la tassazione o la situazione economica di individui o famiglie.</p></td>
 </tr>
 <tr class="row-odd"><td><p><em>MEMBERSHIP</em></p></td>
 <td><ul class="simple">
@@ -340,7 +338,7 @@
 <li><p>CLUB_MEMBERSHIP</p></li>
 </ul>
 </td>
-<td><p>Credentials that confirm affiliation with organizations, participation in programs, or membership status.</p></td>
+<td><p>Attestati Elettronici che confermano l'affiliazione a organizzazioni, la partecipazione a programmi o lo stato di appartenenza.</p></td>
 </tr>
 <tr class="row-even"><td><p><em>ATTESTATION</em></p></td>
 <td><ul class="simple">
@@ -349,14 +347,14 @@
 <li><p>CERTIFICATION</p></li>
 </ul>
 </td>
-<td><p>Credentials that provide official statements, confirmations of status, or certifications issued by authorities.</p></td>
+<td><p>Attestati Elettronici che forniscono dichiarazioni ufficiali, conferme di stato o certificazioni rilasciate dalle autorità.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="digital-credentials-catalogue-structure">
-<h2><span class="section-number">19.2. </span>Digital Credentials Catalogue Structure<a class="headerlink" href="#digital-credentials-catalogue-structure" title="Link to this heading">¶</a></h2>
-<p>Digital Credentials Catalogue contents is secured in a JWS that contains the following JOSE header parameters:</p>
+<section id="struttura-del-catalogo-degli-attestati-elettronici">
+<h2><span class="section-number">6.3.2. </span>Struttura del Catalogo degli Attestati Elettronici<a class="headerlink" href="#struttura-del-catalogo-degli-attestati-elettronici" title="Link to this heading">¶</a></h2>
+<p>Il contenuto del Catalogo degli Attestati Elettronici è protetto in un JWS che contiene i seguenti parametri dell'header JOSE:</p>
 <table class="longtable docutils align-default" id="table-catalogue-parameters">
 <colgroup>
 <col style="width: 25.0%" />
@@ -364,182 +362,182 @@
 <col style="width: 25.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>JOSE header</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Reference</p></th>
+<tr class="row-odd"><th class="head"><p>Header JOSE</p></th>
+<th class="head"><p>Descrizione</p></th>
+<th class="head"><p>Riferimento</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>typ</strong></p></td>
-<td><p>REQUIRED. It MUST be set to <code class="docutils literal notranslate"><span class="pre">JOSE</span></code>.</p></td>
-<td><p>[<span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Section 4.1.9].</p></td>
+<td><p>OBBLIGATORIO. DEVE essere valorizzato con la stringa <code class="docutils literal notranslate"><span class="pre">JOSE</span></code>.</p></td>
+<td><p>[<span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Sezione 4.1.9].</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>alg</strong></p></td>
-<td><p>REQUIRED. A digital signature algorithm identifier such as per IANA &quot;JSON Web Signature and Encryption Algorithms&quot; registry. It MUST be one of the supported algorithms in Section <a class="reference internal" href="algorithms.html#cryptographic-algorithms"><span class="std std-ref">Cryptographic Algorithms</span></a> and MUST NOT be set to <code class="docutils literal notranslate"><span class="pre">none</span></code> or with a symmetric algorithm (MAC) identifier.</p></td>
-<td><p>[<span class="target" id="index-1"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Section 4.1.1].</p></td>
+<td><p>OBBLIGATORIO. Un identificativo di algoritmo di firma digitale come da registro IANA &quot;JSON Web Signature and Encryption Algorithms&quot;. DEVE essere uno degli algoritmi supportati nella Sezione <a class="reference internal" href="algorithms.html#algoritmi-crittografici"><span class="std std-ref">Algoritmi Crittografici</span></a> e NON DEVE essere impostato a <code class="docutils literal notranslate"><span class="pre">none</span></code> o con un identificativo di algoritmo simmetrico (MAC).</p></td>
+<td><p>[<span class="target" id="index-1"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Sezione 4.1.1].</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>kid</strong></p></td>
-<td><p>REQUIRED. Unique identifier of the public key.</p></td>
-<td><p>[<span class="target" id="index-2"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Section 4.1.4].</p></td>
+<td><p>OBBLIGATORIO. Identificativo univoco della chiave pubblica.</p></td>
+<td><p>[<span class="target" id="index-2"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Sezione 4.1.4].</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>x5c</strong></p></td>
-<td><p>OPTIONAL. Contains the X.509 public key Certificate or Certificate chain [<span class="target" id="index-3"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc5280.html"><strong>RFC 5280</strong></a>] corresponding to the key used to digitally sign the JWS. When the header parameter <cite>kid</cite> value is present, it MUST refer to the same leaf's cryptographic public key used with the X.509 Certificate.</p></td>
-<td><p>[<span class="target" id="index-4"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Section 4.1.6.].</p></td>
+<td><p>OPZIONALE. Contiene il Certificato di chiave pubblica X.509 o la catena di Certificati [<span class="target" id="index-3"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc5280.html"><strong>RFC 5280</strong></a>] corrispondente alla chiave utilizzata per firmare digitalmente il JWS. Quando il valore del parametro dell'header <cite>kid</cite> è presente, DEVE riferirsi alla stessa chiave pubblica crittografica della foglia attestata dal Certificato X.509.</p></td>
+<td><p>[<span class="target" id="index-4"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Sezione 4.1.6.].</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>cty</strong></p></td>
-<td><p>REQUIRED. It MUST be set to <code class="docutils literal notranslate"><span class="pre">application/json</span></code>.</p></td>
-<td><p>[<span class="target" id="index-5"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Section 4.1.6.].</p></td>
+<td><p>OBBLIGATORIO. DEVE essere impostato a <code class="docutils literal notranslate"><span class="pre">application/json</span></code>.</p></td>
+<td><p>[<span class="target" id="index-5"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7515.html"><strong>RFC 7515</strong></a> Sezione 4.1.6.].</p></td>
 </tr>
 </tbody>
 </table>
-<p>The JWS payload contains the following parameters:</p>
-<table class="longtable docutils align-default" id="id3">
-<caption><span class="caption-number">Table 19.3 </span><span class="caption-text">First-level Fields of the Catalog</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<p>Il payload JWS contiene i seguenti parametri:</p>
+<table class="longtable docutils align-default" id="id4">
+<caption><span class="caption-number">Tabella 6.3 </span><span class="caption-text">Campi di primo livello del Catalogo</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
 <colgroup>
 <col style="width: 30.0%" />
 <col style="width: 70.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Field Name</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>Nome</p></th>
+<th class="head"><p>Descrizione</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>catalog_version</strong></p></td>
-<td><p>REQUIRED. Version of the Digital Credential Catalogue format.</p></td>
+<td><p>OBBLIGATORIO. Versione del formato del Catalogo degli Attestati Elettronici.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>iss</strong></p></td>
-<td><p>REQUIRED. Issuer identifier of the Digital Credential Catalogue.</p></td>
+<td><p>OBBLIGATORIO. Identificativo del Fornitore del Catalogo degli Attestati Elettronici.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>last_modified</strong></p></td>
-<td><p>REQUIRED. Timestamp of the last modification to the Digital Credential Catalogue.</p></td>
+<td><p>OBBLIGATORIO. Timestamp dell'ultima modifica al Catalogo degli Attestati Elettronici.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>taxonomy_uri</strong></p></td>
-<td><p>REQUIRED. URI of the claims taxonomy reference document.</p></td>
+<td><p>OBBLIGATORIO. URI del documento di riferimento della tassonomia degli attributi.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>taxonomy_uri#integrity</strong></p></td>
-<td><p>OPTIONAL. Cryptographic digest of the taxonomy document for integrity verification.</p></td>
+<td><p>OPZIONALE. Digest crittografico del documento di tassonomia per la verifica dell'integrità.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>credentials</strong></p></td>
-<td><p>REQUIRED. Array containing Digital Credential definitions.</p></td>
+<td><p>OBBLIGATORIO. Array contenente le definizioni degli Attestati Elettronici.</p></td>
 </tr>
 </tbody>
 </table>
-<p>Each element of the <code class="docutils literal notranslate"><span class="pre">credentials</span></code> array contains at least the following information:</p>
-<table class="longtable docutils align-default" id="id4">
-<caption><span class="caption-number">Table 19.4 </span><span class="caption-text">First-level Fields of Each Credential Entry</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<p>Ogni elemento dell'array <code class="docutils literal notranslate"><span class="pre">credentials</span></code> contiene almeno le seguenti informazioni:</p>
+<table class="longtable docutils align-default" id="id5">
+<caption><span class="caption-number">Tabella 6.4 </span><span class="caption-text">Campi di primo livello di ogni voce di Credenziale</span><a class="headerlink" href="#id5" title="Link to this table">¶</a></caption>
 <colgroup>
 <col style="width: 30.0%" />
 <col style="width: 70.0%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Field Name</p></th>
-<th class="head"><p>Description</p></th>
+<tr class="row-odd"><th class="head"><p>Nome del Campo</p></th>
+<th class="head"><p>Descrizione</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><strong>version</strong></p></td>
-<td><p>REQUIRED. Version of the Digital Credential definition.</p></td>
+<td><p>OBBLIGATORIO. Versione della definizione dell'Attestato Elettronico.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>credential_type</strong></p></td>
-<td><p>REQUIRED. Unique identifier of the Digital Credential type.</p></td>
+<td><p>OBBLIGATORIO. Identificativo univoco del tipo di Attestato Elettronico.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>legal_type</strong></p></td>
-<td><p>REQUIRED. Legal classification of the Credential (e.g., <code class="docutils literal notranslate"><span class="pre">pub-eaa</span></code>, <code class="docutils literal notranslate"><span class="pre">qeaa</span></code>, <code class="docutils literal notranslate"><span class="pre">eaa</span></code>).</p></td>
+<td><p>OBBLIGATORIO. Classificazione legale della Credenziale (es., <code class="docutils literal notranslate"><span class="pre">pub-eaa</span></code>, <code class="docutils literal notranslate"><span class="pre">qeaa</span></code>, <code class="docutils literal notranslate"><span class="pre">eaa</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>localization</strong></p></td>
-<td><p>OPTIONAL. Localization settings, including:</p>
+<td><p>OPZIONALE. Impostazioni di localizzazione, inclusi:</p>
 <ul class="simple">
-<li><p><strong>default_locale</strong>: Default language for text.</p></li>
-<li><p><strong>available_locales</strong>: List of supported languages.</p></li>
-<li><p><strong>base_uri</strong>: Base URI for localization resources.</p></li>
-<li><p><strong>version</strong>: Version of the localization files.</p></li>
+<li><p><strong>default_locale</strong>: localizzazione predefinita per il testo.</p></li>
+<li><p><strong>available_locales</strong>: Elenco delle localizzazioni supportate.</p></li>
+<li><p><strong>base_uri</strong>: URI base per le risorse di localizzazione.</p></li>
+<li><p><strong>version</strong>: Versione dei file di localizzazione.</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-even"><td><p><strong>name</strong></p></td>
-<td><p>REQUIRED. Human-readable name of the Digital Credential. A suffix <code class="docutils literal notranslate"><span class="pre">_l10n_id</span></code> MAY be added for content localisation management.</p></td>
+<td><p>OBBLIGATORIO. Nome <em>human-readable</em> dell'Attestato Elettronico. Un suffisso <code class="docutils literal notranslate"><span class="pre">_l10n_id</span></code> PUÒ essere aggiunto per la gestione della localizzazione del contenuto.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>description</strong></p></td>
-<td><p>REQUIRED. Human-readable Digital Credential description. A suffix <code class="docutils literal notranslate"><span class="pre">_l10n_id</span></code> MAY be added for content localisation management.</p></td>
+<td><p>OBBLIGATORIO. Descrizione <em>human-readable</em> dell'Attestato Elettronico. Un suffisso <code class="docutils literal notranslate"><span class="pre">_l10n_id</span></code> PUÒ essere aggiunto per la gestione della localizzazione del contenuto.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>restriction_policy</strong></p></td>
-<td><p>OPTIONAL. Legal restrictions on Wallet Solutions and/or Credential Issuers allowed to request/issue the Digital Credential.</p>
+<td><p>OPZIONALE. Restrizioni legali sulle Soluzioni tecniche di Fornitori di Wallet e/o di Attestati Elettronici autorizzati a richiedere/emettere un Attestato Elettronico.</p>
 <ul class="simple">
-<li><p><strong>allowed_wallet_ids</strong>: List of allowed Wallet Solutions identifiers.</p></li>
-<li><p><strong>allowed_issuer_ids</strong>: List of allowed Credential Issuers identifiers. If present, it represents a whitelist of Credential Issuers that may be added by the Trust Anchor in the <strong>issuers</strong> field of the corresponding Digital Credential.</p></li>
+<li><p><strong>allowed_wallet_ids</strong>: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Wallet consentite.</p></li>
+<li><p><strong>allowed_issuer_ids</strong>: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Attestati Elettronici autorizzati. Se presente, rappresenta una whitelist di Fornitori di Attestati Elettronici che possono essere aggiunti dal Trust Anchor nel campo <strong>issuers</strong> del corrispondente Attestato Elettronico.</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>pricing_policy</strong></p></td>
-<td><p>OPTIONAL. Information about Digital Credential pricing, including:</p>
+<td><p>OPZIONALE. Informazioni sui tariffari dell'Attestato Elettronico, come ad esempio:</p>
 <ul class="simple">
-<li><p><strong>models</strong>: REQUIRED. Array of pricing models applicable to the Digital Credential, each containing:</p>
+<li><p><strong>models</strong>: OBBLIGATORIO. Array di modelli di tariffari applicabili all'Attestato Elettronico, ciascuno contenente</p>
 <ul>
-<li><p><strong>pricing_type</strong>: Type of pricing model, such as <code class="docutils literal notranslate"><span class="pre">issuance_based</span></code>, <code class="docutils literal notranslate"><span class="pre">verification_based</span></code>, <code class="docutils literal notranslate"><span class="pre">subscription_based</span></code>, <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></li>
-<li><p><strong>price</strong>: Cost associated with the model.</p></li>
-<li><p><strong>currency</strong>: Currency of the price.</p></li>
+<li><p><strong>pricing_type</strong>: Tipo di modello di tariffario, come <code class="docutils literal notranslate"><span class="pre">issuance_based</span></code>, <code class="docutils literal notranslate"><span class="pre">verification_based</span></code>, <code class="docutils literal notranslate"><span class="pre">subscription_based</span></code>, <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></li>
+<li><p><strong>price</strong>: Costo associato al modello.</p></li>
+<li><p><strong>currency</strong>: Valuta della tariffa.</p></li>
 </ul>
 </li>
-<li><p><strong>pricing_model_uri</strong>: URI to the detailed pricing model documentation.</p></li>
+<li><p><strong>pricing_model_uri</strong>: URI alla documentazione dettagliata del modello di tariffario.</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-even"><td><p><strong>validity_info</strong></p></td>
-<td><p>Information about Digital Credential validity, including at least:</p>
+<td><p>Informazioni sulla validità dell'Attestato Elettronico, inclusi almeno:</p>
 <ul class="simple">
-<li><p><strong>max_validity_days</strong>: Maximum validity period in days.</p></li>
-<li><p><strong>status_methods</strong>: Supported status verification methods (e.g. <code class="docutils literal notranslate"><span class="pre">status_list</span></code>).</p></li>
-<li><p><strong>allowed_states</strong>: Allowed Digital Credential states (e.g. <code class="docutils literal notranslate"><span class="pre">valid</span></code>, <code class="docutils literal notranslate"><span class="pre">revoked</span></code>, <code class="docutils literal notranslate"><span class="pre">suspended</span></code>).</p></li>
+<li><p><strong>max_validity_days</strong>: Periodo massimo di validità in giorni.</p></li>
+<li><p><strong>status_methods</strong>: Metodi di verifica dello stato supportati (es. <code class="docutils literal notranslate"><span class="pre">status_list</span></code>).</p></li>
+<li><p><strong>allowed_states</strong>: Stati consentiti dell'Attestato Elettronico (es. <code class="docutils literal notranslate"><span class="pre">valid</span></code>, <code class="docutils literal notranslate"><span class="pre">revoked</span></code>, <code class="docutils literal notranslate"><span class="pre">suspended</span></code>).</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>authentication</strong></p></td>
-<td><p>REQUIRED. Digital Credential authentication requirements</p>
+<td><p>OBBLIGATORIO. Requisiti di autenticazione dell'Attestato Elettronico</p>
 <ul class="simple">
-<li><p><strong>user_auth_required</strong>: REQUIRED. Flag indicating if User authentication is required during the issuance of the Digital Credential.</p></li>
-<li><p><strong>min_loa</strong>: REQUIRED. Minimum Level of Assurance required for Digital Credential authentication. It MUST include the Level of Assurance of the User authentication and the Wallet Instance requesting the Digital Credential.</p></li>
-<li><p><strong>supported_eid_schemes</strong>: REQUIRED if <code class="docutils literal notranslate"><span class="pre">user_auth_required</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>. Supported digital identity authentication schemes.</p></li>
+<li><p><strong>user_auth_required</strong>: OBBLIGATORIO. Flag che indica se l'autenticazione dell'Utente è richiesta durante l'emissione dell'Attestato Elettronico.</p></li>
+<li><p><strong>min_loa</strong>: OBBLIGATORIO. Livello minimo di Garanzia richiesto per l'autenticazione dell'Attestato Elettronico. DEVE includere il Livello di Garanzia dell'autenticazione dell'Utente e dell'Istanza del Wallet che richiede l'Attestato Elettronico.</p></li>
+<li><p><strong>supported_eid_schemes</strong>: OBBLIGATORIO se <code class="docutils literal notranslate"><span class="pre">user_auth_required</span></code> è <code class="docutils literal notranslate"><span class="pre">true</span></code>. Schemi di autenticazione dell'identità digitale supportati.</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-even"><td><p><strong>purposes</strong></p></td>
-<td><p>REQUIRED. Array of usage purposes for which the Digital Credential can be used, defining specific usage contexts and required claims for each purpose, such as:</p>
+<td><p>OBBLIGATORIO. Array di scopi o ambiti specifici per cui l'Attestato Elettronico può essere utilizzato, definendo contesti di utilizzo specifici e attributi richiesti per ciascuno scopo, come:</p>
 <ul class="simple">
-<li><p><strong>id</strong>: Unique identifier for the purpose (e.g., &quot;driving-authorization&quot;, &quot;person-identification&quot;).</p></li>
-<li><p><strong>description</strong>: Human-readable purpose description with a suffix <code class="docutils literal notranslate"><span class="pre">_l10n_id</span></code> for content localisation.</p></li>
-<li><p><strong>category</strong>: Main category in the Credential taxonomy (e.g., <code class="docutils literal notranslate"><span class="pre">AUTHORIZATION</span></code>, <code class="docutils literal notranslate"><span class="pre">IDENTITY</span></code>).</p></li>
-<li><p><strong>subcategory</strong>: Subcategory within the taxonomy (e.g., <code class="docutils literal notranslate"><span class="pre">DRIVING_LICENSE</span></code>, <code class="docutils literal notranslate"><span class="pre">PERSON_IDENTIFICATION</span></code>).</p></li>
-<li><p><strong>claims_required</strong>: Array of claim identifiers that are required when using the Credential for this purpose.</p></li>
-<li><p><strong>claims_recommended</strong>: Array of claim identifiers that are recommended but not mandatory for this purpose.</p></li>
+<li><p><strong>id</strong>: Identificativo univoco per lo scopo (es., &quot;driving-authorization&quot;, &quot;person-identification&quot;).</p></li>
+<li><p><strong>description</strong>: Descrizione <em>human-readable</em> dello scopo con un suffisso <code class="docutils literal notranslate"><span class="pre">_l10n_id</span></code> per la localizzazione del contenuto.</p></li>
+<li><p><strong>category</strong>: Categoria principale nella tassonomia della Credenziale (es., <code class="docutils literal notranslate"><span class="pre">AUTHORIZATION</span></code>, <code class="docutils literal notranslate"><span class="pre">IDENTITY</span></code>).</p></li>
+<li><p><strong>subcategory</strong>: Sottocategoria all'interno della tassonomia (es., <code class="docutils literal notranslate"><span class="pre">DRIVING_LICENSE</span></code>, <code class="docutils literal notranslate"><span class="pre">PERSON_IDENTIFICATION</span></code>).</p></li>
+<li><p><strong>claims_required</strong>: Array di identificativi di claims che sono richiesti quando si utilizza l'Attestato Elettronico per questo scopo.</p></li>
+<li><p><strong>claims_recommended</strong>: Array di identificativi di claims che sono raccomandati ma non obbligatori per questo scopo.</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>issuers</strong></p></td>
-<td><p>REQUIRED. Array of relevant information about authorized Credential Issuers, including administrative and technical data such as Organization name, a reference to the API specification document and supported issuance mechanisms (for example the deferred flow support).</p></td>
+<td><p>OBBLIGATORIO. Array di informazioni rilevanti sui Fornitori di Attestato Elettronico autorizzati, inclusi dati amministrativi e tecnici come il nome dell'Organizzazione, un riferimento al documento di specifiche API e meccanismi di emissione supportati (ad esempio il supporto al <em>deferred flow</em>).</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>authentic_sources</strong></p></td>
-<td><p>REQUIRED. Array of relevant information about authorized Authentic Sources, including administrative and technical data related the provisioning of data to the Credential Issuers.</p></td>
+<td><p>OBBLIGATORIO. Array di informazioni rilevanti sulle Fonti Autentiche autorizzate, inclusi dati amministrativi e tecnici relativi alla fornitura di dati ai Fornitori di Attestato Elettronico.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>formats</strong></p></td>
-<td><p>REQUIRED. Array of supported technical formats of Digital Credentials.</p></td>
+<td><p>OBBLIGATORIO. Array di formati tecnici supportati degli Attestati Elettronici.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>display_properties</strong></p></td>
-<td><p>REQUIRED. Visual presentation properties of Digital Credentials, e.g.:</p>
+<td><p>OBBLIGATORIO. Proprietà di presentazione visiva degli Attestati Elettronici, ad es.:</p>
 <ul class="simple">
-<li><p><strong>templates</strong>: Visual templates for the Credential, e.g. <cite>svg</cite> template.</p></li>
-<li><p><strong>background_color</strong>: Background color in hexadecimal format.</p></li>
-<li><p><strong>text_color</strong>: Text color in hexadecimal format.</p></li>
-<li><p><strong>logo_uri</strong>: URI to the Digital Credential logo.</p></li>
+<li><p><strong>templates</strong>: Modelli visivi per l'Attestato Elettronico, ad es. template <cite>svg</cite>.</p></li>
+<li><p><strong>background_color</strong>: Colore di sfondo in formato esadecimale.</p></li>
+<li><p><strong>text_color</strong>: Colore del testo in formato esadecimale.</p></li>
+<li><p><strong>logo_uri</strong>: URI al logo dell'Attestato Elettronico.</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>claims</strong></p></td>
-<td><p>REQUIRED. Array of claims contained in the Digital Credential.</p></td>
+<td><p>OBBLIGATORIO. Array di claims contenuti nell'Attestato Elettronico.</p></td>
 </tr>
 </tbody>
 </table>
-<p>The corresponding example of Digital Credentials Catalogue as decoded in JSON for both header and payload is the following:</p>
+<p>L'esempio corrispondente del Catalogo degli Attestati Elettronici decodificato in JSON sia per l'header che per il payload è il seguente:</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="nt">&quot;typ&quot;</span><span class="p">:</span><span class="s2">&quot;JOSE&quot;</span><span class="p">,</span>
 <span class="w">   </span><span class="nt">&quot;alg&quot;</span><span class="p">:</span><span class="s2">&quot;ES256&quot;</span><span class="p">,</span>
@@ -781,17 +779,17 @@
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For a better and more efficient management of the localisation of the information contained in the Digital Credentials Catalogue, an Entity consulting it SHOULD:</p>
+<p class="admonition-title">Nota</p>
+<p>Per una gestione migliore e più efficiente della localizzazione delle informazioni contenute nel Catalogo degli Attestati Elettronici, un'Entità che lo consulta DOVREBBE:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Download the basic version of the Digital Credentials Catalogue (compact, without localisations) using the <code class="docutils literal notranslate"><span class="pre">.well-known/credential-catalogue</span></code> endpoint.</p></li>
-<li><p>Determine the User's preferred language.</p></li>
-<li><p>Download only the necessary localisation bundles.</p></li>
-<li><p>Dynamically merge localised content with the Digital Credentials Catalogue structure.</p></li>
+<li><p>Scaricare la versione base del Catalogo degli Attestati Elettronici (compatta, senza localizzazioni) utilizzando l'endpoint <code class="docutils literal notranslate"><span class="pre">.well-known/credential-catalogue</span></code>.</p></li>
+<li><p>Determinare la lingua preferita dell'Utente.</p></li>
+<li><p>Scaricare solo i bundle di localizzazione necessari.</p></li>
+<li><p>Unire dinamicamente il contenuto localizzato con la struttura del Catalogo degli Attestati Elettronici.</p></li>
 </ul>
 </div></blockquote>
-<p>A non-normative example of a localisation bundle output is given below:</p>
+<p>Un esempio non normativo di output di un bundle di localizzazione è fornito di seguito:</p>
 <blockquote>
 <div><div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;driving_license.name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Patente di Guida&quot;</span><span class="p">,</span>
@@ -804,15 +802,15 @@
 </pre></div>
 </div>
 </div></blockquote>
-<p>Localization bundles MUST be available at the URI specified in the <strong>localization_info.bundles_base_uri</strong> claim of the Digital Credentials Catalogue. Each locale bundle MUST be accessible following the naming pattern <strong>{locale_code}.json</strong>, where <strong>{locale_code}</strong> is replaced with the corresponding locale code from the <strong>available_locales</strong> array.</p>
-<p>A non-normative example of the Italian localization URI for the mDL bundle would be <strong>https://trust-registry.eid-wallet.example.it/.well-known/l10n/mdl/it.json</strong>.</p>
-<p>Entities SHOULD verify the integrity of downloaded localization bundles using the digest method and values specified in the <strong>localization_info.integrity</strong> claim. This ensures that the localization data has not been tampered with during transmission.</p>
+<p>I bundle di localizzazione DEVONO essere disponibili all'URI specificato nel claim <strong>localization_info.bundles_base_uri</strong> del Catalogo degli Attestati Elettronici. Ogni <em>bundle locale</em> DEVE essere accessibile seguendo il pattern di denominazione <strong>{locale_code}.json</strong>, dove <strong>{locale_code}</strong> è sostituito con il codice di localizzazione corrispondente dall'array <strong>available_locales</strong>.</p>
+<p>Un esempio non normativo dell'URI di localizzazione italiana per il bundle mDL è <strong>https://trust-registry.eid-wallet.example.it/.well-known/l10n/mdl/it.json</strong>.</p>
+<p>Le Entità DOVREBBERO verificare l'integrità dei bundle di localizzazione scaricati utilizzando il metodo di digest e i valori specificati nel claim <strong>localization_info.integrity</strong>. Questo garantisce che i dati di localizzazione non siano stati manomessi durante la trasmissione.</p>
 </div>
 </section>
-<section id="claims-taxonomy">
-<h2><span class="section-number">19.3. </span>Claims Taxonomy<a class="headerlink" href="#claims-taxonomy" title="Link to this heading">¶</a></h2>
-<p>The Digital Credential Catalogue, MUST include also a reference URI to Claim Taxonomy providing, in a single resource, the semantic information of all registered and available claims within the IT-Wallet ecosystem. It MUST be Credential format neutral and has the aim of facilitating Digital Credentials integrations in the IT-Wallet Technical Solutions.</p>
-<p>A non-normative example of the Claim Taxonomy is given below.</p>
+<section id="tassonomia-degli-attributi">
+<h2><span class="section-number">6.3.3. </span>Tassonomia degli Attributi<a class="headerlink" href="#tassonomia-degli-attributi" title="Link to this heading">¶</a></h2>
+<p>Il Catalogo degli Attestati Elettronici DEVE includere anche un URI di riferimento alla Tassonomia degli Attributi che fornisce, in un'unica risorsa, le informazioni semantiche di tutti gli attributi registrati e disponibili all'interno dell'ecosistema IT-Wallet. DEVE essere neutrale rispetto al formato della Credenziale e ha lo scopo di facilitare le integrazioni degli Attestati Elettronici nelle Soluzioni Tecniche IT-Wallet.</p>
+<p>Un esempio non normativo della Tassonomia degli Attributi è fornito di seguito.</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;last_modified&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-04-10T12:00:00Z&quot;</span><span class="p">,</span>
@@ -1076,26 +1074,26 @@
 </pre></div>
 </div>
 </section>
-<section id="digital-credentials-catalogue-endpoint">
-<h2><span class="section-number">19.4. </span>Digital Credentials Catalogue Endpoint<a class="headerlink" href="#digital-credentials-catalogue-endpoint" title="Link to this heading">¶</a></h2>
-<p>The Digital Credentials Catalogue Endpoint MUST be a well-known HTTPS URI [<span class="target" id="index-6"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc8615.html"><strong>RFC 8615</strong></a>] that provides public access to information related to the Credentials available in IT-Wallet.</p>
-<section id="digital-credentials-catalogue-request">
-<h3><span class="section-number">19.4.1. </span>Digital Credentials Catalogue Request<a class="headerlink" href="#digital-credentials-catalogue-request" title="Link to this heading">¶</a></h3>
-<p>The Digital Credentials Catalogue Request MUST be an HTTP GET using the application/jose media type as in the following non-normative example.</p>
+<section id="endpoint-del-catalogo-degli-attestati-elettronici">
+<h2><span class="section-number">6.3.4. </span>Endpoint del Catalogo degli Attestati Elettronici<a class="headerlink" href="#endpoint-del-catalogo-degli-attestati-elettronici" title="Link to this heading">¶</a></h2>
+<p>L'Endpoint del Catalogo degli Attestati Elettronici DEVE essere un URI HTTPS <em>well-known</em> [<span class="target" id="index-6"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc8615.html"><strong>RFC 8615</strong></a>] che fornisce accesso pubblico alle informazioni relative agli Attestati Elettronici disponibili in IT-Wallet.</p>
+<section id="richiesta-del-catalogo-degli-attestati-elettronici">
+<h3><span class="section-number">6.3.4.1. </span>Richiesta del Catalogo degli Attestati Elettronici<a class="headerlink" href="#richiesta-del-catalogo-degli-attestati-elettronici" title="Link to this heading">¶</a></h3>
+<p>La Richiesta del Catalogo degli Attestati Elettronici DEVE essere una GET HTTP utilizzando il <em>media type</em> <code class="docutils literal notranslate"><span class="pre">application/jose</span></code> come nel seguente esempio non normativo.</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/.well-known/credential-catalogue</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">www.trust-registry.eid-wallet.example.it</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/jose</span>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As a future enhancement, the Trust Anchor MAY implement a dynamic endpoint that enables filtering credentials by type, while offering pagination capabilities, to support more efficient and flexible browsing of the Digital Credentials Catalogue.</p>
+<p class="admonition-title">Nota</p>
+<p>Come miglioramento futuro, il Trust Anchor PUÒ implementare un endpoint dinamico che consenta di filtrare gli Attestati Elettronici per tipo, offrendo al contempo capacità di paginazione, per supportare una navigazione più efficiente e flessibile del Catalogo degli Attestati Elettronici.</p>
 </div>
 </section>
-<section id="digital-credentials-catalogue-response">
-<h3><span class="section-number">19.4.2. </span>Digital Credentials Catalogue Response<a class="headerlink" href="#digital-credentials-catalogue-response" title="Link to this heading">¶</a></h3>
-<p>The Digital Credentials Catalogue Response MUST be a JWS that contains the parameters listed in the <a class="reference internal" href="#table-catalogue-parameters"><span class="std std-ref">table of Digital Credentials Catalogue parameters</span></a>.</p>
-<p>A non-normative example of the response is provided below.</p>
+<section id="risposta-del-catalogo-degli-attestati-elettronici">
+<h3><span class="section-number">6.3.4.2. </span>Risposta del Catalogo degli Attestati Elettronici<a class="headerlink" href="#risposta-del-catalogo-degli-attestati-elettronici" title="Link to this heading">¶</a></h3>
+<p>La Risposta del Catalogo degli Attestati Elettronici DEVE essere un JWS che contiene i parametri elencati nella <a class="reference internal" href="#table-catalogue-parameters"><span class="std std-ref">tabella dei parametri del Catalogo degli Attestati Elettronici</span></a>.</p>
+<p>Un esempio non normativo della risposta è fornito di seguito.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ewogICAidHlwIjoiSk9TRSIsCiAgICJhbGciOiJFUzI1NiIsCiAgICJraWQiOiJlOWJjMDk3YS1jZTUxLTQwMzYtOTU2Mi1kMmFkZTg4MmRiMGQiLAogICAiY3R5IjoiYXBwbGljYXRpb24vanNvbiIKfQ==.ew0KICAgImNhdGFsb2dfdmVyc2lvbiI6ICIxLjAiLA0KICAgImlzcyI6ICJodHRwczovL3RydXN0LXJlZ2lzdHJ5LmVpZC13YWxsZXQuZXhhbXBsZS5pdCIsDQogICAibGFzdF9tb2RpZmllZCI6ICIyMDI1LTAzLTE1VDEyOjAwOjAwWiIsDQogICAidGF4b25vbXlfdXJpIjogImh0dHBzOi8vdHJ1c3QtcmVnaXN0cnkuZWlkLXdhbGxldC5leGFtcGxlLml0Ly53ZWxsLWtub3duL2NyZWRlbnRpYWwtdGF4b25vbXkiLA0KICAgInRheG9ub215X3VyaSNpbnRlZ3JpdHkiOiAic2hhMjU2LUxtWGZoLTljTGxKTlhOLVRzTWstUG1Lalo1dDBXUkw1Y2FfeEdnWDNjMVYiLCAgIA0KICAgImNyZWRlbnRpYWxzIjogWw0KICAgICAgew0KICAgICAgICAgInZlcnNpb24iOiAiMS4wIiwNCiAgICAgICAgICJjcmVkZW50aWFsX3R5cGUiOiAibURMIiwNCiAgICAgICAgICJsZWdhbF90eXBlIjogInB1Yi1lYWEiLA0KICAgICAgICAgImxvY2FsaXphdGlvbiI6IHsNCiAgICAgICAgICAgICJkZWZhdWx0X2xvY2FsZSI6ICJpdCIsDQogICAgICAgICAgICAiYXZhaWxhYmxlX2xvY2FsZXMiOiBbImVuIiwgIml0IiwgImZyIiwgImRlIl0sDQogICAgICAgICAgICAiYmFzZV91cmkiOiAiaHR0cHM6Ly90cnVzdC1yZWdpc3RyeS5laWQtd2FsbGV0LmV4YW1wbGUuaXQvLndlbGwta25vd24vbDEwbi9tZGwvIiwNCiAgICAgICAgICAgICJ2ZXJzaW9uIjogIjEuMC4wIg0KICAgICAgICAgfSwNCiAgICAgICAgICJuYW1lX2wxMG5faWQiOiAiY3JlZGVudGlhbC5tZGwubmFtZSIsDQogICAgICAgICAiZGVzY3JpcHRpb25fbDEwbl9pZCI6ICJjcmVkZW50aWFsLm1kbC5kZXNjcmlwdGlvbiIsDQogICAgICAgICAicmVzdHJpY3Rpb25fcG9saWN5Ijogew0KICAgICAgICAgICAgImFsbG93ZWRfd2FsbGV0X2lkcyI6IFsNCiAgICAgICAgICAgICAgICJodHRwczovL3dhbGxldC1wcm92aWRlci5leGFtcGxlLm9yZy93YWxsZXRfc29sdXRpb24iLA0KICAgICAgICAgICAgICAgImh0dHBzOi8vd2FsbGV0LXByb3ZpZGVyMi5leGFtcGxlLm9yZy93YWxsZXRfc29sdXRpb24iDQogICAgICAgICAgICBdLA0KICAgICAgICAgICAgImFsbG93ZWRfaXNzdWVyX2lkcyI6IFsNCiAgICAgICAgICAgICAgICJodHRwczovL2lzc3Vlci5leGFtcGxlLm9yZyINCiAgICAgICAgICAgIF0NCiAgICAgICAgIH0sDQogICAgICAgICAicHJpY2luZ19wb2xpY3kiOiB7DQogICAgICAgICAgICAgIm1vZGVscyI6IFsNCiAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgInByaWNpbmdfdHlwZSI6ICJ2ZXJpZmljYXRpb25fYmFzZWQiLA0KICAgICAgICAgICAgICAgICAicHJpY2UiOiAwLjAxLA0KICAgICAgICAgICAgICAgICAiY3VycmVuY3kiOiAiRVVSIg0KICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgIF0sDQogICAgICAgICAgICAgInByaWNpbmdfbW9kZWxfdXJpIjogImh0dHBzOi8vZXhhbXBsZS5jb20vcHJpY2luZyINCiAgICAgICAgICAgfSwNCiAgICAgICAgICJ2YWxpZGl0eV9pbmZvIjogew0KICAgICAgICAgICAgIm1heF92YWxpZGl0eV9kYXlzIjogMzY1LA0KICAgICAgICAgICAgInN0YXR1c19tZXRob2RzIjogWyJzdGF0dXNfbGlzdCJdLA0KICAgICAgICAgICAgImFsbG93ZWRfc3RhdGVzIjogWw0KICAgICAgICAgICAgICAgInZhbGlkIiwNCiAgICAgICAgICAgICAgICJyZXZva2VkIiwNCiAgICAgICAgICAgICAgICJzdXNwZW5kZWQiDQogICAgICAgICAgICBdDQogICAgICAgICB9LCAgICAgICANCiAgICAgICAgICJhdXRoZW50aWNhdGlvbiI6IHsNCiAgICAgICAgICAgICJ1c2VyX2F1dGhfcmVxdWlyZWQiOiB0cnVlLA0KICAgICAgICAgICAgIm1pbl9sb2EiOiAiaGlnaCIsDQogICAgICAgICAgICAic3VwcG9ydGVkX3NjaGVtZXMiOiBbIml0LXdhbGxldCJdDQogICAgICAgICB9LA0KICAgICAgICAgInB1cnBvc2VzIjogWw0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgImlkIjogImRyaXZpbmctYXV0aG9yaXphdGlvbiIsDQogICAgICAgICAgICAgICAiZGVzY3JpcHRpb25fbDEwbl9pZCI6ICJwdXJwb3NlLmRyaXZpbmdfYXV0aG9yaXphdGlvbi5kZXNjcmlwdGlvbiIsDQogICAgICAgICAgICAgICAiY2F0ZWdvcnkiOiAiQVVUSE9SSVpBVElPTiIsDQogICAgICAgICAgICAgICAic3ViY2F0ZWdvcnkiOiAiRFJJVklOR19MSUNFTlNFIiwNCiAgICAgICAgICAgICAgICJjbGFpbXNfcmVxdWlyZWQiOiBbImZhbWlseV9uYW1lIiwgImdpdmVuX25hbWUiLCAiaXNzdWVfZGF0ZSIsICJleHBpcnlfZGF0ZSIsICJpc3N1aW5nX2F1dGhvcml0eSIsICJkb2N1bWVudF9udW1iZXIiLCAicG9ydHJhaXQiLCAiZHJpdmluZ19wcml2aWxlZ2VzIiwgInVuX2Rpc3Rpbmd1aXNoaW5nX3NpZ24iXSwNCiAgICAgICAgICAgICAgICJjbGFpbV9yZWNvbW1lbmRlZCI6IFsiYmlydGhfZGF0ZSIsICJ1bl9kaXN0aW5ndWlzaGluZ19zaWduIiwgImlzc3VpbmdfY291bnRyeSIsICJpc3N1aW5nX2p1cmlzZGljdGlvbiJdDQogICAgICAgICAgICANCiAgICAgICAgICAgIH0sDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAiaWQiOiAicGVyc29uLWlkZW50aWZpY2F0aW9uIiwNCiAgICAgICAgICAgICAgICJkZXNjcmlwdGlvbl9sMTBuX2lkIjogInB1cnBvc2UucGVyc29uX2lkZW50aWZpY2F0aW9uLmRlc2NyaXB0aW9uIiwNCiAgICAgICAgICAgICAgICJjYXRlZ29yeSI6ICJJREVOVElUWSIsDQogICAgICAgICAgICAgICAic3ViY2F0ZWdvcnkiOiAiUEVSU09OX0lERU5USUZJQ0FUSU9OIiwNCiAgICAgICAgICAgICAgICJjbGFpbXNfcmVxdWlyZWQiOiBbImZhbWlseV9uYW1lIiwgImdpdmVuX25hbWUiLCAiYmlydGhfZGF0ZSIsICJwb3J0cmFpdCIsICJkb2N1bWVudF9udW1iZXIiXSwNCiAgICAgICAgICAgICAgICJjbGFpbV9yZWNvbW1lbmRlZCI6IFsiZXhwaXJ5X2RhdGUiLCAiaXNzdWluZ19hdXRob3JpdHkiXQ0KICAgICAgICAgICAgfQ0KICAgICAgICAgXSwNCiAgICAgICAgICJpc3N1ZXJzIjogWw0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgImlkIjogImh0dHBzOi8vaXNzdWVyLmV4YW1wbGUub3JnIiwNCiAgICAgICAgICAgICAgICJvcmdhbml6YXRpb25fbmFtZSI6ICJEaWdpdGFsIENyZWRlbnRpYWwgSXNzdWVyIG9mIEV4YW1wbGUiLA0KICAgICAgICAgICAgICAgIm9yZ2FuaXphdGlvbl9jb2RlIjogImNpX2V4YW1wbGVfaXQiLA0KICAgICAgICAgICAgICAgIm9yZ2FuaXphdGlvbl9jb3VudHJ5IjogIklUIiwNCiAgICAgICAgICAgICAgICJjb250YWN0cyI6IFsNCiAgICAgICAgICAgICAgICAgICJtYWlsdG86aW5mb3JtYXppb25pQGV4YW1wbGUuaXQiLA0KICAgICAgICAgICAgICAgICAgIm1haWx0bzpwcm90b2NvbGxvQHBlYy5leGFtcGxlLml0Ig0KICAgICAgICAgICAgICAgXSwNCiAgICAgICAgICAgICAgICJsZWdhbF90eXBlIjogInB1Yi1lYWEiLA0KICAgICAgICAgICAgICAgImhvbWVwYWdlX3VyaSI6ICJodHRwczovL2lzc3Vlci5leGFtcGxlLm9yZyIsDQogICAgICAgICAgICAgICAibG9nb191cmkiOiAiaHR0cHM6Ly9pc3N1ZXIuZXhhbXBsZS5vcmcvbG9nby5zdmciLA0KICAgICAgICAgICAgICAgInBvbGljeV91cmkiOiAiaHR0cHM6Ly9pc3N1ZXIuZXhhbXBsZS5vcmcvcHJpdmFjeSIsDQogICAgICAgICAgICAgICAidG9zX3VyaSI6ICJodHRwczovL2lzc3Vlci5leGFtcGxlLm9yZy90ZXJtcyIsDQogICAgICAgICAgICAgICAic2VydmljZV9kb2N1bWVudGF0aW9uIjogImh0dHBzOi8vaXNzdWVyLmV4YW1wbGUub3JnLy53ZWxsLWtub3duL3NlcnZpY2UtZG9jIiwNCiAgICAgICAgICAgICAgICJpc3N1YW5jZV9mbG93cyI6IHsNCiAgICAgICAgICAgICAgICAgICJkZWZlcnJlZF9mbG93IjogdHJ1ZSwNCiAgICAgICAgICAgICAgICAgICJtYXhfZGVmZXJyZWRfaXNzdWFuY2VfdGltZV9taW51dGVzIjogMTQ0MCwNCiAgICAgICAgICAgICAgICAgICJub3RpZmljYXRpb25fbWV0aG9kcyI6IFsicHVzaCIsICJwb2xsaW5nIl0NCiAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgIF0sDQogICAgICAgICAiYXV0aGVudGljX3NvdXJjZXMiOiBbDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAiaWQiOiAiaHR0cHM6Ly9hdXRoZW50aWMtc291cmNlcy5leGFtcGxlLm9yZyIsDQogICAgICAgICAgICAgICAib3JnYW5pemF0aW9uX25hbWUiOiAiQXV0aGVudGljIFNvdXJjZSBvZiBFeGFtcGxlIiwNCiAgICAgICAgICAgICAgICJvcmdhbml6YXRpb25fY29kZSI6ICJhc19leGFtcGxlX2l0IiwNCiAgICAgICAgICAgICAgICJvcmdhbml6YXRpb25fY291bnRyeSI6ICJJVCIsDQogICAgICAgICAgICAgICAiY29udGFjdHMiOiBbDQogICAgICAgICAgICAgICAgICAibWFpbHRvOmluZm9ybWF6aW9uaUBleGFtcGxlLml0IiwNCiAgICAgICAgICAgICAgICAgICJtYWlsdG86cHJvdG9jb2xsb0BwZWMuZXhhbXBsZS5pdCINCiAgICAgICAgICAgICAgIF0sDQogICAgICAgICAgICAgICAiaG9tZXBhZ2VfdXJpIjogImh0dHBzOi8vYXV0aHNvdXJjZS5leGFtcGxlLmNvbS8iLA0KICAgICAgICAgICAgICAgImxvZ29fdXJpIjogImh0dHBzOi8vYXV0aHNvdXJjZS5leGFtcGxlLmNvbS9pbWcvbG9nby5zdmciLA0KICAgICAgICAgICAgICAgInNvdXJjZV90eXBlIjogInB1YmxpYyIsDQogICAgICAgICAgICAgICAic2VydmljZV9kb2N1bWVudGF0aW9uIjogImh0dHBzOi8vYXV0aGVudGljLXNvdXJjZXMuZXhhbXBsZS5vcmcvLndlbGwta25vd24vc2VydmljZS1kb2MiLA0KICAgICAgICAgICAgICAgImRhdGFfcHJvdmlzaW9uIjogew0KICAgICAgICAgICAgICAgICAgImltbWVkaWF0ZV9mbG93IjogZmFsc2UsDQogICAgICAgICAgICAgICAgICAiZGVmZXJyZWRfZmxvdyI6IHRydWUsDQogICAgICAgICAgICAgICAgICAibWF4X3Jlc3BvbnNlX3RpbWVfbWludXRlcyI6IDYwLA0KICAgICAgICAgICAgICAgICAgIm5vdGlmaWNhdGlvbl9tZXRob2RzIjogWyJwdXNoIl0NCiAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgIF0sDQogICAgICAgICAiZm9ybWF0cyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICJjb25maWd1cmF0aW9uX2lkIjogImRjX3NkX2p3dF9tREwiLA0KICAgICAgICAgICAgICAgImZvcm1hdCI6ICJkYytzZC1qd3QiLA0KICAgICAgICAgICAgICAgInNjaGVtYV91cmkiOiAiaHR0cHM6Ly90cnVzdC1yZWdpc3RyeS5laWQtd2FsbGV0LmV4YW1wbGUuaXQvLndlbGwta25vd24vc2NoZW1hcy9zZC1qd3QvbURMIiwNCiAgICAgICAgICAgICAgICJzY2hlbWFfdXJpI2ludGVncml0eSI6ICJzaGEyNTYtYzhiNzA4NzI4ZTRjNTc1NmUzNWMwM2FlYWMyNTdjYTg3OGQxZjcxN2Q3YjYxZjYyMWJlNGQzNmRiZDliOWMxNiINCiAgICAgICAgICAgIH0sDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAiY29uZmlndXJhdGlvbl9pZCI6ICJtc29fbWRvY19tREwiLA0KICAgICAgICAgICAgICAgImZvcm1hdCI6ICJtc29fbWRvYyIsDQogICAgICAgICAgICAgICAic2NoZW1hX3VyaSI6ICJodHRwczovL3RydXN0LXJlZ2lzdHJ5LmVpZC13YWxsZXQuZXhhbXBsZS5pdC8ud2VsbC1rbm93bi9zY2hlbWFzL21kb2MvbURMIiwNCiAgICAgICAgICAgICAgICJzY2hlbWFfdXJpI2ludGVncml0eSI6ICJzaGEyNTYtYzhiNzA4NzI4ZTRjNTc1NmUzNWMwM2FlYWMyNTdjYTg3OGQxZjcxN2Q3YjYxZjYyMWJlNGQzNmRiZDliOWMxNiINCiAgICAgICAgICAgIH0NCiAgICAgICAgIF0sDQogICAgICAgICAiZGlzcGxheV9wcm9wZXJ0aWVzIjogew0KICAgICAgICAgICAgInRlbXBsYXRlcyI6IFsNCiAgICAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAgICJhdXRoZW50aWNfc291cmNlX2lkIjogImh0dHBzOi8vYXV0aGVudGljLXNvdXJjZXMuZXhhbXBsZS5vcmciLA0KICAgICAgICAgICAgICAgICAgInRlbXBsYXRlX3VyaSI6ICJodHRwczovL2F1dGhzb3VyY2UuZXhhbXBsZS5jb20vLndlbGwta25vd24vdGVtcGxhdGVzL21ETC5zdmciLA0KICAgICAgICAgICAgICAgICAgInRlbXBsYXRlX3VyaSNpbnRlZ3JpdHkiOiAic2hhMjU2LThjTGxKTlhOLVRzTWstUG1Lalo1dDBXUkw1Y2FfeEdnWDNjMVZMbVhmaC05YyIsDQogICAgICAgICAgICAgICAgICAicHJvcGVydGllcyI6IHsNCiAgICAgICAgICAgICAgICAgICAgICJvcmllbnRhdGlvbiI6ICJsYW5kc2NhcGUiLA0KICAgICAgICAgICAgICAgICAgICAgImNvbG9yX3NjaGVtZSI6ICJsaWdodCIsDQogICAgICAgICAgICAgICAgICAgICAiY29udHJhc3QiOiAiaGlnaCINCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIF0sDQogICAgICAgICAgICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMDA4NTU4IiwNCiAgICAgICAgICAgICJ0ZXh0X2NvbG9yIjogIiNGRkZGRkYiLA0KICAgICAgICAgICAgImxvZ29fdXJpIjogImh0dHBzOi8vdHJ1c3QtcmVnaXN0cnkuZWlkLXdhbGxldC5leGFtcGxlLml0Ly53ZWxsLWtub3duL2xvZ29zL21ETC5zdmciDQogICAgICAgICB9LA0KICAgICAgICAgImNsYWltcyI6IFsNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICJuYW1lIjogImZhbWlseV9uYW1lIiwNCiAgICAgICAgICAgICAgICJ0YXhvbm9teV9yZWYiOiAiSURFTlRJVFkuUEVSU09OQUxfREFUQS5mYW1pbHlfbmFtZSIsDQogICAgICAgICAgICAgICAiZGlzcGxheV9uYW1lX2wxMG5faWQiOiAiY2xhaW1zLmZhbWlseV9uYW1lLm5hbWUiLA0KICAgICAgICAgICAgICAgIm5hbWVzcGFjZXMiOiBbIm9yZy5pc28uMTgwMTMuNS4xIl0NCiAgICAgICAgICAgIH0sDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAibmFtZSI6ICJnaXZlbl9uYW1lIiwNCiAgICAgICAgICAgICAgICJ0YXhvbm9teV9yZWYiOiAiSURFTlRJVFkuUEVSU09OQUxfREFUQS5naXZlbl9uYW1lIiwNCiAgICAgICAgICAgICAgICJkaXNwbGF5X25hbWVfbDEwbl9pZCI6ICJjbGFpbXMuZ2l2ZW5fbmFtZS5uYW1lIiwNCiAgICAgICAgICAgICAgICJuYW1lc3BhY2VzIjogWyJvcmcuaXNvLjE4MDEzLjUuMSJdDQogICAgICAgICAgICB9LA0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIm5hbWUiOiAiYmlydGhfZGF0ZSIsDQogICAgICAgICAgICAgICAidGF4b25vbXlfcmVmIjogIklERU5USVRZLlBFUlNPTkFMX0RBVEEuYmlydGhkYXRlIiwNCiAgICAgICAgICAgICAgICJkaXNwbGF5X25hbWVfbDEwbl9pZCI6ICJjbGFpbXMuYmlydGhfZGF0ZS5uYW1lIiwNCiAgICAgICAgICAgICAgICJuYW1lc3BhY2VzIjogWyJvcmcuaXNvLjE4MDEzLjUuMSJdDQogICAgICAgICAgICB9LA0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIm5hbWUiOiAiaXNzdWVfZGF0ZSIsDQogICAgICAgICAgICAgICAidGF4b25vbXlfcmVmIjogIkNPTU1PTi5WQUxJRElUWS5pc3N1YW5jZV9kYXRlIiwNCiAgICAgICAgICAgICAgICJkaXNwbGF5X25hbWVfbDEwbl9pZCI6ICJjbGFpbXMuaXNzdWVfZGF0ZS5uYW1lIiwNCiAgICAgICAgICAgICAgICJuYW1lc3BhY2VzIjogWyJvcmcuaXNvLjE4MDEzLjUuMSJdDQogICAgICAgICAgICB9LA0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIm5hbWUiOiAiZXhwaXJ5X2RhdGUiLA0KICAgICAgICAgICAgICAgInRheG9ub215X3JlZiI6ICJDT01NT04uVkFMSURJVFkuZXhwaXJ5X2RhdGUiLA0KICAgICAgICAgICAgICAgImRpc3BsYXlfbmFtZV9sMTBuX2lkIjogImNsYWltcy5leHBpcnlfZGF0ZS5uYW1lIiwNCiAgICAgICAgICAgICAgICJuYW1lc3BhY2VzIjogWyJvcmcuaXNvLjE4MDEzLjUuMSJdDQogICAgICAgICAgICB9LA0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIm5hbWUiOiAiaXNzdWluZ19hdXRob3JpdHkiLA0KICAgICAgICAgICAgICAgInRheG9ub215X3JlZiI6ICJJREVOVElUWS5ET0NVTUVOVFMuaXNzdWluZ19hdXRob3JpdHkiLA0KICAgICAgICAgICAgICAgImRpc3BsYXlfbmFtZV9sMTBuX2lkIjogImNsYWltcy5pc3N1aW5nX2F1dGhvcml0eS5uYW1lIiwNCiAgICAgICAgICAgICAgICJuYW1lc3BhY2VzIjogWyJvcmcuaXNvLjE4MDEzLjUuMSJdDQogICAgICAgICAgICB9LA0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIm5hbWUiOiAiZG9jdW1lbnRfbnVtYmVyIiwNCiAgICAgICAgICAgICAgICJ0YXhvbm9teV9yZWYiOiAiSURFTlRJVFkuRE9DVU1FTlRTLmRvY3VtZW50X251bWJlciIsDQogICAgICAgICAgICAgICAiZGlzcGxheV9uYW1lX2wxMG5faWQiOiAiY2xhaW1zLmRvY3VtZW50X251bWJlci5uYW1lIiwNCiAgICAgICAgICAgICAgICJuYW1lc3BhY2VzIjogWyJvcmcuaXNvLjE4MDEzLjUuMSJdDQogICAgICAgICAgICB9LA0KICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgIm5hbWUiOiAicG9ydHJhaXQiLA0KICAgICAgICAgICAgICAgInRheG9ub215X3JlZiI6ICJJREVOVElUWS5CSU9NRVRSSUMuZmFjaWFsX2ltYWdlIiwNCiAgICAgICAgICAgICAgICJkaXNwbGF5X25hbWVfbDEwbl9pZCI6ICJjbGFpbXMucG9ydHJhaXQubmFtZSIsDQogICAgICAgICAgICAgICAibmFtZXNwYWNlcyI6IFsib3JnLmlzby4xODAxMy41LjEiXQ0KICAgICAgICAgICAgfSwNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICJuYW1lIjogImRyaXZpbmdfcHJpdmlsZWdlcyIsDQogICAgICAgICAgICAgICAidGF4b25vbXlfcmVmIjogIkFVVEhPUklaQVRJT04uRFJJVklOR19MSUNFTlNFLmNhdGVnb3JpZXMiLA0KICAgICAgICAgICAgICAgImRpc3BsYXlfbmFtZV9sMTBuX2lkIjogImNsYWltcy5kcml2aW5nX3ByaXZpbGVnZXMubmFtZSIsDQogICAgICAgICAgICAgICAibmFtZXNwYWNlcyI6IFsib3JnLmlzby4xODAxMy41LjEiXQ0KICAgICAgICAgICAgfSwNCiAgICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICJuYW1lIjogInVuX2Rpc3Rpbmd1aXNoaW5nX3NpZ24iLA0KICAgICAgICAgICAgICAgInRheG9ub215X3JlZiI6ICJBVVRIT1JJWkFUSU9OLkRSSVZJTkdfTElDRU5TRS5jb3VudHJ5X2NvZGUiLA0KICAgICAgICAgICAgICAgImRpc3BsYXlfbmFtZV9sMTBuX2lkIjogImNsYWltcy51bl9kaXN0aW5ndWlzaGluZ19zaWduLm5hbWUiLA0KICAgICAgICAgICAgICAgIm5hbWVzcGFjZXMiOiBbIm9yZy5pc28uMTgwMTMuNS4xIl0NCiAgICAgICAgICAgIH0sDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAibmFtZSI6ICJhZG1pbmlzdHJhdGl2ZV9udW1iZXIiLA0KICAgICAgICAgICAgICAgInRheG9ub215X3JlZiI6ICJJREVOVElUWS5ET0NVTUVOVFMuYWRtaW5pc3RyYXRpdmVfbnVtYmVyIiwNCiAgICAgICAgICAgICAgICJkaXNwbGF5X25hbWVfbDEwbl9pZCI6ICJjbGFpbXMuYWRtaW5pc3RyYXRpdmVfbnVtYmVyLm5hbWUiLA0KICAgICAgICAgICAgICAgIm5hbWVzcGFjZXMiOiBbIm9yZy5pc28uMTgwMTMuNS4xIl0NCiAgICAgICAgICAgIH0sDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAibmFtZSI6ICJpc3N1aW5nX2NvdW50cnkiLA0KICAgICAgICAgICAgICAgInRheG9ub215X3JlZiI6ICJJREVOVElUWS5ET0NVTUVOVFMuaXNzdWluZ19jb3VudHJ5IiwNCiAgICAgICAgICAgICAgICJkaXNwbGF5X25hbWVfbDEwbl9pZCI6ICJjbGFpbXMuaXNzdWluZ19jb3VudHJ5Lm5hbWUiLA0KICAgICAgICAgICAgICAgIm5hbWVzcGFjZXMiOiBbIm9yZy5pc28uMTgwMTMuNS4xIl0NCiAgICAgICAgICAgIH0sDQogICAgICAgICAgICB7DQogICAgICAgICAgICAgICAibmFtZSI6ICJpc3N1aW5nX2p1cmlzZGljdGlvbiIsDQogICAgICAgICAgICAgICAidGF4b25vbXlfcmVmIjogIklERU5USVRZLkRPQ1VNRU5UUy5pc3N1aW5nX2p1cmlzZGljdGlvbiIsDQogICAgICAgICAgICAgICAiZGlzcGxheV9uYW1lX2wxMG5faWQiOiAiY2xhaW1zLmlzc3VpbmdfanVyaXNkaWN0aW9uLm5hbWUiLA0KICAgICAgICAgICAgICAgIm5hbWVzcGFjZXMiOiBbIm9yZy5pc28uMTgwMTMuNS4xIl0NCiAgICAgICAgICAgIH0NCiAgICAgICAgIF0NCiAgICAgIH0NCiAgIF0NCn0.kBvX6LppO1m35KdSg3_p_WP1i-cONPjFQuKBDtTIpOYkrEb7zarqtKEqWMJcw3GWhDnIIs8a2Jy4_ng0fokqug
 </pre></div>
 </div>
@@ -1117,13 +1115,13 @@
             <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:</span></a></p>
             <div class="page_toc">
                 <ul>
-<li><a class="reference internal" href="#">19. Digital Credentials Catalogue</a><ul>
-<li><a class="reference internal" href="#digital-credentials-categories">19.1. Digital Credentials Categories</a></li>
-<li><a class="reference internal" href="#digital-credentials-catalogue-structure">19.2. Digital Credentials Catalogue Structure</a></li>
-<li><a class="reference internal" href="#claims-taxonomy">19.3. Claims Taxonomy</a></li>
-<li><a class="reference internal" href="#digital-credentials-catalogue-endpoint">19.4. Digital Credentials Catalogue Endpoint</a><ul>
-<li><a class="reference internal" href="#digital-credentials-catalogue-request">19.4.1. Digital Credentials Catalogue Request</a></li>
-<li><a class="reference internal" href="#digital-credentials-catalogue-response">19.4.2. Digital Credentials Catalogue Response</a></li>
+<li><a class="reference internal" href="#">6.3. Catalogo degli Attestati Elettronici</a><ul>
+<li><a class="reference internal" href="#categorie-di-attestati-elettronici">6.3.1. Categorie di Attestati Elettronici</a></li>
+<li><a class="reference internal" href="#struttura-del-catalogo-degli-attestati-elettronici">6.3.2. Struttura del Catalogo degli Attestati Elettronici</a></li>
+<li><a class="reference internal" href="#tassonomia-degli-attributi">6.3.3. Tassonomia degli Attributi</a></li>
+<li><a class="reference internal" href="#endpoint-del-catalogo-degli-attestati-elettronici">6.3.4. Endpoint del Catalogo degli Attestati Elettronici</a><ul>
+<li><a class="reference internal" href="#richiesta-del-catalogo-degli-attestati-elettronici">6.3.4.1. Richiesta del Catalogo degli Attestati Elettronici</a></li>
+<li><a class="reference internal" href="#risposta-del-catalogo-degli-attestati-elettronici">6.3.4.2. Risposta del Catalogo degli Attestati Elettronici</a></li>
 </ul>
 </li>
 </ul>
@@ -1140,14 +1138,14 @@
         <div class="button_nav">
             <div class="left">
                 
-                <a href="backup-restore.html">
-                    <span class="icon">&lt;</span><span><span class="section-number">18. </span>Backup and Restore</span></a>
+                <a href="credential-revocation.html">
+                    <span class="icon">&lt;</span><span><span class="section-number">6.2. </span>Ciclo di Vita degli Attestati Elettronici</span></a>
                 
             </div>
 
             <div class="right">
                 
-                    <a href="e-service-pdnd-catalogue.html"><span><span class="section-number">20. </span>e-Service PDND Catalogue</span><span class="icon">&gt;</span></a>
+                    <a href="digital-credential-flows.html"><span><span class="section-number">7. </span>Flussi relativi agli Attestati Elettronici</span><span class="icon">&gt;</span></a>
                 
             </div>
         </div>
@@ -1155,7 +1153,7 @@
 
 
     <div class="footer" role="contentinfo">
-      Last updated on 19/05/2025.
+      Ultimo aggiornamento 03/06/2025.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.5.
     </div>
 

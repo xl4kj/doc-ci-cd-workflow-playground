@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="it" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>6. Design Principles &#8212; IT-Wallet Technical Documentation - 1.0.0</title>
+    <title>2. Principi di design &#8212; IT-Wallet Technical Documentation - Versione Corrente</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=9b2032db" />
     <link rel="stylesheet" type="text/css" href="_static/itwallet-override.css?v=63798874" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/documentation_options.js?v=3fd72285"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=da26b4cc"></script>
     <script src="_static/js/theme.js"></script>
     <script src="_static/js/petite-vue.js"></script>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/15377824?s=48&amp;v=4"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="7. IT-Wallet System Brand Identity" href="brand-identity.html" />
-    <link rel="prev" title="5. The Digital Identity Wallet Paradigm" href="ssi-introduction.html" /> 
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="2.1. Brand Identity del Sistema IT-Wallet" href="brand-identity.html" />
+    <link rel="prev" title="1. Introduzione" href="introduction.html" /> 
   </head><body data-dark_mode_code_blocks="true">
 
 <div id="top_nav">
@@ -32,7 +33,7 @@
         <p id="toggle_sidebar">
             <a href="#" title="Toggle sidebar">|||</a>
         </p>
-        <h1><a href="index.html" title="Go to homepage">IT-Wallet Technical Documentation - 1.0.0</a></h1>
+        <h1><a href="index.html" title="Go to homepage">IT-Wallet Technical Documentation - Versione Corrente</a></h1>
             <a id="source_link" href="https://github.com/italia/eudi-wallet-it-docs">
     
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
@@ -113,11 +114,11 @@
         <div class="searchbox_wrapper">
             
 <search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3 id="searchlabel">Ricerca veloce</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
+      <input type="submit" value="Vai" />
     </form>
     </div>
 </search>
@@ -128,38 +129,26 @@
 
     
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Indice dei Contenuti</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html">2. Normative References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html#defined-terms-and-acronyms">3. Defined Terms and Acronyms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html#normative-language-and-conventions">4. Normative Language and Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ssi-introduction.html">5. The Digital Identity Wallet Paradigm</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">6. Design Principles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="brand-identity.html">7. IT-Wallet System Brand Identity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functionalities.html">8. Functionalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trust.html">9. The Infrastructure of Trust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wallet-solution.html">10. Wallet Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-issuer-solution.html">11. Credential Issuer Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="relying-party-solution.html">12. Relying Party Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentic-sources.html">13. Authentic Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-data-model.html">14. Digital Credential Data Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-issuance.html">15. Digital Credential Issuance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-presentation.html">16. Digital Credential Presentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-revocation.html">17. Digital Credential Lifecycle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backup-restore.html">18. Backup and Restore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="registry-catalogue.html">19. Digital Credentials Catalogue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e-service-pdnd-catalogue.html">20. e-Service PDND Catalogue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e-service-pdnd.html">21. e-Service PDND</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mobile-application-instance.html">22. Mobile Application Instance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="entity-configurations.html">23. Entity Configurations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms.html">24. Cryptographic Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="security-privacy-considerations.html">25. Security and Privacy Considerations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log-retention-policy.html">26. General Log Retention Policies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standards.html">27. Technical References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test-plans.html">28. Test Plans</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contribute.html">29. How to contribute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="open-source.html">30. Open Source Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduzione</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Principi di design</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="brand-identity.html">2.1. Brand Identity del Sistema IT-Wallet</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture-overview.html">3. Panoramica dell'Architettura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trust.html">4. L'Infrastruttura di Trust</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">5. Entità</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digital-credential-management.html">6. Gestione degli Attestati Elettronici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digital-credential-flows.html">7. Flussi relativi agli Attestati Elettronici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpoints.html">8. Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">9. Algoritmi Crittografici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security-privacy-considerations.html">10. Considerazioni di Sicurezza e Privacy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log-retention-policy.html">11. Politiche Generali di Conservazione dei Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defined-terms-and-references.html">12. Termini Definiti e Riferimenti</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">13. Come contribuire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open-source.html">14. Rilasci Open Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">15. Appendice</a></li>
 </ul>
 
         </div>
@@ -171,16 +160,32 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="design-principles">
-<h1><span class="section-number">6. </span>Design Principles<a class="headerlink" href="#design-principles" title="Link to this heading">¶</a></h1>
-<p>The IT-Wallet System adheres to the Digital Identity Wallet Paradigm, aiming to provide Users with a simple, fast, and more secure experience when accessing services.</p>
-<p>The Wallet Solution serves as the primary Touchpoint, enabling Users to manage and use their PID and Attributes when interacting with public or private entities, in both physical and digital contexts. However, the overall service depends on the interactions of a network of Touchpoints and Technical Solutions, that support its delivery and directly impact the User Experience.</p>
-<p>To ensure service quality from a User Experience perspective, Primary Actors, both public and private entities, MUST ensure the usability and accessibility of their Technical Solutions while aligning with the distinctive elements of the IT-Wallet System. Specifically:</p>
+  <section id="principi-di-design">
+<h1><span class="section-number">2. </span>Principi di design<a class="headerlink" href="#principi-di-design" title="Link to this heading">¶</a></h1>
+<p>Il Sistema IT-Wallet si basa sul paradigma del Portafoglio di Identità Digitale e ha l'obiettivo di fornire agli Utenti un'esperienza di accesso ai servizi più semplice, veloce e sicura.</p>
+<p>La Soluzione Wallet rappresenta il principale Touchpoint e consente agli Utenti di utilizzare e gestire il proprio PID e i propri Attributi nelle interazioni con soggetti pubblici o privati, sia in contesti fisici che digitali. Il corretto funzionamento del servizio, tuttavia, si fonda su un'ampia rete di interazioni tra diversi Touchpoint e Soluzioni Tecniche, che ne supportano l'erogazione e incidono direttamente sull'Esperienza Utente.</p>
+<p>Per garantire un'elevata qualità del servizio dal punto di vista dell'Esperienza Utente, gli Attori Primari, siano essi enti pubblici o privati, DEVONO assicurare l'usabilità e l'accessibilità delle proprie Soluzioni Tecniche, in allineamento con gli elementi distintivi del Sistema IT-Wallet. Nello specifico:</p>
 <ul class="simple">
-<li><p><strong>Usability</strong>: Technical Solutions MUST be designed and maintained to meet high usability standards, to facilitate service adoption and reduce the need for assistance. Public entities MUST adhere to [GL_DESIGN], whereas private entities MAY refer to it as a best practice.</p></li>
-<li><p><strong>Accessibility</strong>: Technical Solutions MUST be designed and maintained to meet high accessibility standards to ensure service access regardless of individual abilities, technological skills, or external and contextual constraints. Public entities MUST adhere to [REF_ACCESSIBILITY], whereas private entities MUST comply with applicable regulations.</p></li>
-<li><p><strong>Consistency</strong>: Technical Solutions MUST be designed and maintained in adherence to the IT-Wallet System's Brand Identity and User Experience functional requirements in this document, to promote the recognizability of components, to ensure the overall system consistency, and to minimize the User's cognitive load.</p></li>
+<li><p><strong>Usabilità</strong>: le Soluzioni Tecniche DEVONO essere progettate e mantenute per garantire elevanti standard di usabilità, allo scopo di facilitare l'adozione del servizio e ridurre la necessità di supporto. Gli enti pubblici DEVONO aderire alle [LG_DESIGN], mentre gli enti privati POSSONO prenderle a riferimento come buone pratiche;</p></li>
+<li><p><strong>Accessibilità</strong>: le Soluzioni Tecniche DEVONO essere progettate e mantenute per garantire elevati standard di accessibilità, allo scopo di garantire accesso al servizio indipendentemente da capacità o competenze tecnologiche individuali o da vincoli esterni e di contesto. Gli enti pubblici DEVONO aderire alle [RIF_ACCESSIBILITÀ], mentre gli enti privati DEVONO rispettare quanto previsto dalla normativa vigente;</p></li>
+<li><p><strong>Coerenza</strong>: le Soluzioni Tecniche DEVONO essere progettate e mantenute in coerenza con la Brand Identity del Sistema IT-Wallet e i requisiti funzionali relativi all'Esperienza Utente descritti in queste specifiche, per promuovere la riconoscibilità dei componenti, garantire la coerenza complessiva del sistema e minimizzare il carico cognitivo per l'Utente.</p></li>
 </ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Principi di Design Indice dei Contenuti</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="brand-identity.html">2.1. Brand Identity del Sistema IT-Wallet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="brand-identity.html#naming">2.1.1. Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="brand-identity.html#identita-visiva">2.1.2. Identità Visiva</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="brand-identity.html#logo">2.1.2.1. Logo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brand-identity.html#trust-mark">2.1.2.2. Trust Mark</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brand-identity.html#componenti">2.1.2.3. Componenti</a></li>
+<li class="toctree-l3"><a class="reference internal" href="brand-identity.html#pulsante-di-autenticazione">2.1.2.4. Pulsante di Autenticazione</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 
 
@@ -196,14 +201,14 @@
         <div class="button_nav">
             <div class="left">
                 
-                <a href="ssi-introduction.html">
-                    <span class="icon">&lt;</span><span><span class="section-number">5. </span>The Digital Identity Wallet Paradigm</span></a>
+                <a href="introduction.html">
+                    <span class="icon">&lt;</span><span><span class="section-number">1. </span>Introduzione</span></a>
                 
             </div>
 
             <div class="right">
                 
-                    <a href="brand-identity.html"><span><span class="section-number">7. </span>IT-Wallet System Brand Identity</span><span class="icon">&gt;</span></a>
+                    <a href="brand-identity.html"><span><span class="section-number">2.1. </span>Brand Identity del Sistema IT-Wallet</span><span class="icon">&gt;</span></a>
                 
             </div>
         </div>
@@ -211,7 +216,7 @@
 
 
     <div class="footer" role="contentinfo">
-      Last updated on 19/05/2025.
+      Ultimo aggiornamento 03/06/2025.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.5.
     </div>
 

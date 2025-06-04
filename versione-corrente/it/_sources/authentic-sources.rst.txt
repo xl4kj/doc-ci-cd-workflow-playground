@@ -1,18 +1,18 @@
 .. include:: ../common/common_definitions.rst
 
 
-Authentic Sources
-=================
+Fonti Autentiche
+================
 
-Authentic Sources provide Users attributes to the Credential Issuers enabling them in the issuance of the Digital Credentials. During the Issuance Flow, Credential Issuers request from Authentic Sources the attributes required to provide the requested Credential. Authentic Sources MAY also provide a Credential Offer related to their Credential Issuers as defined in Section :ref:`credential-issuance-endpoint:Credential Offer Endpoint`.
+Le Fonti Autentiche forniscono attributi degli Utenti ai Fornitori di Attestati Elettronici, consentendo loro il rilascio degli Attestati Elettronici. Durante il Flusso di Emissione, i Fornitori di Attestati Elettronici richiedono alle Fonti Autentiche gli attributi necessari per fornire l'Attestato richiesto dall'Utente. Le Fonti Autentiche POSSONO anche fornire una Credential Offer legata ai loro Fornitori di Attestati Elettronici come definito nella Sezione :ref:`credential-issuance-endpoint:Credential Offer Endpoint`.
 
-Public Authentic Sources MUST interact with Credential Issuers via PDND according to the rules defined in Section :ref:`e-service-pdnd:e-Service PDND` and in Section :ref:`credential-revocation:Status Update by Authentic Sources`. See also Section :ref:`e-service-pdnd-catalogue:Authentic Source Catalogue` for additional details.
+Le Fonti Autentiche pubbliche DEVONO interagire con i Fornitori di Attestati Elettronici tramite PDND secondo le regole definite nella Sezione :ref:`e-service-pdnd:e-Service PDND` e nella Sezione :ref:`credential-revocation:Aggiornamento dello Stato da parte delle Fonti Autentiche`. Vedere anche la Sezione :ref:`authentic-source-endpoint:Catalogo degli e-Service PDND delle Fonti Autentiche` per ulteriori dettagli.
 
-Authentic Sources MUST:
+Le Fonti Autentiche DEVONO:
 
-  - provide User's attributes when requested by the Credential Issuer authorized to issue the related Digital Credential attesting the attributes. Public Authentic Sources MUST use PDND to send User's attributes to their Credential Issuers. When the User's attributes is not available duting the Issuance Flow, Authentic Sources MUST provide Credential Issuers with an estimated time when the User's data will be available. Authentic Sources MAY require an evidence that:
+  - fornire gli attributi dell'Utente quando richiesti dal Fornitore di Attestati Elettronici autorizzato a emettere l'Attestato Elettronico correlato che attesta gli attributi. Le Fonti Autentiche pubbliche DEVONO utilizzare PDND per inviare gli attributi dell'Utente ai loro Fornitori di Attestati Elettronici. Quando gli attributi dell'Utente non sono disponibili durante il Flusso di Emissione, le Fonti Autentiche DEVONO fornire ai Fornitori di Credenziale una stima del tempo in cui i dati dell'Utente saranno disponibili. Le Fonti Autentiche POSSONO richiedere una prova che:
 
-    - the request for Users attributes is related to data about themselves;
-    - the request for User attributes comes from a valid Wallet Instance;
+    - la richiesta di attributi degli Utenti sia relativa ai dati che li riguardano;
+    - la richiesta di attributi dell'Utente provenga da un'Istanza del Wallet valida;
 
-  - cooperate with their Credential Issuers so that the attributes attested in a Digital Credential are always kept up to date. Public Authentic Sources MUST use PDND to notify their Credential Issuers of any update regarding attributes that have changed or are no longer valid.
+  - collaborare con i loro Fornitori di Attestati Elettronici in modo che gli attributi dichiarati in un Attestato Elettronico siano sempre mantenuti aggiornati. Le Fonti Autentiche pubbliche DEVONO utilizzare PDND per notificare ai loro Fornitori di Attestati Elettronici qualsiasi aggiornamento riguardante attributi che sono cambiati o che non sono più validi.

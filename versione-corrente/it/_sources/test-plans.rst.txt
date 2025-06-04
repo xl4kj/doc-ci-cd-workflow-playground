@@ -1,20 +1,20 @@
 .. include:: ../common/common_definitions.rst
 
 
-Test Plans
-==========
+Piani di Test
+=============
 
-The purpose of the test plans is to support implementers, auditors, and conformance test environments in validating the behavior of the Wallet Solutions, Relying Parties and Credential Issuers under various operational and security scenarios.
+Lo scopo dei piani di test è supportare gli implementatori, i revisori e gli ambienti di test di conformità nella validazione del comportamento delle Soluzioni Wallet, delle Relying Party e dei Credential Issuer in vari scenari operativi e di sicurezza.
 
-All test cases are derived from normative rules defined in the above specifications, with no assumptions or extensions.
+Tutti i casi di test derivano da regole normative definite nelle specifiche sopra indicate, senza assunzioni o estensioni.
 
 .. note::
-  Please note that the test plans matrix may be subject to future changes.
+  Si noti che la matrice dei piani di test potrebbe essere soggetta a modifiche future.
 
-Structure of the Test Matrix
------------------------------
+Struttura della Matrice di Test
+-------------------------------
 
-Each test case is identified by a unique test ID (e.g., WS-001) and categorized using the functional domains defined below. Other category identifiers can be used as well.
+Ogni caso di test è identificato da un ID di test univoco (ad esempio, WS-001) e categorizzato utilizzando i domini funzionali definiti di seguito. Possono essere utilizzati anche altri identificatori di categoria.
 
 - **Discovery**
 - **Security**
@@ -29,18 +29,18 @@ Each test case is identified by a unique test ID (e.g., WS-001) and categorized 
 - **Credential Status**
 - **Backup & Restore**
 
-For each test case, the table specifies:
+Per ogni caso di test, la tabella specifica:
 
-- **Test Case**: a unique identifier.
-- **Category**: the functional area covered by the test.
-- **Description**: the requirement being tested, always based on a normative MUST from the specification.
-- **Expected Result**: the expected outcome when the solution is implemented correctly.
+- **Test Case**: un identificatore univoco.
+- **Category**: l'area funzionale coperta dal test.
+- **Description**: il requisito testato, sempre basato su un MUST normativo dalla specifica.
+- **Expected Result**: il risultato atteso quando la soluzione è implementata correttamente.
 
 
-Signed Statements Evaluation Test Matrix
-------------------------------------------
+Matrice di Test per la Valutazione delle Dichiarazioni Firmate
+--------------------------------------------------------------
 
-This section provides the common set of test cases for Wallet Solutions, Relying Parties and Credential Issuers evaluating any signed statements, be these assertions, requests, attestation or credentials.
+Questa sezione fornisce l'insieme comune di casi di test per Soluzioni Wallet, Relying Party e Credential Issuer che valutano qualsiasi dichiarazione firmata, siano esse asserzioni, richieste, attestati o Credenziali.
 
 
 .. list-table::
@@ -54,70 +54,70 @@ This section provides the common set of test cases for Wallet Solutions, Relying
     - Expected Result
   * - ATT-001
     - Discovery, Security
-    - Evaluation of the issuer
-    - Entities evaluating signed statements establish trust with the issuer and assess its compliance. Undiscoverable Issuers within the federation or unlinkable to any known Trust Anchor, halt any protocol communications.
+    - Valutazione dell'emittente
+    - Le entità che valutano le dichiarazioni firmate stabiliscono la fiducia con l'emittente e ne valutano la conformità. Gli emittenti non individuabili all'interno della federazione o non collegabili a qualsiasi Ancora di Fiducia nota, interrompono qualsiasi comunicazione di protocollo.
   * - ATT-002
     - Discovery, Security
-    - Evaluation of the signature
-    - Entities evaluate signed statements by verifying the signature with the issuer's cryptographic material, provided it is trusted through a well-known Trust Anchor. Any untrusted cryptographic material or invalid signatures halt protocol communications.
+    - Valutazione della firma
+    - Le entità valutano le dichiarazioni firmate verificando la firma con il materiale crittografico dell'emittente, a condizione che sia considerato affidabile attraverso un'Ancora di Fiducia nota. Qualsiasi materiale crittografico non affidabile o firme non valide interrompono le comunicazioni del protocollo.
   * - ATT-003
     - Algorithm Verification
-    - Verify that the algorithm specified in the header matches the one used for cryptographic operations.
-    - The algorithm in the header must match the cryptographic operation.
+    - Verificare che l'algoritmo specificato nell'intestazione corrisponda a quello utilizzato per le operazioni crittografiche.
+    - L'algoritmo nell'intestazione deve corrispondere all'operazione crittografica.
   * - ATT-004
     - Appropriate Algorithms
-    - Ensure only cryptographically current algorithms are used.
-    - Only approved algorithms are accepted; deprecated ones are rejected.
+    - Garantire che vengano utilizzati solo algoritmi crittograficamente attuali.
+    - Vengono accettati solo algoritmi approvati; quelli obsoleti vengono rifiutati.
   * - ATT-005
     - Signature Validation
-    - Validate all cryptographic operations and reject if any fail.
-    - All signatures must be valid; any failure results in rejection.
+    - Convalidare tutte le operazioni crittografiche e rifiutare se una qualsiasi fallisce.
+    - Tutte le firme devono essere valide; qualsiasi fallimento comporta il fallimento di conformità.
   * - ATT-006
     - Key Entropy
-    - Ensure cryptographic keys have sufficient entropy.
-    - Keys must meet entropy requirements; weak keys are rejected.
+    - Garantire che le chiavi crittografiche abbiano entropia sufficiente.
+    - Le chiavi devono soddisfare i requisiti di entropia; le chiavi deboli vengono rifiutate.
   * - ATT-007
     - Issuer Validation
-    - Validate that the cryptographic keys belong to the issuer.
-    - Keys must be verified as belonging to the issuer.
+    - Convalidare che le chiavi crittografiche appartengano all'emittente.
+    - Le chiavi devono essere verificate come appartenenti all'emittente.
   * - ATT-008
     - Audience Validation
-    - Validate the audience claim to ensure the token is used by the intended party.
-    - Audience claim must match the intended recipient.
+    - Convalidare il claim dell'audience per garantire che il token sia utilizzato dalla parte prevista.
+    - Il claim dell'audience deve corrispondere al destinatario previsto.
   * - ATT-009
     - Claim Trust
-    - Do not trust received claims without validation.
-    - Claims must be validated; untrusted claims are rejected.
+    - Non fidarsi dei claim ricevuti senza convalida.
+    - I claim devono essere convalidati; i claim non attendibili vengono rifiutati.
   * - ATT-010
     - Explicit Typing
-    - Use explicit typing to prevent COSE/JOSE confusion.
-    - Typing must be explicit and validated.
+    - Utilizzare la tipizzazione esplicita per prevenire la confusione COSE/JOSE.
+    - La tipizzazione deve essere esplicita e convalidata.
   * - ATT-011
     - Cross-JWT Confusion
-    - Prevent COSE/JOSE from being used in unintended contexts.
-    - COSE/JOSE must be contextually validated to prevent misuse.
+    - Impedire che COSE/JOSE vengano utilizzati in contesti non previsti.
+    - COSE/JOSE devono essere convalidati contestualmente per prevenire l'uso improprio.
   * - ATT-012
     - Substitution Attacks
-    - Ensure COSE/JOSE are not substituted across different contexts.
-    - COSE/JOSE must be validated for context-specific use.
+    - Garantire che COSE/JOSE non vengano sostituiti in contesti diversi.
+    - COSE/JOSE devono essere convalidati per l'uso specifico del contesto.
   * - ATT-013
     - Issued At Validation
-    - Verify that the `issued at` parameter is set to the current time, allowing a grace period not exceeding 120 seconds.
-    - The `issued at` value must be within 120 seconds of the current time.
+    - Verificare che il parametro `issued at` sia impostato sull'ora corrente, consentendo un periodo di tolleranza non superiore a 120 secondi.
+    - Il valore `issued at` deve essere entro 120 secondi dall'ora corrente.
   * - ATT-014
     - Expiration Validation
-    - Ensure the `expiration` time is greater than the `issued at` time.
-    - The `expiration` time must be later than the `issued at` time.
+    - Garantire che il tempo di `expiration` sia maggiore del tempo di `issued at`.
+    - Il tempo di `expiration` deve essere successivo al tempo di `issued at`.
   * - ATT-015
     - Data model validation
-    - Ensure JOSE/COSE type matches with the defined data model.
-    - The parameters or claims, their values and the schema used to represent them are compliant with the data model.
+    - Garantire che il tipo JOSE/COSE corrisponda al modello di dati definito.
+    - I parametri o i claim, i loro valori e lo schema utilizzato per rappresentarli sono conformi al modello di dati.
 
 
-Trust Evaluation Test Matrix
------------------------------
+Matrice di Test per la Valutazione della Fiducia
+------------------------------------------------
 
-This section provides the common set of test cases for Wallet Solutions, Relying Parties and Credential Issuers.
+Questa sezione fornisce l'insieme comune di casi di test per Soluzioni Wallet, Relying Party e Credential Issuer.
 
 
 .. list-table::
@@ -131,43 +131,43 @@ This section provides the common set of test cases for Wallet Solutions, Relying
     - Expected Result
   * - ALL-001
     - Security
-    - Obtaining Trust Anchors public cryptographic materials
-    - Entities obtain the list of Trust Anchors or Certificate Authorities and their public cryptographic key materials, periodically ensuring that these are not expired, revoked or updated. Infrastructure of Trust provides these information through web endpoints and other out of band mechanisms, to facilitate comparison of the provided information to all the entities.
+    - Ottenimento dei materiali crittografici pubblici delle Ancore di Fiducia
+    - Le entità ottengono l'elenco delle Ancore di Fiducia o delle Autorità di Certificazione e i loro materiali di chiave crittografica pubblica, assicurandosi periodicamente che questi non siano scaduti, revocati o aggiornati. L'infrastruttura di fiducia fornisce queste informazioni attraverso endpoint web e meccanismi di recapito alternativi, per facilitare il confronto delle informazioni fornite a tutte le entità.
   * - ALL-002
     - Security
-    - Compliance self evaluation
-    - Entities periodically evaluate their compliance and presence within the federation, checking the trust chain about themselves as still valid, not revoked and compliant with the tecnhical specification. Entities apply the policies, checking that their current configuration is valid with the active policies about them within the federation. Trust chain, evaluated and stored in mutiple formats to facilitate interoperability in trust discovery with other entities, are stored by entities and used on occurrence during the data exchange flows. Trust chain about entities are fetched or discovered using the entitie's issued assertions.
+    - Autovalutazione della conformità
+    - Le entità valutano periodicamente la loro conformità e presenza all'interno della federazione, verificando che la catena di fiducia su se stesse sia ancora valida, non revocata e conforme alla specifica tecnica. Le entità applicano le politiche, verificando che la loro configurazione attuale sia valida con le politiche attive su di esse all'interno della federazione. La catena di fiducia, valutata e memorizzata in più formati per facilitare l'interoperabilità nella scoperta della fiducia con altre entità, viene memorizzata dalle entità e utilizzata all'occorrenza durante i flussi di scambio dati. La catena di fiducia sulle entità viene recuperata utilizzando le asserzioni emesse dall'entità.
   * - ALL-003
     - Discovery
-    - Publication of information about itself
-    - Entities sign and publish all the information about them, containing all the protocol metadata, cryptographic material, trust marks, using the well-known endpoint defined in this specification, making these information publicly discoverable by other entities.
+    - Pubblicazione di informazioni su se stessi
+    - Le entità firmano e pubblicano tutte le informazioni su di loro, contenenti tutti i metadati del protocollo, il materiale crittografico, i Trust Mark, utilizzando l'endpoint well-known definito in questa specifica, rendendo queste informazioni pubblicamente individuabili da altre entità.
   * - ALL-004
     - Security
-    - Publication of the historical key registry
-    - Entities sign and publish all the information about the unused or revoked cryptographic material using well known endpoints defined in this specification, making these information publicly discoverable by other entities.
+    - Pubblicazione del registro storico delle chiavi
+    - Le entità firmano e pubblicano tutte le informazioni sul materiale crittografico inutilizzato o revocato utilizzando endpoint well-known definiti in questa specifica, rendendo queste informazioni pubblicamente individuabili da altre entità.
   * - ALL-005
     - Security
-    - Evaluation of compliance with entities before exchanging data about the User
-    - Entities evaluate trust and compliance with other entities before any information related to a natural or legal person might be exchanged. Bogus configurations don't allow data exchanges.
+    - Valutazione della conformità con le entità prima di scambiare dati sull'Utente
+    - Le entità valutano la fiducia e la conformità con altre entità prima che qualsiasi informazione relativa a una persona fisica o giuridica possa essere scambiata. Configurazioni errate non consentono scambi di dati.
   * - ALL-006
     - Security
-    - Evaluation of proof of possession during the use of a signed assertion in according to the configured usage ownership confirmation method.
-    - Entities evaluate the confirmation method and apply its protocol to consider valid the signed statement.
+    - Valutazione della prova di possesso durante l'uso di un'asserzione firmata in base al metodo di conferma di proprietà dell'uso configurato.
+    - Le entità valutano il metodo di conferma e applicano il suo protocollo per considerare valida la dichiarazione firmata.
   * - ALL-007
     - Security
-    - Supported cryptography algorithms
-    - Entities evaluate cryptography using in compliance of the allowed algorithms.
+    - Algoritmi di crittografia supportati
+    - Le entità valutano la crittografia utilizzando in conformità con gli algoritmi consentiti.
   * - ALL-008
     - Security
-    - Replay attacks
-    - Signed statements using unique identifiers are stored until their expiration time and checked against any replay of them.
+    - Attacchi di replay
+    - Le dichiarazioni firmate che utilizzano identificatori univoci vengono memorizzate fino alla loro scadenza e verificate rispetto a qualsiasi replay di esse.
 
 
-Wallet Solution Test Matrix
------------------------------
+Matrice di Test per la Soluzione Wallet
+---------------------------------------
 
-This section provides the set of test cases for verifying conformance of a Wallet Solution implementation to the technical rules defined in the IT-Wallet ecosystem.
-The test plan is based on the mandatory requirements (MUST statements) extracted from the following documents:
+Questa sezione fornisce l'insieme di casi di test per verificare la conformità di un'implementazione di Soluzione Wallet alle regole tecniche definite nell'ecosistema IT-Wallet.
+Il piano di test si basa sui requisiti obbligatori (dichiarazioni MUST) estratti dai seguenti documenti:
 
 - Wallet Solution
 - Wallet Instance Revocation
@@ -186,255 +186,255 @@ The test plan is based on the mandatory requirements (MUST statements) extracted
     - Expected Result
   * - WS-001
     - Wallet Initialization
-    - The Wallet Solution MUST ensure that each Wallet Instance is generated according to the specifications and includes a unique identifier, and cryptographic keys bound to a secure element.
-    - A compliant Wallet Instance is generated with correct identifiers and secure bindings.
+    - La Soluzione Wallet DEVE garantire che ogni Istanza del Wallet sia generata secondo le specifiche e includa un identificatore univoco e chiavi crittografiche associate a un elemento sicuro.
+    - Viene generata un'Istanza del Wallet conforme con identificatori corretti e associazioni sicure.
   * - WS-002
     - User Interaction
-    - The Wallet Solution MUST request and obtain explicit User Consent during Wallet Instance initialization.
-    - The Wallet Instance is activated only after obtaining verifiable User Consent.
+    - La Soluzione Wallet DEVE richiedere e ottenere il Consenso esplicito dell'Utente durante l'inizializzazione dell'Istanza del Wallet.
+    - L'Istanza del Wallet viene attivata solo dopo aver ottenuto il Consenso dell'Utente.
   * - WS-003
     - Security
-    - The Wallet Solution MUST store private keys within a Secure Hardware Element or equivalent secure storage.
-    - All private key materials are inaccessible from the operating system or any application outside the Wallet Solution.
+    - La Soluzione Wallet DEVE memorizzare le chiavi private all'interno di un Elemento Hardware Sicuro o di un archivio sicuro equivalente.
+    - Tutti i materiali delle chiavi private sono inaccessibili dal sistema operativo o da qualsiasi applicazione esterna alla Soluzione Wallet.
   * - WS-004
     - Attestation
-    - The Wallet MUST be capable of generating and presenting a Wallet Attestation when required by Relying Parties or Issuers.
-    - Valid, verifiable Attestations are generated including integrity and origin proofs.
+    - Il Wallet DEVE essere in grado di generare e presentare una Wallet Attestation quando richiesto dalle Relying Party o dagli Emittenti.
+    - Vengono generati Attestati validi e verificabili, incluse prove di integrità e origine.
   * - WS-005
     - Attestation
-    - The Wallet MUST support processing Wallet Attestation Requests and generating appropriate responses in compliance with eIDAS.
-    - The Wallet correctly interprets and fulfills attestation requests including subject data and cryptographic signatures.
+    - Il Wallet DEVE supportare l'elaborazione delle Richieste di Wallet Attestation e generare risposte appropriate in conformità con eIDAS.
+    - Il Wallet interpreta correttamente e soddisfa le richieste di attestato, inclusi i dati del soggetto e le firme crittografiche.
   * - WS-006
     - Remote Credential Presentation
-    - The Wallet Solution MUST implement both the proximity and remote presentation flow, ensuring Verifiable Credential selection, integrity, and User interaction.
-    - Verifiable Credential presentation is successful, correct, and under User control.
+    - La Soluzione Wallet DEVE implementare sia il flusso di presentazione di prossimità che quello remoto, garantendo la selezione delle Credenziali Verificabili, l'integrità e l'interazione dell'Utente.
+    - La presentazione delle Credenziali Verificabili ha successo, è corretta e sotto il controllo dell'Utente.
   * - WS-007
     - Credential Issuance
-    - The Wallet MUST support the Issuer flow for receiving and storing Verifiable Credentials.
-    - Credentials are securely stored and correctly parsed as per defined structure.
+    - Il Wallet DEVE supportare il flusso dell'Emittente per ricevere e memorizzare le Credenziali Verificabili.
+    - Le Credenziali vengono memorizzate in modo sicuro e analizzate correttamente secondo la struttura definita.
   * - WS-008
     - Revocation
-    - The Wallet MUST allow the User to trigger a Wallet Instance Revocation at any time.
-    - Revocation is executed and cryptographic material is securely deleted or rendered unusable.
+    - Il Wallet DEVE consentire all'Utente di attivare una Revoca dell'Istanza del Wallet in qualsiasi momento.
+    - La revoca viene eseguita e il materiale crittografico viene eliminato in modo sicuro o reso inutilizzabile.
   * - WS-009
     - Revocation
-    - Upon Wallet Instance Revocation, the Wallet Solution MUST notify the relevant backend systems to propagate revocation.
-    - Revocation status is reflected in all ecosystem components (e.g., Issuers, Verifiers).
+    - In caso di Revoca dell'Istanza del Wallet, la Soluzione Wallet DEVE notificare ai sistemi di backend pertinenti di propagare la revoca.
+    - Lo stato di revoca si riflette in tutti i componenti dell'ecosistema (ad esempio, Emittenti, Verificatori).
   * - WS-010
     - Backup & Restore
-    - The Wallet MUST support encrypted Backup and Restore operations in compliance with privacy and integrity requirements.
-    - Backup is encrypted and tied to the User; Restore operation verifies integrity and User authenticity before recovery.
+    - Il Wallet DEVE supportare operazioni di Backup e Ripristino crittografate in conformità con i requisiti di privacy e integrità.
+    - Il backup è crittografato e legato all'Utente; l'operazione di Ripristino verifica l'integrità e l'autenticità dell'Utente prima del recupero.
   * - WS-011
     - Backup & Restore
-    - The Wallet MUST manage backup encryption keys securely and derive them from User-controlled secrets or credentials.
-    - No unauthorized entity can decrypt backups; backups are rendered useless if tampered with.
+    - Il Wallet DEVE gestire le chiavi di crittografia del backup in modo sicuro e derivarle da segreti o Credenziali controllati dall'Utente.
+    - Nessuna entità non autorizzata può decrittografare i backup; i backup sono resi inutili se manomessi.
   * - WS-012
     - Backup & Restore
-    - The Wallet MUST authenticate the User before allowing Restore.
-    - Successful Restore only occurs upon verified User authentication using approved methods (e.g., biometrics, PIN, cryptographic challenge).
+    - Il Wallet DEVE autenticare l'Utente prima di consentire il Ripristino.
+    - Il Ripristino avviene con successo solo dopo l'autenticazione verificata dell'Utente utilizzando metodi approvati (ad esempio, biometria, PIN, sfida crittografica).
   * - WS-013
     - Attestation
-    - The Wallet MUST detect expired Attestations and support refresh workflows.
-    - Expired Attestations are not used; refresh is triggered automatically or via User prompt.
+    - Il Wallet DEVE rilevare gli Attestati scaduti e supportare i flussi di aggiornamento.
+    - Gli Attestati scaduti non vengono utilizzati; l'aggiornamento viene attivato automaticamente o tramite richiesta dell'Utente.
   * - WS-014
     - Compliance
-    - All operations including Issuance, Presentation, Attestation, and Revocation MUST comply with the European standards.
-    - Auditable trace of compliant operations is maintained; no deviation from eIDAS 2.0 behavior is observed.
+    - Tutte le operazioni, inclusi Emissione, Presentazione, Attestato e Revoca, DEVONO essere conformi agli standard europei.
+    - Viene mantenuta una traccia verificabile delle operazioni conformi; non si osserva alcuna deviazione dal comportamento eIDAS 2.0.
   * - WS-015
     - User Interaction
-    - The Wallet MUST operate under the principle of User control and data minimization.
-    - Only explicitly consented and required data is used and transmitted; all operations require explicit User actions.
+    - Il Wallet DEVE operare secondo il principio del controllo dell'Utente e della minimizzazione dei dati.
+    - Vengono utilizzati e trasmessi solo i dati esplicitamente consentiti e richiesti; tutte le operazioni richiedono azioni esplicite dell'Utente.
   * - WS-016
     - Credential Presentation
-    - The Wallet MUST support offline Verifiable Credential presentation when allowed.
-    - Credentials are presented securely even in offline mode, with integrity and authenticity maintained.
+    - Il Wallet DEVE supportare la presentazione offline delle Credenziali Verificabili quando consentito.
+    - Le Credenziali vengono presentate in modo sicuro anche in modalità offline, mantenendo l'integrità e l'autenticità.
   * - WS-017
     - Security
-    - The Wallet MUST ensure anti-replay protections during credential presentation.
-    - Each presentation is cryptographically unique and bound to the Verifier request.
+    - Il Wallet DEVE garantire protezioni anti-replay durante la presentazione delle Credenziali.
+    - Ogni presentazione è crittograficamente unica e legata alla richiesta del Verificatore.
   * - WS-018
     - Revocation
-    - The Wallet MUST log and make auditable the revocation process of Wallet Instances.
-    - Complete, tamper-evident logs are available for inspection upon request.
+    - Il Wallet DEVE registrare e rendere verificabile il processo di revoca delle Istanze del Wallet.
+    - I log completi e a prova di manomissione sono disponibili per l'ispezione su richiesta.
   * - WS-019
     - Security
-    - The Wallet MUST establish mutually authenticated and encrypted channels during all interactions.
-    - All messages are protected against interception, modification, or impersonation.
+    - Il Wallet DEVE stabilire canali reciprocamente autenticati e crittografati durante tutte le interazioni.
+    - Tutti i messaggi sono protetti contro l'intercettazione, la modifica o l'impersonificazione.
   * - WS-020
     - Security
-    - The Wallet MUST lock itself and/or revoke the Wallet Instance upon detection of tampering.
-    - Wallet becomes inoperable and revocation is triggered if tampering is confirmed.
+    - Il Wallet DEVE bloccarsi e/o revocare l'Istanza del Wallet in caso di rilevamento di manomissioni.
+    - Il Wallet diventa inoperabile e la revoca viene attivata se la manomissione è confermata.
   * - WS-021
     - Security
-    - The Wallet MUST perform Device Attestation using platform-specific mechanisms such as Play Integrity (Android) or DC App Attest (iOS) during Wallet Instance creation.
-    - Device Attestation is successful and results are included in the Wallet Attestation payload.
+    - Il Wallet DEVE eseguire l'Attestato del Dispositivo utilizzando meccanismi specifici della piattaforma come Play Integrity (Android) o DC App Attest (iOS) durante la creazione dell'Istanza del Wallet.
+    - L'Attestato del Dispositivo ha successo e i risultati sono inclusi nel payload dell'Attestato del Wallet.
   * - WS-022
     - Attestation
-    - The Wallet Attestation MUST include a signature using the Wallet Binding Key, and the certificate chain MUST be verifiable to a trusted root.
-    - Signature is present, valid, and verifiable using the provided certificate chain.
+    - L'Attestato del Wallet DEVE includere una firma utilizzando la Chiave di Binding del Wallet, e la catena di certificati DEVE essere verificabile fino a una radice attendibile.
+    - La firma è presente, valida e verificabile utilizzando la catena di certificati fornita.
   * - WS-023
     - Attestation
-    - The Wallet MUST include a Device Attestation result in the Wallet Attestation structure.
-    - A valid Device Attestation object (Play Integrity or DC App Attest result) is embedded in the Attestation.
+    - Il Wallet DEVE includere un risultato dell'Attestato del Dispositivo nella struttura dell'Attestato del Wallet.
+    - Un oggetto di Attestato del Dispositivo valido (risultato di Play Integrity o DC App Attest) è incorporato nell'Attestato.
   * - WS-024
     - Backup & Restore
-    - During Restore, the Wallet MUST validate the integrity of the encrypted backup file using an integrity check mechanism.
-    - The Wallet refuses to restore a tampered or corrupted backup file.
+    - Durante il Ripristino, il Wallet DEVE convalidare l'integrità del file di backup crittografato utilizzando un meccanismo di controllo dell'integrità.
+    - Il Wallet rifiuta di ripristinare un file di backup manomesso o corrotto.
   * - WS-025
     - Revocation
-    - In case of Wallet Instance Revocation, the Wallet MUST delete any locally stored Verifiable Credentials.
-    - No credential data remains accessible after revocation is triggered.
+    - In caso di Revoca dell'Istanza del Wallet, il Wallet DEVE eliminare qualsiasi Credenziale Verificabile memorizzata localmente.
+    - Nessun dato di Credenziale rimane accessibile dopo l'attivazione della revoca.
   * - WS-026
     - Revocation
-    - The Wallet MUST notify the Wallet Backend with a Revocation Request that includes a valid proof of possession of the Wallet Binding Key.
-    - The Revocation Request is accepted and revocation status is updated in the backend.
+    - Il Wallet DEVE notificare al Backend del Wallet una Richiesta di Revoca che includa una prova valida di possesso della Chiave di Binding del Wallet.
+    - La Richiesta di Revoca viene accettata e lo stato di revoca viene aggiornato nel backend.
   * - WS-027
     - Security
-    - The Wallet MUST prevent reuse of revoked Wallet Binding Keys or credentials in future Wallet Instances.
-    - Any reuse attempt is detected and blocked.
+    - Il Wallet DEVE impedire il riutilizzo delle Chiavi di Binding del Wallet revocate o delle Credenziali nelle future Istanze del Wallet.
+    - Qualsiasi tentativo di riutilizzo viene rilevato e bloccato.
   * - WS-028
     - Attestation
-    - The Wallet MUST support Attestation refresh via the defined API exposed by the Wallet Backend.
-    - Attestation is renewed and the new version is accepted by Verifiers and Issuers.
+    - Il Wallet DEVE supportare l'aggiornamento dell'Attestato tramite l'API definita esposta dal Backend del Wallet.
+    - L'Attestato viene rinnovato e la nuova versione viene accettata dai Verificatori e dagli Emittenti.
   * - WS-029
     - Backup & Restore
-    - Backup encryption MUST use strong, standards-compliant encryption algorithms (e.g., AES-GCM).
-    - Encrypted backup file is resistant to brute-force and known cryptographic attacks.
+    - La crittografia del backup DEVE utilizzare algoritmi di crittografia forti e conformi agli standard (ad esempio, AES-GCM).
+    - Il file di backup crittografato è resistente agli attacchi di forza bruta e agli attacchi crittografici noti.
   * - WS-030
     - User Interaction
-    - The Wallet MUST prompt the User to confirm intent before any destructive operation such as Revocation or Credential Deletion.
-    - Destructive actions are only performed after explicit User confirmation.
+    - Il Wallet DEVE richiedere all'Utente di confermare l'intenzione prima di qualsiasi operazione distruttiva come la Revoca o l'Eliminazione delle Credenziali.
+    - Le azioni distruttive vengono eseguite solo dopo la conferma esplicita dell'Utente.
   * - WS-031
     - Attestation
-    - The Wallet MUST generate a Wallet Attestation containing information about the device integrity status, using Play Integrity API on Android.
-    - Wallet Attestation includes a valid Play Integrity payload with 'MEETS_DEVICE_INTEGRITY' field set.
+    - Il Wallet DEVE generare un Attestato del Wallet contenente informazioni sullo stato di integrità del dispositivo, utilizzando l'API Play Integrity su Android.
+    - L'Attestato del Wallet include un payload Play Integrity valido con il campo 'MEETS_DEVICE_INTEGRITY' impostato.
   * - WS-032
     - Attestation
-    - The Wallet MUST generate a Wallet Attestation using DeviceCheck App Attest on iOS and include the attestation result in the Wallet Attestation.
-    - Wallet Attestation includes a valid DC App Attest JWT response signed by Apple.
+    - Il Wallet DEVE generare un Attestato del Wallet utilizzando DeviceCheck App Attest su iOS e includere il risultato dell'attestato nell'Attestato del Wallet.
+    - L'Attestato del Wallet include una risposta JWT DC App Attest valida firmata da Apple.
   * - WS-033
     - Security
-    - The Wallet MUST verify that the Play Integrity token signature is valid and issued by Google.
-    - The Wallet rejects invalid or forged Play Integrity tokens.
+    - Il Wallet DEVE verificare che la firma del token Play Integrity sia valida e emessa da Google.
+    - Il Wallet rifiuta i token Play Integrity non validi o contraffatti.
   * - WS-034
     - Security
-    - The Wallet MUST validate that the 'nonce' value used in Play Integrity is cryptographically bound to the Wallet Instance.
-    - Any tampering with the nonce is detected and leads to Attestation rejection.
+    - Il Wallet DEVE convalidare che il valore 'nonce' utilizzato in Play Integrity sia crittograficamente legato all'Istanza del Wallet.
+    - Qualsiasi manomissione del nonce viene rilevata e porta al rifiuto dell'Attestato.
   * - WS-035
     - Attestation
-    - The Wallet MUST send the Wallet Attestation to the Wallet Backend during registration.
-    - Wallet Backend receives the attestation and verifies its validity.
+    - Il Wallet DEVE inviare l'Attestato del Wallet al Backend del Wallet durante la registrazione.
+    - Il Backend del Wallet riceve l'attestato e ne verifica la validità.
   * - WS-036
     - Backup & Restore
-    - The Wallet MUST encrypt backups using a symmetric key derived from User secrets.
-    - The backup cannot be decrypted without the original User authentication material.
+    - Il Wallet DEVE crittografare i backup utilizzando una chiave simmetrica derivata dai segreti dell'Utente.
+    - Il backup non può essere decrittografato senza il materiale di autenticazione originale dell'Utente.
   * - WS-037
     - Backup & Restore
-    - The Wallet MUST include metadata in the backup that identifies the version and creation timestamp.
-    - Restore process reads and verifies backup metadata before proceeding.
+    - Il Wallet DEVE includere metadati nel backup che identifichino la versione e il timestamp di creazione.
+    - Il processo di Ripristino legge e verifica i metadati del backup prima di procedere.
   * - WS-038
     - Revocation
-    - The Wallet MUST send a signed Revocation Request including the Wallet Binding Key signature to the Backend.
-    - The backend processes the revocation and updates the Wallet status to revoked.
+    - Il Wallet DEVE inviare una Richiesta di Revoca firmata che includa la firma della Chiave di Binding del Wallet al Backend.
+    - Il backend elabora la revoca e aggiorna lo stato del Wallet a revocato.
   * - WS-039
     - Revocation
-    - The Wallet MUST not allow any further Credential Issuance or Presentation after revocation.
-    - All operations are blocked once the Wallet is revoked.
+    - Il Wallet NON DEVE consentire ulteriori Emissioni o Presentazioni di Credenziali dopo la revoca.
+    - Tutte le operazioni sono bloccate una volta che il Wallet è revocato.
   * - WS-040
     - Credential Issuance
-    - The Wallet MUST validate the structure of the Credential Offer received from the Issuer.
-    - The Wallet only accepts Credential Offers that match the expected format and signature.
+    - Il Wallet DEVE convalidare la struttura dell'Offerta di Credenziale ricevuta dall'Emittente.
+    - Il Wallet accetta solo Offerte di Credenziale che corrispondono al formato e alla firma previsti.
   * - WS-041
     - Credential Issuance
-    - The Wallet MUST ensure that the User consents to receiving a new Credential.
-    - No Credential is stored without explicit User approval.
+    - Il Wallet DEVE garantire che l'Utente acconsenta a ricevere una nuova Credenziale.
+    - Nessuna Credenziale viene memorizzata senza l'approvazione esplicita dell'Utente.
   * - WS-042
     - Credential Presentation
-    - The Wallet MUST verify the Verifier's Presentation Request before responding.
-    - Invalid or malformed requests are rejected.
+    - Il Wallet DEVE verificare la Richiesta di Presentazione del Verificatore prima di rispondere.
+    - Le richieste non valide o malformate vengono rifiutate.
   * - WS-043
     - Security
-    - The Wallet MUST sign Verifiable Presentations with the correct private key bound to the Wallet Instance.
-    - Verifiers are able to validate the signature and trust the presentation.
+    - Il Wallet DEVE firmare le Presentazioni Verificabili con la chiave privata corretta associata all'Istanza del Wallet.
+    - I Verificatori sono in grado di convalidare la firma e fidarsi della presentazione.
   * - WS-044
     - User Interaction
-    - The Wallet MUST prompt the User before sending a Verifiable Credential to a Verifier.
-    - No credential is shared without explicit User confirmation.
+    - Il Wallet DEVE richiedere all'Utente prima di inviare una Credenziale Verificabile a un Verificatore.
+    - Nessuna Credenziale viene condivisa senza la conferma esplicita dell'Utente.
   * - WS-045
     - Backup & Restore
-    - The Wallet MUST allow the User to delete all stored backup data.
-    - All backup material is securely deleted and cannot be recovered.
+    - Il Wallet DEVE consentire all'Utente di eliminare tutti i dati di backup memorizzati.
+    - Tutto il materiale di backup viene eliminato in modo sicuro e non può essere recuperato.
   * - WS-046
     - Revocation
-    - If the Wallet is restored on a new device, it MUST check whether the original Wallet Instance was revoked.
-    - Revoked Wallet Instances cannot be restored.
+    - Se il Wallet viene ripristinato su un nuovo dispositivo, DEVE verificare se l'Istanza del Wallet originale è stata revocata.
+    - Le Istanze del Wallet revocate non possono essere ripristinate.
   * - WS-047
     - Security
-    - The Wallet MUST verify the time validity of received Credentials (e.g., issuanceDate, expirationDate).
-    - Expired credentials are marked as invalid and are not used.
+    - Il Wallet DEVE verificare la validità temporale delle Credenziali ricevute (ad esempio, issuanceDate, expirationDate).
+    - Le Credenziali scadute vengono contrassegnate come non valide e non vengono utilizzate.
   * - WS-048
     - Attestation
-    - The Wallet MUST include the public key of the Wallet Binding Key in the Wallet Attestation.
-    - Verifiers and Issuers can validate signatures made with the corresponding private key.
+    - Il Wallet DEVE includere la chiave pubblica della Chiave di Binding del Wallet nell'Attestato del Wallet.
+    - I Verificatori e gli Emittenti possono convalidare le firme effettuate con la chiave privata corrispondente.
   * - WS-049
     - Credential Presentation
-    - The Wallet MUST support Selective Disclosure of Credential attributes.
-    - Only selected fields are included in the presentation sent to the Verifier.
+    - Il Wallet DEVE supportare la Divulgazione Selettiva degli attributi delle Credenziali.
+    - Solo i campi selezionati sono inclusi nella presentazione inviata al Verificatore.
   * - WS-050
     - Credential Presentation
-    - The Wallet MUST allow the User to preview which Credential attributes will be disclosed before confirmation.
-    - User is shown the exact data to be shared and approves it explicitly.
+    - Il Wallet DEVE consentire all'Utente di visualizzare in anteprima quali attributi delle Credenziali saranno divulgati prima della conferma.
+    - All'Utente vengono mostrati i dati esatti da condividere e li approva esplicitamente.
   * - WS-051
     - Proximity Flow
-    - The Wallet MUST initiate the proximity flow only after explicit User Consent to interact with a Mobile Relying Party Instance.
-    - The Wallet proximity presentation flow is blocked unless User has approved the request.
+    - Il Wallet DEVE avviare il flusso di prossimità solo dopo il Consenso esplicito dell'Utente a interagire con un'Istanza di Relying Party Mobile.
+    - Il flusso di presentazione di prossimità del Wallet è bloccato a meno che l'Utente non abbia approvato la richiesta.
   * - WS-052
     - Proximity Flow
-    - The Wallet MUST validate the Access Certificate presented by a Mobile Relying Party Instance before proceeding.
-    - If the Access Certificate is missing, invalid or expired, the Wallet MUST refuse the request.
+    - Il Wallet DEVE convalidare il Certificato di Accesso presentato da un'Istanza di Relying Party Mobile prima di procedere.
+    - Se il Certificato di Accesso è mancante, non valido o scaduto, il Wallet DEVE rifiutare la richiesta.
   * - WS-053
     - Proximity Flow
-    - The Wallet MUST display a disclaimer when the Access Certificate is expired but still within the allowed grace period.
-    - The disclaimer is shown clearly to the User and presentation proceeds only after consent.
+    - Il Wallet DEVE visualizzare un disclaimer quando il Certificato di Accesso è scaduto ma ancora entro il periodo di tolleranza consentito.
+    - Il disclaimer viene mostrato chiaramente all'Utente e la presentazione procede solo dopo il consenso.
   * - WS-054
     - Relying Party Instance
-    - The Wallet MUST enforce the check that the Relying Party Instance state is 'Verified' before allowing credential presentation.
-    - The Wallet denies the flow if the Relying Party Instance is in any state other than 'Verified'.
+    - Il Wallet DEVE applicare il controllo che lo stato dell'Istanza di Relying Party sia 'Verificato' prima di consentire la presentazione delle Credenziali.
+    - Il Wallet nega il flusso se l'Istanza di Relying Party è in qualsiasi stato diverso da 'Verificato'.
   * - WS-055
     - Security
-    - The Wallet MUST log any failed presentation attempt due to invalid Relying Party Instance state or expired Access Certificate.
-    - A security event log is generated and stored securely.
+    - Il Wallet DEVE registrare qualsiasi tentativo di presentazione fallito a causa di uno stato non valido dell'Istanza di Relying Party o di un Certificato di Accesso scaduto.
+    - Viene generato e memorizzato in modo sicuro un log degli eventi di sicurezza.
   * - WS-056
     - Interoperability
-    - The Wallet MUST support communication with Relying Party Instances using standardized QR codes for session negotiation as defined in the specification.
-    - The Wallet successfully reads and parses QR codes and initiates the session as per protocol.
+    - Il Wallet DEVE supportare la comunicazione con le Istanze di Relying Party utilizzando codici QR standardizzati per la negoziazione della sessione come definito nella specifica.
+    - Il Wallet legge e analizza con successo i codici QR e avvia la sessione secondo il protocollo.
   * - WS-057
     - Proximity Flow
-    - The Wallet MUST establish a secure and authenticated session with the Mobile Relying Party Instance using ephemeral keys before presentation.
-    - Session keys are negotiated and verified, and all communication is encrypted.
+    - Il Wallet DEVE stabilire una sessione sicura e autenticata con l'Istanza di Relying Party Mobile utilizzando chiavi effimere prima della presentazione.
+    - Le chiavi di sessione vengono negoziate e verificate, e tutta la comunicazione è crittografata.
   * - WS-058
     - Credential Presentation
-    - The Wallet MUST allow the User to choose which Credential to present to a Relying Party Instance even in proximity flow.
-    - Credential selection interface is shown to the User during proximity flow.
+    - Il Wallet DEVE consentire all'Utente di scegliere quale Credenziale presentare a un'Istanza di Relying Party anche nel flusso di prossimità.
+    - L'interfaccia di selezione delle Credenziali viene mostrata all'Utente durante il flusso di prossimità.
   * - WS-059
     - Security
-    - The Wallet MUST abort the session if the Relying Party Instance fails to prove possession of the private key associated with the Access Certificate.
-    - Session is terminated and no Credential data is disclosed.
+    - Il Wallet DEVE interrompere la sessione se l'Istanza di Relying Party non riesce a dimostrare il possesso della chiave privata associata al Certificato di Accesso.
+    - La sessione viene terminata e nessun dato di Credenziale viene divulgato.
   * - WS-060
     - User Interaction
-    - The Wallet MUST clearly indicate to the User when a presentation request comes from a Mobile Relying Party Instance using a proximity channel.
-    - The source of the request is shown before allowing presentation to proceed.
+    - Il Wallet DEVE indicare chiaramente all'Utente quando una richiesta di presentazione proviene da un'Istanza di Relying Party Mobile utilizzando un canale di prossimità.
+    - La fonte della richiesta viene mostrata prima di consentire alla presentazione di procedere.
 
-Credential Issuance Test Matrix
----------------------------------
+Matrice di Test per l'Emissione di Credenziali
+----------------------------------------------
 
-This section provides the set of test cases for verifying conformance of a Credential Issuance implementations to the technical rules defined in the IT-Wallet ecosystem.
-Tests related to Credential Issuer are related to the issuance of Credential of Public Interest, as published within the Credential Catalogue.
+Questa sezione fornisce l'insieme di casi di test per verificare la conformità delle implementazioni di Emissione di Credenziali alle regole tecniche definite nell'ecosistema IT-Wallet.
+I test relativi al Credential Issuer sono relativi all'emissione di Credenziali di Interesse Pubblico, come pubblicato nel Catalogo delle Credenziali.
 
 .. note::
-  References about official OpenID4VCI test plans will update this section in future releases.
+  I riferimenti ai piani di test ufficiali OpenID4VCI aggiorneranno questa sezione nelle versioni future.
 
-- PID/EAA Issuance
+- Emissione PID/EAA
 
 
 .. list-table::
@@ -448,458 +448,458 @@ Tests related to Credential Issuer are related to the issuance of Credential of 
     - Expected Result
   * - ISS-001
     - Setup
-    - Validate Wallet Instance Setup
-    - Wallet Instance is set up with a valid Wallet Attestation. Ensure the public key is valid and correctly bound to a secure element.
+    - Convalidare la configurazione dell'Istanza del Wallet
+    - L'Istanza del Wallet è configurata con una Wallet Attestation valido. Assicurarsi che la chiave pubblica sia valida e correttamente associata a un elemento sicuro.
   * - ISS-002
     - Discovery
-    - Credential Issuer Discovery
-    - Wallet Instance successfully discovers trusted Digital Credential Issuers using the Credential Catalogue and their configuration compliance and policies with Federation API.
+    - Scoperta del Credential Issuer
+    - L'Istanza del Wallet scopre con successo i Credential Issuer digitali affidabili utilizzando il Catalogo delle Credenziali e la loro conformità alla configurazione e alle politiche con l'API di Federazione.
   * - ISS-003
     - Metadata
-    - Credential Issuer Metadata Retrieval
-    - Wallet Instance retrieves and validates Credential Issuer metadata. Metadata includes PID formats, supported algorithms, and interoperability parameters.
+    - Recupero dei metadati del Credential Issuer
+    - L'Istanza del Wallet recupera e convalida i metadati del Credential Issuer. I metadati includono formati PID, algoritmi supportati e parametri di interoperabilità.
   * - ISS-004
     - Authorization, Authentication
-    - Credential Request using Authorization Code Flow
-    - Wallet Instance successfully requests Credential using Authorization Code Flow. Validate PKCE use with a code verifier of 43-128 characters.
+    - Richiesta di Credenziale utilizzando il flusso Authorization Code
+    - L'Istanza del Wallet richiede con successo la Credenziale utilizzando il flusso Authorization Code. Convalidare l'uso di PKCE con un code verifier di 43-128 caratteri.
   * - ISS-005
     - Authentication
-    - User Authentication with PID Provider
-    - User is authenticated with LoA 3 (High) by the PID Provider. Validate the use of the digital identity scheme CieID and ensure that User consent is obtained.
+    - Autenticazione dell'Utente con il Fornitore di Attestati Elettronici di Dati di Identificazione Personale
+    - L'Utente viene autenticato con LoA 3 (Alto) dal Fornitore di Attestati Elettronici di Dati di Identificazione Personale. Convalidare l'uso dello schema di identità digitale CieID e assicurarsi che venga ottenuto il consenso dell'Utente.
   * - ISS-006
     - Issuance
-    - Credential Issuance
-    - Credential is issued and bound to the Wallet Instance's key material. Validate the binding process and ensure the integrity and the compliance to data model of the issued Credential.
+    - Emissione di Credenziale
+    - La Credenziale viene emessa e associata al materiale chiave dell'Istanza del Wallet. Convalidare il processo di associazione e garantire l'integrità e la conformità al modello di dati della Credenziale emessa.
   * - ISS-007
     - Authentication
-    - User Authentication with (Q)EAA Provider
-    - User is authenticated by presenting a valid PID. The presentation request, the PID is valid and previously obtained.
+    - Autenticazione dell'Utente con il Fornitore di Attestati Elettronici di Attributi (Q)ualificati
+    - L'Utente viene autenticato presentando un PID valido. La richiesta di presentazione, il PID è valido e precedentemente ottenuto.
   * - ISS-008
     - Security
-    - Pushed Authorization Request (PAR) Validation
-    - Credential Issuer validates the PAR request successfully.
+    - Convalida della Pushed Authorization Request (PAR)
+    - Il Credential Issuer convalida con successo la richiesta PAR.
   * - ISS-009
     - Security
-    - Token Request Validation
-    - Credential Issuer validates the token request and issues tokens. Validate the DPoP proof and ensure the authorization code is valid and not reused.
+    - Convalida della richiesta di token
+    - Il Credential Issuer convalida la richiesta di token e emette i token. Convalidare la prova DPoP e assicurarsi che il codice di autorizzazione sia valido e non riutilizzato.
   * - ISS-010
     - Security
-    - Credential Request Validation
-    - Credential Issuer validates the Credentials request and issues Credentials. Validate the proof of possession and ensure the credential type matches the request.
+    - Convalida della richiesta di Credenziale
+    - Il Credential Issuer convalida la richiesta di Credenziali e emette le Credenziali. Convalidare la prova di possesso e assicurarsi che il tipo di Credenziale corrisponda alla richiesta.
   * - ISS-011
     - Deferred Issuance
-    - Deferred Issuance Flow
-    - Wallet Instance handles deferred issuance correctly and retrieves credentials later. Validate the use of transaction unique identifier (`transaction_id`) and ensure the Credential is issued after the specified lead time.
+    - Flusso di emissione differita
+    - L'Istanza del Wallet gestisce correttamente l'emissione differita e recupera le Credenziali in un secondo momento. Convalidare l'uso dell'identificatore univoco della transazione (`transaction_id`) e assicurarsi che la Credenziale venga emessa dopo il tempo di attesa specificato.
   * - ISS-012
     - Notification
-    - Notification Handling
-    - Wallet Instance sends and receives notifications correctly. Validate the use of `notification_id` and ensure the event type is correctly reported.
+    - Gestione delle notifiche
+    - L'Istanza del Wallet invia e riceve correttamente le notifiche. Convalidare l'uso di `notification_id` e assicurarsi che il tipo di evento sia riportato correttamente.
   * - ISS-013
     - Credential Issuance
-    - (Q)EAA Provider offers Credentials to Holder
-    - Wallet Instances evaluate the offer and start the authorization flow after having evaluated the trust with the (Q)EAA Provider.
+    - Il Fornitore di Attestati Elettronici di Attributi (Q)ualificati offre Credenziali al Titolare
+    - Le Istanze del Wallet valutano l'offerta e avviano il flusso di autorizzazione dopo aver valutato la fiducia con il Fornitore di Attestati Elettronici di Attributi (Q)ualificati.
   * - ISS-014
     - Security
-    - Validate `client_id` in PAR Request
-    - Ensure the `client_id` in the request body matches the `client_id` claim in the Request Object.
+    - Convalidare `client_id` nella richiesta PAR
+    - Assicurarsi che il `client_id` nel corpo della richiesta corrisponda al claim `client_id` nell'Oggetto Richiesta.
   * - ISS-015
     - Security
-    - Validate `iss` Claim in Request Object
-    - Ensure the `iss` claim in the Request Object matches the `client_id` claim.
+    - Convalidare il claim `iss` nell'Oggetto Richiesta
+    - Assicurarsi che il claim `iss` nell'Oggetto Richiesta corrisponda al claim `client_id`.
   * - ISS-016
     - Security
-    - Validate `aud` Claim in Request Object
-    - Ensure the `aud` claim in the Request Object is equal to the identifier of the Credential Issuer.
+    - Convalidare il claim `aud` nell'Oggetto Richiesta
+    - Assicurarsi che il claim `aud` nell'Oggetto Richiesta sia uguale all'identificatore del Credential Issuer.
   * - ISS-017
     - Security
-    - Reject PAR Request with `request_uri`
-    - Ensure the PAR request is rejected if it contains the `request_uri` parameter.
+    - Rifiutare la richiesta PAR con `request_uri`
+    - Assicurarsi che la richiesta PAR venga rifiutata se contiene il parametro `request_uri`.
   * - ISS-018
     - Security
-    - Validate Mandatory Parameters in Request Object
-    - Ensure the Request Object contains all mandatory parameters and values are validated.
+    - Convalidare i parametri obbligatori nell'Oggetto Richiesta
+    - Assicurarsi che l'Oggetto Richiesta contenga tutti i parametri obbligatori e che i valori siano convalidati.
   * - ISS-019
     - Security
-    - Validate `OAuth-Client-Attestation-PoP`
-    - Ensure the `OAuth-Client-Attestation-PoP` parameter is validated.
+    - Convalidare `OAuth-Client-Attestation-PoP`
+    - Assicurarsi che il parametro `OAuth-Client-Attestation-PoP` sia convalidato.
   * - ISS-020
     - Authorization
-    - Validate `request_uri` in Authorization Request
-    - Ensure `request_uri` values are treated as one-time use and expired requests are rejected.
+    - Convalidare `request_uri` nella richiesta di autorizzazione
+    - Assicurarsi che i valori `request_uri` siano trattati come monouso e che le richieste scadute vengano rifiutate.
   * - ISS-021
     - Authorization
-    - Identify Request from Submitted PAR
-    - Ensure the request is identified as a result of the submitted PAR.
+    - Identificare la richiesta dalla PAR inviata
+    - Assicurarsi che la richiesta sia identificata come risultato della PAR inviata.
   * - ISS-022
     - Authorization
-    - Reject Authorization Requests without `request_uri`
-    - Ensure all Authorization Requests without `request_uri` are rejected.
+    - Rifiutare le richieste di autorizzazione senza `request_uri`
+    - Assicurarsi che tutte le richieste di autorizzazione senza `request_uri` vengano rifiutate.
   * - ISS-023
     - Security
-    - Validate Authorization Response Parameters
-    - Ensure the Authorization Response contains all defined parameters.
+    - Convalidare i parametri della risposta di autorizzazione
+    - Assicurarsi che la risposta di autorizzazione contenga tutti i parametri definiti.
   * - ISS-024
     - Security
-    - Validate `state` Parameter in Authorization Response
-    - Ensure the `state` parameter in the response matches the value sent in the Request Object.
+    - Convalidare il parametro `state` nella risposta di autorizzazione
+    - Assicurarsi che il parametro `state` nella risposta corrisponda al valore inviato nell'Oggetto Richiesta.
   * - ISS-025
     - Security
-    - Validate `iss` Parameter in Authorization Response
-    - Ensure the `iss` parameter matches the intended Credential Issuer.
+    - Convalidare il parametro `iss` nella risposta di autorizzazione
+    - Assicurarsi che il parametro `iss` corrisponda al Credential Issuer previsto.
   * - ISS-026
     - Security
-    - Validate DPoP Proof for Token Endpoint
-    - Ensure the DPoP Proof JWT is valid and binds the Access Token to the Wallet Instance.
+    - Convalidare la prova DPoP per l'endpoint Token
+    - Assicurarsi che il JWT della prova DPoP sia valido e associ il Token di Accesso all'Istanza del Wallet.
   * - ISS-027
     - Security
-    - Validate Token Request Parameters
-    - Ensure the token request includes `code`, `code_verifier`, and valid OAuth 2.0 Attestation.
+    - Convalidare i parametri della richiesta di token
+    - Assicurarsi che la richiesta di token includa `code`, `code_verifier` e un Attestato OAuth 2.0 valido.
   * - ISS-028
     - Security
-    - Validate Authorization Code in Token Request
-    - Ensure the Authorization `code` is valid and not reused.
+    - Convalidare il codice di autorizzazione nella richiesta di token
+    - Assicurarsi che il `code` di autorizzazione sia valido e non riutilizzato.
   * - ISS-029
     - Security
-    - Validate `redirect_uri` in Token Request
-    - Ensure the `redirect_uri` matches the value in the previous Request Object.
+    - Convalidare `redirect_uri` nella richiesta di token
+    - Assicurarsi che il `redirect_uri` corrisponda al valore nel precedente Oggetto Richiesta.
   * - ISS-030
     - Security
-    - Validate DPoP Proof JWT in Token Request
-    - Ensure the DPoP Proof JWT is validated according to the specification.
+    - Convalidare il JWT della prova DPoP nella richiesta di token
+    - Assicurarsi che il JWT della prova DPoP sia convalidato secondo la specifica.
   * - ISS-031
     - Security
-    - Validate Nonce Request
-    - Ensure the Nonce Request is sent correctly and a fresh `c_nonce` is obtained.
+    - Convalidare la richiesta di Nonce
+    - Assicurarsi che la richiesta di Nonce sia inviata correttamente e che venga ottenuto un `c_nonce` fresco.
   * - ISS-032
     - Security
-    - Validate Nonce Response
-    - Ensure the `c_nonce` in the Nonce Response is unpredictable and used correctly.
+    - Convalidare la risposta di Nonce
+    - Assicurarsi che il `c_nonce` nella risposta di Nonce sia imprevedibile e utilizzato correttamente.
   * - ISS-033
     - Security
-    - Validate DPoP Proof for Credential Endpoint
-    - Ensure the DPoP Proof JWT for the Credential Endpoint is valid and binds the Credential to the Wallet Instance.
+    - Convalidare la prova DPoP per l'endpoint Credential
+    - Assicurarsi che il JWT della prova DPoP per l'endpoint Credential sia valido e associ la Credenziale all'Istanza del Wallet.
   * - ISS-034
     - Security
-    - Validate Credential Request Parameters
-    - Ensure the Credential Request includes Access Token, DPoP Proof JWT, and valid proof of possession.
+    - Convalidare i parametri della richiesta di Credenziale
+    - Assicurarsi che la richiesta di Credenziale includa il Token di Accesso, il JWT della prova DPoP e una prova di possesso valida.
   * - ISS-035
     - Security
-    - Validate JWT Proof in Credential Request
-    - Ensure the JWT proof includes all required claims and is signed correctly.
+    - Convalidare la prova JWT nella richiesta di Credenziale
+    - Assicurarsi che la prova JWT includa tutti i claim richiesti e sia firmata correttamente.
   * - ISS-036
     - Security
-    - Validate `c_nonce` in Credential Request
-    - Ensure the `c_nonce` in the JWT matches the value provided by the server.
+    - Convalidare `c_nonce` nella richiesta di Credenziale
+    - Assicurarsi che il `c_nonce` nel JWT corrisponda al valore fornito dal server.
   * - ISS-037
     - Security
-    - Validate Credential Response Parameters
-    - Ensure the Credential Response contains all mandatory parameters and values are validated.
+    - Convalidare i parametri della risposta di Credenziale
+    - Assicurarsi che la risposta di Credenziale contenga tutti i parametri obbligatori e che i valori siano convalidati.
   * - ISS-038
     - Security
-    - Validate Credential Integrity
-    - Ensure the integrity of the issued Credential by verifying the signature.
+    - Convalidare l'integrità della Credenziale
+    - Assicurarsi dell'integrità della Credenziale emessa verificando la firma.
   * - ISS-039
     - Security
-    - Validate Credential Type and Schema
-    - Ensure the issued Credential matches the requested type and complies with the schema.
+    - Convalidare il tipo e lo schema della Credenziale
+    - Assicurarsi che la Credenziale emessa corrisponda al tipo richiesto e sia conforme allo schema.
   * - ISS-040
     - Security
-    - Validate Trust Chain in Credential
-    - Ensure the Trust Chain in the Credential header verifies the Credential Issuer's trust at time of issuance.
+    - Convalidare la catena di fiducia nella Credenziale
+    - Assicurarsi che la catena di fiducia nell'intestazione della Credenziale verifichi la fiducia del Credential Issuer al momento dell'emissione.
   * - ISS-041
     - Security
-    - Validate Deferred Issuance Parameters
-    - Ensure the Deferred Issuance parameters are used correctly and the Credential is issued after the specified lead time.
+    - Convalidare i parametri dell'emissione differita
+    - Assicurarsi che i parametri dell'emissione differita siano utilizzati correttamente e che la Credenziale venga emessa dopo il tempo di attesa specificato.
   * - ISS-042
     - Security
-    - Validate Notification Request Parameters
-    - Ensure the Notification Request includes `notification_id` and valid event type.
+    - Convalidare i parametri della richiesta di notifica
+    - Assicurarsi che la richiesta di notifica includa `notification_id` e un tipo di evento valido.
   * - ISS-043
     - Security
-    - Validate Notification Response
-    - Ensure the Notification Response is received with the correct status code.
+    - Convalidare la risposta di notifica
+    - Assicurarsi che la risposta di notifica venga ricevuta con il codice di stato corretto.
   * - ISS-044
     - Security
-    - Validate Refresh Token Flow
-    - Ensure the Refresh Token flow is used correctly and tokens are bound to the DPoP key.
+    - Convalidare il flusso del token di aggiornamento
+    - Assicurarsi che il flusso del token di aggiornamento sia utilizzato correttamente e che i token siano associati alla chiave DPoP.
   * - ISS-045
     - Security
-    - Validate Refresh Token Expiry
-    - Ensure the Refresh Token is not expired and is used within the allowed timeframe.
+    - Convalidare la scadenza del token di aggiornamento
+    - Assicurarsi che il token di aggiornamento non sia scaduto e sia utilizzato entro il periodo di tempo consentito.
   * - ISS-046
     - Security
-    - Validate Sender-Constrained Tokens
-    - Ensure Refresh Tokens are cryptographically bound to the Wallet Instance.
+    - Convalidare i token vincolati al mittente
+    - Assicurarsi che i token di aggiornamento siano crittograficamente associati all'Istanza del Wallet.
   * - ISS-047
     - Security
-    - Validate Limiting Use of Refresh Token
-    - Ensure the use of Refresh Tokens is limited and complies with the specification.
+    - Convalidare la limitazione dell'uso del token di aggiornamento
+    - Assicurarsi che l'uso dei token di aggiornamento sia limitato e conforme alla specifica.
   * - ISS-048
     - Revocation
-    - Validate life time of Wallet Attestations
-    - Ensure Wallet Attestations are short-lived or provided with Status List if long-lived.
+    - Convalidare la durata degli Attestati del Wallet
+    - Assicurarsi che gli Attestati del Wallet siano di breve durata o forniti con Status List se di lunga durata.
   * - ISS-049
     - Security
-    - Validate Re-Issuance Flow
-    - Ensure the Re-Issuance flow is used correctly and complies with the specification.
+    - Convalidare il flusso di riemissione
+    - Assicurarsi che il flusso di riemissione sia utilizzato correttamente e sia conforme alla specifica.
   * - ISS-050
     - Security
-    - Validate Data Model/Format Update
-    - Ensure the Data Model/Format update is handled correctly during Re-Issuance.
+    - Convalidare l'aggiornamento del modello/formato dei dati
+    - Assicurarsi che l'aggiornamento del modello/formato dei dati sia gestito correttamente durante la riemissione.
   * - ISS-051
     - Security
-    - Validate User Attribute Set Update
-    - Ensure User attribute set updates are handled correctly during Re-Issuance.
+    - Convalidare l'aggiornamento del set di attributi dell'Utente
+    - Assicurarsi che gli aggiornamenti del set di attributi dell'Utente siano gestiti correttamente durante la riemissione.
   * - ISS-052
     - Security
-    - Validate Credential Expiry in Re-Issuance
-    - Ensure the newly issued Credential has the same expiry date as the previous one.
+    - Convalidare la scadenza della Credenziale nella riemissione
+    - Assicurarsi che la Credenziale appena emessa abbia la stessa data di scadenza della precedente.
   * - ISS-053
     - Security
-    - Validate User Authentication in Re-Issuance
-    - Ensure User authentication is required for Re-Issuance after Credential expiration.
+    - Convalidare l'autenticazione dell'Utente nella riemissione
+    - Assicurarsi che l'autenticazione dell'Utente sia richiesta per la riemissione dopo la scadenza della Credenziale.
   * - ISS-054
     - Security
-    - Validate Deferred Endpoint Parameters
-    - Ensure the Deferred Endpoint parameters are used correctly and the Credential is issued after the specified lead time.
+    - Convalidare i parametri dell'endpoint differito
+    - Assicurarsi che i parametri dell'endpoint differito siano utilizzati correttamente e che la Credenziale venga emessa dopo il tempo di attesa specificato.
   * - ISS-055
     - Security
-    - Validate Deferred Credential Request
-    - Ensure the Deferred Credential Request is sent correctly and the Credential is issued.
+    - Convalidare la richiesta di Credenziale differita
+    - Assicurarsi che la richiesta di Credenziale differita sia inviata correttamente e che la Credenziale venga emessa.
   * - ISS-056
     - Security
-    - Validate Deferred Credential Response
-    - Ensure the Deferred Credential Response contains all mandatory parameters and values are validated.
+    - Convalidare la risposta di Credenziale differita
+    - Assicurarsi che la risposta di Credenziale differita contenga tutti i parametri obbligatori e che i valori siano convalidati.
   * - ISS-057
     - Security
-    - Validate Notification Endpoint Parameters
-    - Ensure the Notification Endpoint parameters are used correctly and the event is reported.
+    - Convalidare i parametri dell'endpoint di notifica
+    - Assicurarsi che i parametri dell'endpoint di notifica siano utilizzati correttamente e che l'evento sia riportato.
   * - ISS-058
     - Security
-    - Validate Error Handling in Notification Endpoint
-    - Ensure errors in the Notification Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint di notifica
+    - Assicurarsi che gli errori nell'endpoint di notifica siano gestiti correttamente e riportati.
   * - ISS-059
     - Security
-    - Validate Error Handling in Credential Endpoint
-    - Ensure errors in the Credential Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint Credential
+    - Assicurarsi che gli errori nell'endpoint Credential siano gestiti correttamente e riportati.
   * - ISS-060
     - Security
-    - Validate Error Handling in Token Endpoint
-    - Ensure errors in the Token Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint Token
+    - Assicurarsi che gli errori nell'endpoint Token siano gestiti correttamente e riportati.
   * - ISS-061
     - Security
-    - Validate Error Handling in Authorization Endpoint
-    - Ensure errors in the Authorization Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint Authorization
+    - Assicurarsi che gli errori nell'endpoint Authorization siano gestiti correttamente e riportati.
   * - ISS-062
     - Error Handling
-    - Validate Error Handling in PAR Endpoint
-    - Ensure errors in the PAR Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint PAR
+    - Assicurarsi che gli errori nell'endpoint PAR siano gestiti correttamente e riportati.
   * - ISS-063
     - Error Handling
-    - Validate Error Handling in Nonce Endpoint
-    - Ensure errors in the Nonce Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint Nonce
+    - Assicurarsi che gli errori nell'endpoint Nonce siano gestiti correttamente e riportati.
   * - ISS-064
     - Error Handling
-    - Validate Error Handling in Deferred Endpoint
-    - Ensure errors in the Deferred Endpoint are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'endpoint differito
+    - Assicurarsi che gli errori nell'endpoint differito siano gestiti correttamente e riportati.
   * - ISS-065
     - Error Handling
-    - Validate Error Handling in Re-Issuance Flow
-    - Ensure errors in the Re-Issuance Flow are handled correctly and reported.
+    - Convalidare la gestione degli errori nel flusso di riemissione
+    - Assicurarsi che gli errori nel flusso di riemissione siano gestiti correttamente e riportati.
   * - ISS-066
     - Error Handling
-    - Validate Error Handling in Refresh Token Flow
-    - Ensure errors in the Refresh Token Flow are handled correctly and reported.
+    - Convalidare la gestione degli errori nel flusso del token di aggiornamento
+    - Assicurarsi che gli errori nel flusso del token di aggiornamento siano gestiti correttamente e riportati.
   * - ISS-067
     - Error Handling
-    - Validate Error Handling in Credential Issuance
-    - Ensure errors in the Credential Issuance process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'emissione di Credenziale
+    - Assicurarsi che gli errori nel processo di emissione di Credenziale siano gestiti correttamente e riportati.
   * - ISS-068
     - Error Handling
-    - Validate Error Handling in Credential Request
-    - Ensure errors in the Credential Request process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella richiesta di Credenziale
+    - Assicurarsi che gli errori nel processo di richiesta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-069
     - Error Handling
-    - Validate Error Handling in Credential Response
-    - Ensure errors in the Credential Response process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella risposta di Credenziale
+    - Assicurarsi che gli errori nel processo di risposta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-070
     - Error Handling
-    - Validate Error Handling in Credential Validation
-    - Ensure errors in the Credential Validation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella convalida della Credenziale
+    - Assicurarsi che gli errori nel processo di convalida della Credenziale siano gestiti correttamente e riportati.
   * - ISS-071
     - Error Handling
-    - Validate Error Handling in Credential Integrity
-    - Ensure errors in the Credential Integrity process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'integrità della Credenziale
+    - Assicurarsi che gli errori nel processo di integrità della Credenziale siano gestiti correttamente e riportati.
   * - ISS-072
     - Error Handling
-    - Validate Error Handling in Credential Type and Schema
-    - Ensure errors in the Credential Type and Schema process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel tipo e nello schema della Credenziale
+    - Assicurarsi che gli errori nel processo di tipo e schema della Credenziale siano gestiti correttamente e riportati.
   * - ISS-073
     - Error Handling
-    - Validate Error Handling in Trust Chain Validation
-    - Ensure errors in the Trust Chain Validation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella convalida della catena di fiducia
+    - Assicurarsi che gli errori nel processo di convalida della catena di fiducia siano gestiti correttamente e riportati.
   * - ISS-074
     - Error Handling
-    - Validate Error Handling in Deferred Issuance
-    - Ensure errors in the Deferred Issuance process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'emissione differita
+    - Assicurarsi che gli errori nel processo di emissione differita siano gestiti correttamente e riportati.
   * - ISS-075
     - Error Handling
-    - Validate Error Handling in Notification Handling
-    - Ensure errors in the Notification Handling process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella gestione delle notifiche
+    - Assicurarsi che gli errori nel processo di gestione delle notifiche siano gestiti correttamente e riportati.
   * - ISS-076
     - Error Handling
-    - Validate Error Handling in User Authentication
-    - Ensure errors in the User Authentication process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'autenticazione dell'Utente
+    - Assicurarsi che gli errori nel processo di autenticazione dell'Utente siano gestiti correttamente e riportati.
   * - ISS-077
     - Error Handling
-    - Validate Error Handling in User Consent
-    - Ensure errors in the User Consent process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel consenso dell'Utente
+    - Assicurarsi che gli errori nel processo di consenso dell'Utente siano gestiti correttamente e riportati.
   * - ISS-078
     - Error Handling
-    - Validate Error Handling in User Notification
-    - Ensure errors in the User Notification Process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella notifica dell'Utente
+    - Assicurarsi che gli errori nel processo di notifica dell'Utente siano gestiti correttamente e riportati.
   * - ISS-079
     - Error Handling
-    - Validate Error Handling in User Attribute Set Update
-    - Ensure errors in the User Attribute Set Update process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'aggiornamento del set di attributi dell'Utente
+    - Assicurarsi che gli errori nel processo di aggiornamento del set di attributi dell'Utente siano gestiti correttamente e riportati.
   * - ISS-080
     - Error Handling
-    - Validate Error Handling in Data Model/Format Update
-    - Ensure errors in the Data Model/Format Update process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'aggiornamento del modello/formato dei dati
+    - Assicurarsi che gli errori nel processo di aggiornamento del modello/formato dei dati siano gestiti correttamente e riportati.
   * - ISS-081
     - Error Handling
-    - Validate Error Handling in Credential Expiry
-    - Ensure errors in the Credential Expiry process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella scadenza della Credenziale
+    - Assicurarsi che gli errori nel processo di scadenza della Credenziale siano gestiti correttamente e riportati.
   * - ISS-082
     - Error Handling
-    - Validate Error Handling in Credential Re-Issuance
-    - Ensure errors in the Credential Re-Issuance process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella riemissione della Credenziale
+    - Assicurarsi che gli errori nel processo di riemissione della Credenziale siano gestiti correttamente e riportati.
   * - ISS-083
     - Error Handling
-    - Validate Error Handling in Credential Binding
-    - Ensure errors in the Credential Binding process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'associazione della Credenziale
+    - Assicurarsi che gli errori nel processo di associazione della Credenziale siano gestiti correttamente e riportati.
   * - ISS-084
     - Error Handling
-    - Validate Error Handling in Credential Trust Evaluation
-    - Ensure errors in the Credential Trust Evaluation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella valutazione della fiducia della Credenziale
+    - Assicurarsi che gli errori nel processo di valutazione della fiducia della Credenziale siano gestiti correttamente e riportati.
   * - ISS-085
     - Error Handling
-    - Validate Error Handling in Credential Metadata Retrieval
-    - Ensure errors in the Credential Metadata Retrieval process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel recupero dei metadati della Credenziale
+    - Assicurarsi che gli errori nel processo di recupero dei metadati della Credenziale siano gestiti correttamente e riportati.
   * - ISS-086
     - Error Handling
-    - Validate Error Handling in Credential Discovery
-    - Ensure errors in the Credential Discovery process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella scoperta della Credenziale
+    - Assicurarsi che gli errori nel processo di scoperta della Credenziale siano gestiti correttamente e riportati.
   * - ISS-087
     - Error Handling
-    - Validate Error Handling in Credential Offer Evaluation
-    - Ensure errors in the Credential Offer Evaluation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella valutazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di valutazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-088
     - Error Handling
-    - Validate Error Handling in Credential Offer Acceptance
-    - Ensure errors in the Credential Offer Acceptance process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'accettazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di accettazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-089
     - Error Handling
-    - Validate Error Handling in Credential Offer Rejection
-    - Ensure errors in the Credential Offer Rejection process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel rifiuto dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di rifiuto dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-090
     - Error Handling
-    - Validate Error Handling in Credential Offer Revocation
-    - Ensure errors in the Credential Offer Revocation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella revoca dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di revoca dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-091
     - Error Handling
-    - Validate Error Handling in Credential Offer Expiry
-    - Ensure errors in the Credential Offer Expiry process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella scadenza dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di scadenza dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-092
     - Error Handling
-    - Validate Error Handling in Credential Offer Renewal
-    - Ensure errors in the Credential Offer Renewal process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel rinnovo dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di rinnovo dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-093
     - Error Handling
-    - Validate Error Handling in Credential Offer Update
-    - Ensure errors in the Credential Offer Update process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'aggiornamento dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di aggiornamento dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-094
     - Error Handling
-    - Validate Error Handling in Credential Offer Validation
-    - Ensure errors in the Credential Offer Validation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella convalida dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di convalida dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-095
     - Error Handling
-    - Validate Error Handling in Credential Offer Verification
-    - Ensure errors in the Credential Offer Verification process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella verifica dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di verifica dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-096
     - Error Handling
-    - Validate Error Handling in Credential Offer Confirmation
-    - Ensure errors in the Credential Offer Confirmation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella conferma dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di conferma dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-097
     - Error Handling
-    - Validate Error Handling in Credential Offer Notification
-    - Ensure errors in the Credential Offer Notification Process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella notifica dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di notifica dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-098
     - Error Handling
-    - Validate Error Handling in Credential Offer Communication
-    - Ensure errors in the Credential Offer Communication process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella comunicazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di comunicazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-099
     - Error Handling
-    - Validate Error Handling in Credential Offer Transmission
-    - Ensure errors in the Credential Offer Transmission process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella trasmissione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di trasmissione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-100
     - Error Handling
-    - Validate Error Handling in Credential Offer Reception
-    - Ensure errors in the Credential Offer Reception process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella ricezione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di ricezione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-101
     - Error Handling
-    - Validate Error Handling in Credential Offer Processing
-    - Ensure errors in the Credential Offer Processing process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'elaborazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di elaborazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-102
     - Error Handling
-    - Validate Error Handling in Credential Offer Handling
-    - Ensure errors in the Credential Offer Handling process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella gestione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di gestione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-103
     - Error Handling
-    - Validate Error Handling in Credential Offer Management
-    - Ensure errors in the Credential Offer Management process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella gestione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di gestione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-104
     - Error Handling
-    - Validate Error Handling in Credential Offer Administration
-    - Ensure errors in the Credential Offer Administration process are handled correctly and reported.
+    - Convalidare la gestione degli errori nell'amministrazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di amministrazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-105
     - Error Handling
-    - Validate Error Handling in Credential Offer Control
-    - Ensure errors in the Credential Offer Control process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel controllo dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di controllo dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-106
     - Error Handling
-    - Validate Error Handling in Credential Offer Oversight
-    - Ensure errors in the Credential Offer Oversight process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella supervisione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di supervisione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-107
     - Error Handling
-    - Validate Error Handling in Credential Offer Supervision
-    - Ensure errors in the Credential Offer Supervision process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella supervisione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di supervisione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-108
     - Error Handling
-    - Validate Error Handling in Credential Offer Monitoring
-    - Ensure errors in the Credential Offer Monitoring process are handled correctly and reported.
+    - Convalidare la gestione degli errori nel monitoraggio dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di monitoraggio dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-109
     - Error Handling
-    - Validate Error Handling in Credential Offer Evaluation
-    - Ensure errors in the Credential Offer Evaluation process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella valutazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di valutazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
   * - ISS-110
     - Error Handling
-    - Validate Error Handling in Credential Offer Assessment
-    - Ensure errors in the Credential Offer Assessment process are handled correctly and reported.
+    - Convalidare la gestione degli errori nella valutazione dell'offerta di Credenziale
+    - Assicurarsi che gli errori nel processo di valutazione dell'offerta di Credenziale siano gestiti correttamente e riportati.
 
-Credential Presentation Test Matrix
-------------------------------------
+Matrice di Test per la Presentazione di Credenziali
+---------------------------------------------------
 
-This section provides the set of test cases for verifying conformance of a Credential Verifiers implementations to the technical rules defined in the IT-Wallet ecosystem.
+Questa sezione fornisce l'insieme di casi di test per verificare la conformità delle implementazioni dei Verificatori di Credenziali alle regole tecniche definite nell'ecosistema IT-Wallet.
 
 
-Remote Credential Presentation Test Matrix
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Matrice di Test per la Presentazione Remota di Credenziali
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section defines the test cases about the remote presentation flow.
+Questa sezione definisce i casi di test relativi al flusso di presentazione remota.
 
 .. note::
-  References about official OpenID4VP test plans will update this section in future releases.
+  I riferimenti ai piani di test ufficiali OpenID4VP aggiorneranno questa sezione nelle versioni future.
 
 .. list-table::
   :class: longtable
@@ -912,317 +912,317 @@ This section defines the test cases about the remote presentation flow.
     - Expected Result
   * - RPR-01
     - Same Device Flow
-    - Verify HTTP redirect (302) URL.
-    - Wallet Instance receives correct URL.
+    - Verificare l'URL di reindirizzamento HTTP (302).
+    - L'Istanza del Wallet riceve l'URL corretto.
   * - RPR-02
     - Cross Device Flow
-    - Verify QR Code generation for Wallet Instance.
-    - Wallet Instance scans QR Code successfully.
+    - Verificare la generazione del codice QR per l'Istanza del Wallet.
+    - L'Istanza del Wallet scansiona il codice QR con successo.
   * - RPR-03
     - Cross Device Flow
-    - Verify QR Code contains correct URL parameters.
-    - Wallet Instance retrieves URL with parameters.
+    - Verificare che il codice QR contenga i parametri URL corretti.
+    - L'Istanza del Wallet recupera l'URL con i parametri.
   * - RPR-04
     - Cross Device Flow
-    - Test QR Code scanning in low light.
-    - QR Code is scanned successfully.
+    - Testare la scansione del codice QR in condizioni di scarsa illuminazione.
+    - Il codice QR viene scansionato con successo.
   * - RPR-05
     - Cross Device Flow
-    - Verify QR Code error correction level.
-    - QR Code remains readable if damaged.
+    - Verificare il livello di correzione degli errori del codice QR.
+    - Il codice QR rimane leggibile se danneggiato.
   * - RPR-06
     - Cross Device Flow
-    - Test QR Code scanning with different devices.
-    - QR Code is scanned successfully.
+    - Testare la scansione del codice QR con dispositivi diversi.
+    - Il codice QR viene scansionato con successo.
   * - RPR-07
     - Request URI Method
-    - Test `request_uri_method` as `post`.
-    - Wallet Instance sends metadata via POST.
+    - Testare `request_uri_method` come `post`.
+    - L'Istanza del Wallet invia i metadati tramite POST.
   * - RPR-08
     - Request URI Method
-    - Test `request_uri_method` as `get`.
-    - Wallet Instance fetches Request Object via GET.
+    - Testare `request_uri_method` come `get`.
+    - L'Istanza del Wallet recupera l'Oggetto Richiesta tramite GET.
   * - RPR-09
     - Request URI Method
-    - Test absence of `request_uri_method`.
-    - Wallet Instance defaults to GET method.
+    - Testare l'assenza di `request_uri_method`.
+    - L'Istanza del Wallet utilizza il metodo GET come predefinito.
   * - RPR-10
     - Metadata
-    - Verify parameters match openid credential verifier metadata.
-    - Only allowed parameters will be considered.
+    - Verificare che i parametri corrispondano ai metadati del verificatore di Credenziali openid.
+    - Verranno considerati solo i parametri consentiti.
   * - RPR-11
     - User Consent
-    - Test eligibility of a credential verifier in requesting user attributes.
-    - User can modify data selection about optional attributes.
+    - Testare l'idoneità di un verificatore di Credenziali nel richiedere attributi dell'utente.
+    - L'utente può modificare la selezione dei dati relativi agli attributi opzionali.
   * - RPR-12
     - Authorization Response
-    - Test sending of Presentation Response.
-    - Relying Party receives and validates response with state and nonce.
+    - Testare l'invio della risposta di presentazione.
+    - La Relying Party riceve e convalida la risposta con state e nonce.
   * - RPR-13
     - Authorization Response
-    - Verify response encryption.
-    - Response is encrypted using Relying Party's public key.
+    - Verificare la crittografia della risposta.
+    - La risposta è crittografata utilizzando la chiave pubblica della Relying Party.
   * - RPR-14
     - Error Handling
-    - Test invalid Request Object handling.
-    - Authorization Error Response is sent.
+    - Testare la gestione dell'Oggetto Richiesta non valido.
+    - Viene inviata una risposta di errore di autorizzazione.
   * - RPR-15
     - Error Handling
-    - Verify error logging by Wallet Instance.
-    - Errors are logged appropriately.
+    - Verificare la registrazione degli errori da parte dell'Istanza del Wallet.
+    - Gli errori vengono registrati in modo appropriato.
   * - RPR-16
     - Error Handling
-    - Test recovery from `server_error`.
-    - User prompted to retry or scan new QR code.
+    - Testare il recupero da `server_error`.
+    - L'utente viene invitato a riprovare o a scansionare un nuovo codice QR.
   * - RPR-17
     - Relying Party Response
-    - Verify successful Response handling.
-    - User session is updated, redirect URI provided.
+    - Verificare la gestione corretta della risposta.
+    - La sessione dell'utente viene aggiornata, viene fornito l'URI di reindirizzamento.
   * - RPR-18
     - Relying Party Response
-    - Test absence of `redirect_uri`.
-    - Error response is returned.
+    - Testare l'assenza di `redirect_uri`.
+    - Viene restituita una risposta di errore.
   * - RPR-19
     - Redirect URI
-    - Test redirection to Relying Party's endpoint.
-    - User is redirected correctly.
+    - Testare il reindirizzamento all'endpoint della Relying Party.
+    - L'utente viene reindirizzato correttamente.
   * - RPR-20
     - Redirect URI
-    - Verify handling of invalid `redirect_uri`.
-    - Error response is returned.
+    - Verificare la gestione di `redirect_uri` non valido.
+    - Viene restituita una risposta di errore.
   * - RPR-21
     - User Consent
-    - Verify display of Relying Party's identity.
-    - Identity is displayed clearly to Holder.
+    - Verificare la visualizzazione dell'identità della Relying Party.
+    - L'identità viene visualizzata chiaramente al Titolare.
   * - RPR-22
     - User Consent
-    - Test user consent revocation.
-    - User can revoke consent before submission.
+    - Testare la revoca del consenso dell'utente.
+    - L'utente può revocare il consenso prima dell'invio.
   * - RPR-23
     - Credential Presentation
-    - Verify response format compliance.
-    - Each Credential adheres to specified format.
+    - Verificare la conformità del formato della risposta.
+    - Ogni Credenziale aderisce al formato specificato.
   * - RPR-24
     - Authorization Response
-    - Test handling of response timeouts.
-    - Retries must be successful unless response is acquired.
+    - Testare la gestione dei timeout della risposta.
+    - I tentativi devono avere successo a meno che la risposta non venga acquisita.
   * - RPR-25
     - Error Handling
-    - Verify handling of malformed claims in presentation payload.
-    - Authorization Error Response is sent.
+    - Verificare la gestione dei claim malformati nel payload di presentazione.
+    - Viene inviata una risposta di errore di autorizzazione.
   * - RPR-26
     - Error Handling
-    - Verify handling of malformed claims in presented credentials.
-    - Authorization Error Response is sent.
+    - Verificare la gestione dei claim malformati nelle Credenziali presentate.
+    - Viene inviata una risposta di errore di autorizzazione.
   * - RPR-27
     - Error Handling
-    - Test handling of expired requests.
-    - Holder is notified of expiration.
+    - Testare la gestione delle richieste scadute.
+    - Il Titolare viene notificato della scadenza.
   * - RPR-28
     - Relying Party Response
-    - Verify inclusion of response code.
-    - Response code is cryptographically random.
+    - Verificare l'inclusione del codice di risposta.
+    - Il codice di risposta è crittograficamente casuale.
   * - RPR-29
     - Relying Party Response
-    - Test handling of invalid response codes.
-    - Error response is returned.
+    - Testare la gestione dei codici di risposta non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-30
     - Status Endpoint
-    - Verify handling of unauthorized access.
-    - Unauthorized access is denied.
+    - Verificare la gestione dell'accesso non autorizzato.
+    - L'accesso non autorizzato viene negato.
   * - RPR-31
     - Status Endpoint
-    - Test handling of invalid session IDs.
-    - Error response is returned.
+    - Testare la gestione degli ID di sessione non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-32
     - Redirect URI
-    - Verify handling of expired sessions.
-    - Error response is returned.
+    - Verificare la gestione delle sessioni scadute.
+    - Viene restituita una risposta di errore.
   * - RPR-33
     - Redirect URI
-    - Test handling of server errors.
-    - Error response is returned.
+    - Testare la gestione degli errori del server.
+    - Viene restituita una risposta di errore.
   * - RPR-34
     - Same Device Flow
-    - Verify handling of slow network conditions.
-    - Wallet Instance retries or notifies user.
+    - Verificare la gestione delle condizioni di rete lente.
+    - L'Istanza del Wallet riprova o notifica all'utente.
   * - RPR-35
     - Request URI Method
-    - Test handling of large metadata payloads.
-    - Metadata is sent successfully.
+    - Testare la gestione di payload di metadati di grandi dimensioni.
+    - I metadati vengono inviati con successo.
   * - RPR-36
     - Presentation Response
-    - Verify handling of large response payloads.
-    - Response is sent successfully.
+    - Verificare la gestione di payload di risposta di grandi dimensioni.
+    - La risposta viene inviata con successo.
   * - RPR-37
     - Presentation Response
-    - Test handling of response encryption failures.
-    - Error response is returned.
+    - Testare la gestione dei fallimenti di crittografia della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-38
     - Error Handling
-    - Verify handling of invalid signatures.
-    - Authorization Error Response is sent.
+    - Verificare la gestione delle firme non valide.
+    - Viene inviata una risposta di errore di autorizzazione.
   * - RPR-39
     - Error Handling
-    - Test handling of invalid nonce values.
-    - Error response is returned.
+    - Testare la gestione dei valori nonce non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-40
     - Relying Party Response
-    - Verify handling of malformed responses.
-    - Error response is returned.
+    - Verificare la gestione delle risposte malformate.
+    - Viene restituita una risposta di errore.
   * - RPR-41
     - Relying Party Response
-    - Test handling of missing response parameters.
-    - Error response is returned.
+    - Testare la gestione dei parametri di risposta mancanti.
+    - Viene restituita una risposta di errore.
   * - RPR-42
     - Status Endpoint
-    - Verify handling of session timeouts.
-    - Error response is returned.
+    - Verificare la gestione dei timeout di sessione.
+    - Viene restituita una risposta di errore.
   * - RPR-43
     - Status Endpoint
-    - Test handling of invalid status codes.
-    - Error response is returned.
+    - Testare la gestione dei codici di stato non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-44
     - Redirect URI
-    - Verify handling of invalid user sessions.
-    - Error response is returned.
+    - Verificare la gestione delle sessioni utente non valide.
+    - Viene restituita una risposta di errore.
   * - RPR-45
     - Redirect URI
-    - Test handling of unavailable services.
-    - Error response is returned.
+    - Testare la gestione dei servizi non disponibili.
+    - Viene restituita una risposta di errore.
   * - RPR-46
     - Same Device Flow
-    - Verify handling of user cancellations.
-    - User can cancel the process.
+    - Verificare la gestione delle cancellazioni dell'utente.
+    - L'utente può annullare il processo.
   * - RPR-47
     - Cross Device Flow
-    - Test QR Code scanning with different apps.
-    - QR Code is scanned successfully.
+    - Testare la scansione del codice QR con app diverse.
+    - Il codice QR viene scansionato con successo.
   * - RPR-48
     - Cross Device Flow
-    - Verify QR Code scanning with different lighting.
-    - QR Code is scanned successfully.
+    - Verificare la scansione del codice QR con illuminazione diversa.
+    - Il codice QR viene scansionato con successo.
   * - RPR-49
     - Request URI Method
-    - Test handling of unsupported content types.
-    - Error response is returned.
+    - Testare la gestione dei tipi di contenuto non supportati.
+    - Viene restituita una risposta di errore.
   * - RPR-50
     - User Consent
-    - Verify user notification of consent changes.
-    - User is informed about consent changes.
+    - Verificare la notifica all'utente delle modifiche al consenso.
+    - L'utente viene informato sulle modifiche al consenso.
   * - RPR-51
     - User Consent
-    - Test user consent for sensitive data.
-    - User can consent to sensitive data.
+    - Testare il consenso dell'utente per i dati sensibili.
+    - L'utente può acconsentire ai dati sensibili.
   * - RPR-52
     - Authorization Response
-    - Verify handling of response decryption failures.
-    - Error response is returned.
+    - Verificare la gestione dei fallimenti di decrittografia della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-53
     - Authorization Response
-    - Test handling of response integrity checks.
-    - Response integrity is verified.
+    - Testare la gestione dei controlli di integrità della risposta.
+    - L'integrità della risposta viene verificata.
   * - RPR-54
     - Relying Party Response
-    - Verify handling of response validation failures.
-    - Error response is returned.
+    - Verificare la gestione dei fallimenti di convalida della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-55
     - Relying Party Response
-    - Test handling of response processing errors.
-    - Error response is returned.
+    - Testare la gestione degli errori di elaborazione della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-56
     - Protected Resource Endpoint
-    - Verify handling of unauthorized session access.
-    - Unauthorized access is denied.
+    - Verificare la gestione dell'accesso non autorizzato alla sessione.
+    - L'accesso non autorizzato viene negato.
   * - RPR-57
     - Redirect URI
-    - Verify handling of invalid redirect parameters.
-    - Error response is returned.
+    - Verificare la gestione dei parametri di reindirizzamento non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-58
     - Redirect URI
-    - Test handling of redirect failures.
-    - Error response is returned.
+    - Testare la gestione dei fallimenti di reindirizzamento.
+    - Viene restituita una risposta di errore.
   * - RPR-59
     - Same Device Flow
-    - Verify handling of user interruptions.
-    - User can resume or cancel the process.
+    - Verificare la gestione delle interruzioni dell'utente.
+    - L'utente può riprendere o annullare il processo.
   * - RPR-60
     - Request URI Method
-    - Test handling of invalid HTTP methods.
-    - Error response is returned.
+    - Testare la gestione dei metodi HTTP non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-61
     - User Consent
-    - Verify user notification of consent revocation.
-    - User is informed about consent revocation.
+    - Verificare la notifica all'utente della revoca del consenso.
+    - L'utente viene informato sulla revoca del consenso.
   * - RPR-62
     - User Consent
-    - Test user consent for optional data.
-    - User can consent to optional data.
+    - Testare il consenso dell'utente per i dati opzionali.
+    - L'utente può acconsentire ai dati opzionali.
   * - RPR-63
     - Authorization Response
-    - Verify handling of response signature failures.
-    - Error response is returned.
+    - Verificare la gestione dei fallimenti di firma della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-64
     - Authorization Response
-    - Test handling of response format errors.
-    - Error response is returned.
+    - Testare la gestione degli errori di formato della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-65
     - Error Handling
-    - Verify handling of invalid JWT signatures.
-    - Authorization Error Response is sent.
+    - Verificare la gestione delle firme JWT non valide.
+    - Viene inviata una risposta di errore di autorizzazione.
   * - RPR-66
     - Error Handling
-    - Test handling of invalid JWT claims.
-    - Error response is returned.
+    - Testare la gestione dei claim JWT non validi.
+    - Viene restituita una risposta di errore.
   * - RPR-67
     - Relying Party Response
-    - Verify handling of response parsing errors.
-    - Error response is returned.
+    - Verificare la gestione degli errori di analisi della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-68
     - Relying Party Response
-    - Test handling of response timeout errors.
-    - Error response is returned.
+    - Testare la gestione degli errori di timeout della risposta.
+    - Viene restituita una risposta di errore.
   * - RPR-69
     - Status Endpoint
-    - Verify handling of session expiration.
-    - Error response is returned.
+    - Verificare la gestione della scadenza della sessione.
+    - Viene restituita una risposta di errore.
   * - RPR-70
     - Status Endpoint
-    - Test handling of session renewal errors.
-    - Error response is returned.
+    - Testare la gestione degli errori di rinnovo della sessione.
+    - Viene restituita una risposta di errore.
   * - RPR-71
     - Redirect URI
-    - Verify handling of redirect loop errors.
-    - Error response is returned.
+    - Verificare la gestione degli errori di loop di reindirizzamento.
+    - Viene restituita una risposta di errore.
   * - RPR-72
     - Redirect URI
-    - Test handling of redirect security errors.
-    - Error response is returned.
+    - Testare la gestione degli errori di sicurezza del reindirizzamento.
+    - Viene restituita una risposta di errore.
   * - RPR-73
     - Same Device Flow
-    - Verify handling of user timeouts.
-    - User is notified of timeout.
+    - Verificare la gestione dei timeout dell'utente.
+    - L'utente viene notificato del timeout.
   * - RPR-74
     - Cross Device Flow
-    - Test QR Code scanning with different devices.
-    - QR Code is scanned successfully.
+    - Testare la scansione del codice QR con dispositivi diversi.
+    - Il codice QR viene scansionato con successo.
   * - RPR-75
     - Cross Device Flow
-    - Verify QR Code scanning with different apps.
-    - QR Code is scanned successfully.
+    - Verificare la scansione del codice QR con app diverse.
+    - Il codice QR viene scansionato con successo.
   * - RPR-76
     - Request URI Method
-    - Test handling of unsupported HTTP methods.
-    - Error response is returned.
+    - Testare la gestione dei metodi HTTP non supportati.
+    - Viene restituita una risposta di errore.
 
 
-Proximity Credential Presentation Test Matrix
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Matrice di Test per la Presentazione di Credenziali di Prossimità
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section defines the general test cases about the proximity presentation flow.
+Questa sezione definisce i casi di test generali relativi al flusso di presentazione di prossimità.
 
 .. note::
-  References about ISO-1813-5 test plans will update this section in future releases.
+  I riferimenti ai piani di test ISO-1813-5 aggiorneranno questa sezione nelle versioni future.
 
 
 .. list-table::
@@ -1237,103 +1237,100 @@ This section defines the general test cases about the proximity presentation flo
 
   * - PPR-001
     - Device Engagement
-    - Test the initiation of device engagement using QR code.
-    - Device engagement is successfully initiated and QR code is scanned.
+    - Testare l'avvio del coinvolgimento del dispositivo utilizzando il codice QR.
+    - Il coinvolgimento del dispositivo viene avviato con successo e il codice QR viene scansionato.
 
   * - PPR-002
     - Session Establishment
-    - Verify session establishment with correct session keys.
-    - Session is established securely with correct session keys.
+    - Verificare l'instaurazione della sessione con le chiavi di sessione corrette.
+    - La sessione viene stabilita in modo sicuro con le chiavi di sessione corrette.
 
   * - PPR-003
     - Communication
-    - Test the transmission of mdoc request over BLE.
-    - mdoc request is transmitted securely over BLE.
+    - Testare la trasmissione della richiesta mdoc tramite BLE.
+    - La richiesta mdoc viene trasmessa in modo sicuro tramite BLE.
 
   * - PPR-004
     - User Authentication
-    - Validate user authentication via WSCA.
-    - User is authenticated successfully using WSCA.
+    - Convalidare l'autenticazione dell'utente tramite WSCA.
+    - L'utente viene autenticato con successo utilizzando WSCA.
 
   * - PPR-005
     - Attribute Consent
-    - Check user consent for attribute release.
-    - User consents to release requested attributes.
+    - Verificare il consenso dell'utente per il rilascio degli attributi.
+    - L'utente acconsente al rilascio degli attributi richiesti.
 
   * - PPR-006
     - Data Retrieval
-    - Test retrieval of mdoc Digital Credentials.
-    - mdoc Digital Credentials are retrieved successfully.
+    - Testare il recupero delle Credenziali Digitali mdoc.
+    - Le Credenziali Digitali mdoc vengono recuperate con successo.
 
   * - PPR-007
     - Session Termination
-    - Verify session termination after data exchange.
-    - Session is terminated and keys are destroyed.
+    - Verificare la terminazione della sessione dopo lo scambio di dati.
+    - La sessione viene terminata e le chiavi vengono distrutte.
 
   * - PPR-008
     - Error Handling
-    - Test handling of invalid session keys.
-    - Appropriate error message is displayed for invalid keys.
+    - Testare la gestione delle chiavi di sessione non valide.
+    - Viene visualizzato un messaggio di errore appropriato per le chiavi non valide.
 
   * - PPR-009
     - BLE Connection
-    - Test BLE connection stability during data exchange.
-    - BLE connection remains stable throughout the exchange.
+    - Testare la stabilità della connessione BLE durante lo scambio di dati.
+    - La connessione BLE rimane stabile durante tutto lo scambio.
 
   * - PPR-010
     - Document Verification
-    - Verify the integrity of received documents.
-    - Documents are verified and integrity is confirmed.
+    - Verificare l'integrità dei documenti ricevuti.
+    - I documenti vengono verificati e l'integrità è confermata.
 
   * - PPR-011
     - Security
-    - Test encryption of mdoc requests and responses.
-    - All mdoc requests and responses are encrypted correctly.
+    - Testare la crittografia delle richieste e risposte mdoc.
+    - Tutte le richieste e risposte mdoc sono crittografate correttamente.
 
   * - PPR-012
     - User Interface
-    - Check the user interface for attribute consent.
-    - User interface displays attribute consent request clearly.
+    - Verificare l'interfaccia utente per il consenso agli attributi.
+    - L'interfaccia utente visualizza chiaramente la richiesta di consenso agli attributi.
 
   * - PPR-013
     - Error Handling
-    - Test response to unsupported document types.
-    - System returns appropriate error for unsupported document types.
+    - Testare la risposta ai tipi di documento non supportati.
+    - Il sistema restituisce un errore appropriato per i tipi di documento non supportati.
 
   * - PPR-014
     - Performance
-    - Measure time taken for session establishment.
-    - Session is established within acceptable time limits.
+    - Misurare il tempo impiegato per l'instaurazione della sessione.
+    - La sessione viene stabilita entro limiti di tempo accettabili.
 
   * - PPR-015
     - Compatibility
-    - Verify compatibility with different mobile devices.
-    - System works seamlessly across various mobile devices.
+    - Verificare la compatibilità con diversi dispositivi mobili.
+    - Il sistema funziona perfettamente su vari dispositivi mobili.
 
   * - PPR-016
     - Data Integrity
-    - Test integrity of data during transmission.
-    - Data integrity is maintained during transmission.
+    - Testare l'integrità dei dati durante la trasmissione.
+    - L'integrità dei dati viene mantenuta durante la trasmissione.
 
   * - PPR-017
     - Session Management
-    - Test session management under high load.
-    - Sessions are managed effectively under high load conditions.
+    - Testare la gestione della sessione sotto carico elevato.
+    - Le sessioni vengono gestite efficacemente in condizioni di carico elevato.
 
   * - PPR-018
     - BLE Connection
-    - Test reconnection after BLE disconnection.
-    - System reconnects successfully after BLE disconnection.
+    - Testare la riconnessione dopo la disconnessione BLE.
+    - Il sistema si riconnette con successo dopo la disconnessione BLE.
 
   * - PPR-019
     - User Experience
-    - Evaluate user experience during the proximity flow.
-    - Users report a positive experience with the proximity flow.
+    - Valutare l'esperienza dell'utente durante il flusso di prossimità.
+    - Gli utenti riportano un'esperienza positiva con il flusso di prossimità.
 
   * - PPR-020
     - Security
-    - Test resistance to replay attacks.
-    - System is resistant to replay attacks.
-
-
-
+    - Testare la resistenza agli attacchi di replay.
+    - Il sistema è resistente agli attacchi di replay.

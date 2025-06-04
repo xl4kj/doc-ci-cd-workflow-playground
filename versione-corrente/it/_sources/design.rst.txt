@@ -1,17 +1,24 @@
 .. include:: ../common/common_definitions.rst
+    
 
+Principi di design
+==================
 
-Design Principles
-=================
+Il Sistema IT-Wallet si basa sul paradigma del Portafoglio di Identità Digitale e ha l'obiettivo di fornire agli Utenti un'esperienza di accesso ai servizi più semplice, veloce e sicura.  
 
-The IT-Wallet System adheres to the Digital Identity Wallet Paradigm, aiming to provide Users with a simple, fast, and more secure experience when accessing services.
+La Soluzione Wallet rappresenta il principale Touchpoint e consente agli Utenti di utilizzare e gestire il proprio PID e i propri Attributi nelle interazioni con soggetti pubblici o privati, sia in contesti fisici che digitali. Il corretto funzionamento del servizio, tuttavia, si fonda su un'ampia rete di interazioni tra diversi Touchpoint e Soluzioni Tecniche, che ne supportano l'erogazione e incidono direttamente sull'Esperienza Utente. 
 
-The Wallet Solution serves as the primary Touchpoint, enabling Users to manage and use their PID and Attributes when interacting with public or private entities, in both physical and digital contexts. However, the overall service depends on the interactions of a network of Touchpoints and Technical Solutions, that support its delivery and directly impact the User Experience.
+Per garantire un'elevata qualità del servizio dal punto di vista dell'Esperienza Utente, gli Attori Primari, siano essi enti pubblici o privati, DEVONO assicurare l'usabilità e l'accessibilità delle proprie Soluzioni Tecniche, in allineamento con gli elementi distintivi del Sistema IT-Wallet. Nello specifico: 
 
-To ensure service quality from a User Experience perspective, Primary Actors, both public and private entities, MUST ensure the usability and accessibility of their Technical Solutions while aligning with the distinctive elements of the IT-Wallet System. Specifically:
+- **Usabilità**: le Soluzioni Tecniche DEVONO essere progettate e mantenute per garantire elevanti standard di usabilità, allo scopo di facilitare l'adozione del servizio e ridurre la necessità di supporto. Gli enti pubblici DEVONO aderire alle [LG_DESIGN], mentre gli enti privati POSSONO prenderle a riferimento come buone pratiche; 
 
-- **Usability**: Technical Solutions MUST be designed and maintained to meet high usability standards, to facilitate service adoption and reduce the need for assistance. Public entities MUST adhere to [GL_DESIGN], whereas private entities MAY refer to it as a best practice.
+- **Accessibilità**: le Soluzioni Tecniche DEVONO essere progettate e mantenute per garantire elevati standard di accessibilità, allo scopo di garantire accesso al servizio indipendentemente da capacità o competenze tecnologiche individuali o da vincoli esterni e di contesto. Gli enti pubblici DEVONO aderire alle [RIF_ACCESSIBILITÀ], mentre gli enti privati DEVONO rispettare quanto previsto dalla normativa vigente; 
 
-- **Accessibility**: Technical Solutions MUST be designed and maintained to meet high accessibility standards to ensure service access regardless of individual abilities, technological skills, or external and contextual constraints. Public entities MUST adhere to [REF_ACCESSIBILITY], whereas private entities MUST comply with applicable regulations.
+- **Coerenza**: le Soluzioni Tecniche DEVONO essere progettate e mantenute in coerenza con la Brand Identity del Sistema IT-Wallet e i requisiti funzionali relativi all'Esperienza Utente descritti in queste specifiche, per promuovere la riconoscibilità dei componenti, garantire la coerenza complessiva del sistema e minimizzare il carico cognitivo per l'Utente.
 
-- **Consistency**: Technical Solutions MUST be designed and maintained in adherence to the IT-Wallet System's Brand Identity and User Experience functional requirements in this document, to promote the recognizability of components, to ensure the overall system consistency, and to minimize the User's cognitive load.
+.. toctree::
+  :caption: Principi di Design Indice dei Contenuti
+  :maxdepth: 3
+
+  brand-identity.rst  
+

@@ -1,15 +1,14 @@
 .. include:: ../common/common_definitions.rst
 
-Credential Issuance Endpoints
-==============================
+Credential Offer Endpoint 
+"""""""""""""""""""""""""""""""""""""
 
-Credential Offer Endpoint
--------------------------
-The Credential Offer endpoint of a Wallet is used by Credential Issuer to interact with the User to initiate a Credential Issuance. The custom URL scheme ``openid-credential-offer://`` MUST be used.
+Il Credential Offer Endpoint di un Wallet è utilizzato dal Credential Issuer per interagire con l'Utente al fine di avviare un'Emissione di un Attestato Elettronico. DEVE essere utilizzato il *custom URL* ``openid-credential-offer://``.
 
 Credential Offer
-^^^^^^^^^^^^^^^^
-The Credential Offer made by Credential Issuer consists of a single URI query parameter ``credential_offer``. The Credential Offer URL MAY be included in a QR Code or in an html page with an href button and MUST contain the following mandatory parameters:
+......................
+
+La Credential Offer effettuata dal Credential Issuer consiste in un singolo parametro da inviare in query URI ``credential_offer``. L'URL rappresentativa della Credential Offer PUÒ essere inclusa in un QR Code o in una pagina html con un pulsante href e DEVE contenere i seguenti parametri obbligatori:
 
 .. _table_credential_offer_claim:
 .. list-table::
@@ -18,71 +17,71 @@ The Credential Offer made by Credential Issuer consists of a single URI query pa
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **credential_issuer**
-    - It MUST be set with an HTTPS URL that uniquely identifies the Credential Issuer. The Wallet uses this parameter value to obtain the Credential Issuer's metadata.
-    - Section 4.1.1 of [`OpenID4VCI`_].
+    - DEVE essere valorizzato con una URL HTTPS che identifica in modo univoco il Credential Issuer. Il Wallet utilizza il valore di questo parametro per ottenere i Metadata del Credential Issuer.
+    - Sezione 4.1.1 di [`OpenID4VCI`_].
   * - **credential_configuration_ids**
-    - Array of Strings, each of them specifying a unique identifier of the Credential being described in the ``credential_configurations_supported`` map in the Credential Issuer Metadata.
-    - Section 4.1.1 of [`OpenID4VCI`_].
+    - Array di Stringhe, ciascuna delle quali specifica un identificativo univoco dell'Attestato Elettronico descritta nel claim ``credential_configurations_supported`` presente nei Metadata del Credential Issuer.
+    - Sezione 4.1.1 di [`OpenID4VCI`_].
   * - **grants**
-    - It MUST contain ``authorization_code`` object with the following parameters:
+    - DEVE contenere un oggetto ``authorization_code`` con i seguenti parametri:
 
-        - **issuer_state**: REQUIRED. Opaque string created by the Credential Issuer used to bind the subsequent Authorization Request with the Credential Issuer. The Wallet MUST include it in the subsequent Authorization Request.
-        - **authorization_server**: REQUIRED when the Credential Issuer uses more than one authorization server in its Issuer Solution. String identifying the Authorization Server to use. The value MUST match with one of the values mapped in the ``authorization_servers`` array of the Credential Issuer metadata. It MUST NOT be used if ``authorization_servers`` is absent or it has no multiple entries.
-    - Section 4.1.1 of [`OpenID4VCI`_].
+        - **issuer_state**: OBBLIGATORIO. Stringa opaca creata dal Credential Issuer utilizzata per correlare la successiva Authorization Request con il Credential Issuer. Il Wallet DEVE includerla nella successiva Authorization Request.
+        - **authorization_server**: OBBLIGATORIO se il Credential Issuer utilizza più di un authorization server nella sua Soluzione di Fornitore di Attestati Elettronici. Stringa che identifica l'Authorization Server da utilizzare. Il valore DEVE corrispondere a uno dei valori censiti nell'array ``authorization_servers`` dei Metadata del Credential Issuer. NON DEVE essere utilizzato se ``authorization_servers`` è assente o non ha voci.
+    - Sezione 4.1.1 di [`OpenID4VCI`_].
 
 
 Credential Offer Response
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-No response is expected from the Wallet.
+...................................
+Non è prevista alcuna response da parte del Wallet.
 
 
 Pushed Authorization Request Endpoint
--------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 Pushed Authorization Request (PAR) Request
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+............................................
 
-The request to the Credential Issuer authorization endpoint MUST use HTTP Headers parameters and HTTP POST parameters.
+La request all'authorization endpoint del Credential Issuer DEVE contenere sia i parametri di header HTTP che i parametri HTTP POST.
 
-The HTTP POST method MUST use the parameters in the message body encoded in ``application/x-www-form-urlencoded`` format.
+Il metodo HTTP POST DEVE avere i parametri nel body del messaggio codificati in formato ``application/x-www-form-urlencoded``.
 
 .. _table_http_request_claim:
-.. list-table:: PAR http request parameters
+.. list-table:: Parametri della PAR request http
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **client_id**
-      - MUST be set to the thumbprint of the ``jwk`` value in the ``cnf`` parameter inside the Wallet Attestation.
+      - DEVE essere valorizzato con il *thumbprint* del ``jwk`` presente nel parametro ``cnf`` all'interno dell'Attestato di Unità di Wallet.
       - :rfc:`6749`
     * - **request**
-      - It MUST be a signed JWT. The private key corresponding to the public one in the ``cnf`` parameter inside the Wallet Attestation MUST be used for signing the Request Object.
-      - `OpenID Connect Core. Section 6 <https://openid.net/specs/openid-connect-core-1_0.html#JWTRequests>`_
+      - DEVE essere un JWT firmato. La chiave privata corrispondente a quella pubblica presente nel parametro ``cnf`` all'interno dell'Attestato di Unità di Wallet che DEVE essere utilizzata per firmare ilRequest Object.
+      - `OpenID Connect Core. Sezione 6 <https://openid.net/specs/openid-connect-core-1_0.html#JWTRequests>`_
 
-The Pushed Authorization Endpoint is protected with OAuth 2.0 Attestation-based Client Authentication [`OAUTH-ATTESTATION-CLIENT-AUTH`_], therefore
-the request to the Credential Issuer authorization endpoint MUST use the following HTTP Headers parameters:
+Il Pushed Authorization Endpoint è protetto con *OAuth 2.0 Attestation-based Client Authentication* [`OAUTH-ATTESTATION-CLIENT-AUTH`_], pertanto
+la richiesta all'authorization endpoint del Credential Issuer DEVE utilizzare i seguenti parametri di header HTTP:
 
 .. _table_http_request_headers_claim:
-.. list-table:: http request header parameters
+.. list-table:: parametri di header della request http
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
     * - **OAuth-Client-Attestation**
-      - It MUST be set to a value containing the Wallet Attestation JWT.
+      - DEVE contenere il JWT dell'Attestato di Unità di Wallet.
       - `OAUTH-ATTESTATION-CLIENT-AUTH`_.
     * - **OAuth-Client-Attestation-PoP**
-      - It MUST be set to a value containing the Wallet Attestation JWT Proof of Possession.
+      - DEVE contenere la Prova di Possesso del JWT dell'Attestato di Unità di Wallet.
       - `OAUTH-ATTESTATION-CLIENT-AUTH`_.
 
 
-The JWT *Request Object* has the following JOSE header parameters:
+Il JWT *Request Object* ha i seguenti parametri di header JOSE:
 
 .. _table_request_object_claim:
 .. list-table::
@@ -90,21 +89,21 @@ The JWT *Request Object* has the following JOSE header parameters:
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **JOSE Header**
+      - **Descrizione**
+      - **Riferimento**
     * - **alg**
-      - A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms listed in the Section :ref:`algorithms:Cryptographic Algorithms` and MUST NOT be set to ``none`` or any symmetric algorithm (MAC) identifier.
+      - Identificativo dell'algoritmo di firma digitale come definito nel registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere valorizzato con ``none`` o con qualsiasi identificativo di algoritmo simmetrico (MAC).
       - :rfc:`7516#section-4.1.1`.
     * - **kid**
-      - Unique identifier of the ``jwk`` inside the ``cnf`` claim of Wallet Attestation as base64url-encoded JWK Thumbprint value.
+      - Identificativo univoco del ``jwk`` presente all'interno del claim ``cnf`` dell'Attestato di Unità di Wallet, ovvero il valore del *thumbprint* del JWK codificato in base64url.
       - :rfc:`7638#section_3`.
 
 .. note::
-  The parameter **typ**, if omitted, assumes the implicit value **JWT**.
+  Il parametro **typ**, se omesso, assume il valore implicito **JWT**.
 
 
-The ``request`` JWT payload contained in the HTTP POST message is given with the following parameters:
+Il payload del JWT ``request`` contenuto nel messaggio HTTP POST contiene i seguenti parametri:
 
 .. _table_jwt_request:
 .. list-table::
@@ -113,61 +112,61 @@ The ``request`` JWT payload contained in the HTTP POST message is given with the
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **iss**
-      - It MUST be set to the ``client_id``.
-      - :rfc:`9126` and :rfc:`7519`.
+      - DEVE essere valorizzato con il ``client_id``.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **aud**
-      - It MUST be set to the identifier of the Credential Issuer.
-      - :rfc:`9126` and :rfc:`7519`.
+      - DEVE essere valorizzato con l'identificativo del Credential Issuer.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **exp**
-      - UNIX Timestamp with the expiry time of the JWT. The claim value MUST be not greater than 300 seconds from the issuance time.
-      - :rfc:`9126` and :rfc:`7519`.
+      - Timestamp UNIX con orario di scadenza del JWT. Il valore NON DEVE essere superiore a 300 secondi rispetto all'orario di emissione.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **iat**
-      - UNIX Timestamp with the time of JWT issuance.
-      - :rfc:`9126` and :rfc:`7519`.
+      - Timestamp UNIX con data e orario di emissione del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **response_type**
-      - MUST be set to ``code``.
+      - DEVE essere valorizzato con ``code``.
       - :rfc:`6749`
     * - **response_mode**
-      - It MUST be a string indicating the "*response_mode*", as specified in [`OAUTH-MULT-RESP-TYPE`_]. It MUST be one of the supported values (*response_modes_supported*) provided in the metadata of the Credential Issuer. It informs the Credential Issuer of the mechanism to be used for returning parameters from the Authorization Endpoint. In case of *HTTP 302 Redirect Response* the value MUST be *query*. In this mode, Authorization Response parameters are encoded in the query string added to the ``redirect_uri`` when redirecting back to the Wallet Instance. In case of *HTTP POST Response* the value MUST be *form_post.jwt* according to [`JARM`_]. In this mode, Authorization Response parameters are specified into a JWT encoded as HTML form value that is auto-submitted in the user-agent, and thus is transmitted via the HTTP POST method to the Wallet Instance, with the result parameters being encoded in the body using the *application/x-www-form-urlencoded* format. The action attribute of the form MUST be the Redirection URI of the Wallet Instance. The method of the form attribute MUST be POST.
-      - See [`OAUTH-MULT-RESP-TYPE`_] and [`JARM`_].
+      - DEVE essere una stringa che indica il "*response_mode*", come specificato in [`OAUTH-MULT-RESP-TYPE`_]. DEVE essere valorizzato con uno dei valori supportati (*response_modes_supported*) forniti nei Metadata del Credential Issuer. Tale claim informa il Credential Issuer sul meccanismo da utilizzare per la restituizione dei parametri da parte dell' Authorization Endpoint. In caso di *HTTP 302 Redirect Response* il valore DEVE essere *query*. In questa modalità, i parametri dell'Authorization Response sono codificati nella stringa di query aggiunta al ``redirect_uri`` durante il redirect all'Istanza del Wallet. In caso di *HTTP POST Response* il valore DEVE essere *form_post.jwt* secondo [`JARM`_]. In questa modalità, i parametri dell'Authorization Response sono riportati in un JWT codificato in un form HTML che viene inviato automaticamente nell'user-agent, e quindi viene trasmesso tramite il metodo HTTP POST all'Istanza del Wallet, con i parametri risultanti codificati nel body utilizzando il formato *application/x-www-form-urlencoded*. L'attributo *action* del form DEVE contenere il *Redirection URI* dell'Istanza del Wallet. L'attributo *method* del form DEVE essere POST.
+      - Vedi [`OAUTH-MULT-RESP-TYPE`_] e [`JARM`_].
     * - **client_id**
-      - It MUST be set as in the :ref:`Table of the HTTP parameters <table_http_request_claim>`.
-      - See :ref:`Table of the HTTP parameters <table_http_request_claim>`.
+      - DEVE essere valorizzato come indicato nella :ref:`Tabella dei parametri HTTP <table_http_request_claim>`.
+      - Vedi :ref:`Tabella dei parametri HTTP <table_http_request_claim>`.
     * - **state**
-      - Unique session identifier at the client side. This value will be returned to the client in the response, at the end of the authentication. It MUST be a random string composed by alphanumeric characters and with a minimum length of 32 digits. Special characters MUST be considered non-alphanumeric characters as defined in `[NIST] <https://csrc.nist.gov/glossary/term/special_character>`__.
-      - See [`OIDC`_] Section 3.1.2.1.
+      - Identificativo univoco della sessione lato client. Questo valore verrà restituito al client nella response, al termine dell'autenticazione. DEVE essere una stringa casuale composta da caratteri alfanumerici e con una lunghezza minima di 32 cifre. Tra i caratteri speciali DEVONO essere considerati quelli non alfanumerici definiti in `[NIST] <https://csrc.nist.gov/glossary/term/special_character>`__.
+      - Vedi [`OIDC`_] Sezione 3.1.2.1.
     * - **code_challenge**
-      - A challenge derived from the **code verifier** that is sent in the authorization request.
+      - *Challenge* derivata dal **code verifier** che viene inviata nell'authorization request.
       - :rfc:`7636#section-4.2`.
     * - **code_challenge_method**
-      - A method that was used to derive **code challenge**. It MUST be set to ``S256``.
+      - Metodo utilizzato per derivare il **code challenge**. DEVE essere valorizzato con ``S256``.
       - :rfc:`7636#section-4.3`.
     * - **scope**
-      - JSON String. String specifying a unique identifier of the Credential regardless of its format. It MUST be mapped in the `credential_configurations_supported` metadata claim of the Credential Issuer. Unique identifier value MUST match the `credential_type` parameter of the Digital Credentials Catalogue. For example, in the case of the PID, it may be set to ``PersonIdentificationData`` while in case of mobile driving licence ``mDL``. Since it MAY be multivalued, when this occurs each value MUST be separated by a space.
+      - Stringa JSON. Stringa contenente un identificativo univoco dell'Attestato Elettronico indipendentemente dal suo formato. DEVE essere mappato nel claim `credential_configurations_supported` presente nei Metadata del Credential Issuer. Il valore dell'identificativo univoco DEVE corrispondere al parametro `credential_type` del :ref:`registry-catalogue:Catalogo degli Attestati Elettronici`. Ad esempio, nel caso del PID, può essere valorizzato con ``PersonIdentificationData`` mentre nel caso della patente di guida ``mDL``. Poiché PUÒ essere multivalore, quando ciò si verifica ogni valore DEVE essere separato da uno spazio.
       - :rfc:`6749`
     * - **authorization_details**
-      - Array of JSON Objects. Each JSON Object MUST include the following claims:
+      - Array di Oggetti JSON. Ogni Oggetto JSON DEVE includere i seguenti claim:
 
-            - **type**: it MUST be set to ``openid_credential``,
-            - **credential_configuration_id**: JSON String. String specifying a unique identifier of the Credential in a specific format that MUST be mapped in the `credential_configurations_supported` metadata claim of the Credential Issuer. For instance,``dc_sd_jwt_PersonIdentificationData`` can be used for PID in SD-JWT VC format, ``dc_sd_jwt_mDL`` for mobile driving licence in SD-JWT VC format and ``mso_mdoc_mDL`` for mobile driving license in mdoc format.
-      - See [RAR :rfc:`9396`] and [`OpenID4VCI`_].
+            - **type**: DEVE essere valorizzato con ``openid_credential``,
+            - **credential_configuration_id**: Stringa JSON. Stringa che indica un identificativo univoco dell'Attestato Elettronico in uno specifico formato che DEVE essere mappato nel claim `credential_configurations_supported` presente nei Metadata del Credential Issuer. Ad esempio, ``dc_sd_jwt_PersonIdentificationData`` può essere utilizzato per il PID in formato SD-JWT VC, ``dc_sd_jwt_mDL`` per la patente di guida in formato SD-JWT VC e ``mso_mdoc_mDL`` per la patente di guida in formato mdoc.
+      - Vedi [RAR :rfc:`9396`] e [`OpenID4VCI`_].
     * - **redirect_uri**
-      - Redirection URI to which the response is intended to be sent. It MUST be an universal or app link registered with the local operating system, so this latter will provide the response to the Wallet Instance.
-      - See [`OIDC`_] Section 3.1.2.1.
+      - *Redirection URI* a cui è indirizzata la response. DEVE essere un *universal link* oppure un *app link* registrato nel sistema operativo locale, in modo tale che quest'ultimo potrà fornirà la response all'Istanza del Wallet.
+      - Vedi [`OIDC`_] Sezione 3.1.2.1.
     * - **jti**
-      - Unique identifier of the JWT that, together with the value contained in the ``iss`` claim, prevents the reuse of the JWT (replay attack). Since the `jti` value alone is not collision resistant, it MUST be identified uniquely together with its issuer.
+      - Identificativo univoco del JWT che, insieme al valore contenuto nel claim ``iss``, impedisce il riutilizzo del JWT (*replay attack*). Siccome il valore del `jti` da solo non è resistente alle collisioni, esso DOVRA' essere identificato in modo univoco insieme al suo emittente.
       - [:rfc:`7519`].
     * - **issuer_state**
-      - It MUST be present only in case of issuer initiated flow. It MUST contain the same value contained in the Credential Offer.
+      - DEVE essere presente solo in caso di *issuer initiated flow**. DEVE contenere lo stesso valore presente nel Credential Offer.
       - [:rfc:`7519`].
 
 .. note::
-  If the request cointains scope value and the *authorization_details* parameter the Credential Issuer MUST interpret these individually. However, if both request the same Credential type, then the Credential Issuer MUST follow the request as given by the authorization details object.
+  Se la request contiene sia *scope* che il parametro *authorization_details*, il Credential Issuer DEVE interpretarli individualmente. Tuttavia, se entrambi richiedono lo stesso tipo di Attestato Elettronico, il Credential Issuer DEVE eseguire la richiesta come se pervenuta soltanto dall'oggetto authorization details.
 
-The JOSE header of the Wallet Attestation proof of possession, contained in the HTTP Request headers, MUST contain:
+Il JOSE Header della prova di possesso dell'Attestato di Unità di Wallet, contenuta negli header della HTTP Request, DEVE contenere:
 
 .. _table_jwt_pop:
 .. list-table::
@@ -175,14 +174,14 @@ The JOSE header of the Wallet Attestation proof of possession, contained in the 
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **JOSE Header**
+      - **Descrizione**
+      - **Riferimento**
     * - **alg**
-      - A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms listed in the Section :ref:`algorithms:Cryptographic Algorithms` and MUST NOT be set to ``none`` or any symmetric algorithm (MAC) identifier.
+      - Identificativo dell'algoritmo di firma digitale come definito nel registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere valorizzato con ``none`` o con qualsiasi identificativo di algoritmo simmetrico (MAC).
       - :rfc:`7516#section-4.1.1`.
 
-The body of the Wallet Attestation proof of possession JWT, contained in the HTTP Request headers, MUST contain:
+Il body del JWT relativo alla prova di possesso dell'Attestato di Unità di Wallet, contenuto negli header della HTTP Request, DEVE contenere:
 
 .. list-table::
     :class: longtable
@@ -190,28 +189,28 @@ The body of the Wallet Attestation proof of possession JWT, contained in the HTT
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **iss**
-      - Thumbprint of the JWK in the ``cnf`` parameter.
-      - :rfc:`9126` and :rfc:`7519`.
+      - *thumbprint* del JWK contenuto nel parametro ``cnf``.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **aud**
-      - It MUST be set to the identifier of the Credential Issuer.
-      - :rfc:`9126` and :rfc:`7519`.
+      - DEVE essere valorizzato con l'identificativo del Credential Issuer.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **exp**
-      - UNIX Timestamp with the expiry time of the JWT.
-      - :rfc:`9126` and :rfc:`7519`.
+      - Timestamp UNIX con data e orario di scadenza del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **iat**
-      - UNIX Timestamp with the time of JWT issuance.
-      - :rfc:`9126` and :rfc:`7519`.
+      - Timestamp UNIX con data e orario di emissione del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **jti**
-      - Unique identifier for the DPoP proof JWT. The value SHOULD be set using a *UUID v4* value according to [:rfc:`4122`].
-      - [:rfc:`7519`. Section 4.1.7].
+      - Identificativo univoco per il JWT *DPoP proof*. Il valore DOVREBBE essere impostato utilizzando un valore *UUID v4* secondo [:rfc:`4122`].
+      - [:rfc:`7519`. Sezione 4.1.7].
 
 Pushed Authorization Request (PAR) Response
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+......................................................
 
-If the verification is successful, the Credential Issuer MUST provide the response with a *201 HTTP status code*. The following parameters are included as top-level members in the HTTP response message body, using the ``application/json`` media type as defined in [:rfc:`8259`].
+Se i controlli hanno esito positivo, il Credential Issuer DEVE fornire la response con *status code HTTP 201*. I seguenti parametri sono inclusi come parametri di primo livello nel body del messaggio di HTTP Response, utilizzando il media type ``application/json`` come definito nel [:rfc:`8259`].
 
 .. _table_http_response_claim:
 .. list-table::
@@ -220,21 +219,21 @@ If the verification is successful, the Credential Issuer MUST provide the respon
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **request_uri**
-      - The request URI corresponding to the authorization request posted. This URI MUST be a single-use reference to the respective authorization request. It MUST contain some part generated using a cryptographically strong pseudorandom algorithm. The value format MUST be ``urn:ietf:params:oauth:request_uri:<reference-value>`` with ``<reference-value>`` as the random part of the URI that references the respective authorization request data.
+      - Request URI associato all'authorization request inviata. Questo URI DEVE essere utilizzabile una sola volta per la corrispondente authorization request. DEVE contenere alcune parti generate utilizzando un algoritmo pseudocasuale crittograficamente forte. Il suo valore DEVE seguire il seguente formato: ``urn:ietf:params:oauth:request_uri:<reference-value>`` con ``<reference-value>`` come parte random dello URI che fa riferimento ai dati inviati nell'authorization request.
       - [:rfc:`9126`].
     * - **expires_in**
-      - A JSON number that represents the lifetime of the request URI in seconds as a positive integer.
+      - *JSON number*, numero intero positivo, che rappresenta la durata del Request URI in secondi.
       - [:rfc:`9126`].
 
-If any errors occur during the PAR Request, the Authorization Server MUST return an error response as defined in :rfc:`9126#section-2.3`. The response MUST use *application/json* as the content type and MUST include the following parameters:
+Se si verificano errori durante la PAR Request, l'Authorization Server DEVE restituire una response di errore come definito nel :rfc:`9126#section-2.3`. La response DEVE avere un content type *application/json* e DEVE includere i seguenti parametri:
 
-  - *error*. The error code.
-  - *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - *error*. Il codice di errore.
+  - *error_description*. Testo in forma *human-readable* che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
 
-Below is a non-normative example of an error response.
+Di seguito è riportato un esempio non normativo di una response di errore.
 
 .. code:: http
 
@@ -244,7 +243,7 @@ Below is a non-normative example of an error response.
 .. literalinclude:: ../../examples/par-error.json
   :language: JSON
 
-In the following table are listed HTTP Status Codes and related error codes that are supported for the error response:
+Nella seguente tabella sono elencati gli *Status Code HTTP* e i relativi codici di errore supportati per la response di errore:
 
 .. list-table::
     :class: longtable
@@ -252,51 +251,51 @@ In the following table are listed HTTP Status Codes and related error codes that
     :header-rows: 1
 
     * - **Status Code**
-      - **error code**
-      - **Description**
-    * - *400 Bad Request* [REQUIRED]
+      - **codice di errore**
+      - **Descrizione**
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_request``
-      - The Credential Issuer cannot fulfill the request because of missing parameters, invalid parameters or request malformed. (:rfc:`6749#section-5.2`).
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa di parametri mancanti, parametri non validi o richiesta malformata. (:rfc:`6749#section-5.2`).
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_scope``
-      - The Credential Issuer cannot fulfill the request because the requested scope is invalid or unknown. (:rfc:`6749#section-5.2`).
-    * - *401 Unauthorized* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché lo scope richiesto non è valido oppure è sconosciuto. (:rfc:`6749#section-5.2`).
+    * - *401 Unauthorized* [OBBLIGATORIO]
       - ``invalid_client``
-      - The Credential Issuer cannot fulfill the request because of Client Authentication failed (for example in case of unknown client, no parameters Client Authentication included, or unsupported authentication method). (:rfc:`6749#section-5.2`).
-    * - *405 Method not allowed* [OPTIONAL]
+      - Il Credential Issuer non può soddisfare la richiesta a causa del fallimento della *Client Authentication* (ad esempio in caso di client sconosciuto, nessun parametro relativo alla Client Authentication presente oppure se il metodo di autenticazione non è supportato). (:rfc:`6749#section-5.2`).
+    * - *405 Method not allowed* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request because POST method was not used in the request. (:rfc:`9126#section-2.3`).
-    * - *413 Payload Too Large* [OPTIONAL]
+      - Il Credential Issuer non può soddisfare la richiesta perché il metodo POST non è stato utilizzato nella richiesta. (:rfc:`9126#section-2.3`).
+    * - *413 Payload Too Large* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request because of the size of the request is higher than permitted limit.(:rfc:`9126#section-2.3`).
-    * - *429 Too Many Requests* [OPTIONAL]
+      - Il Credential Issuer non può soddisfare la richiesta perché la dimensione della richiesta è superiore al limite consentito.(:rfc:`9126#section-2.3`).
+    * - *429 Too Many Requests* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request because of the numbers requests received is higher than permitted limit.(:rfc:`9126#section-2.3`).
-    * - *500 Internal Server Error* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il numero di richieste ricevute è superiore al limite consentito.(:rfc:`9126#section-2.3`).
+    * - *500 Internal Server Error* [OBBLIGATORIO]
       - ``server_error``
-      - The Credential Issuer encountered an internal problem. (:rfc:`6749#section-4.1.2.1`).
-    * - *503 Service Unavailable* [REQUIRED]
+      - Il Credential Issuer ha riscontrato un problema interno. (:rfc:`6749#section-4.1.2.1`).
+    * - *503 Service Unavailable* [OBBLIGATORIO]
       - ``temporarily_unavailable``
-      - The Credential Issuer is temporary unavailable. (:rfc:`6749#section-4.1.2.1`).
-    * - *504 Gateway Timeout* [OPTIONAL]
+      - Il Credential Issuer è temporaneamente non disponibile. (:rfc:`6749#section-4.1.2.1`).
+    * - *504 Gateway Timeout* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request within the defined time interval.
+      - Il Credential Issuer non può soddisfare la richiesta entro l'intervallo di tempo definito.
 
 
 
 Authorization endpoint
-----------------------
+""""""""""""""""""""""""""
 
-The authorization endpoint is used to interact with the Credential Issuer and obtain an authorization grant.
-The authorization server MUST first verify the identity of the User that own the credential.
+L'authorization endpoint viene utilizzato per interagire con il Credential Issuer e ottenere un *authorization grant*.
+L'authorization server DEVE prima verificare l'identità dell'Utente proprietario dell'Attestato Elettronico.
 
 
 Authorization Request
-^^^^^^^^^^^^^^^^^^^^^
+...........................
 
-The Authorization request is issued by the Web Browser in use by the Wallet Instance, the HTTP methods **POST** or **GET** are used. When the method **POST** is used, the parameters MUST be sent using the *Form Serialization*. When the method **GET** is used, the parameters MUST be sent using the *Query String Serialization*. For more details see Section 13 of [`OIDC`_].
+L'authorization request viene inviata dal Browser Web in uso dall'Istanza del Wallet usando i metodi HTTP **POST** o **GET**. Se viene utilizzato il metodo **POST**, i parametri DEVONO essere inviati utilizzando la *Form Serialization*. Quando viene utilizzato il metodo **GET**, i parametri DEVONO essere inviati utilizzando la *Query String Serialization*. Per maggiori dettagli vedere la Sezione 13 di [`OIDC`_].
 
-The mandatory parameters in the HTTP authentication request are specified in the following table.
+I parametri obbligatori nell'authentication request HTTP sono specificati nella seguente tabella.
 
 .. list-table::
     :class: longtable
@@ -304,21 +303,21 @@ The mandatory parameters in the HTTP authentication request are specified in the
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **client_id**
-      - It MUST be set as in the :ref:`Table of the HTTP parameters <table_http_request_claim>`.
-      - See :ref:`Table of the HTTP parameters <table_http_request_claim>`.
+      - DEVE essere valorizzato come indicato nella :ref:`Tabella dei parametri HTTP <table_http_request_claim>`.
+      - Vedi :ref:`Tabella dei parametri HTTP <table_http_request_claim>`.
     * - **request_uri**
-      - It MUST be set to the same value as obtained by PAR Response. See :ref:`Table of the HTTP PAR Response parameters <table_http_response_claim>`.
+      - DEVE essere valorizzato con lo stesso valore ottenuto dalla PAR Response. Vedi :ref:`Tabella dei parametri della Risposta HTTP PAR <table_http_response_claim>`.
       - [:rfc:`9126`].
 
 Authorization Response
-^^^^^^^^^^^^^^^^^^^^^^^
+..........................
 
-The authentication response is returned by the Credential issuer authorization endpoint at the end of the authentication flow.
+L'authentication response viene restituita dall'authorization endpoint del Credential Issuer al termine del flusso di autenticazione.
 
-If the authentication is successful the Credential Issuer redirects the User by adding the following query parameters as required to the *redirect_uri*. The redirect URI MUST be an universal or app link registered with the local operating system, so this latter is able to provide the response to the Wallet Instance.
+Se l'autenticazione ha esito positivo, il Credential Issuer reindirizza l'Utente aggiungendo i seguenti parametri di query al *redirect_uri*. Il redirect URI DEVE essere un *universal link* o un *app link* registrato nel sistema operativo locale, in modo che quest'ultimo sia in grado di fornire la response all'Istanza del Wallet.
 
 .. list-table::
     :class: longtable
@@ -326,27 +325,27 @@ If the authentication is successful the Credential Issuer redirects the User by 
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **code**
-      - Unique *Authorization Code* that the Wallet Instance submits to the Token Endpoint.
+      - *Authorization Code* univoco che l'Istanza del Wallet invia al Token Endpoint.
       - [:rfc:`6749#section-4.1.2`], [:rfc:`7521`].
     * - **state**
-      - The Wallet Instance MUST check the correspondence with the ``state`` parameter value in the Request Object. It is defined as in the :ref:`Table of the JWT Request parameters <table_jwt_request>`.
+      - L'Istanza del Wallet DEVE verificare la corrispondenza con il valore presente nel parametro ``state`` del Request Object, come definito nella :ref:`Tabella dei parametri della Richiesta JWT <table_jwt_request>`.
       - [:rfc:`6749#section-4.1.2`].
     * - **iss**
-      - Unique identifier of the Credential Issuer who created the Authentication Response. The Wallet Instance MUST validate this parameter.
-      - [:rfc:`9207`], [:rfc:`7519`, Section 4.1.1.].
+      - Identificativo univoco del Credential Issuer che ha creato l'Authentication Response. L'Istanza del Wallet DEVE validare questo parametro.
+      - [:rfc:`9207`], [:rfc:`7519`, Sezione 4.1.1.].
 
-If any errors occur during the Authorization Request, the Authorization Server MUST return an error response as defined in :rfc:`6749#section-4.1.2.1`.
-In case of invalid/missing ``redirect_uri`` or ``client_id`` Authorization Server MUST inform the User with the error and MUST NOT redirect the User to the redirection URI.
-If any other error occurs the Authorization Server MUST redirect the User by adding the following query parameters as required to the *redirect_uri* using the *application/x-www-form-urlencoded* format:
+Se si verificano errori durante l'Authorization Request, l'Authorization Server DEVE restituire una response di errore come definito nel :rfc:`6749#section-4.1.2.1`.
+In caso di ``redirect_uri`` o ``client_id`` non valido/mancante, l'Authorization Server DEVE informare l'Utente con l'errore e NON DEVE reindirizzare l'Utente verso il *Redirection URI*.
+Se si verifica qualsiasi altro errore, l'Authorization Server DEVE reindirizzare l'Utente aggiungendo i seguenti parametri in query come richiesto al *redirect_uri* utilizzando il formato *application/x-www-form-urlencoded*:
 
-  - *error*. The error code.
-  - *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
-  - *state*. The exact value of ``state`` parameter contained in the Request Object.
+  - *error*. Il codice di errore.
+  - *error_description*. Testo in forma *human-readable* che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
+  - *state*. Il valore esatto del parametro ``state`` contenuto nel Request Object.
 
-Below is a non-normative example of an error response.
+Di seguito è riportato un esempio non normativo di una response di errore.
 
 .. code:: http
 
@@ -356,7 +355,7 @@ Below is a non-normative example of an error response.
    &error_description=Unsupported%20response_type%20value
    &state=fyZiOL9Lf2CeKuNT2JzxiLRDink0uPcd
 
-In case of Authorization Server redirects the User to the *redirect_uri* HTTP status code *302 (Found)* MUST be used. The following error codes are supported for the error response:
+Nel caso in cui l'Authorization Server reindirizza l'Utente verso il *redirect_uri* DEVE essere utilizzato lo *status code HTTP 302 (Found)*. I seguenti codici di errore sono supportati per la response di errore:
 
 .. list-table::
     :class: longtable
@@ -364,60 +363,60 @@ In case of Authorization Server redirects the User to the *redirect_uri* HTTP st
     :header-rows: 1
 
     * - **Status Code**
-      - **error code**
-      - **Description**
-    * - *302 Found* [REQUIRED]
+      - **codice di errore**
+      - **Descrizione**
+    * - *302 Found* [OBBLIGATORIO]
       - ``invalid_request``
-      - The Credential Issuer cannot fulfill the request because of missing parameters, invalid parameters or request malformed. (:rfc:`6749#section-4.1.2.1`).
-    * - *302 Found* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa di parametri mancanti, parametri non validi o richiesta malformata. (:rfc:`6749#section-4.1.2.1`).
+    * - *302 Found* [OBBLIGATORIO]
       - ``unauthorized_client``
-      - The Credential Issuer cannot fulfill the request because the client is not authorized to request an authorization code. (:rfc:`6749#section-4.1.2.1`).
-    * - *302 Found* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il client non è autorizzato a richiedere *authorization code*. (:rfc:`6749#section-4.1.2.1`).
+    * - *302 Found* [OBBLIGATORIO]
       - ``server_error``
-      - The Credential Issuer encountered an internal problem. (:rfc:`6749#section-4.1.2.1`).
-    * - *302 Found* [REQUIRED]
+      - Il Credential Issuer ha riscontrato un problema interno. (:rfc:`6749#section-4.1.2.1`).
+    * - *302 Found* [OBBLIGATORIO]
       - ``temporarily_unavailable``
-      - The Credential Issuer is temporary unavailable. (:rfc:`6749#section-4.1.2.1`).
+      - Il Credential Issuer è temporaneamente non disponibile. (:rfc:`6749#section-4.1.2.1`).
 
-In case of Authorization Server doesn't redirect the User to the *redirect_uri* the following HTTP Status Codes are supported for the error response:
+Nel caso in cui l'Authorization Server non reindirizza l'Utente verso il *redirect_uri* i seguenti *Status Code HTTP* sono supportati per la respomse di errore:
 
 .. list-table::
     :class: longtable
     :widths: 20 80
     :header-rows: 1
 
-    * - **Status Code**
-      - **Description**
-    * - *400 Bad Request* [REQUIRED]
-      - The Credential Issuer cannot fulfill the request because of invalid/missing ``redirect_uri`` or ``client_id`` parameter.
-    * - *500 Internal Server Error* [REQUIRED]
-      - The Credential Issuer encountered an internal problem.
-    * - *503 Service Unavailable* [REQUIRED]
-      - The Credential Issuer is temporary unavailable.
-    * - *504 Gateway Timeout* [OPTIONAL]
-      - The Credential Issuer cannot fulfill the request within the defined time interval.
+    * - **Codice di Stato**
+      - **Descrizione**
+    * - *400 Bad Request* [OBBLIGATORIO]
+      - Il Credential Issuer non può soddisfare la richiesta a causa del parametro ``redirect_uri`` o ``client_id`` non valido/mancante.
+    * - *500 Internal Server Error* [OBBLIGATORIO]
+      - Il Credential Issuer ha riscontrato un problema interno.
+    * - *503 Service Unavailable* [OBBLIGATORIO]
+      - Il Credential Issuer è temporaneamente non disponibile.
+    * - *504 Gateway Timeout* [OPZIONALE]
+      - Il Credential Issuer non può soddisfare la richiesta entro l'intervallo di tempo definito.
 
 
-Token endpoint
---------------
+Token Endpoint
+""""""""""""""
 
-The token endpoint is used by the Wallet Instance to obtain an Access Token by presenting an authorization grant, as
-defined in :rfc:`6749`. The Token Endpoint is a protected endpoint with a client authentication based on the model defined in OAuth 2.0 Attestation-based Client Authentication [`OAUTH-ATTESTATION-CLIENT-AUTH`_ ].
+Il Token Endpoint viene utilizzato dall'Istanza del Wallet per ottenere un *Access Token* previa presentazione dell'*authorization grant*, come
+definito nel :rfc:`6749`. Il Token Endpoint è un endpoint protetto con *OAuth 2.0 Attestation-based Client Authentication* [`OAUTH-ATTESTATION-CLIENT-AUTH`_ ].
 
 
 Token Request
-^^^^^^^^^^^^^
+..................
 
-The request to the Credential Issuer Token endpoint MUST be an HTTP request with method POST, with the body message encoded in ``application/x-www-form-urlencoded`` format. The Wallet Instance sends the Token endpoint request with ``OAuth-Client-Attestation`` and ``OAuth-Client-Attestation-PoP`` as header parameters according to `OAUTH-ATTESTATION-CLIENT-AUTH`_.
+La richiesta al Token Endpoint del Credential Issuer DEVE essere una HTTP request con metodo POST, con il body del messaggio codificato in formato ``application/x-www-form-urlencoded``. L'Istanza del Wallet invia la richiesta al Token Endpoint con ``OAuth-Client-Attestation`` e ``OAuth-Client-Attestation-PoP`` come parametri di header secondo `OAUTH-ATTESTATION-CLIENT-AUTH`_.
 
-The Token endpoint is protected with *OAuth 2.0 Attestation-based Client Authentication* [`OAUTH-ATTESTATION-CLIENT-AUTH`_], therefore
-the request to the Credential Issuer authorization endpoint MUST use the following HTTP Headers parameters **OAuth-Client-Attestation** as **OAuth-Client-Attestation-PoP**
-as defined in the "Pushed Authorization Request (PAR) Endpoint".
+Il Token Endpoint è protetto con *OAuth 2.0 Attestation-based Client Authentication* [`OAUTH-ATTESTATION-CLIENT-AUTH`_], pertanto
+la richiesta all'authorization endpoint del Credential Issuer DEVE utilizzare i seguenti parametri di header HTTP **OAuth-Client-Attestation** e **OAuth-Client-Attestation-PoP**
+come definito in :ref:`credential-issuance-endpoint:Pushed Authorization Request Endpoint`.
 
-The Token endpoint issues DPoP tokens, therefore it is REQUIRED that the request includes in its HTTP header the DPoP proof parameter.
-The Authorization Server MUST validate the DPoP proof received at the Token endpoint, according to :rfc:`9449` Section 4.3. This mitigates the misuse of leaked or stolen Access Tokens/Refresh Tokens at the Credential/Token endpoint. If the DPoP proof is invalid, the Token endpoint returns an error response, according to Section 5.2 of [:rfc:`6749`] with ``invalid_dpop_proof`` as the value of the error parameter.
+Il Token Endpoint emette il token DPoP, pertanto è OBBLIGATORIO che la request includa nel suo header HTTP il parametro *DPoP proof*.
+L'Authorization Server DEVE convalidare il *DPoP proof* ricevuto al Token Endpoint, secondo quanto indicato nella Sezione 4.3 di :rfc:`9449`. Ciò mitiga l'uso improprio di Access Token/Refresh Token persi o rubati al Credential/Token Endpoint. Se il *DPoP proof* non è valido, il Token Endpoint restituisce una response di errore, secondo quanto deinito nella Sezione 5.2 del [:rfc:`6749`] con ``invalid_dpop_proof`` come valore del parametro di errore.
 
-The token request contains the following claims:
+La token request contiene i seguenti claim:
 
 .. list-table::
     :class: longtable
@@ -425,52 +424,52 @@ The token request contains the following claims:
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **grant_type**
-      - REQUIRED. It MUST be set to ``authorization_code`` or ``refresh_token``.
+      - OBBLIGATORIO. DEVE essere valorizzato con ``authorization_code`` o ``refresh_token``.
       - [:rfc:`6749`].
     * - **code**
-      - REQUIRED only if the grant type is ``authorization_code``. Authorization code returned in the Authentication Response. It MUST NOT be present if grant type is ``refresh_token``.
+      - OBBLIGATORIO solo se il *grant type* è ``authorization_code``. L'Authorization code restituito nell'Authentication Response. NON DEVE essere presente se il *grant type* è ``refresh_token``.
       - [:rfc:`6749`].
     * - **redirect_uri**
-      - REQUIRED only if the grant type is ``authorization_code``. It MUST be set as in the Request Object :ref:`Table of the JWT Request parameters <table_jwt_request>`. It MUST NOT be present if grant type is ``refresh_token``.
+      - OBBLIGATORIO solo se il *grant type* è ``authorization_code``. DEVE essere valorizzato come nel Request Object  :ref:`Tabella dei parametri della Richiesta JWT <table_jwt_request>`. NON DEVE essere presente se il *grant type* è ``refresh_token``.
       - [:rfc:`67491`].
     * - **code_verifier**
-      - REQUIRED only if the grant type is ``authorization_code``. Verification code of the **code_challenge**.
-      - `Proof Key for Code Exchange by OAuth Public Clients <https://datatracker.ietf.org/doc/html/rfc7636>`_. It MUST NOT be present if grant type is ``refresh_token``.
+      - OBBLIGATORIO solo se il *grant type* è ``authorization_code``. Codice di verifica del **code_challenge**.
+      - `Proof Key for Code Exchange by OAuth Public Clients <https://datatracker.ietf.org/doc/html/rfc7636>`_. NON DEVE essere presente se il *grant type* è ``refresh_token``.
     * - **refresh_token**
-      - REQUIRED only if the grant type is ``refresh_token``. The Refresh Token previously issued to the Wallet Instance. It MUST NOT be present if grant type is ``authorization_code``.
+      - OBBLIGATORIO solo se il *grant type* è ``refresh_token``. Il Refresh Token precedentemente emesso all'Istanza del Wallet. NON DEVE essere presente se il *grant type* è ``authorization_code``.
       - [:rfc:`6749`].
     * - **scope**
-      - OPTIONAL only if the grant type is ``refresh_token``. The requested scope MUST NOT include any scope not originally granted by the User, and if omitted is treated as equal to the scope originally granted by the User. It MUST NOT be present if grant type is ``authorization_code``.
+      - OPZIONALE solo se il *grant type* è ``refresh_token``. Lo scope richiesto NON DEVE includere alcun valore di scope non originariamente concesso dall'Utente, e se omesso è da intendersi uguale allo scope originariamente concesso dall'Utente. NON DEVE essere presente se il *grant type* è ``authorization_code``.
       - [:rfc:`6749`].
 
 
-A **DPoP Proof JWT** is included in the HTTP request using the ``DPoP`` header parameter containing a DPoP JWT.
+Un *JWT DPoP Proof** è incluso nella request HTTP utilizzando il parametro di header ``DPoP`` contenente un JWT DPoP.
 
-The JOSE header of a **DPoP JWT** MUST contain at least the following parameters:
+Il JOSE Header di un **JWT DPoP** DEVE contenere almeno i seguenti parametri:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **JOSE Header**
+      - **Descrizione**
+      - **Riferimento**
     * - **typ**
-      - It MUST be equal to ``dpop+jwt``.
-      - [:rfc:`7515`] and [:rfc:`8725`. Section 3.11].
+      - DEVE essere uguale a ``dpop+jwt``.
+      - [:rfc:`7515`] e [:rfc:`8725`. Sezione 3.11].
     * - **alg**
-      - A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms in Section :ref:`algorithms:Cryptographic Algorithms` and MUST NOT be set to ``none`` or with a symmetric algorithm (MAC) identifier.
+      - Identificativo dell'algoritmo di firma digitale come definito nel registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere valorizzato con ``none`` o con qualsiasi identificativo di algoritmo simmetrico (MAC).
       - [:rfc:`7515`].
     * - **jwk**
-      - It represents the public key chosen by the Wallet Instance, in JSON Web Key (JWK) [:rfc:`7517`] format that the Access Token MUST be bound to, as defined in [:rfc:`7515`] Section 4.1.3. It MUST NOT contain a private key.
-      - [:rfc:`7517`] and [:rfc:`7515`].
+      - Rappresenta la chiave pubblica scelta dall'Istanza del Wallet, in formato JSON Web Key (JWK) [:rfc:`7517`] a cui l'Access Token DEVE essere vincolato, come definito nella Sezione 4.1.3 del [:rfc:`7515`]. NON DEVE contenere una chiave privata.
+      - [:rfc:`7517`] e [:rfc:`7515`].
 
 
-The payload of a **DPoP JWT Proof** MUST contain the following claims:
+Il payload del **JWT DPoP Proof** DEVE contenere i seguenti claim:
 
 .. list-table::
     :class: longtable
@@ -478,26 +477,26 @@ The payload of a **DPoP JWT Proof** MUST contain the following claims:
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **jti**
-      - Unique identifier for the DPoP proof JWT. The value SHOULD be set using a *UUID v4* value according to [:rfc:`4122`].
-      - [:rfc:`7519`. Section 4.1.7].
+      - Identificativo univoco per il JWT *DPoP proof*. Il valore DOVREBBE essere un valore *UUID v4* secondo [:rfc:`4122`].
+      - [:rfc:`7519`. Sezione 4.1.7].
     * - **htm**
-      - The value of the HTTP method of the request to which the JWT is attached.
-      - [:rfc:`9110`. Section 9.1].
+      - Il valore del metodo HTTP della request a cui è allegato il JWT.
+      - [:rfc:`9110`. Sezione 9.1].
     * - **htu**
-      - The HTTP target URI, without query and fragment parts, of the request to which the JWT is attached.
-      - [:rfc:`9110`. Section 7.1].
+      - Target URI HTTP, senza le parti di query e fragment, della request a cui è allegato il JWT.
+      - [:rfc:`9110`. Sezione 7.1].
     * - **iat**
-      - UNIX Timestamp with the time of JWT issuance, coded as NumericDate as indicated in :rfc:`7519`.
-      - [:rfc:`7519`. Section 4.1.6].
+      - Timestamp UNIX con data e orario di emissione del JWT, codificato come NumericDate come indicato nel :rfc:`7519`.
+      - [:rfc:`7519`. Sezione 4.1.6].
 
 
 Token Response
-^^^^^^^^^^^^^^^
+.................
 
-If the Token Request is successfully validated, the Authorization Server provides an HTTP Token Response with a *200 (OK)* status code. The Token Response contains the following claims.
+Se la Token Request viene validata con successo, l'Authorization Server fornisce una Token Response con *status code HTTP 200 (OK)*. La Token Response contiene i seguenti claim.
 
 .. list-table::
     :class: longtable
@@ -505,32 +504,32 @@ If the Token Request is successfully validated, the Authorization Server provide
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **access_token**
-      - REQUIRED. The *DPoP-bound Access Token*, in signed JWT format, allows accessing the Credential Endpoint for obtaining the Credential.
+      - OBBLIGATORIO. Il *DPoP-bound Access Token*, in formato JWT firmato, consente di accedere al Credential Endpoint per ottenere l'Attestato Elettronico.
       - [:rfc:`6749`].
     * - **refresh_token**
-      - OPTIONAL. The *DPoP-bound Refresh Token*, in signed JWT format, which can be used to obtain a new Access Token at the Credential Issuer Token Endpoint.
+      - OPZIONALE. Il *DPoP-bound Refresh Token*, in formato JWT firmato, che può essere utilizzato per ottenere un nuovo Access Token presso il Token Endpoint del Credential Issuer.
       - [:rfc:`6749`].
     * - **token_type**
-      - REQUIRED. Type of *Access Token* returned. It MUST be equal to ``DPoP``.
+      - OBBLIGATORIO. Tipo di *Access Token* restituito. DEVE essere uguale a ``DPoP``.
       - [:rfc:`6749`].
     * - **expires_in**
-      - REQUIRED. Expiry time of the *Access Token* in seconds.
+      - OBBLIGATORIO. Tempo di scadenza dell'*Access Token* in secondi.
       - [:rfc:`6749`].
     * - **authorization_details**
-      - REQUIRED when ``authorization_details`` parameter is used to request issuance of a Credential. OPTIONAL when ``scope`` parameter is used to request issuance of a Credential. Array of JSON Objects, used to identify Credentials with the same metadata but different claimset/claim values and/or simplify the Credential request even when only one Credential is being issued. In addition to the claim defined in :ref:`Table of the JWT Request parameters <table_jwt_request>` it MUST include the following claim:
+      - OBBLIGATORIO quando il parametro ``authorization_details`` viene utilizzato per richiedere l'emissione di un Attestato Elettronico. OPZIONALE quando il parametro ``scope`` viene utilizzato per richiedere l'emissione di un Attestato Elettronico. Array di Oggetti JSON, utilizzati per identificare gli Attestati Elettronici con gli stessi Metadata ma diversi valori di claimset/claim e/o semplificare la Credential Request anche quando viene emessa un solo Attestato Elettronico. Oltre al claim definito nella :ref:`Tabella dei parametri della Richiesta JWT <table_jwt_request>` DEVE includere il seguente claim:
 
-            - **credential_identifiers**: Array of strings, each uniquely identifying a Credential dataset that is available for the issuance.
+            - **credential_identifiers**: Array di stringhe, ciascuna che identifica in modo univoco un set di dati dell'Attestato Elettronico disponibile per l'emissione.
       - [`OpenID4VCI`_].
 
-If any errors occur during the validation of the Token Request, the Authorization Server MUST return an error response as defined in :rfc:`6749#section-5.2`. The response MUST use the HTTP Content-Type set to *application/json* and MUST include the following parameters:
+Se si verificano errori durante la convalida della Token Request, l'Authorization Server DEVE restituire una response di errore come definito nel :rfc:`6749#section-5.2`. La response DEVE utilizzare il Content-Type HTTP *application/json* e DEVE includere i seguenti parametri:
 
-  - *error*. The error code.
-  - *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - *error*. Il codice di errore.
+  - *error_description*. Testo in forma *human-readable* che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
 
-Below is a non-normative example of an error response.
+Di seguito è riportato un esempio non normativo di una response di errore.
 
 .. code:: http
 
@@ -542,7 +541,7 @@ Below is a non-normative example of an error response.
 .. literalinclude:: ../../examples/token-error.json
   :language: JSON
 
-In the following table are listed HTTP Status Codes and related error codes that are supported for the error response:
+Nella seguente tabella sono elencati i *status code HTTP* e i relativi codici di errore supportati per la response di errore:
 
 .. list-table::
     :class: longtable
@@ -550,56 +549,56 @@ In the following table are listed HTTP Status Codes and related error codes that
     :header-rows: 1
 
     * - **Status Code**
-      - **error code**
-      - **Description**
-    * - *400 Bad Request* [REQUIRED]
+      - **codice di errore**
+      - **Descrizione**
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_request``
-      - The Credential Issuer cannot fulfill the request because of missing parameters, invalid parameters or request malformed. (:rfc:`6749#section-5.2`).
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa di parametri mancanti, parametri non validi o richiesta malformata. (:rfc:`6749#section-5.2`).
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_grant``
-      - The Credential Issuer cannot fulfill the request because the provided authorization code or Refresh Token is invalid, expired, revoked, or does not match the redirection URI used in the authorization request, or was issued to another client. (:rfc:`6749#section-5.2`).
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché l'*authorization code* o il *Refresh Token* fornito non è valido, è scaduto, è stato revocato o non corrisponde al *redirection URI* utilizzato nell'authorization request, o è stato rilasciato ad un altro client. (:rfc:`6749#section-5.2`).
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``unsupported_grant_type``
-      - The Credential Issuer cannot fulfill the request because the authorization grant type is not supported. (:rfc:`6749#section-5.2`).
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il *grant type* non è supportato. (:rfc:`6749#section-5.2`).
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_dpop_proof``
-      - The Credential Issuer cannot fulfill the request because of invalid *DPoP proof*. Section 5 of [:rfc:`9449`].
-    * - *401 Unauthorized* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa di un *DPoP proof* non valido. Sezione 5 del [:rfc:`9449`].
+    * - *401 Unauthorized* [OBBLIGATORIO]
       - ``invalid_client``
-      - The Credential Issuer cannot fulfill the request because of invalid parameters Client Authentication failed (for example in case of unknown client, no parameters Client Authentication included, or unsupported authentication method). (:rfc:`6749#section-5.2`).
-    * - *500 Internal Server Error* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa del fallimento della *Client Authentication* (ad esempio in caso di client sconosciuto, nessun parametro relativo alla Client Authentication presente oppure se il metodo di autenticazione non è supportato). (:rfc:`6749#section-5.2`).
+    * - *500 Internal Server Error* [OBBLIGATORIO]
       - ``server_error``
-      - The Credential Issuer encountered an internal problem.
-    * - *503 Service Unavailable* [REQUIRED]
+      - Il Credential Issuer ha riscontrato un problema interno.
+    * - *503 Service Unavailable* [OBBLIGATORIO]
       - ``temporarily_unavailable``
-      - The Credential Issuer is temporary unavailable.
-    * - *504 Gateway Timeout* [OPTIONAL]
+      - Il Credential Issuer è temporaneamente non disponibile.
+    * - *504 Gateway Timeout* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request within the defined time interval.
+      - Il Credential Issuer non può soddisfare la richiesta entro l'intervallo di tempo definito.
 
 Access Token
-^^^^^^^^^^^^
+................
 
-A DPoP-bound Access Token is provided by the Credential Issuer Token endpoint as a result of a successful token request. The Access Token is encoded in JWT format, according to [:rfc:`7519`]. The Access Token MUST have at least the following mandatory claims and it MUST be bound to the public key that is provided by the DPoP proof. This binding can be accomplished based on the methodology defined in Section 6 of (:rfc:`9449`).
+Un *DPoP-bound Access Token** viene fornito dal Token Endpoint del Credential Issuer come risultato di una token request andata a buon fine . L'Access Token è codificato in formato JWT, secondo [:rfc:`7519`]. L'Access Token DEVE avere almeno i seguenti claim obbligatori e DEVE essere vincolato alla chiave pubblica fornita dal *DPoP proof*. Questo vincolo può essere realizzato in base alla metodologia definita nella Sezione 6 del (:rfc:`9449`).
 
-The **DPoP JWT** contains the following JOSE header parameters and claims.
+Il **JWT DPoP** contiene i seguenti parametri di header JOSE e claim.
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **JOSE Header**
+      - **Descrizione**
+      - **Riferimento**
     * - **typ**
-      - REQUIRED. It MUST be equal to ``at+jwt``.
+      - OBBLIGATORIO. DEVE essere uguale a ``at+jwt``.
       - [:rfc:`7515`].
     * - **alg**
-      - REQUIRED. A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms in Section :ref:`Cryptographic Algorithms <algorithms:Cryptographic Algorithms>` and MUST NOT be set to ``none`` or with a symmetric algorithm (MAC) identifier.
+      - OBBLIGATORIO. Identificativo dell'algoritmo di firma digitale come definito nel registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere valorizzato con ``none`` o con qualsiasi identificativo di algoritmo simmetrico (MAC).
       - [:rfc:`7515`].
     * - **kid**
-      - REQUIRED. Unique identifier of the ``jwk`` used by the Credential Issuer to sign the Access Token.
+      - OBBLIGATORIO. Identificativo univoco del ``jwk`` utilizzato dal Credential Issuer per firmare l'Access Token.
       - :rfc:`7638#section_3`.
 
 
@@ -609,56 +608,56 @@ The **DPoP JWT** contains the following JOSE header parameters and claims.
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - REQUIRED. It MUST be an HTTPS URL that uniquely identifies the Credential Issuer. The Wallet Instance MUST verify that this value matches the Credential Issuer where it has requested the credential.
+    - OBBLIGATORIO. DEVE essere un URL HTTPS che identifica in modo univoco il Credential Issuer. L'Istanza del Wallet DEVE verificare che questo valore corrisponda al Credential Issuer a cui ha richiesto l'Attestato Elettronico.
     - [:rfc:`9068`], [:rfc:`7519`].
   * - **sub**
-    - REQUIRED. It identifies the subject of the JWT. It MUST be set to the value of the ``sub`` field in the SD-JWT-VC Credential.
-    - [:rfc:`9068`], [:rfc:`7519`] and Section 8 of [`OIDC`_].
+    - OBBLIGATORIO. Identifica il soggetto del JWT. DEVE essere settato con il valore del campo ``sub`` presente nell'Attestato ELettronico in formato SD-JWT-VC.
+    - [:rfc:`9068`], [:rfc:`7519`] e Sezione 8 di [`OIDC`_].
   * - **client_id**
-    - REQUIRED. The identifier for the Wallet Instance that requested the Access Token; it MUST be equal to the to kid of the public key of the Wallet Instance specified into the Wallet Attestation (``cnf.jwk``).
-    - [:rfc:`9068`], [:rfc:`7519`] and Section 8 of [`OIDC`_].
+    - OBBLIGATORIO. L'identificativo dell'Istanza del Wallet che ha richiesto l'Access Token; DEVE essere uguale al kid della chiave pubblica dell'Istanza del Wallet specificata nell'Attestato di Unità di Wallet (``cnf.jwk``).
+    - [:rfc:`9068`], [:rfc:`7519`] e Sezione 8 di [`OIDC`_].
   * - **aud**
-    - REQUIRED. It MUST be set to the identifier of the Credential Issuer.
+    - OBBLIGATORIO. DEVE essere valorizzato con l'identificativo del Credential Issuer.
     - [:rfc:`9068`].
   * - **iat**
-    - REQUIRED. UNIX Timestamp with the time of JWT issuance, coded as NumericDate as indicated in :rfc:`7519`.
-    - [:rfc:`9068`], [:rfc:`7519`. Section 4.1.6].
+    - OBBLIGATORIO. Timestamp UNIX con data e orario di emissione del JWT, codificato come NumericDate come indicato nel :rfc:`7519`.
+    - [:rfc:`9068`], [:rfc:`7519`. Sezione 4.1.6].
   * - **exp**
-    - REQUIRED. UNIX Timestamp with the expiry time of the JWT, coded as NumericDate as indicated in :rfc:`7519`.
+    - OBBLIGATORIO. Timestamp UNIX con data e orario di scadenza del JWT, codificato come NumericDate come indicato nel :rfc:`7519`.
     - [:rfc:`9068`], [:rfc:`7519`].
   * - **jti**
-    - OPTIONAL. It MUST be a String in *uuid4* format. Unique Token ID identifier that the RP SHOULD use to prevent reuse by rejecting the Token ID if already processed.
+    - OPZIONALE. DEVE essere una Stringa in formato *uuid4*. Identificativo univoco del Token ID che la RP DOVREBBE utilizzare per prevenire il riutilizzo rifiutando l'ID Token se è stato già elaborato.
     - [:rfc:`9068`], [:rfc:`7519`].
   * - **cnf**
-    - REQUIRED. It MUST contain a **jkt** claim being JWK SHA-256 Thumbprint Confirmation Method. The value of the *jkt* member MUST be the base64url encoding (as defined in [:rfc:`7515`]) of the JWK SHA-256 Thumbprint of the DPoP public key (in JWK format) to which the Access Token is bound.
-    - [:rfc:`9449`. Section 6.1] and [:rfc:`7638`].
+    - OBBLIGATORIO. DEVE contenere un claim **jkt** che è un Metodo di Conferma del *Thumbprint JWK SHA-256*. Il valore del parametro *jkt* DEVE contenere la codifica base64url (come definito nel [:rfc:`7515`]) del *Thumbprint JWK SHA-256* della chiave pubblica DPoP (in formato JWK) a cui è vincolato l'Access Token.
+    - [:rfc:`9449`. Sezione 6.1] e [:rfc:`7638`].
 
 Refresh Token
-^^^^^^^^^^^^^
+......................
 
-A *DPoP-bound Refresh Token* is provided by the Credential Issuer Token endpoint as a result of a successful token request. The Refresh Token is encoded in JWT format, according to [:rfc:`7519`]. The Refresh Token MUST have at least the following mandatory claims and it MUST be bound to the public key that is provided by the DPoP proof. This binding can be accomplished based on the methodology defined in Section 6 of (:rfc:`9449`).
+Un *DPoP-bound Refresh Token* viene fornito dal Token endpoint del Credential Issuer come risultato di una token request andata a buon fine. Il Refresh Token è codificato in formato JWT, secondo [:rfc:`7519`]. Il Refresh Token DEVE avere almeno i seguenti claim obbligatori e DEVE essere vincolato alla chiave pubblica fornita dal *DPoP proof*. Questo vincolo può essere realizzato in base alla metodologia definita nella Sezione 6 del (:rfc:`9449`).
 
-The **DPoP JWT** MUST contain the following JOSE header parameters and claims.
+Il **JWT DPoP** DEVE contenere i seguenti parametri di header JOSE e claim.
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **JOSE Header**
+      - **Descrizione**
+      - **Riferimento**
     * - **typ**
-      - It MUST be equal to ``rt+jwt``.
+      - DEVE essere uguale a ``rt+jwt``.
       - [:rfc:`7515`].
     * - **alg**
-      - A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms in Section :ref:`algorithms:Cryptographic Algorithms` and MUST NOT be set to ``none`` or with a symmetric algorithm (MAC) identifier.
+      - Identificativo dell'algoritmo di firma digitale come definito nel registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere valorizzato con ``none`` o con qualsiasi identificativo di algoritmo simmetrico (MAC).
       - [:rfc:`7515`].
     * - **kid**
-      - Unique identifier of the ``jwk`` used by the Credential Issuer to sign the Access Token.
+      - Identificativo univoco del ``jwk`` utilizzato dal Credential Issuer per firmare l'Access Token.
       - :rfc:`7638#section_3`.
 
 
@@ -668,84 +667,84 @@ The **DPoP JWT** MUST contain the following JOSE header parameters and claims.
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - It MUST be an HTTPS URL that uniquely identifies the Credential Issuer. The Wallet Instance MUST verify that this value matches the Credential Issuer where it has requested the Credential.
+    - DEVE essere un URL HTTPS che identifica in modo univoco il Credential Issuer. L'Istanza del Wallet DEVE verificare che questo valore corrisponda al Credential Issuer a cui ha richiesto l'Attestato Elettronico.
     - [:rfc:`9068`], [:rfc:`7519`].
   * - **sub**
-    - It identifies the subject of the JWT. It MUST be set to the value of the ``sub`` field in the SD-JWT-VC Credential.
-    - [:rfc:`9068`], [:rfc:`7519`] and Section 8 of [`OIDC`_].
+    - Identifica il soggetto del JWT. DEVE essere settato con il valore del campo ``sub`` presente nell'Attestato ELettronico in formato SD-JWT-VC.
+    - [:rfc:`9068`], [:rfc:`7519`] e Sezione 8 di [`OIDC`_].
   * - **client_id**
-    - The identifier for the Wallet Instance that requested the Access Token; it MUST be equal to the to `kid` value identifying the public key used in the Wallet Instance, used in the Wallet Attestation (``cnf.jwk``).
-    - [:rfc:`9068`], [:rfc:`7519`] and Section 8 of [`OIDC`_].
+    - L'identificativo per l'Istanza del Wallet che ha richiesto l'Access Token; DEVE essere uguale al valore del `kid` che identifica la chiave pubblica utilizzata nell'Istanza del Wallet, utilizzata nell'Attestato di Unità di Wallet (``cnf.jwk``).
+    - [:rfc:`9068`], [:rfc:`7519`] e Sezione 8 di [`OIDC`_].
   * - **aud**
-    - It MUST be set to the identifier of the Credential Issuer.
+    - DEVE essere valorizzato con l'identificativo del Credential Issuer.
     - [:rfc:`9068`].
   * - **iat**
-    - UNIX Timestamp with the time of JWT issuance, coded as NumericDate as indicated in :rfc:`7519`.
-    - [:rfc:`9068`], [:rfc:`7519`. Section 4.1.6].
+    - Timestamp UNIX con data e orario di emissione del JWT, codificato come NumericDate come indicato nel :rfc:`7519`.
+    - [:rfc:`9068`], [:rfc:`7519`. Sezione 4.1.6].
   * - **nbf**
-    - UNIX Timestamp with the time before which the JWT MUST NOT be accepted for processing, coded as NumericDate as indicated in :rfc:`7519`. It SHOULD be set to the ``exp`` claim of the corresponding Access Token.
-    - [:rfc:`7519`. Section 4.1.7].
+    - Timestamp UNIX con data e orario prima del quale il JWT NON DEVE essere accettato, codificato come NumericDate come indicato nel :rfc:`7519`. DOVREBBE essere impostato sul claim ``exp`` del corrispondente Token di Accesso.
+    - [:rfc:`7519`. Sezione 4.1.7].
   * - **exp**
-    - UNIX Timestamp with the expiry time of the JWT, coded as NumericDate as indicated in :rfc:`7519`.
+    - Timestamp UNIX con data e orario di scadenza del JWT, codificato come NumericDate come indicato nel :rfc:`7519`.
     - [:rfc:`9068`], [:rfc:`7519`].
   * - **jti**
-    - It MUST be a String in *uuid4* format. Unique Token ID identifier that the RP SHOULD use to prevent reuse by rejecting the Token ID if already processed.
+    - DEVE essere una Stringa in formato *uuid4*. Identificativo univoco del Token ID che la RP DOVREBBE utilizzare per prevenire il riutilizzo rifiutando l'ID Token se è stato già elaborato.
     - [:rfc:`9068`], [:rfc:`7519`].
   * - **cnf**
-    - It MUST contain a **jkt** claim being JWK SHA-256 Thumbprint Confirmation Method. The value of the *jkt* member MUST be the base64url encoding (as defined in [:rfc:`7515`]) of the JWK SHA-256 Thumbprint of the DPoP public key (in JWK format) to which the Access Token is bound.
-    - [:rfc:`9449`. Section 6.1] and [:rfc:`7638`].
+    - DEVE contenere un claim **jkt** che è un Metodo di Conferma del *Thumbprint JWK SHA-256*. Il valore del parametro *jkt* DEVE contenere la codifica base64url (come definito nel [:rfc:`7515`]) del *Thumbprint JWK SHA-256* della chiave pubblica DPoP (in formato JWK) a cui è vincolato l'Access Token.
+    - [:rfc:`9449`. Sezione 6.1] e [:rfc:`7638`].
 
 Nonce Endpoint
---------------
+""""""""""""""
 
-The Nonce Endpoint provides a ``c_nonce`` value useful to create a proof of possession of key material for the request to the Credential Endpoint, as defined in Section 7 of `OpenID4VCI`_.
+Il Nonce Endpoint fornisce un valore del ``c_nonce`` utile per creare una prova di possesso del materiale crittografico per la richiesta al Credential Endpoint, come definito nella Sezione 7 di `OpenID4VCI`_.
 
 Nonce Request
-^^^^^^^^^^^^^
+..................
 
-The request for a nonce MUST be an HTTP POST without a body addressed to the Credential Issuer Nonce Endpoint mapped in the Credential Issuer Metadata.
+La Nonce Request DEVE essere una HTTP POST request senza body indirizzata al Nonce Endpoint del Credential Issuer censito nei Metadata del Credential Issuer.
 
 
 Nonce Response
-^^^^^^^^^^^^^^
+.................
 
-Nonce Response to the Wallet Instance MUST be sent using `application/json` media type. In case of Nonce Request successful, the Credential Issuer MUST return HTTP response with a *200 (OK)* status code.
+La Nonce Response DEVE essere inviata all'Istanza del Wallet utilizzando il media type `application/json`. In caso di Nonce Request andata a buon fine, il Credential Issuer DEVE restituire una HTTP response con *status code HTTP 200 (OK)*.
 
-As defined in Section 7.2 of `OpenID4VCI`_, the Credential Issuer MUST make the response uncacheable by adding a ``Cache-Control`` header field valued with *no-store*.
+Come definito nella Sezione 7.2 di `OpenID4VCI`_, il Credential Issuer DEVE rendere la risposta non memorizzabile nella cache aggiungendo il campo di header ``Cache-Control`` valorizzato con *no-store*.
 
-The Nonce Response contains the following parameter:
+La Nonce Response contiene il seguente parametro:
 
 .. list-table::
   :widths: 20 60 20
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **c_nonce**
-    - REQUIRED. String containing the nonce value. This value MUST be unpredictable.
-    - Section 7.2 of [`OpenID4VCI`_].
+    - OBBLIGATORIO. Stringa contenente il valore del nonce. Questo valore DEVE essere imprevedibile.
+    - Sezione 7.2 di [`OpenID4VCI`_].
 
-Credential endpoint
--------------------
+Credential Endpoint
+"""""""""""""""""""
 
-The Credential Endpoint issues a Credential upon the presentation of a valid Access Token, as defined in `OpenID4VCI`_.
+Il Credential Endpoint emette un'Attestato Eletronico previa presentazione di un Access Token valido, come definito in `OpenID4VCI`_.
 
 
 Credential Request
-^^^^^^^^^^^^^^^^^^^
+........................
 
-The Wallet Instance when requests the Digital Credential to the Credential endpoint, MUST use the following parameters in the message body of the HTTP POST request, using the `application/json` media type.
+L'Istanza del Wallet quando richiede l'Attestato Elettronico al Credential Endpoint, DEVE utilizzare i seguenti parametri nel body del messaggio della HTTP POST request, utilizzando il tipo di media `application/json`.
 
-The Credential endpoint MUST accept and validate the *DPoP proof* sent in the DPoP HTTP Header parameter, according to the steps defined in (:rfc:`9449`) Section 4.3. The *DPoP proof* in addition to the values that are defined in the Token Endpoint section MUST contain the following claim:
+Il Credential Endpoint DEVE accettare e convalidare il *DPoP proof* inviato nel parametro di header HTTP *DPoP*, secondo i passaggi definiti nella Sezione 4.3 del (:rfc:`9449`). Il *DPoP proof* oltre ai valori definiti nella sezione Token Endpoint DEVE contenere il seguente claim:
 
-  - **ath**: hash value of the Access Token encoded in ASCII. The value MUST use the base64url encoding (as defined in Section 2 of :rfc:`7515`) with the SHA-256 algorithm.
+  - **ath**: valore di hash dell'Access Token codificato in ASCII. Il valore DEVE utilizzare la codifica base64url (come definito nella Sezione 2 del (:rfc:`7515`) con l'algoritmo SHA-256.
 
 .. warning::
-  The Wallet Instance MUST create a **new DPoP proof** for the Credential request and MUST NOT use the previously created proof for the Token Endpoint.
+  L'Istanza del Wallet DEVE creare un **nuovo DPoP proof** per la Credential Request e NON DEVE utilizzare la *proof* precedentemente creata per il Token Endpoint.
 
 
 .. list-table::
@@ -754,26 +753,26 @@ The Credential endpoint MUST accept and validate the *DPoP proof* sent in the DP
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **credential_identifier**
-    - REQUIRED when an Authorization Details of type *openid_credential* was returned from the Token Response. It MUST NOT be used otherwise. This MUST be set with one of the value obtained in the ``credential_identifiers`` claim of the Token Response. It MUST NOT be used if ``credential_configuration_id`` is present.
-    - Section 8.2 of [`OpenID4VCI`_].
+    - OBBLIGATORIO quando Authorization Details di tipo *openid_credential* è stato restituito dalla Token. In tutti gli altri casi NON DEVE essere utilizzato. Questo DEVE essere valorizzato con uno dei valori ottenuti nel claim ``credential_identifiers`` della Token Response. NON DEVE essere utilizzato se è presente ``credential_configuration_id``.
+    - Sezione 8.2 di [`OpenID4VCI`_].
   * - **credential_configuration_id**
-    - REQUIRED if ``credential_identifiers`` parameter is absent in the Token Response. It MUST NOT be used otherwise. String specifying a unique identifier of the Credential being described in the `credential_configurations_supported` map in the Credential Issuer Metadata. For example, in the case of the PID, it can be set to ``PersonIdentificationData``.
-    - Section 8.2 of [`OpenID4VCI`_].
+    - OBBLIGATORIO se il parametro ``credential_identifiers`` è assente nella Token Response.  In tutti gli altri casi NON DEVE essere utilizzato. Stringa che specifica un identificativo univoco dell'Attestato ELetronico descritto nel claim `credential_configurations_supported` presente nei Metadata del Credential Issuer. Ad esempio, nel caso del PID, può essere valorizzato con ``PersonIdentificationData``.
+    - Sezione 8.2 di [`OpenID4VCI`_].
   * - **proof**
-    - REQUIRED. JSON object containing proof of possession of the key material the issued Credential shall be bound to. The proof object MUST contain the following mandatory claims:
+    - OBBLIGATORIO. Oggetto JSON contenente la prova di possesso del materiale crittografico a cui sarà vincolato l'Attestato Elettronico emesso. L'oggetto proof DEVE contenere i seguenti claim obbligatori:
 
-      - **proof_type**: JSON string denoting the proof type. It MUST be `jwt`.
-      - **jwt**: the JWT used as proof of possession.
+      - **proof_type**: stringa JSON che denota il tipo di prova in termini di formato. DEVE essere `jwt`.
+      - **jwt**: il JWT utilizzato come prova di possesso.
     - [`OpenID4VCI`_].
   * - **transaction_id**
-    - REQUIRED only in case of deferred flow. String identifying a deferred issuance transaction. It MUST NOT be present in immediate flow
-    - Section 9.1 of [`OpenID4VCI`_].
+    - OBBLIGATORIO solo in caso di Deferred Flow. Stringa che identifica una transazione di emissione posticipata. NON DEVE essere presente nel flusso di emissione immediato.
+    - Sezione 9.1 di [`OpenID4VCI`_].
 
 
-The JWT proof type MUST contain the following parameters for the JOSE header and the JWT body:
+Il *proof type* del JWT DEVE contenere i seguenti parametri per l'header JOSE e il body in JWT:
 
 .. list-table::
   :class: longtable
@@ -781,16 +780,16 @@ The JWT proof type MUST contain the following parameters for the JOSE header and
   :header-rows: 1
 
   * - **JOSE Header**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **alg**
-    - A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms in Section :ref:`algorithms:Cryptographic Algorithms` and MUST NOT be set to ``none`` or to a symmetric algorithm (MAC) identifier.
+    - Identificativo dell'algoritmo di firma digitale come definito nel registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere valorizzato con ``none`` o con qualsiasi identificativo di algoritmo simmetrico (MAC).
     - [`OpenID4VCI`_], [:rfc:`7515`], [:rfc:`7517`].
   * - **typ**
-    - It MUST be set to `openid4vci-proof+jwt`.
+    - DEVE essere valorizzato con `openid4vci-proof+jwt`.
     - [`OpenID4VCI`_], [:rfc:`7515`], [:rfc:`7517`].
   * - **jwk**
-    - Representing the public key chosen by the Wallet Instance, in JSON Web Key (JWK) [:rfc:`7517`] format that the Digital Credential shall be bound to, as defined in Section 4.1.3 of [:rfc:`7515`].
+    - Rappresenta la chiave pubblica scelta dall'Istanza del Wallet, in formato JSON Web Key (JWK) [:rfc:`7517`] a cui l'Attestato Elettronico sarà vincolato, come definito nella Sezione 4.1.3 del [:rfc:`7515`].
     - [`OpenID4VCI`_], [:rfc:`7515`], [:rfc:`7517`].
 
 .. list-table::
@@ -799,28 +798,28 @@ The JWT proof type MUST contain the following parameters for the JOSE header and
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **iss**
-    - The value of this claim MUST be the **client_id** of the Wallet Instance.
-    - [`OpenID4VCI`_], [:rfc:`7519`, Section 4.1.1].
+    - Il valore di questo claim DEVE essere il **client_id** dell'Istanza del Wallet.
+    - [`OpenID4VCI`_], [:rfc:`7519`, Sezione 4.1.1].
   * - **aud**
-    - It MUST be set to the identifier of the Credential Issuer.
+    - DEVE essere valorizzato con l'identificativo del Credential Issuer.
     - [`OpenID4VCI`_].
   * - **iat**
-    - UNIX Timestamp with the time of JWT issuance, coded as NumericDate as indicated in :rfc:`7519`.
-    - [`OpenID4VCI`_], [:rfc:`7519`. Section 4.1.6].
+    - Timestamp UNIX con data e orario di emissione del JWT, codificato come NumericDate come indicato nel :rfc:`7519`.
+    - [`OpenID4VCI`_], [:rfc:`7519`. Sezione 4.1.6].
   * - **nonce**
-    - The value type of this claim MUST be a string, where the value is a **c_nonce** provided by the Credential Issuer in the Nonce Response.
+    - Il tipo di valore di questo claim DEVE essere una stringa, dove il valore è un **c_nonce** fornito dal Credential Issuer tramite la Nonce Response.
     - [`OpenID4VCI`_].
 
 
 Credential Response
-^^^^^^^^^^^^^^^^^^^^
+.......................
 
-Credential Response to the Wallet Instance MUST be sent using `application/json` media type. If the Credential Request is successfully validated, and the Credential is immediately available, the Credential Issuer MUST return HTTP response with a *200 (OK)* status code. If the Credential is not available and the deferred flow is supported by the Credential Issuer, an HTTP status code *202* MUST be returned.
+La Credential Response DEVE essere inviata all'Istanza del Wallet utilizzando il media type `application/json`. Se la Credential Request viene validata con successo e l'Attestato Elettronico è immediatamente disponibile, il Credential Issuer DEVE restituire una HTTP response con un *status code HTTP 200 (OK)*. Se l'Attestato Elettronico non è disponibile e il Deferred Flow è supportato dal Credential Issuer, allora DEVE essere restituito un *status code HTTP 202*.
 
-The Credential Response contains the following parameters:
+La Credential Response contiene i seguenti parametri:
 
 .. _table_credential_response_claim:
 .. list-table::
@@ -829,30 +828,30 @@ The Credential Response contains the following parameters:
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **credentials**
-    - REQUIRED if ``lead_time`` and ``transaction_id`` are not present, otherwise it MUST NOT be present. It contains the following parameters:
+    - OBBLIGATORIO se ``lead_time`` e ``transaction_id`` non sono presenti, altrimenti NON DEVE essere presente. Contiene i seguenti parametri:
 
-          - **credential**: REQUIRED. String containing one issued Digital Credential. If the requested format identifier is ``dc+sd-jwt`` then the ``credential`` parameter MUST NOT be re-encoded. If the requested format identifier is ``mso_mdoc`` then the ``credential`` parameter MUST be a base64url-encoded representation of the CBOR-encoded IssuerSigned structure, as defined in [ISO 18013-5]. This structure SHOULD contain all Namespaces and IssuerSignedItems that are included in the AuthorizedNamespaces of the MobileSecurityObject.
-    - Section 8.3, Annex A2.4 and Annex A3.4 of [`OpenID4VCI`_].
+          - **credential**: OBBLIGATORIO. Stringa contenente un Attestato Elettronico emesso. Se l'identificativo del formato richiesto è ``dc+sd-jwt`` allora il parametro ``credential`` NON DEVE essere ricodificato. Se l'identificativo di formato richiesto è ``mso_mdoc`` allora il parametro ``credential`` DEVE essere una rappresentazione codificata in base64url della struttura IssuerSigned codificata in CBOR, come definito in [ISO 18013-5]. Questa struttura DOVREBBE contenere tutti i Namespaces e IssuerSignedItems inclusi negli AuthorizedNamespaces del MobileSecurityObject.
+    - Sezione 8.3, Allegato A2.4 e Allegato A3.4 di [`OpenID4VCI`_].
   * - **lead_time**
-    - REQUIRED if ``credentials`` is not present, otherwise it MUST NOT be present. The amount of time (in seconds) required before making a Deferred Credential Request.
-    - This Specification.
+    - OBBLIGATORIO se ``credentials`` non è presente, altrimenti NON DEVE essere presente. La quantità di tempo (espressa in secondi) richiesta prima di effettuare una Deferred Credential Request.
+    - Questa Specifica.
   * - **notification_id**
-    - OPTIONAL. String identifying an issued Credential that the Wallet includes in the Notification Request as defined in Section :ref:`credential-issuance-endpoint:Notification Request`. It MUST NOT be present if the ``credentials`` parameter is not present.
-    - Section 8.3 of [`OpenID4VCI`_].
+    - OPZIONALE. Stringa che identifica un'Attestato Elettronico emesso che il Wallet include nella Notification Request come definito nella Sezione :ref:`credential-issuance-endpoint:Notification Request`. NON DEVE essere presente se il parametro ``credentials`` non è presente.
+    - Sezione 8.3 di [`OpenID4VCI`_].
   * - **transaction_id**
-    - REQUIRED if ``credentials`` is not present, otherwise it MUST NOT be present. String identifying a deferred issuance transaction that the Wallet includes in the subsequent Credential Request as defined in Section :ref:`credential-issuance-endpoint:Deferred Endpoint`. It MUST be invalidated after the User obtains the Credential.
-    - Section 8.3 of [`OpenID4VCI`_].
+    - OBBLIGATORIO se ``credentials`` non è presente, altrimenti NON DEVE essere presente. Stringa che identifica una transazione di emissione posticipata che il Wallet include nella successiva Credential Request come definito nella Sezione :ref:`credential-issuance-endpoint:Deferred Endpoint`. DEVE essere invalidato dopo che l'Utente ottiene l'Attestato Elettronico.
+    - Sezione 8.3 di [`OpenID4VCI`_].
 
-In case of the Credential Request does not contain a valid Access Token, the Credential Endpoint returns an error response such as defined in Section 3 of [:rfc:`6750`].
-If any other error occurs, the Credential Issuer MUST return an error response as defined in Section 8.3.1 of [`OpenID4VCI`_]. The response MUST use the content type *application/json* and MUST include the following parameters:
+Nel caso in cui la Credential Request non contenga un Access Token valido, il Credential Endpoint restituisce una response di errore come definito nella Sezione 3 del [:rfc:`6750`].
+Se si verifica qualsiasi altro errore, il Credential Issuer DEVE restituire una response di errore come definito nella Sezione 8.3.1 di [`OpenID4VCI`_]. La response DEVE utilizzare il content type *application/json* e DEVE includere i seguenti parametri:
 
-  - *error*. The error code.
-  - *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - *error*. Il codice di errore.
+  - *error_description*. Testo in forma *human-readable* che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
 
-Below is a non-normative example of an error response.
+Di seguito è riportato un esempio non normativo di una response di errore.
 
 .. code:: http
 
@@ -863,7 +862,7 @@ Below is a non-normative example of an error response.
 .. literalinclude:: ../../examples/credential-error.json
   :language: JSON
 
-In the following table are listed HTTP Status Codes and related error codes that are supported for the error response:
+Nella seguente tabella sono elencati i *Status Code HTTP* e i relativi codici di errore supportati per la response di errore:
 
 .. list-table::
     :class: longtable
@@ -871,66 +870,66 @@ In the following table are listed HTTP Status Codes and related error codes that
     :header-rows: 1
 
     * - **Status Code**
-      - **error code**
-      - **Description**
-    * - *400 Bad Request* [REQUIRED]
+      - **codice di errore**
+      - **Descrizione**
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_credential_request``
-      - The Credential Issuer cannot fulfill the request because of missing parameters, invalid parameters or request malformed. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa di parametri mancanti, parametri non validi o richiesta malformata. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``unsupported_credential_type``
-      - The Credential Issuer cannot fulfill the request because the requested Credential type is not supported. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il tipo di Attestato Elettronico richiesto non è supportato. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``unsupported_credential_format``
-      - The Credential Issuer cannot fulfill the request because the requested Credential Format is not supported. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il Formato dell'Attestato Elettronico richiesto non è supportato. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_proof``
-      - The Credential Issuer cannot fulfill the request because the ``proof`` parameter in the Credential Request is invalid or absent. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il parametro ``proof`` nella Credential Request non è valido o è assente. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_nonce``
-      - The Credential Issuer cannot fulfill the request because the ``proof`` parameter in the Credential Request uses an invalid nonce. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché il parametro ``proof`` nella Credential Request utilizza un nonce non valido. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_encryption_parameters``
-      - The Credential Issuer cannot fulfill the request because the encryption parameters in the Credential Request are invalid or missing. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta perché i parametri di crittografia nella Credential Request non sono validi o mancanti. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``credential_request_denied``
-      - The Credential Request has not been accepted by the Credential Issuer. Section 8.3.1 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - La Credential Request non è stata accettata dal Credential Issuer. Sezione 8.3.1 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``issuance_pending``
-      - Only in case of deferred flow. The Credential Issuer cannot fulfill the request because the Credential is not yet available for the issuance. Section 9.3 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Solo in caso di Deferred Flow. Il Credential Issuer non può soddisfare la richiesta perché l'Attestato Elettronico non è ancora disponibile per l'emissione. Sezione 9.3 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_transaction_id``
-      - Only in case of deferred flow. The Credential Issuer cannot fulfill the request because the Credential Request contains an invalid ``transaction_id``. Section 9.3 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Solo in caso di Deferred Flow. Il Credential Issuer non può soddisfare la richiesta perché la Credential Request contiene un ``transaction_id`` non valido. Sezione 9.3 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_dpop_proof``
-      - The Credential Issuer cannot fulfill the request because of invalid *DPoP proof*. Section 7 of [:rfc:`9449`].
-    * - *500 Internal Server Error* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa del *DPoP proof* non valido. Sezione 7 del [:rfc:`9449`].
+    * - *500 Internal Server Error* [OBBLIGATORIO]
       - ``server_error``
-      - The Credential Issuer encountered an internal problem.
-    * - *503 Service Unavailable* [REQUIRED]
+      - Il Credential Issuer ha riscontrato un problema interno.
+    * - *503 Service Unavailable* [OBBLIGATORIO]
       - ``temporarily_unavailable``
-      - The Credential Issuer is temporary unavailable.
-    * - *504 Gateway Timeout* [OPTIONAL]
+      - Il Credential Issuer è temporaneamente non disponibile.
+    * - *504 Gateway Timeout* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request within the defined time interval.
+      - Il Credential Issuer non può soddisfare la richiesta entro l'intervallo di tempo definito.
 
 Deferred Endpoint
------------------
+""""""""""""""""""
 
-Credential Issuers MAY support the *Deferred Endpoint* aiming to satify the cases where an immediate issuance might be not possible, due to errors during the communication between the Credential Issuer and the Authentic Source (for example the Authentic Source is temporarily unavailable, etc.) or due to administrative or technical processes.
+I Credential Issuer POSSONO supportare il *Deferred Endpoint* con l'obiettivo di soddisfare i casi in cui un'emissione immediata potrebbe non essere possibile, a causa di errori durante la comunicazione tra il Credential Issuer e la Fonte Autentica (ad esempio la Fonte Autentica è temporaneamente non disponibile, ecc.) o a causa di processi amministrativi o tecnici da espletare.
 
-In the case where the Authentic Source and the Credential Issuer are both enabled to use *PDND*, what is described in Section :ref:`authentic-sources:Authentic Sources` MUST apply.
-
-
-The following requirements apply:
-
- 1. The Deferred Credential request MAY also happen several days after the initial Credential request.
- 2. The User MUST be informed that the Credential is available and ready to be issued.
- 3. The Wallet Provider MUST NOT be informed about which Credential is available to be issued or which Credential Issuer the User needs to contact.
- 4. The Wallet Instance MUST be informed about the amount of time to wait before making a new Credential request.
- 5. As, in general, an unavailability may be an unexpected event, the Credential Issuer MUST be able to switch on the fly between a *immediate* and an *deferred* flow. This decision MUST be taken after the authorization step.
+Nel caso in cui la Fonte Autentica e il Credential Issuer siano entrambi abilitati a utilizzare *PDND*, si DEVE seguire quanto descritto nella Sezione :ref:`authentic-sources:Fonti Autentiche`.
 
 
-If Credential Issuers, supporting this flow, are not able to immediately issue a requested Credential, they MUST provide the Wallet Instance with an HTTP Credential Response cointaining the amount of time to wait before making a new Credential request and an identifier of the deferred issuance transaction (*transaction_id*). The HTTP status code MUST be *202* (see Section 15.3.3 of [:rfc:`9110`]). Below a non-normative example is given.
+Si applicano i seguenti requisiti:
+
+ 1. La Deferred Credential Request PUÒ avvenire anche diversi giorni dopo l'iniziale Credenziale Request.
+ 2. L'Utente DEVE essere informato che l'Attestato Elettronico è disponibile e pronto per essere emesso.
+ 3. Il Fornitore di Wallet NON DEVE essere informato su quale Attestato Elettronico è disponibile per l'emissione o quale Credential Issuer l'Utente deve contattare.
+ 4. L'Istanza del Wallet DEVE essere informata sulla quantità di tempo da attendere prima di effettuare una nuova Credential Request.
+ 5. Poiché, in generale, un'indisponibilità può essere un evento imprevisto, il Credential Issuer DEVE essere in grado di passare al volo tra un flusso *immediato* e uno *posticipato*. Questa decisione DEVE essere presa dopo la fase autorizzativa.
+
+
+Se i Credential Issuer, che supportano questo flusso, non sono in grado di emettere immediatamente un Attestato ELettronico richiesto, DEVONO fornire all'Istanza del Wallet una Credential Response HTTP contenente la quantità di tempo da attendere prima di effettuare una nuova Credential Request e un identificativo della transazione di emissione posticipata (*transaction_id*). Lo *status code HTTP* previsto DEVE essere il *202* (vedi Sezione 15.3.3 del [:rfc:`9110`]). Di seguito viene fornito un esempio non normativo.
 
 .. code-block:: http
 
@@ -941,24 +940,24 @@ If Credential Issuers, supporting this flow, are not able to immediately issue a
 .. literalinclude:: ../../examples/credential-response-deferred.json
   :language: JSON
 
-The Wallet Instance MUST use the value given in the *lead_time* parameter to inform the User when the Credential becomes available (e.g. using a local notification triggered by the *lead_time* time value). Credential Issuers MAY send a notification to the User through a communication channel (e.g. email address), if previously provided by the User to the Credential Issuer.
+L'Istanza del Wallet DEVE utilizzare il valore fornito nel parametro *lead_time* per informare l'Utente quando l'Attestato Elettronico diventa disponibile (ad esempio utilizzando una notifica locale innescata dal valore di tempo *lead_time*). I Credential Issuer POSSONO inviare una notifica all'Utente tramite un canale di comunicazione (ad esempio indirizzo email), se precedentemente fornito dall'Utente al Credential Issuer.
 
 Deferred Request
-^^^^^^^^^^^^^^^^
+...................
 
-Upon receipt of the notification (by the Wallet Instance and/or by the Credential Issuer), the User accesses the Wallet Instance.
+Una volta ricevuta la notifica (dall'Istanza del Wallet e/o dal Credential Issuer), l'Utente accede all'Istanza del Wallet.
 
-The Wallet Instance MUST present to the Deferred Endpoint an Access Token that is valid for the issuance of the Digital Credential previously requested at the Credential Endpoint.
+L'Istanza del Wallet DEVE presentare al Deferred Endpoint un Access Token valido per l'emissione dell'Attestato Elettronico precedentemente richiesto al Credential Endpoint.
 
-If the ``lead_time`` parameter value results as less than the expiration time set for the Access Token, the Wallet Instance SHOULD use the Access Token. Otherwise, the Wallet Instance MAY obtain a new Access Token following the Refresh Token flow (see Section :ref:`credential-issuance-low-level:Refresh Token Flow` for more details). If the Refresh Token flow fails, the Wallet Instance needs to submit a new authentication request.
+Se il valore del parametro ``lead_time`` risulta inferiore rispetto alla scadenza dell'Access Token, l'Istanza del Wallet DOVREBBE utilizzare l'Access Token. Altrimenti, l'Istanza del Wallet PUÒ ottenere un nuovo Access Token seguendo il flusso relativo al Refresh Token (vedi Sezione :ref:`credential-issuance-low-level:Refresh Token Flow` per maggiori dettagli). Se il flusso del Refresh Token fallisce, l'Istanza del Wallet deve inviare una nuova authentication request.
 
-The Deferred Credential Request MUST be an HTTP POST request. It MUST be sent using the ``application/json`` media type.
-The following parameter is used in the Deferred Credential Request:
+La Deferred Credential Request DEVE essere una HTTP POST request. DEVE essere inviata utilizzando il media type ``application/json``.
+Il seguente parametro viene utilizzato nella Deferred Credential Request:
 
-  - ``transaction_id``: REQUIRED. String identifying a Deferred Issuance transaction.
+  - ``transaction_id``: OBBLIGATORIO. Stringa che identifica una transazione di Emissione posticipata.
 
-The Credential Issuer MUST invalidate the ``transaction_id`` after the Credential for which it was meant has been obtained by the Wallet Instance.
-The following is a non-normative example of a Deferred Credential Request:
+Il Credential Issuer DEVE invalidare il ``transaction_id`` dopo che l'Attestato Elettronico per cui era destinato è stata ottenuto dall'Istanza del Wallet.
+Di seguito è riportato un esempio non normativo di una Deferred Credential Request:
 
 .. code::
 
@@ -981,24 +980,24 @@ The following is a non-normative example of a Deferred Credential Request:
   }
 
 Deferred Response
-^^^^^^^^^^^^^^^^^
+..................
 
-The Deferred Credential Response MUST be sent using the `application/json`` media type. If the Digital Credential is available, the Deferred Credential Response MUST use the ``credentials`` and ``notification_id`` parameters as defined in Section :ref:`credential-issuance-endpoint:Credential Response`. If the Deferred Credential Request is invalid or the Digital Credential is not available, the Deferred Credential Error Response MUST be sent to the Wallet Instance according to Section 9.3 of `OpenID4VCI`_.
+La Deferred Credential Response DEVE essere inviata utilizzando il media type `application/json``. Se l'Attestato Elettronico è disponibile, la Deferred Credential Response DEVE utilizzare i parametri ``credentials`` e ``notification_id`` come definito nella Sezione :ref:`credential-issuance-endpoint:Credential Response`. Se la Deferred Credential Request non è valida o l'Attestato Elettronico non è disponibile, la Deferred Credential Error Response DEVE essere inviata all'Istanza del Wallet secondo quanto indicato nella Sezione 9.3 di `OpenID4VCI`_.
 
-Notification endpoint
----------------------
+Notification Endpoint
+"""""""""""""""""""""
 
-The Notification Endpoint is used by the Wallet to notify the Credential Issuer of certain events for issued Credentials, such as if the Credential was successfully stored in the Wallet Instance.
+Il Notification Endpoint viene utilizzato dal Wallet per notificare al Credential Issuer determinati eventi relativi agli Attestati Elettronici emessi, come ad esempio se l'Attestato Elettronico è stato memorizzato con successo nell'Istanza del Wallet.
 
-To uphold privacy, the ``event_description`` in the notification SHOULD NOT contain any information that could disclose User behavior or reveal the status of the personal device (e.g., storage space full).
+Per salvaguardare la privacy, l'``event_description`` nella notifica NON DOVREBBE contenere alcuna informazione che potrebbe rivelare il comportamento dell'Utente o rivelare lo stato del dispositivo personale (ad esempio, se lo spazio di archiviazione è pieno).
 
-This endpoint MUST be protected using a DPoP Access Token. TLS for the confidentiality of the HTTP transport is REQUIRED according to Section 10 of [`OpenID4VCI`_].
+Questo endpoint DEVE essere protetto utilizzando un Access Token di tipo DPoP. Il protocollo TLS per la riservatezza del trasporto su HTTP è OBBLIGATORIO secondo la Sezione 10 di [`OpenID4VCI`_].
 
 
 Notification Request
-^^^^^^^^^^^^^^^^^^^^
+.....................
 
-The Notification Request MUST be an HTTP POST using the *application/json* media type with the following parameters.
+La Notification Request DEVE essere una HTTP POST utilizzando il media type *application/json* con i seguenti parametri.
 
 .. list-table::
   :class: longtable
@@ -1006,37 +1005,37 @@ The Notification Request MUST be an HTTP POST using the *application/json* media
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **notification_id**
-    - REQUIRED. It MUST be equal to the ``notification_id`` value returned in the Credential Response by the Credential Issuer.
-    - Section 10.1 of [`OpenID4VCI`_].
+    - OBBLIGATORIO. DEVE essere uguale al valore ``notification_id`` restituito nella Credential Response dal Credential Issuer.
+    - Sezione 10.1 di [`OpenID4VCI`_].
   * - **event**
-    - REQUIRED. Type of the notification event. It MUST be a case sensitive string and it MUST support the following values:
+    - OBBLIGATORIO. Tipo dell'evento da notificare. DEVE essere una stringa case-sensitive e DEVE supportare i seguenti valori:
 
-      - *credential_accepted*: when the Credential was successfully stored in the Wallet Instance.
-      - *credential_deleted*: when the unsuccessful Credential issuance was caused by a user action.
-      - *credential_failure*: in all other unsuccessful cases.
+      - *credential_accepted*: quando l'Attestato ELettronico è stato memorizzato con successo nell'Istanza del Wallet.
+      - *credential_deleted*: quando l'emissione non riuscita dell'Attestato Elettronico è stata causata da un'azione dell'utente.
+      - *credential_failure*: in tutti gli altri casi di insuccesso.
 
-    - Section 10.1 of [`OpenID4VCI`_].
+    - Sezione 10.1 di [`OpenID4VCI`_].
   * - **event_description**
-    - OPTIONAL. Human-readable ASCII [USASCII] text providing additional information, used to inform about the event that occurred. Values for the event_description parameter MUST NOT include characters outside the set *%x20-21 / %x23-5B / %x5D-7E*.
-    - Section 10.1 of [`OpenID4VCI`_].
+    - OPZIONALE. Testo ASCII *human-readable* [USASCII] che fornisce informazioni aggiuntive, da utilizzare per informare in merito all'evento verificatosi. I valori per il parametro event_description NON DEVONO includere caratteri al di fuori dell'insieme *%x20-21 / %x23-5B / %x5D-7E*.
+    - Sezione 10.1 di [`OpenID4VCI`_].
 
 Notification Response
-^^^^^^^^^^^^^^^^^^^^^
+.....................
 
-The Notification Response MUST be use an HTTP status code *204 (No Content)*, as recommended in Section 10.2 of [`OpenID4VCI`_].
+La Notification Response DEVE utilizzare un *status code HTTP 204 (No Content)*, come raccomandato nella Sezione 10.2 di [`OpenID4VCI`_].
 
-In case of errors, what is described in Section 10.3 of [`OpenID4VCI`_] MUST apply.
+In caso di errori, si DEVE seguire quanto descritto nella Sezione 10.3 di [`OpenID4VCI`_].
 
-In case of the Notification Request does not contain a valid Access Token, the Notification Endpoint returns an error response such as defined in Section 3 of [:rfc:`6750`].
-If any other error occurs, the Credential Issuer MUST return an error response as defined in Section 10.3 of [`OpenID4VCI`_]. The response MUST use the content type *application/json* and MUST include the following parameters:
+Nel caso in cui la Notification Request non contenga un Access Token valido, il Notification Endpoint restituisce una response di errore come definito nella Sezione 3 del [:rfc:`6750`].
+Se si verifica qualsiasi altro errore, il Credential Issuer DEVE restituire una response di errore come definito nella Sezione 10.3 di [`OpenID4VCI`_]. La response DEVE utilizzare il content type *application/json* e DEVE includere i seguenti parametri:
 
-  - *error*. The error code.
-  - *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
+  - *error*. Il codice di errore.
+  - *error_description*. Testo in forma *human-readable* che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
 
-Below is a non-normative example of an error response.
+Di seguito è riportato un esempio non normativo di una response di errore.
 
 .. code:: http
 
@@ -1047,28 +1046,28 @@ Below is a non-normative example of an error response.
 .. literalinclude:: ../../examples/notification-error.json
   :language: JSON
 
-In the following table are listed HTTP Status Codes and related error codes that are supported for the error response:
+Nella seguente tabella sono elencati i *Status Code HTTP* e i relativi codici di errore supportati per la response di errore:
 
 .. list-table::
     :class: longtable
     :widths: 20 20 60
     :header-rows: 1
 
-    * - **Status Code**
-      - **error code**
-      - **Description**
-    * - *400 Bad Request* [REQUIRED]
+    * - **Codice di Stato**
+      - **codice di errore**
+      - **Descrizione**
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_notification_id``
-      - The Credential Issuer cannot fulfill the request because of invalid ``notification_id`` parameter. Section 10.3 of [`OpenID4VCI`_].
-    * - *400 Bad Request* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa del parametro ``notification_id`` non valido. Sezione 10.3 di [`OpenID4VCI`_].
+    * - *400 Bad Request* [OBBLIGATORIO]
       - ``invalid_notification_request``
-      - The Credential Issuer cannot fulfill the request because of missing parameters, invalid parameter or request malformed. Section 10.3 of [`OpenID4VCI`_].
-    * - *500 Internal Server Error* [REQUIRED]
+      - Il Credential Issuer non può soddisfare la richiesta a causa di parametri mancanti, parametro non valido o richiesta malformata. Sezione 10.3 di [`OpenID4VCI`_].
+    * - *500 Internal Server Error* [OBBLIGATORIO]
       - ``server_error``
-      - The Credential Issuer encountered an internal problem.
-    * - *503 Service Unavailable* [REQUIRED]
+      - Il Credential Issuer ha riscontrato un problema interno.
+    * - *503 Service Unavailable* [OBBLIGATORIO]
       - ``temporarily_unavailable``
-      - The Credential Issuer is temporary unavailable.
-    * - *504 Gateway Timeout* [OPTIONAL]
+      - Il Credential Issuer è temporaneamente non disponibile.
+    * - *504 Gateway Timeout* [OPZIONALE]
       - `-`
-      - The Credential Issuer cannot fulfill the request within the defined time interval.
+      - Il Credential Issuer non può soddisfare la richiesta entro l'intervallo di tempo definito.

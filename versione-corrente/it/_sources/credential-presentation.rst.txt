@@ -1,20 +1,20 @@
 .. include:: ../common/common_definitions.rst
 
 
-Digital Credential Presentation
-================================
+Presentazione della Credenziale Digitale
+========================================
 
-This section describes how a Relying Party Instance requests to a Wallet Instance the presentation of the PID/EAAs.
+Questa sezione descrive come un'Istanza di Relying Party richiede a un'Istanza del Wallet la presentazione dell'Attestato Elettronico di Dati di Identificazione Personale/Attestati Elettronici di Attributi.
 
-In this section the following flows are described:
+In questa sezione vengono descritti i seguenti flussi:
 
-- :ref:`remote-flow:Remote Flow`, where the User presents a Digital Credential to a web Relying Party Instance according to `OpenID4VP`_. In this scenario the user-agent and the Wallet Instance can be used in the same device (**Same Device Flow**), or in different devices (**Cross Device Flow**).
-- :ref:`proximity-flow:Proximity Flow`, where the User presents a Digital Credential to a mobile Relying Party Instance according to `ISO18013-5`_. The User interacts with a Verifier using proximity connection technologies such as using QR Codes and Bluetooth Low Energy (BLE).
+- :ref:`remote-flow:Flusso Remoto`, dove l'Utente presenta una Credenziale Digitale a un'Istanza di Relying Party web secondo `OpenID4VP`_. In questo scenario, l'user-agent e l'Istanza del Wallet possono essere utilizzati nello stesso dispositivo (**Same Device Flow**), o in dispositivi diversi (**Cross Device Flow**).
+- :ref:`proximity-flow:Flusso di Prossimità`, dove l'Utente presenta una Credenziale Digitale a un'Istanza di Relying Party mobile secondo `ISO18013-5`_. L'Utente interagisce con un Verificatore di Attestati Elettronici utilizzando tecnologie di connessione di prossimità come i Codici QR e il Bluetooth Low Energy (BLE).
 
 
 
 .. toctree::
-  :caption: Credential Presentation Table of Contents
+  :caption: Indice dei Contenuti della Presentazione della Credenziale
   :maxdepth: 3
 
   remote-flow.rst

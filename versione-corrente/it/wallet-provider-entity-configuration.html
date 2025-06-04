@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 
-<html lang="en" data-content_root="./">
+<html lang="it" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>23.1. Wallet Provider Entity Configuration &#8212; IT-Wallet Technical Documentation - 1.0.0</title>
+    <title>5.1.6. Entity Configuration del Fornitore di Wallet &#8212; IT-Wallet Technical Documentation - Versione Corrente</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=9b2032db" />
     <link rel="stylesheet" type="text/css" href="_static/itwallet-override.css?v=63798874" />
-    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/documentation_options.js?v=3fd72285"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=da26b4cc"></script>
     <script src="_static/js/theme.js"></script>
     <script src="_static/js/petite-vue.js"></script>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/15377824?s=48&amp;v=4"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="23.2. Entity Configuration of Credential Issuers" href="credential-issuer-entity-configuration.html" />
-    <link rel="prev" title="23. Entity Configurations" href="entity-configurations.html" /> 
+    <link rel="index" title="Indice" href="genindex.html" />
+    <link rel="search" title="Cerca" href="search.html" />
+    <link rel="next" title="5.1.7. Metadati del Fornitore di Wallet" href="wallet-provider-metadata.html" />
+    <link rel="prev" title="5.1.5. Backup e Ripristino" href="backup-restore.html" /> 
   </head><body data-dark_mode_code_blocks="true">
 
 <div id="top_nav">
@@ -32,7 +33,7 @@
         <p id="toggle_sidebar">
             <a href="#" title="Toggle sidebar">|||</a>
         </p>
-        <h1><a href="index.html" title="Go to homepage">IT-Wallet Technical Documentation - 1.0.0</a></h1>
+        <h1><a href="index.html" title="Go to homepage">IT-Wallet Technical Documentation - Versione Corrente</a></h1>
             <a id="source_link" href="https://github.com/italia/eudi-wallet-it-docs">
     
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
@@ -113,11 +114,11 @@
         <div class="searchbox_wrapper">
             
 <search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+  <h3 id="searchlabel">Ricerca veloce</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
+      <input type="submit" value="Vai" />
     </form>
     </div>
 </search>
@@ -128,43 +129,38 @@
 
     
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Table of Contents</span></p>
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Indice dei Contenuti</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html">2. Normative References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html#defined-terms-and-acronyms">3. Defined Terms and Acronyms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="defined-terms.html#normative-language-and-conventions">4. Normative Language and Conventions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ssi-introduction.html">5. The Digital Identity Wallet Paradigm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design.html">6. Design Principles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="brand-identity.html">7. IT-Wallet System Brand Identity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functionalities.html">8. Functionalities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="trust.html">9. The Infrastructure of Trust</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wallet-solution.html">10. Wallet Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-issuer-solution.html">11. Credential Issuer Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="relying-party-solution.html">12. Relying Party Solution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentic-sources.html">13. Authentic Sources</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-data-model.html">14. Digital Credential Data Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-issuance.html">15. Digital Credential Issuance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-presentation.html">16. Digital Credential Presentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="credential-revocation.html">17. Digital Credential Lifecycle</a></li>
-<li class="toctree-l1"><a class="reference internal" href="backup-restore.html">18. Backup and Restore</a></li>
-<li class="toctree-l1"><a class="reference internal" href="registry-catalogue.html">19. Digital Credentials Catalogue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e-service-pdnd-catalogue.html">20. e-Service PDND Catalogue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="e-service-pdnd.html">21. e-Service PDND</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mobile-application-instance.html">22. Mobile Application Instance</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="entity-configurations.html">23. Entity Configurations</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">23.1. Wallet Provider Entity Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="credential-issuer-entity-configuration.html">23.2. Entity Configuration of Credential Issuers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relying-party-entity-configuration.html">23.3. Entity Configuration of Relying Parties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">1. Introduzione</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">2. Principi di design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture-overview.html">3. Panoramica dell'Architettura</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trust.html">4. L'Infrastruttura di Trust</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="entities.html">5. Entità</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="wallet-solution.html">5.1. Soluzione Wallet</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="wallet-solution-requirements.html">5.1.1. Requisiti della Soluzione Wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wallet-solution-components.html">5.1.2. Componenti della Soluzione Wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wallet-solution-components.html#modelli-di-interazione-della-soluzione-wallet">5.1.3. Modelli di Interazione della Soluzione Wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wallet-instance.html">5.1.4. Istanza del Wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="backup-restore.html">5.1.5. Backup e Ripristino</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.1.6. Entity Configuration del Fornitore di Wallet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wallet-provider-metadata.html">5.1.7. Metadati del Fornitore di Wallet</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="algorithms.html">24. Cryptographic Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="security-privacy-considerations.html">25. Security and Privacy Considerations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log-retention-policy.html">26. General Log Retention Policies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standards.html">27. Technical References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test-plans.html">28. Test Plans</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contribute.html">29. How to contribute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="open-source.html">30. Open Source Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="credential-issuer-solution.html">5.2. Soluzione del Fornitore di Attestati Elettronici</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relying-party-solution.html">5.3. Soluzione di Relying Party</a></li>
+<li class="toctree-l2"><a class="reference internal" href="authentic-sources.html">5.4. Fonti Autentiche</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="digital-credential-management.html">6. Gestione degli Attestati Elettronici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="digital-credential-flows.html">7. Flussi relativi agli Attestati Elettronici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="endpoints.html">8. Endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">9. Algoritmi Crittografici</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security-privacy-considerations.html">10. Considerazioni di Sicurezza e Privacy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log-retention-policy.html">11. Politiche Generali di Conservazione dei Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defined-terms-and-references.html">12. Termini Definiti e Riferimenti</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">13. Come contribuire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="open-source.html">14. Rilasci Open Source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">15. Appendice</a></li>
 </ul>
 
         </div>
@@ -176,13 +172,13 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="wallet-provider-entity-configuration">
-<h1><span class="section-number">23.1. </span>Wallet Provider Entity Configuration<a class="headerlink" href="#wallet-provider-entity-configuration" title="Link to this heading">¶</a></h1>
-<p>An HTTP GET request to the Federation endpoint allows the retrieval of the Wallet Provider Entity Configuration.</p>
-<p>The returned Entity Configuration of the Wallet Provider MUST contain the attributes described in the sections below.</p>
-<p>The Wallet Provider Entity Configuration is a signed JWT containing the public keys and supported algorithms of the Wallet Provider. It is structured in accordance with the <a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a> and the <a class="reference internal" href="trust.html#the-infrastructure-of-trust"><span class="std std-ref">The Infrastructure of Trust</span></a> outlined in this specification.</p>
-<section id="wallet-provider-entity-configuration-jwt-header">
-<h2><span class="section-number">23.1.1. </span>Wallet Provider Entity Configuration JWT Header<a class="headerlink" href="#wallet-provider-entity-configuration-jwt-header" title="Link to this heading">¶</a></h2>
+  <section id="entity-configuration-del-fornitore-di-wallet">
+<h1><span class="section-number">5.1.6. </span>Entity Configuration del Fornitore di Wallet<a class="headerlink" href="#entity-configuration-del-fornitore-di-wallet" title="Link to this heading">¶</a></h1>
+<p>Una richiesta HTTP GET all'endpoint della Federazione consente di recuperare la Entity Configuration del Fornitore di Wallet.</p>
+<p>La Entity Configuration del Fornitore di Wallet restituita DEVE contenere gli attributi descritti nelle sezioni seguenti.</p>
+<p>La Entity Configuration del Fornitore di Wallet è un JWT firmato contenente le chiavi pubbliche e gli algoritmi supportati dal Fornitore di Wallet. È strutturata in conformità con <a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a> e con <a class="reference internal" href="trust.html#l-infrastruttura-di-trust"><span class="std std-ref">L'Infrastruttura di Trust</span></a> delineata in questa specifica.</p>
+<section id="header-jwt-della-entity-configuration-del-fornitore-di-wallet">
+<h2><span class="section-number">5.1.6.1. </span>Header JWT della Entity Configuration del Fornitore di Wallet<a class="headerlink" href="#header-jwt-della-entity-configuration-del-fornitore-di-wallet" title="Link to this heading">¶</a></h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 20.0%" />
@@ -197,22 +193,22 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>alg</p></td>
-<td><p>Algorithm used to verify the token signature. It MUST be one of the possible values indicated in <a class="reference internal" href="algorithms.html#cryptographic-algorithms"><span class="std std-ref">Cryptographic Algorithms</span></a> (e.g., ES256).</p></td>
+<td><p>Algoritmo utilizzato per verificare la firma del token. DEVE essere uno dei possibili valori indicati in <a class="reference internal" href="algorithms.html#algoritmi-crittografici"><span class="std std-ref">Algoritmi Crittografici</span></a> (ad es., ES256).</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p>kid</p></td>
-<td><p>Thumbprint of the public key used for the signature.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a> and <span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7638.html"><strong>RFC 7638</strong></a>.</p></td>
+<td><p>Impronta digitale della chiave pubblica utilizzata per la firma.</p></td>
+<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a> e <span class="target" id="index-0"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7638.html"><strong>RFC 7638</strong></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p>typ</p></td>
-<td><p>Media type, set to <code class="docutils literal notranslate"><span class="pre">entity-statement+jwt</span></code>.</p></td>
+<td><p>Tipo di media, impostato su <code class="docutils literal notranslate"><span class="pre">entity-statement+jwt</span></code>.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="wallet-provider-entity-configuration-jwt-payload">
-<h2><span class="section-number">23.1.2. </span>Wallet Provider Entity Configuration JWT Payload<a class="headerlink" href="#wallet-provider-entity-configuration-jwt-payload" title="Link to this heading">¶</a></h2>
+<section id="payload-jwt-della-entity-configuration-del-fornitore-di-wallet">
+<h2><span class="section-number">5.1.6.2. </span>Payload JWT della Entity Configuration del Fornitore di Wallet<a class="headerlink" href="#payload-jwt-della-entity-configuration-del-fornitore-di-wallet" title="Link to this heading">¶</a></h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 20.0%" />
@@ -227,164 +223,35 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iss</span></code></p></td>
-<td><p>REQUIRED. Public URL of the Wallet Provider.</p></td>
+<td><p>OBBLIGATORIO. URL pubblico del Fornitore di Wallet.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sub</span></code></p></td>
-<td><p>REQUIRED. Public URL of the Wallet Provider.</p></td>
+<td><p>OBBLIGATORIO. URL pubblico del Fornitore di Wallet.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">iat</span></code></p></td>
-<td><p>REQUIRED. Issuance datetime in Unix Timestamp format.</p></td>
+<td><p>OBBLIGATORIO. Data e ora di emissione in formato Unix Timestamp.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">exp</span></code></p></td>
-<td><p>REQUIRED. Expiration datetime in Unix Timestamp format.</p></td>
+<td><p>OBBLIGATORIO. Data e ora di scadenza in formato Unix Timestamp.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">authority_hints</span></code></p></td>
-<td><p>REQUIRED. Array of URLs (String) containing the list of URLs of the immediate superior Entities, such as the Trust Anchor or an Intermediate, that MAY issue an Entity Statement related to the Wallet Provider.</p></td>
+<td><p>OBBLIGATORIO. Array di URL (String) contenente l'elenco degli URL delle Entità superiori immediate, come il Trust Anchor o un Intermediario, che POSSONO emettere un Entity Statement relativo al Fornitore di Wallet.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">jwks</span></code></p></td>
-<td><p>REQUIRED. A JSON Web Key Set (JWKS) representing the public part of the Wallet Provider's Federation Entity signing keys. The corresponding private key is used by the Entity to sign the Entity Configuration about itself.</p></td>
+<td><p>OBBLIGATORIO. Un JSON Web Key Set (JWKS) che rappresenta la parte pubblica delle chiavi di firma dell'Entità di Federazione del Fornitore di Wallet. La chiave privata corrispondente è utilizzata dall'Entità per firmare la Entity Configuration su se stessa.</p></td>
 <td><p><span class="target" id="index-1"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7517.html"><strong>RFC 7517</strong></a>, <a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
-<td><p>REQUIRED.JSON object that represents the Entity's Types and the metadata for those Entity Types. Each member name of the JSON object is an Entity Type Identifier, and each value MUST be a JSON object containing metadata parameters according to the metadata schema of the Entity Type. It MUST contains the <code class="docutils literal notranslate"><span class="pre">wallet_provider</span></code> and OPTIONALLY the <code class="docutils literal notranslate"><span class="pre">federation_entity</span></code> metadata.</p></td>
+<td><p>OBBLIGATORIO. Oggetto JSON che rappresenta i Tipi di Entità e i metadati per quei Tipi di Entità. Ogni nome membro dell'oggetto JSON è un Identificatore di Tipo di Entità, e ogni valore DEVE essere un oggetto JSON contenente parametri di metadati secondo lo schema di metadati del Tipo di Entità. DEVE contenere i metadati <code class="docutils literal notranslate"><span class="pre">wallet_provider</span></code> e OPZIONALMENTE i metadati <code class="docutils literal notranslate"><span class="pre">federation_entity</span></code>.</p></td>
 <td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="id1">
-<h2><span class="section-number">23.1.3. </span>wallet_provider metadata<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<p>The metadata JSON Object whose key is <code class="docutils literal notranslate"><span class="pre">wallet_provider</span></code> contains the following parameters. The public keys found in this object are exclusively used for signing and/or encryption operations required to this Entity when acting as a Wallet Provider (e.g., sign the Wallet Attestations to the Wallet Instance).</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 20.0%" />
-<col style="width: 60.0%" />
-<col style="width: 20.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Key</strong></p></th>
-<th class="head"><p><strong>Value</strong></p></th>
-<th class="head"><p><strong>Reference</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">jwks</span></code></p></td>
-<td><p>CONDITIONAL. JSON Web Key Set document, passed by value, containing the Entity's keys for that Entity Type. It MUST be present if <code class="docutils literal notranslate"><span class="pre">jwks_uri</span></code> and <code class="docutils literal notranslate"><span class="pre">signed_jwks_uri</span></code> are absent.</p></td>
-<td><p><span class="target" id="index-2"></span><a class="rfc reference external" href="https://datatracker.ietf.org/doc/html/rfc7517.html"><strong>RFC 7517</strong></a>, <a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">jwks_uri</span></code></p></td>
-<td><p>CONDITIONAL. URL referencing a JWK Set document containing the Wallet Provider's keys for that Entity Type. This URL MUST use the https scheme. It MUST be present if <code class="docutils literal notranslate"><span class="pre">jwks</span></code> and <code class="docutils literal notranslate"><span class="pre">signed_jwks_uri</span></code> are absent.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">signed_jwks_uri</span></code></p></td>
-<td><p>CONDITIONAL. URL referencing a signed JWT having the Entity's JWK Set document for that Entity Type as its payload. This URL MUST use the https scheme. The JWT MUST be signed using a Federation Entity Key. A successful response from the URL MUST use the HTTP status code 200 with the Content Type <code class="docutils literal notranslate"><span class="pre">application/jwk-set+jwt</span></code>. It MUST be present if <code class="docutils literal notranslate"><span class="pre">jwks</span></code> and <code class="docutils literal notranslate"><span class="pre">jwks_uri</span></code> are absent.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">aal_values_supported</span></code></p></td>
-<td><p>OPTIONAL. List of supported values for the certifiable security context. These values specify the security level of the app, according to the levels: low, medium, or high. Authenticator Assurance Level values supported.</p></td>
-<td><p>This specification.</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="federation-entity-metadata">
-<h2><span class="section-number">23.1.4. </span>federation_entity metadata<a class="headerlink" href="#federation-entity-metadata" title="Link to this heading">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 20.0%" />
-<col style="width: 60.0%" />
-<col style="width: 20.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Key</strong></p></th>
-<th class="head"><p><strong>Value</strong></p></th>
-<th class="head"><p><strong>Reference</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">organization_name</span></code></p></td>
-<td><p>OPTIONAL. A human-readable name representing the organization owning the Wallet Provider.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">homepage_uri</span></code></p></td>
-<td><p>OPTIONAL. URL of a Web page for the organization owning the Wallet Provider.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tos_uri</span></code></p></td>
-<td><p>OPTIONAL. URL that contains the Wallet Provider's terms of service.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">policy_uri</span></code></p></td>
-<td><p>OPTIONAL. URL of the documentation of conditions and policies relevant to the Wallet Provider.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">logo_uri</span></code></p></td>
-<td><p>OPTIONAL. String. A URL that points to the logo of the Wallet Provider. The file containing the logo SHOULD be published in a format that can be viewed via the web.</p></td>
-<td><p><a class="reference external" href="https://openid.net/specs/openid-federation-1_0-41.html">OID-FED</a>.</p></td>
-</tr>
-</tbody>
-</table>
-<p>Below is a non-normative example of the Entity Configuration for a Wallet Provider.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;alg&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ES256&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;kid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;5t5YYpBhN-EgIEEI5iUzr6r0MR02LnVQ0OmekmNKcjY&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;typ&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;entity-statement+jwt&quot;</span>
-<span class="p">}</span>
-<span class="p">.</span>
-<span class="p">{</span>
-<span class="s2">&quot;iss&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://wallet-provider.example.org&quot;</span><span class="p">,</span>
-<span class="s2">&quot;sub&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://wallet-provider.example.org&quot;</span><span class="p">,</span>
-<span class="s2">&quot;jwks&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;keys&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;crv&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;P-256&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;kty&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;EC&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;x&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;qrJrj3Af_B57sbOIRrcBM7br7wOc8ynj7lHFPTeffUk&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;y&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1H0cWDyGgvU8w-kPKU_xycOCUNT2o0bwslIQtnPU6iM&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;kid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;5t5YYpBhN-EgIEEI5iUzr6r0MR02LnVQ0OmekmNKcjY&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
-<span class="p">},</span>
-<span class="s2">&quot;metadata&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;wallet_provider&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;jwks&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;keys&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="s2">&quot;crv&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;P-256&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="s2">&quot;kty&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;EC&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="s2">&quot;x&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;BxYsu3QvYmOz1fl1l5hGyPWlpvgTzz3AY3j3K_9zGPs&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="s2">&quot;y&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;ob34Wmfah_ScQXaYMJWoBkZSwO-kQ0VTgMk4VZfu48w&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="s2">&quot;kid&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;749b495837819c00cfee1749b495837819c00cfee1&quot;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">      </span><span class="p">]</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="s2">&quot;aal_values_supported&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;https://wallet-provider.example.org/LoA/basic&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;https://wallet-provider.example.org/LoA/medium&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="s2">&quot;https://wallet-provider.example.org/LoA/high&quot;</span>
-<span class="w">    </span><span class="p">]</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="s2">&quot;federation_entity&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;organization_name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;IT-Wallet Provider&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;homepage_uri&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://wallet-provider.example.org&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;policy_uri&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://wallet-provider.example.org/privacy_policy&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;tos_uri&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://wallet-provider.example.org/info_policy&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;logo_uri&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://wallet-provider.example.org/logo.svg&quot;</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">},</span>
-<span class="s2">&quot;authority_hints&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">  </span><span class="s2">&quot;https://registry.eudi-wallet.example.it&quot;</span>
-<span class="p">]</span>
-<span class="s2">&quot;iat&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1687171759</span><span class="p">,</span>
-<span class="s2">&quot;exp&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1709290159</span>
-<span class="p">}</span>
-</pre></div>
-</div>
 </section>
 </section>
 
@@ -402,11 +269,9 @@
             <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:</span></a></p>
             <div class="page_toc">
                 <ul>
-<li><a class="reference internal" href="#">23.1. Wallet Provider Entity Configuration</a><ul>
-<li><a class="reference internal" href="#wallet-provider-entity-configuration-jwt-header">23.1.1. Wallet Provider Entity Configuration JWT Header</a></li>
-<li><a class="reference internal" href="#wallet-provider-entity-configuration-jwt-payload">23.1.2. Wallet Provider Entity Configuration JWT Payload</a></li>
-<li><a class="reference internal" href="#id1">23.1.3. wallet_provider metadata</a></li>
-<li><a class="reference internal" href="#federation-entity-metadata">23.1.4. federation_entity metadata</a></li>
+<li><a class="reference internal" href="#">5.1.6. Entity Configuration del Fornitore di Wallet</a><ul>
+<li><a class="reference internal" href="#header-jwt-della-entity-configuration-del-fornitore-di-wallet">5.1.6.1. Header JWT della Entity Configuration del Fornitore di Wallet</a></li>
+<li><a class="reference internal" href="#payload-jwt-della-entity-configuration-del-fornitore-di-wallet">5.1.6.2. Payload JWT della Entity Configuration del Fornitore di Wallet</a></li>
 </ul>
 </li>
 </ul>
@@ -421,14 +286,14 @@
         <div class="button_nav">
             <div class="left">
                 
-                <a href="entity-configurations.html">
-                    <span class="icon">&lt;</span><span><span class="section-number">23. </span>Entity Configurations</span></a>
+                <a href="backup-restore.html">
+                    <span class="icon">&lt;</span><span><span class="section-number">5.1.5. </span>Backup e Ripristino</span></a>
                 
             </div>
 
             <div class="right">
                 
-                    <a href="credential-issuer-entity-configuration.html"><span><span class="section-number">23.2. </span>Entity Configuration of Credential Issuers</span><span class="icon">&gt;</span></a>
+                    <a href="wallet-provider-metadata.html"><span><span class="section-number">5.1.7. </span>Metadati del Fornitore di Wallet</span><span class="icon">&gt;</span></a>
                 
             </div>
         </div>
@@ -436,7 +301,7 @@
 
 
     <div class="footer" role="contentinfo">
-      Last updated on 19/05/2025.
+      Ultimo aggiornamento 03/06/2025.
       Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.5.
     </div>
 
