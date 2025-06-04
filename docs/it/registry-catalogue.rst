@@ -1,143 +1,149 @@
 .. include:: ../common/common_definitions.rst
 
 
-Digital Credentials Catalogue
-=============================
+Catalogo degli Attestati Elettronici
+====================================
 
-The Digital Credentials Catalogue is the registry of all available Digital Credentials recognized within the IT-Wallet ecosystem. It is published by the Trust Anchor and publicly available by all Entities through a specialized Federation endpoint. It acts as a single reference point for all actors involved in the process of issuing, verifying and using Digital Credentials.
+Il Catalogo degli Attestati Elettronici è il registro di tutti gli Attestati Elettronici disponibili riconosciuti all'interno dell'ecosistema IT-Wallet. È pubblicato dal Trust Anchor ed è pubblicamente disponibile per tutte le Entità attraverso un endpoint di Federazione specializzato. Funge da punto di riferimento unico per tutti gli attori coinvolti nel processo di emissione, verifica e utilizzo degli Attestati Elettronici.
 
-The Digital Credential Catalogue aims to:
+Il Catalogo degli Attestati Elettronici mira a:
 
-  1. Facilitate Digital Credential discovery for Users.
-  2. Standardize the technical and functional description of Digital Credentials.
-  3. Enable interoperability between different Issuers and Relying Parties.
-  4. Simplify the integration process for Wallet Providers and Relying Parties.
-  5. Ensure trust in the ecosystem through certified information.
-  6. Provide transparency on the ecosystem of available Digital Credentials.
+  1. Facilitare la *discovery* degli Attestati Elettronici per gli Utenti.
+  2. Standardizzare la descrizione tecnica e funzionale degli Attestati Elettronici.
+  3. Abilitare l'interoperabilità tra diversi Fornitori di Attestati Elettronici e Relying Party.
+  4. Semplificare il processo di integrazione per i Fornitori di Wallet e le Relying Party.
+  5. Garantire la fiducia nell'ecosistema attraverso informazioni certificate.
+  6. Fornire trasparenza sull'ecosistema degli Attestati Elettronici disponibili.
 
 
-The main Entities involved in the Digital Credential Catalogue are:
+Le principali Entità coinvolte nel Catalogo degli Attestati Elettronici sono:
 
-  - **Trust Anchor**: It manages and maintains the Digital Credential Catalogue, guaranteeing its authenticity and integrity.
-  - **Supervisory Body**: It interacts with the Trust Anchor and the Digital Credential Catalogue to monitor the registration phase ensuring security and privacy according to national/European regulations, keeping all the information reliable and updated.
-  - **Digital Credential Issuers**: The entities authorized to issue Digital Credentials, registering them in the Catalogue.
-  - **Relying Parties**: They use the Digital Credential Catalogue to gather all the information needed about the Digital Credentials they intend to request during the presentation phase.
-  - **Wallet Providers**: They access the Digital Credential Catalogue to identify the available Digital Credentials and to retrieve all necessary information for integrating them into their Wallet Solutions.
-  - **Users**: The citizens who indirectly use the Digital Credentials Catalogue through their Wallet Instances to discover and request Digital Credentials.
-  - **Authentic Sources**: The Entities that hold the original data that is attested in the Digital Credentials. They provide support to Issuers in registering the Digital Credentials in the Catalogue.
+  - **Trust Anchor**: Gestisce e mantiene il Catalogo degli Attestati Elettronici, garantendone l'autenticità e l'integrità.
+  - **Organismo di Supervisione**: Interagisce con il Trust Anchor e il Catalogo degli Attestati Elettronici per monitorare la fase di registrazione garantendo sicurezza e privacy secondo le normative nazionali/europee, mantenendo tutte le informazioni affidabili e aggiornate.
+  - **Fornitori di Attestati Elettronici**: Le entità autorizzate a emettere Attestati Elettronici, registrandoli nel Catalogo.
+  - **Relying Party**: Utilizzano il Catalogo degli Attestati Elettronici per raccogliere tutte le informazioni necessarie sugli Attestati Elettronici che intendono richiedere durante la fase di presentazione.
+  - **Fornitori di Wallet**: Accedono al Catalogo degli Attestati Elettronici per identificare gli Attestati Elettronici disponibili e per recuperare tutte le informazioni necessarie per integrarli nelle loro Soluzioni Tecniche.
+  - **Utenti**: Gli Utenti che utilizzano indirettamente il Catalogo degli Attestati Elettronici attraverso le loro Istanze del Wallet per visualizzare e richiedere Attestati Elettronici.
+  - **Fonti Autentiche**: Le Entità che detengono i dati originali attestati negli Attestati Elettronici. Forniscono supporto ai Fornitori di Attestati Elettronici nella registrazione degli stessi nel Catalogo.
 
 
 .. _fig_catalogue.svg:
-.. figure:: ../../images/catalogue.svg
-    :figwidth: 100%
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/ZLHDZnit3BtxLp16WMw1E3wqlHGeaDJR3mD9Qwopw751I_HOM8qq5JdhJdzzAMkyCnixs3aOy53aUq_aezwpO9AszhCtBXZVMeA3ICC_BPS9Z-yg9uTsrp8b4uDGa7Scril6OyWr2nRhtMwv-c6noQ7xJn-NDR9Gqj33AjPD3BccoVYpR-6MzYuGR3Ttwy-_RcTlRFbUh_xwy_xkumHYQHkqwVj1WDFJnLup5jma9yGz_t2R7dofvNKCHSh5uGa1ZyInfiMFIqD9tDuP59fMO55mXpmnsqVpE2qptvydQexLn4p5VA8qBVUHkkbAfsKw-s0msMd9zAyvOAZe0RrC70NneyHcMl8HlQSfm4iNM9oquiuUcisU_NrZKD37ggMtCBzrbTClM2MoUkRGCwpEvtDDkAFAiQGk_rzfHjBarCSWxa4b0JwXyxZp15VWjF2RulQVvsVZpRzJGHjA7CDD7eLYtpEb4uSJzny5XkCXWdLieauVC5Xb_QSbbjSuCfxY3zULrB9y2EOGCy_d_0NbC_FbtoSCM16VM6fqGVJ788ThzncwCoPLuoddjcEX-eRRHZthEARkbsWx9TWE4SYX4saCJcBYSpSn3mkQ0p811MwJ2nKm6VqZtKcQSZsXwSQyezKV-1rpIuclJXVMvJ0h-D2ADa6xRI4VYgDyQHJ80A_Eib-CWJQHxrJp1bD6ojOf0UWZypBbKr-VBGWIeK8D9N1X7rDTse2xs0gOwypZBHleot9iKdnojjp-xrC4-b1_PsE8-LA32q9LGg4nQOv6AC0l59JGm8tQoLnZjh5DIf29pY7eOvdzZ-WjnAID3UWXRmEW22c6LQvNEpuiTLuWRUyBRmyN6YpzTl1piL2xyuuFHSrlojBRZe9jeYOghi9UElZb3gs3QA4HXgEJm_MQiPolcZt5F8q2CDXsN5YU7qhNUWCkzAMN_J-3NHTxuTKnvUzVi-CL2GNkqdi3tc2v2EvKjkz63wQvm2hluGLYNXs6tjBhm8B143GbmSAkA-KFjpt0MC4wM9V8YE-UNrGUFwdyXOpt56nR-_y1
+.. plantuml:: plantuml/credential-catalogue-entities.puml
+    :width: 99%
+    :alt: La figura illustra le Entità degli Attestati Elettronici.
+    :caption: `Diagramma Entità-Relazione del Catalogo degli Attestati Elettronici. <https://www.plantuml.com/plantuml/svg/ZLJ1Rkis4BpxAxP6WQP00X-QtjeWgPEsFXGmuXGz6ZIvbeb8fCfTEbM__YrDELAUb6ST34khuSnmESjxOXKuLYKysiAoAc4PqA1ZcnwL57mH4Pwam1Pfzfrrkem6uPVbxM9vkrtwglPEy7UpsG_mY7lh43RhvzNBqwO7vbWh4tvQQ5zLtjsDVDbxnpVg3SbNUFFpGcDWkxTQCKv06p6wKpG5MdhzEW4M2GDDyUcBAJ1XEsAO07p5PgAx2J1hjbe5Cm69_-c3SWLkLSbJ-etqohwUW7nJPOaNAHVM4LkER5CuPhFtL5tfSmIlOJvCA7KHdGlW6GjB79hql1H4471eQ-3t85v07PKjrQv46A6JXTzJ7IpZh_DpfkO_Yg4r1lBkAlLTkF-MlvE6PVi_EeAtWmTZINivP53EYEg_4OalQIG-uU-soo4IFpXzy4dd9Rr1VarwwVUNSgf0EgbKoZgM7m4Vy9i3t1ULY8dcfY76wefYBT6qv4FpcpUD26ow2gJIITGxopxGkPig7HJK1qK8w2W6wmeWrFB0pScQQ1sLRlgwlP7kz2rHn42Zfmkh_34vU8WiJP1k6y3sBf9DAuP4SF4isq7eP0EMZNXUgv2OKdHo0ThAF9_ogQ_l4GJsK2Wf1R1kxqELsw1sFZBeSUN-O7NoUIhMmH-joRl_vrI1jjJkMMia6dgmZh48Yh4lcgeUCl471xdKQIlfP5gZDpu64KX2vnAqjQJ-foyD-22DTTBOD0sWc54uZ6XTx7Wtq6c0fBqVijrjg8lqTPVd7A6uAoqTiflVHQMD7JfJUm4Ahz0E4_nnXbQEPQ5c6LBBX_4rVJkVXZtuT1gPe8jjVs6-VZ2CzGQiQvSE-tyc6pSxo6fVyezFuZXc8TCDizVnTP7pO4_BzatlmjG3hdmV3XZJw12qaLuvOkKqGfq11dPDNhvzR0dw3bREs82Qo-RzHgN-bKfVsRYNECIg_080>`_
 
 
-The following table summarizes the main information that MUST be provided by the Digital Credential Catalogue:
+.. .. figure:: ../../images/catalogue.svg
+..     :figwidth: 100%
+..     :align: center
+..     :target: https://www.plantuml.com/plantuml/svg/ZLHDZnit3BtxLp16WMw1E3wqlHGeaDJR3mD9Qwopw751I_HOM8qq5JdhJdzzAMkyCnixs3aOy53aUq_aezwpO9AszhCtBXZVMeA3ICC_BPS9Z-yg9uTsrp8b4uDGa7Scril6OyWr2nRhtMwv-c6noQ7xJn-NDR9Gqj33AjPD3BccoVYpR-6MzYuGR3Ttwy-_RcTlRFbUh_xwy_xkumHYQHkqwVj1WDFJnLup5jma9yGz_t2R7dofvNKCHSh5uGa1ZyInfiMFIqD9tDuP59fMO55mXpmnsqVpE2qptvydQexLn4p5VA8qBVUHkkbAfsKw-s0msMd9zAyvOAZe0RrC70NneyHcMl8HlQSfm4iNM9oquiuUcisU_NrZKD37ggMtCBzrbTClM2MoUkRGCwpEvtDDkAFAiQGk_rzfHjBarCSWxa4b0JwXyxZp15VWjF2RulQVvsVZpRzJGHjA7CDD7eLYtpEb4uSJzny5XkCXWdLieauVC5Xb_QSbbjSuCfxY3zULrB9y2EOGCy_d_0NbC_FbtoSCM16VM6fqGVJ788ThzncwCoPLuoddjcEX-eRRHZthEARkbsWx9TWE4SYX4saCJcBYSpSn3mkQ0p811MwJ2nKm6VqZtKcQSZsXwSQyezKV-1rpIuclJXVMvJ0h-D2ADa6xRI4VYgDyQHJ80A_Eib-CWJQHxrJp1bD6ojOf0UWZypBbKr-VBGWIeK8D9N1X7rDTse2xs0gOwypZBHleot9iKdnojjp-xrC4-b1_PsE8-LA32q9LGg4nQOv6AC0l59JGm8tQoLnZjh5DIf29pY7eOvdzZ-WjnAID3UWXRmEW22c6LQvNEpuiTLuWRUyBRmyN6YpzTl1piL2xyuuFHSrlojBRZe9jeYOghi9UElZb3gs3QA4HXgEJm_MQiPolcZt5F8q2CDXsN5YU7qhNUWCkzAMN_J-3NHTxuTKnvUzVi-CL2GNkqdi3tc2v2EvKjkz63wQvm2hluGLYNXs6tjBhm8B143GbmSAkA-KFjpt0MC4wM9V8YE-UNrGUFwdyXOpt56nR-_y1
 
-.. list-table:: Digital Credential Catalogue - Main information
+
+La seguente tabella riassume le principali informazioni che DEVONO essere fornite dal Catalogo degli Attestati Elettronici:
+
+.. list-table:: Catalogo degli Attestati Elettronici - Informazioni principali
    :class: longtable
    :widths: 30 70
    :header-rows: 1
 
-   * - Information related to
-     - Description
-   * - Digital Credential Metadata
-     - Essential identifying information and characteristics of the Digital Credential, including:
+   * - Informazioni relative a
+     - Descrizione
+   * - Metadati dell'Attestato Elettronico
+     - Informazioni identificative essenziali e caratteristiche dell'Attestato Elettronico, tra cui:
 
-       - **Credential Unique identifier**: A unique identifier string of each Digital Credential.
-       - **User authentication methods**: User authentication mechanisms used to request the Digital Credential, if required by Issuers or Authentic Sources.
-       - **Minimum Level of Assurance**: The minimum Level of Assurance required for the Digital Credential's reliability. It MUST take into account the Level of Assurance of User authentication, when applicable, and Wallet Instance.
-       - **Additional display characteristics**: Visual and formatting specifications, such as a background reference image, logo, etc.
-   * - Digital Credential Issuers
-     - Details about the organization authorized to issue the Digital Credential, such as:
+       - **Identificatore univoco dell'Attestato Elettronico**: Una stringa che identificativa univocamente il tipo di Attestato Elettronico.
+       - **Metodi di autenticazione dell'Utente**: Meccanismi di autenticazione dell'Utente utilizzati per richiedere l'Attestato Elettronico, se richiesti dai Fornitori di Attestati Elettronici o dalle Fonti Autentiche.
+       - **Livello minimo di Garanzia**: Il Livello di Garanzia minimo richiesto per l'affidabilità dell'Attestato Elettronico. DEVE tenere conto del Livello di Garanzia dell'autenticazione dell'Utente, quando applicabile, e dell'Istanza del Wallet.
+       - **Caratteristiche di visualizzazione aggiuntive**: Specifiche visive e di formattazione, come un'immagine di riferimento di sfondo, logo, ecc.
+   * - Fornitori di Attestati Elettronici
+     - Dettagli sull'organizzazione autorizzata a emettere l'Attestato Elettronico, come:
 
-       - **Issuer identifiers**: Unique identifier for the Digital Credential issuer.
-       - **Issuer type**: Classification as PID, (Q)EAA, or Pub-EAA Provider.
-       - **Additional information**: Organizational details including name, code, and contact information.
-   * - Authentic Sources
-     - Information about the authoritative data source, such as:
+       - **Identificatori del Fornitore di Attestati Elettronici**: Identificativo univoco del Fornitore dell'Attestato Elettronico.
+       - **Tipologia di Fornitore di Attestati Elettronici**: Classificazione come ad esempio Fornitore di Attestati Elettronici di Dati di Identificazione Personale, Fornitore di Attestati Elettronici di Attributi (Qualificati) o Fornitore di Attestati Elettronici Pubblici di Attributi.
+       - **Informazioni aggiuntive**: Dettagli amministrativi come la denominazione, un codice amministrativo e informazioni di contatto.
+   * - Fonti Autentiche
+     - Informazioni sulla Fonte Autentica dei dati, come:
 
-       - **Authentic Source identifiers**: Unique identifier for the Digital Credential's authoritative source.
-       - **Authentic Source type**: Classification as Public or Private entity.
-       - **Additional information**: Organizational details including name, code, and contact information.
-   * - Technical Specification
-     - Technical details, including:
+       - **Identificativi della Fonte Autentica**: Identificativo univoco della Fonte Autentica dell'Attestato Elettronico.
+       - **Tipologia di Fonte Autentica**: Classificazione come Entità Pubblica o Privata.
+       - **Informazioni aggiuntive**: Dettagli amministrativi come la denominazione, un codice amministrativo e informazioni di contatto.
+   * - Specifiche Tecniche
+     - Dettagli tecnici, tra cui:
 
-       - **Digital Credential schemes**: Framework and structure specifications.
-       - **Digital Credential formats**: Data format and encoding standards.
-       - **Authentication policy**: Methods and requirements for verification.
-   * - Terms of Use
-     - Conditions and limitations for Digital Credential usage, such as:
+       - **Schemi dell'Attestato Elettronico**: Specifiche relative a framework e struttura dati.
+       - **Formati dell'Attestato Elettronico**: Standard di formato dati e codifica.
+       - **Policy di autenticazione**: Metodi e requisiti per la verifica.
+   * - Termini di Utilizzo
+     - Condizioni e limitazioni per l'utilizzo dell'Attestato Elettronico, come:
 
-       - **Credential validity**: Time period during which the Digital Credential is valid and, when applicable, mechanisms and technical details for invalidating Digital Credentials (revocation/suspension methods).
-       - **Restriction policy**: If applicable, rules governing the Digital Credential's use and limitations according to national regulations. It is used, for example, to specify if only specific legal type Entities, for example Pub-EAA Provider and public Wallet Solutions, are allowed to issue and obtain the Digital Credential.
-       - **Pricing policy**: Information related to pricing models of Digital Credential, such as `free`, `issuance_based`, `verification_based`.
-       - **Digital Credential purposes**: Information related to the allowed purposes for which the Digital Credential can be used. Each Digital Credential type can be used for multiple purposes.
-   * - Claims and Taxonomy References
-     - Content and classification information:
+       - **Validità della Credenziale**: Periodo di tempo durante il quale l'Attestato Elettronico è valido e, quando applicabile, meccanismi e dettagli tecnici per invalidare gli Attestati Elettronici (metodi di revoca/sospensione).
+       - **Policy di restrizione**: Se applicabile, regole che governano l'uso dell'Attestato Elettronico e limitazioni secondo le normative nazionali. È utilizzata, ad esempio, per specificare se solo tipologie specifiche di Entità autorizzate, ad esempio Fornitore di Attestati Elettronici Pubblici di Attributi e Soluzioni Wallet pubbliche, possono emettere e ottenere l'Attestato Elettronico.
+       - **Pricing Policy**: Informazioni relative ai modelli tariffari dell'Attestato Elettronico, come `free`, `issuance_based`, `verification_based`.
+       - **Scopi dell'Attestato Elettronico**: Informazioni relative agli scopi consentiti per cui l'Attestato Elettronico può essere utilizzato. Ogni tipo di Attestato Elettronico può essere utilizzato per più scopi.
+   * - Attributi dell'Utente e Riferimenti Tassonomici
+     - Informazioni sul contenuto e sulla classificazione:
 
-       - **List of displayed claims**: Specific Digital Credential content displayed to the User.
-       - **Structured taxonomy references**: Classification systems and controlled vocabularies used.
+       - **Elenco degli attributi visualizzati**: Contenuto specifico dell'Attestato Elettronico visualizzato all'Utente.
+       - **Riferimenti tassonomici strutturati**: Sistemi di classificazione e vocabolari controllati utilizzati.
 
 
-The Trust Anchor MUST publish and keep up to date all the information at the Digital Credential Catalogue `.well-known` endpoint ensuring data reliability, authenticity and integrity. In particular, the Digital Credential Catalogue, claims and taxonomy MUST be available through the ``.well-known/credential-catalogue`` endpoint.
+Il Trust Anchor DEVE pubblicare e mantenere aggiornate tutte le informazioni all'endpoint `.well-known` del Catalogo degli Attestati Elettronici garantendo l'affidabilità, l'autenticità e l'integrità dei dati. In particolare, il Catalogo degli Attestati Elettronici, gli attributi e la tassonomia DEVONO essere disponibili attraverso l'endpoint ``.well-known/credential-catalogue``.
 
-Digital Credentials Categories
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Categorie di Attestati Elettronici
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Digital Credentials recognized within the IT-Wallet ecosystem are hierarchically classified and standardized according to the following main domains and categories. Additional categories MAY be added as the IT-Wallet ecosystem grows.
+Gli Attestati Elettronici riconosciuti all'interno dell'ecosistema IT-Wallet sono classificati gerarchicamente e standardizzati secondo i seguenti domini e categorie principali. Categorie aggiuntive POSSONO essere aggiunte man mano che l'ecosistema IT-Wallet cresce.
 
-.. list-table:: Digital Credential Domains and Categories
+.. list-table:: Domini e Categorie degli Attestati Elettronici
    :class: longtable
    :header-rows: 1
    :widths: 20 30 50
 
-   * - **Domain**
-     - **Category**
-     - **Description**
+   * - **Dominio**
+     - **Categoria**
+     - **Descrizione**
    * - *IDENTITY*
      - * PERSON_IDENTIFICATION
        * ELECTRONIC_RESIDENCY
-     - Credentials that establish or verify the identity of a person, including physical and digital identity documents legally recognized by national laws.
+     - Attestati Elettronici che stabiliscono o verificano l'identità di una persona, inclusi documenti di identità fisici e digitali legalmente riconosciuti dalle leggi nazionali.
    * - *AUTHORIZATION*
      - * DRIVING_LICENSE
        * PROFESSIONAL_LICENSE
        * TRAVEL_DOCUMENT
        * ACCESS_PERMIT
-     - Credentials that grant specific permissions, rights or authorizations to perform certain activities or access restricted areas.
+     - Attestati Elettronici che concedono permessi specifici, diritti o autorizzazioni per svolgere determinate attività o accedere ad aree ristrette.
    * - *EDUCATION*
      - * ACADEMIC_DEGREE
        * CERTIFICATE
        * TRAINING_RECOGNITION
-     - Credentials related to educational achievements, qualifications, and professional training recognition.
+     - Credenziali relative a titoli di studio, qualifiche e certificati professionali.
    * - *HEALTH*
      - * INSURANCE_CARD
        * DISABILITY_CARD
        * MEDICAL_PRESCRIPTION
-     - Credentials related to healthcare access, medical history, insurance coverage, and health-related documents.
+     - Attestati Elettronici relativi all'accesso all'assistenza sanitaria, alla storia medica, alla copertura assicurativa e ai documenti relativi alla salute.
    * - *FINANCIAL*
      - * INCOME_CERTIFICATE
        * TAX_STATEMENT
        * FAMILY_ECONOMIC_STATUS
-     - Credentials that attest to financial status, income levels, taxation, or economic situation of individuals or families.
+     - Attestati Elettronici che attestano lo stato finanziario, i livelli di reddito, la tassazione o la situazione economica di individui o famiglie.
    * - *MEMBERSHIP*
      - * ASSOCIATION
        * LOYALTY_PROGRAM
        * CLUB_MEMBERSHIP
-     - Credentials that confirm affiliation with organizations, participation in programs, or membership status.
+     - Attestati Elettronici che confermano l'affiliazione a organizzazioni, la partecipazione a programmi o lo stato di appartenenza.
    * - *ATTESTATION*
      - * PUBLIC_STATEMENT
        * CIVIL_STATUS
        * CERTIFICATION
-     - Credentials that provide official statements, confirmations of status, or certifications issued by authorities.
+     - Attestati Elettronici che forniscono dichiarazioni ufficiali, conferme di stato o certificazioni rilasciate dalle autorità.
 
 
-Digital Credentials Catalogue Structure
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Struttura del Catalogo degli Attestati Elettronici
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Digital Credentials Catalogue contents is secured in a JWS that contains the following JOSE header parameters:
+Il contenuto del Catalogo degli Attestati Elettronici è protetto in un JWS che contiene i seguenti parametri dell'header JOSE:
 
 .. _table_catalogue_parameters:
 .. list-table::
@@ -145,127 +151,127 @@ Digital Credentials Catalogue contents is secured in a JWS that contains the fol
    :header-rows: 1
    :widths: 25 50 25
 
-   * - JOSE header
-     - Description
-     - Reference
+   * - Header JOSE
+     - Descrizione
+     - Riferimento
    * - **typ**
-     - REQUIRED. It MUST be set to ``JOSE``.
-     - [:rfc:`7515` Section 4.1.9].
+     - OBBLIGATORIO. DEVE essere valorizzato con la stringa ``JOSE``.
+     - [:rfc:`7515` Sezione 4.1.9].
    * - **alg**
-     - REQUIRED. A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms in Section :ref:`Cryptographic Algorithms <algorithms:Cryptographic Algorithms>` and MUST NOT be set to ``none`` or with a symmetric algorithm (MAC) identifier.
-     - [:rfc:`7515` Section 4.1.1].
+     - OBBLIGATORIO. Un identificativo di algoritmo di firma digitale come da registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati nella Sezione :ref:`Algoritmi Crittografici <algorithms:Algoritmi Crittografici>` e NON DEVE essere impostato a ``none`` o con un identificativo di algoritmo simmetrico (MAC).
+     - [:rfc:`7515` Sezione 4.1.1].
    * - **kid**
-     - REQUIRED. Unique identifier of the public key.
-     - [:rfc:`7515` Section 4.1.4].
+     - OBBLIGATORIO. Identificativo univoco della chiave pubblica.
+     - [:rfc:`7515` Sezione 4.1.4].
    * - **x5c**
-     - OPTIONAL. Contains the X.509 public key Certificate or Certificate chain [:rfc:`5280`] corresponding to the key used to digitally sign the JWS. When the header parameter `kid` value is present, it MUST refer to the same leaf's cryptographic public key used with the X.509 Certificate.
-     - [:rfc:`7515` Section 4.1.6.].
+     - OPZIONALE. Contiene il Certificato di chiave pubblica X.509 o la catena di Certificati [:rfc:`5280`] corrispondente alla chiave utilizzata per firmare digitalmente il JWS. Quando il valore del parametro dell'header `kid` è presente, DEVE riferirsi alla stessa chiave pubblica crittografica della foglia attestata dal Certificato X.509.
+     - [:rfc:`7515` Sezione 4.1.6.].
    * - **cty**
-     - REQUIRED. It MUST be set to ``application/json``.
-     - [:rfc:`7515` Section 4.1.6.].
+     - OBBLIGATORIO. DEVE essere impostato a ``application/json``.
+     - [:rfc:`7515` Sezione 4.1.6.].
 
-The JWS payload contains the following parameters:
+Il payload JWS contiene i seguenti parametri:
 
-.. list-table:: First-level Fields of the Catalog
+.. list-table:: Campi di primo livello del Catalogo
    :class: longtable
    :header-rows: 1
    :widths: 30 70
 
-   * - Field Name
-     - Description
+   * - Nome
+     - Descrizione
    * - **catalog_version**
-     - REQUIRED. Version of the Digital Credential Catalogue format.
+     - OBBLIGATORIO. Versione del formato del Catalogo degli Attestati Elettronici.
    * - **iss**
-     - REQUIRED. Issuer identifier of the Digital Credential Catalogue.
+     - OBBLIGATORIO. Identificativo del Fornitore del Catalogo degli Attestati Elettronici.
    * - **last_modified**
-     - REQUIRED. Timestamp of the last modification to the Digital Credential Catalogue.
+     - OBBLIGATORIO. Timestamp dell'ultima modifica al Catalogo degli Attestati Elettronici.
    * - **taxonomy_uri**
-     - REQUIRED. URI of the claims taxonomy reference document.
+     - OBBLIGATORIO. URI del documento di riferimento della tassonomia degli attributi.
    * - **taxonomy_uri#integrity**
-     - OPTIONAL. Cryptographic digest of the taxonomy document for integrity verification.
+     - OPZIONALE. Digest crittografico del documento di tassonomia per la verifica dell'integrità.
    * - **credentials**
-     - REQUIRED. Array containing Digital Credential definitions.
+     - OBBLIGATORIO. Array contenente le definizioni degli Attestati Elettronici.
 
-Each element of the ``credentials`` array contains at least the following information:
+Ogni elemento dell'array ``credentials`` contiene almeno le seguenti informazioni:
 
-.. list-table:: First-level Fields of Each Credential Entry
+.. list-table:: Campi di primo livello di ogni voce di Credenziale
    :class: longtable
    :header-rows: 1
    :widths: 30 70
 
-   * - Field Name
-     - Description
+   * - Nome del Campo
+     - Descrizione
    * - **version**
-     - REQUIRED. Version of the Digital Credential definition.
+     - OBBLIGATORIO. Versione della definizione dell'Attestato Elettronico.
    * - **credential_type**
-     - REQUIRED. Unique identifier of the Digital Credential type.
+     - OBBLIGATORIO. Identificativo univoco del tipo di Attestato Elettronico.
    * - **legal_type**
-     - REQUIRED. Legal classification of the Credential (e.g., ``pub-eaa``, ``qeaa``, ``eaa``).
+     - OBBLIGATORIO. Classificazione legale della Credenziale (es., ``pub-eaa``, ``qeaa``, ``eaa``).
    * - **localization**
-     - OPTIONAL. Localization settings, including:
+     - OPZIONALE. Impostazioni di localizzazione, inclusi:
 
-       * **default_locale**: Default language for text.
-       * **available_locales**: List of supported languages.
-       * **base_uri**: Base URI for localization resources.
-       * **version**: Version of the localization files.
+       * **default_locale**: localizzazione predefinita per il testo.
+       * **available_locales**: Elenco delle localizzazioni supportate.
+       * **base_uri**: URI base per le risorse di localizzazione.
+       * **version**: Versione dei file di localizzazione.
    * - **name**
-     - REQUIRED. Human-readable name of the Digital Credential. A suffix ``_l10n_id`` MAY be added for content localisation management.
+     - OBBLIGATORIO. Nome *human-readable* dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
    * - **description**
-     - REQUIRED. Human-readable Digital Credential description. A suffix ``_l10n_id`` MAY be added for content localisation management.
+     - OBBLIGATORIO. Descrizione *human-readable* dell'Attestato Elettronico. Un suffisso ``_l10n_id`` PUÒ essere aggiunto per la gestione della localizzazione del contenuto.
    * - **restriction_policy**
-     - OPTIONAL. Legal restrictions on Wallet Solutions and/or Credential Issuers allowed to request/issue the Digital Credential.
+     - OPZIONALE. Restrizioni legali sulle Soluzioni tecniche di Fornitori di Wallet e/o di Attestati Elettronici autorizzati a richiedere/emettere un Attestato Elettronico.
 
-       * **allowed_wallet_ids**: List of allowed Wallet Solutions identifiers.
-       * **allowed_issuer_ids**: List of allowed Credential Issuers identifiers. If present, it represents a whitelist of Credential Issuers that may be added by the Trust Anchor in the **issuers** field of the corresponding Digital Credential.
+       * **allowed_wallet_ids**: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Wallet consentite.
+       * **allowed_issuer_ids**: Elenco degli identificativi delle Soluzioni Tecniche dei Fornitori di Attestati Elettronici autorizzati. Se presente, rappresenta una whitelist di Fornitori di Attestati Elettronici che possono essere aggiunti dal Trust Anchor nel campo **issuers** del corrispondente Attestato Elettronico.
    * - **pricing_policy**
-     - OPTIONAL. Information about Digital Credential pricing, including:
+     - OPZIONALE. Informazioni sui tariffari dell'Attestato Elettronico, come ad esempio:
 
-       * **models**: REQUIRED. Array of pricing models applicable to the Digital Credential, each containing:
+       * **models**: OBBLIGATORIO. Array di modelli di tariffari applicabili all'Attestato Elettronico, ciascuno contenente
 
-         - **pricing_type**: Type of pricing model, such as ``issuance_based``, ``verification_based``, ``subscription_based``, ``other``.
-         - **price**: Cost associated with the model.
-         - **currency**: Currency of the price.
+         - **pricing_type**: Tipo di modello di tariffario, come ``issuance_based``, ``verification_based``, ``subscription_based``, ``other``.
+         - **price**: Costo associato al modello.
+         - **currency**: Valuta della tariffa.
 
-       * **pricing_model_uri**: URI to the detailed pricing model documentation.
+       * **pricing_model_uri**: URI alla documentazione dettagliata del modello di tariffario.
    * - **validity_info**
-     - Information about Digital Credential validity, including at least:
+     - Informazioni sulla validità dell'Attestato Elettronico, inclusi almeno:
 
-       * **max_validity_days**: Maximum validity period in days.
-       * **status_methods**: Supported status verification methods (e.g. ``status_list``).
-       * **allowed_states**: Allowed Digital Credential states (e.g. ``valid``, ``revoked``, ``suspended``).
+       * **max_validity_days**: Periodo massimo di validità in giorni.
+       * **status_methods**: Metodi di verifica dello stato supportati (es. ``status_list``).
+       * **allowed_states**: Stati consentiti dell'Attestato Elettronico (es. ``valid``, ``revoked``, ``suspended``).
    * - **authentication**
-     - REQUIRED. Digital Credential authentication requirements
+     - OBBLIGATORIO. Requisiti di autenticazione dell'Attestato Elettronico
 
-       * **user_auth_required**: REQUIRED. Flag indicating if User authentication is required during the issuance of the Digital Credential.
-       * **min_loa**: REQUIRED. Minimum Level of Assurance required for Digital Credential authentication. It MUST include the Level of Assurance of the User authentication and the Wallet Instance requesting the Digital Credential.
-       * **supported_eid_schemes**: REQUIRED if ``user_auth_required`` is ``true``. Supported digital identity authentication schemes.
+       * **user_auth_required**: OBBLIGATORIO. Flag che indica se l'autenticazione dell'Utente è richiesta durante l'emissione dell'Attestato Elettronico.
+       * **min_loa**: OBBLIGATORIO. Livello minimo di Garanzia richiesto per l'autenticazione dell'Attestato Elettronico. DEVE includere il Livello di Garanzia dell'autenticazione dell'Utente e dell'Istanza del Wallet che richiede l'Attestato Elettronico.
+       * **supported_eid_schemes**: OBBLIGATORIO se ``user_auth_required`` è ``true``. Schemi di autenticazione dell'identità digitale supportati.
    * - **purposes**
-     - REQUIRED. Array of usage purposes for which the Digital Credential can be used, defining specific usage contexts and required claims for each purpose, such as:
+     - OBBLIGATORIO. Array di scopi o ambiti specifici per cui l'Attestato Elettronico può essere utilizzato, definendo contesti di utilizzo specifici e attributi richiesti per ciascuno scopo, come:
 
-       * **id**: Unique identifier for the purpose (e.g., "driving-authorization", "person-identification").
-       * **description**: Human-readable purpose description with a suffix ``_l10n_id`` for content localisation.
-       * **category**: Main category in the Credential taxonomy (e.g., ``AUTHORIZATION``, ``IDENTITY``).
-       * **subcategory**: Subcategory within the taxonomy (e.g., ``DRIVING_LICENSE``, ``PERSON_IDENTIFICATION``).
-       * **claims_required**: Array of claim identifiers that are required when using the Credential for this purpose.
-       * **claims_recommended**: Array of claim identifiers that are recommended but not mandatory for this purpose.
+       * **id**: Identificativo univoco per lo scopo (es., "driving-authorization", "person-identification").
+       * **description**: Descrizione *human-readable* dello scopo con un suffisso ``_l10n_id`` per la localizzazione del contenuto.
+       * **category**: Categoria principale nella tassonomia della Credenziale (es., ``AUTHORIZATION``, ``IDENTITY``).
+       * **subcategory**: Sottocategoria all'interno della tassonomia (es., ``DRIVING_LICENSE``, ``PERSON_IDENTIFICATION``).
+       * **claims_required**: Array di identificativi di claims che sono richiesti quando si utilizza l'Attestato Elettronico per questo scopo.
+       * **claims_recommended**: Array di identificativi di claims che sono raccomandati ma non obbligatori per questo scopo.
    * - **issuers**
-     - REQUIRED. Array of relevant information about authorized Credential Issuers, including administrative and technical data such as Organization name, a reference to the API specification document and supported issuance mechanisms (for example the deferred flow support).
+     - OBBLIGATORIO. Array di informazioni rilevanti sui Fornitori di Attestato Elettronico autorizzati, inclusi dati amministrativi e tecnici come il nome dell'Organizzazione, un riferimento al documento di specifiche API e meccanismi di emissione supportati (ad esempio il supporto al *deferred flow*).
    * - **authentic_sources**
-     - REQUIRED. Array of relevant information about authorized Authentic Sources, including administrative and technical data related the provisioning of data to the Credential Issuers.
+     - OBBLIGATORIO. Array di informazioni rilevanti sulle Fonti Autentiche autorizzate, inclusi dati amministrativi e tecnici relativi alla fornitura di dati ai Fornitori di Attestato Elettronico.
    * - **formats**
-     - REQUIRED. Array of supported technical formats of Digital Credentials.
+     - OBBLIGATORIO. Array di formati tecnici supportati degli Attestati Elettronici.
    * - **display_properties**
-     - REQUIRED. Visual presentation properties of Digital Credentials, e.g.:
+     - OBBLIGATORIO. Proprietà di presentazione visiva degli Attestati Elettronici, ad es.:
 
-       * **templates**: Visual templates for the Credential, e.g. `svg` template.
-       * **background_color**: Background color in hexadecimal format.
-       * **text_color**: Text color in hexadecimal format.
-       * **logo_uri**: URI to the Digital Credential logo.
+       * **templates**: Modelli visivi per l'Attestato Elettronico, ad es. template `svg`.
+       * **background_color**: Colore di sfondo in formato esadecimale.
+       * **text_color**: Colore del testo in formato esadecimale.
+       * **logo_uri**: URI al logo dell'Attestato Elettronico.
    * - **claims**
-     - REQUIRED. Array of claims contained in the Digital Credential.
+     - OBBLIGATORIO. Array di claims contenuti nell'Attestato Elettronico.
 
 
-The corresponding example of Digital Credentials Catalogue as decoded in JSON for both header and payload is the following:
+L'esempio corrispondente del Catalogo degli Attestati Elettronici decodificato in JSON sia per l'header che per il payload è il seguente:
 
 .. literalinclude:: ../../examples/catalogue-example-header.json
   :language: JSON
@@ -274,14 +280,14 @@ The corresponding example of Digital Credentials Catalogue as decoded in JSON fo
   :language: JSON
 
 .. note::
-  For a better and more efficient management of the localisation of the information contained in the Digital Credentials Catalogue, an Entity consulting it SHOULD:
+  Per una gestione migliore e più efficiente della localizzazione delle informazioni contenute nel Catalogo degli Attestati Elettronici, un'Entità che lo consulta DOVREBBE:
 
-    - Download the basic version of the Digital Credentials Catalogue (compact, without localisations) using the ``.well-known/credential-catalogue`` endpoint.
-    - Determine the User's preferred language.
-    - Download only the necessary localisation bundles.
-    - Dynamically merge localised content with the Digital Credentials Catalogue structure.
+    - Scaricare la versione base del Catalogo degli Attestati Elettronici (compatta, senza localizzazioni) utilizzando l'endpoint ``.well-known/credential-catalogue``.
+    - Determinare la lingua preferita dell'Utente.
+    - Scaricare solo i bundle di localizzazione necessari.
+    - Unire dinamicamente il contenuto localizzato con la struttura del Catalogo degli Attestati Elettronici.
 
-  A non-normative example of a localisation bundle output is given below:
+  Un esempio non normativo di output di un bundle di localizzazione è fornito di seguito:
 
     .. code-block:: json
 
@@ -294,32 +300,32 @@ The corresponding example of Digital Credentials Catalogue as decoded in JSON fo
         "...": "..."
       }
 
-  Localization bundles MUST be available at the URI specified in the **localization_info.bundles_base_uri** claim of the Digital Credentials Catalogue. Each locale bundle MUST be accessible following the naming pattern **{locale_code}.json**, where **{locale_code}** is replaced with the corresponding locale code from the **available_locales** array.
+  I bundle di localizzazione DEVONO essere disponibili all'URI specificato nel claim **localization_info.bundles_base_uri** del Catalogo degli Attestati Elettronici. Ogni *bundle locale* DEVE essere accessibile seguendo il pattern di denominazione **{locale_code}.json**, dove **{locale_code}** è sostituito con il codice di localizzazione corrispondente dall'array **available_locales**.
 
-  A non-normative example of the Italian localization URI for the mDL bundle would be **https://trust-registry.eid-wallet.example.it/.well-known/l10n/mdl/it.json**.
+  Un esempio non normativo dell'URI di localizzazione italiana per il bundle mDL è **https://trust-registry.eid-wallet.example.it/.well-known/l10n/mdl/it.json**.
 
-  Entities SHOULD verify the integrity of downloaded localization bundles using the digest method and values specified in the **localization_info.integrity** claim. This ensures that the localization data has not been tampered with during transmission.
+  Le Entità DOVREBBERO verificare l'integrità dei bundle di localizzazione scaricati utilizzando il metodo di digest e i valori specificati nel claim **localization_info.integrity**. Questo garantisce che i dati di localizzazione non siano stati manomessi durante la trasmissione.
 
 
-Claims Taxonomy
-^^^^^^^^^^^^^^^^
+Tassonomia degli Attributi
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Digital Credential Catalogue, MUST include also a reference URI to Claim Taxonomy providing, in a single resource, the semantic information of all registered and available claims within the IT-Wallet ecosystem. It MUST be Credential format neutral and has the aim of facilitating Digital Credentials integrations in the IT-Wallet Technical Solutions.
+Il Catalogo degli Attestati Elettronici DEVE includere anche un URI di riferimento alla Tassonomia degli Attributi che fornisce, in un'unica risorsa, le informazioni semantiche di tutti gli attributi registrati e disponibili all'interno dell'ecosistema IT-Wallet. DEVE essere neutrale rispetto al formato della Credenziale e ha lo scopo di facilitare le integrazioni degli Attestati Elettronici nelle Soluzioni Tecniche IT-Wallet.
 
-A non-normative example of the Claim Taxonomy is given below.
+Un esempio non normativo della Tassonomia degli Attributi è fornito di seguito.
 
 .. literalinclude:: ../../examples/catalogue-claims-taxonomy.json
   :language: JSON
 
 
-Digital Credentials Catalogue Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The Digital Credentials Catalogue Endpoint MUST be a well-known HTTPS URI [:rfc:`8615`] that provides public access to information related to the Credentials available in IT-Wallet.
+Endpoint del Catalogo degli Attestati Elettronici
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+L'Endpoint del Catalogo degli Attestati Elettronici DEVE essere un URI HTTPS *well-known* [:rfc:`8615`] che fornisce accesso pubblico alle informazioni relative agli Attestati Elettronici disponibili in IT-Wallet.
 
-Digital Credentials Catalogue Request
----------------------------------------
+Richiesta del Catalogo degli Attestati Elettronici
+--------------------------------------------------
 
-The Digital Credentials Catalogue Request MUST be an HTTP GET using the application/jose media type as in the following non-normative example.
+La Richiesta del Catalogo degli Attestati Elettronici DEVE essere una GET HTTP utilizzando il *media type* ``application/jose`` come nel seguente esempio non normativo.
 
 .. code-block:: http
 
@@ -328,15 +334,15 @@ The Digital Credentials Catalogue Request MUST be an HTTP GET using the applicat
     Content-Type: application/jose
 
 .. note::
-  As a future enhancement, the Trust Anchor MAY implement a dynamic endpoint that enables filtering credentials by type, while offering pagination capabilities, to support more efficient and flexible browsing of the Digital Credentials Catalogue.
+  Come miglioramento futuro, il Trust Anchor PUÒ implementare un endpoint dinamico che consenta di filtrare gli Attestati Elettronici per tipo, offrendo al contempo capacità di paginazione, per supportare una navigazione più efficiente e flessibile del Catalogo degli Attestati Elettronici.
 
 
-Digital Credentials Catalogue Response
-----------------------------------------
+Risposta del Catalogo degli Attestati Elettronici
+-------------------------------------------------
 
-The Digital Credentials Catalogue Response MUST be a JWS that contains the parameters listed in the :ref:`table of Digital Credentials Catalogue parameters <table_catalogue_parameters>`.
+La Risposta del Catalogo degli Attestati Elettronici DEVE essere un JWS che contiene i parametri elencati nella :ref:`tabella dei parametri del Catalogo degli Attestati Elettronici <table_catalogue_parameters>`.
 
-A non-normative example of the response is provided below.
+Un esempio non normativo della risposta è fornito di seguito.
 
 .. literalinclude:: ../../examples/catalogue-example-jws.txt
   :language: text

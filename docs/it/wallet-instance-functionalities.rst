@@ -1,28 +1,25 @@
 .. include:: ../common/common_definitions.rst
 
+Funzionalità dell'Istanza del Wallet
+====================================
 
-Wallet Instance Functionalities
-===============================
+Un'Istanza del Wallet DEVE supportare le seguenti funzionalità:
 
-A Wallet Instance, MUST support the following functionalities:
+  - Registrazione del Wallet (dettagliata in :ref:`wallet-instance-registration:Inizializzazione e Registrazione dell'Istanza del Wallet`),
+  - Emissione dell'Attestato del Wallet (dettagliata in :ref:`wallet-attestation-issuance:Emissione della Wallet Attestation`),
+  - Revoca del Wallet (dettagliata in :ref:`wallet-instance-revocation:Revoca dell'Istanza del Wallet`) e
+  - Cancellazione degli attributi presentati (dettagliata in :ref:`user-attribute-deletion:Eliminazione degli Attributi dell'Utente`).
 
-  - Wallet Registration (detailed in :ref:`wallet-instance-registration:Wallet Instance Initialization and Registration`),
-  - Wallet Attestation Issuance (detailed in :ref:`wallet-attestation-issuance:Wallet Attestation Issuance`),
-  - Wallet Revocation (detailed in :ref:`wallet-instance-revocation:Wallet Instance Revocation`) and
-  - Deletion of presented attributes (detailed in :ref:`user-attribute-deletion:User's Attributes Deletion`).
-
-Each functionality is described in detail in the following sections.
+Ciascuna funzionalità è descritta in dettaglio nelle sezioni seguenti.
 
 .. note::
-  The details provided below are non-normative and are intended to clarify the functionalities of the Wallet Instance Registration. The actual implementation may vary based on the specific use case and requirements of the Wallet Provider.
+  I dettagli forniti di seguito sono non normativi e hanno lo scopo di chiarire le funzionalità della Registrazione dell'Istanza del Wallet. L'implementazione effettiva può variare in base al caso d'uso specifico e ai requisiti del Fornitore di Wallet.
 
 .. toctree::
-  :caption: Wallet Instance Functionalities Table of Contents
+  :caption: Indice delle Funzionalità dell'Istanza del Wallet
   :maxdepth: 3
 
   wallet-instance-registration.rst
   wallet-attestation-issuance.rst
   wallet-instance-revocation.rst
   user-attribute-deletion.rst
-
-

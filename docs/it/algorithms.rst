@@ -1,54 +1,54 @@
 .. include:: ../common/common_definitions.rst
 
 
-Cryptographic Algorithms
-========================
+Algoritmi Crittografici
+=======================
 
-The following algorithms MUST be supported:
+I seguenti algoritmi DEVONO essere supportati:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 20 20
   :header-rows: 1
 
-  * - **Algorithm `alg` parameter value**
-    - **Description**
-    - **Operations**
-    - **References**
+  * - **Valore del parametro `alg` dell'algoritmo**
+    - **Descrizione**
+    - **Operazioni**
+    - **Riferimenti**
   * - **ES256**
-    - Elliptic Curve Digital Signature Algorithm (ECDSA) using one of the enabled curves listed in the section below and SHA256.
-    - Signature
+    - Elliptic Curve Digital Signature Algorithm (ECDSA) utilizzando una delle curve abilitate elencate nella sezione seguente e SHA256.
+    - Firma
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_, `[ETSI] <https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.04.03_60/ts_119312v010403p.pdf>`_ .
   * - **ES384**
-    - Elliptic Curve Digital Signature Algorithm (ECDSA) using one of the enabled curves listed in the section below and SHA384.
-    - Signature
+    - Elliptic Curve Digital Signature Algorithm (ECDSA) utilizzando una delle curve abilitate elencate nella sezione seguente e SHA384.
+    - Firma
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_, `[ETSI] <https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.04.03_60/ts_119312v010403p.pdf>`_ .
   * - **ES512**
-    - Elliptic Curve Digital Signature Algorithm (ECDSA) using one of the enabled curves listed in the section below and SHA521.
-    - Signature
+    - Elliptic Curve Digital Signature Algorithm (ECDSA) utilizzando una delle curve abilitate elencate nella sezione seguente e SHA521.
+    - Firma
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_, `[ETSI] <https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.04.03_60/ts_119312v010403p.pdf>`_ .
   * - **RSA-OAEP-256**
-    - RSA Encryption Scheme with Optimal Asymmetric Encryption Padding (OAEP) using SHA256 hash function and the MGF1 with SHA-256 mask generation function.
-    - Key Encryption
+    - RSA Encryption Scheme con Optimal Asymmetric Encryption Padding (OAEP) utilizzando la funzione di hash SHA256 e la funzione di generazione MGF1 con SHA-256.
+    - Cifratura delle Chiavi
     - :rfc:`7516`, :rfc:`7518`.
   * - **A128CBC-HS256**
-    - AES encryption in Cipher Block Chaining mode with 128-bit Initial Vector value, plus HMAC authentication using SHA-256 and truncating HMAC to 128 bits.
-    - Content Encryption
+    - Cifratura AES in modalità Cipher Block Chaining con valore Initial Vector a 128 bit, più autenticazione HMAC utilizzando SHA-256 e troncando HMAC a 128 bit.
+    - Cifratura del Contenuto
     - :rfc:`7516`, :rfc:`7518`.
   * - **A256CBC-HS512**
-    - AES encryption in Cipher Block Chaining mode with 256-bit Initial Vector value, plus HMAC authentication using SHA-512 and truncating HMAC to 256 bits.
-    - Content Encryption
+    - Cifratura AES in modalità Cipher Block Chaining con valore Initial Vector a 256 bit, più autenticazione HMAC utilizzando SHA-512 e troncando HMAC a 256 bit.
+    - Cifratura del Contenuto
     - :rfc:`7516`, :rfc:`7518`.
 
-The following Elliptic Curves MUST be supported for the Elliptic Curve Digital Signature Algorithm:
+Le seguenti Curve Ellittiche DEVONO essere supportate per l'Elliptic Curve Digital Signature Algorithm:
 
 .. list-table::
   :widths: 20 20 20
   :header-rows: 1
 
-  * - **Curve Family**
-    - **Short Curve Name**
-    - **References**
+  * - **Famiglia di Curve**
+    - **Nome Breve della Curva**
+    - **Riferimenti**
   * - **Brainpool**
     - brainpoolP256r1, brainpoolP384r1, brainpoolP512r1.
     - :rfc:`5639`, `[ETSI] <https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.04.03_60/ts_119312v010403p.pdf>`_ .
@@ -56,101 +56,98 @@ The following Elliptic Curves MUST be supported for the Elliptic Curve Digital S
     - P-256, P-384, P-521
     - `[ETSI] <https://www.etsi.org/deliver/etsi_ts/119300_119399/119312/01.04.03_60/ts_119312v010403p.pdf>`_, `[FIPS-186-4] <https://www.nist.gov/publications/digital-signature-standard-dss-2>`_, `[ISO/IEC 14888-3] <https://www.iso.org/standard/76382.html>`_.
 
-For Credential issued in mdoc format, the following algorithms MUST be supported:
+Per le Credenziali emesse in formato mdoc, i seguenti algoritmi DEVONO essere supportati:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 20 20
   :header-rows: 1
 
-  * - **Algorithm**
-    - **Description**
-    - **Operations**
-    - **References**
+  * - **Algoritmo**
+    - **Descrizione**
+    - **Operazioni**
+    - **Riferimenti**
   * - **ECKA-DH**
-    - Elliptic Curve Key Agreement Algorithm – Diffie-Hellman.
-    - Key agreement / Signature
+    - Elliptic Curve Key Agreement Algorithm - Diffie-Hellman.
+    - Accordo di chiave / Firma
     - BSI TR-03111.
   * - **HKDF**
     - HMAC-based Key Derivation Function.
-    - Session key derivation / Signature
+    - Derivazione della chiave di sessione / Firma
     - :rfc:`5869`.
   * - **AES-256-GCM**
-    - Advanced Encryption Standard with Galois/Counter Mode and a key length of 256.
-    - Session encryption / Signature
+    - Advanced Encryption Standard con Galois/Counter Mode e una lunghezza della chiave di 256.
+    - Cifratura della sessione / Firma
     - NIST SP 800-38D.
 
-The following algorithms are RECOMMENDED to be supported:
+Si RACCOMANDA di supportare i seguenti algoritmi:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 20 20
   :header-rows: 1
 
-  * - **Algorithm `alg` parameter value**
-    - **Description**
-    - **Operations**
-    - **References**
+  * - **Valore del parametro `alg` dell'algoritmo**
+    - **Descrizione**
+    - **Operazioni**
+    - **Riferimenti**
   * - **PS256**
-    - RSASSA (RSA with Signature Scheme Appendix) with PSS ( Probabilistic Signature Scheme) padding using SHA256 hash function and MGF1 mask generation function with SHA-256.
-    - Signature
+    - RSASSA (RSA with Signature Scheme Appendix) con padding PSS (Probabilistic Signature Scheme) utilizzando la funzione di hash SHA256 e la funzione di generazione della maschera MGF1 con SHA-256.
+    - Firma
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_.
   * - **PS384**
-    - RSASSA (RSA with Signature Scheme Appendix) with PSS ( Probabilistic Signature Scheme) padding using SHA384 hash function and MGF1 mask generation function with SHA-384.
-    - Signature
+    - RSASSA (RSA with Signature Scheme Appendix) con padding PSS (Probabilistic Signature Scheme) utilizzando la funzione di hash SHA384 e la funzione di generazione della maschera MGF1 con SHA-384.
+    - Firma
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_.
   * - **PS512**
-    - RSASSA (RSA with Signature Scheme Appendix) with PSS ( Probabilistic Signature Scheme) padding using SHA512 hash function and MGF1 mask generation function with SHA-512.
-    - Signature
+    - RSASSA (RSA with Signature Scheme Appendix) con padding PSS (Probabilistic Signature Scheme) utilizzando la funzione di hash SHA512 e la funzione di generazione della maschera MGF1 con SHA-512.
+    - Firma
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_.
   * - **ECDH-ES**
-    - Elliptic Curve Diffie-Hellman (ECDH) Ephemeral Static key agreement using Concat Key Derivation Function (KDF).
-    - Key Encryption
+    - Elliptic Curve Diffie-Hellman (ECDH) Ephemeral Static key agreement utilizzando Concat Key Derivation Function (KDF).
+    - Cifratura delle Chiavi
     - :rfc:`7518`.
   * - **ECDH-ES+A128KW**
-    - ECDH-ES using Concat KDF and content encryption key (CEK) wrapped using AES with a key length of 128 (A128KW).
-    - Key Encryption
+    - ECDH-ES utilizzando Concat KDF e content encryption key (CEK) avvolta utilizzando AES con una lunghezza della chiave di 128 (A128KW).
+    - Cifratura delle Chiavi
     - :rfc:`7518`.
   * - **ECDH-ES+A256KW**
-    - ECDH-ES using Concat KDF and content encryption key (CEK) wrapped using AES with a key length of 256 (A256KW).
-    - Key Encryption
+    - ECDH-ES utilizzando Concat KDF e content encryption key (CEK) avvolta utilizzando AES con una lunghezza della chiave di 256 (A256KW).
+    - Cifratura delle Chiavi
     - :rfc:`7518`.
 
-The following algorithms MUST NOT be supported:
+I seguenti algoritmi NON DEVONO essere supportati:
 
 .. list-table::
   :class: longtable
   :widths: 20 20 20 20
   :header-rows: 1
 
-  * - **Algorithm `alg` parameter value**
-    - **Description**
-    - **Operations**
-    - **References**
+  * - **Valore del parametro `alg` dell'algoritmo**
+    - **Descrizione**
+    - **Operazioni**
+    - **Riferimenti**
   * - **none**
     - -
-    - Signature
+    - Firma
     - :rfc:`7518`.
   * - **RSA_1_5**
-    - RSAES with PKCS1-v1_5 padding scheme. Use of this algorithm is generally not recommended.
-    - Key Encryption
+    - RSAES con schema di padding PKCS1-v1_5. L'uso di questo algoritmo generalmente non è raccomandato.
+    - Cifratura delle Chiavi
     - :rfc:`7516`, `[Security Vulnerability] <https://en.wikipedia.org/wiki/Adaptive_chosen-ciphertext_attack>`_, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_.
   * - **RSA-OAEP**
-    - RSA Encryption Scheme with Optimal Asymmetric Encryption Padding (OAEP) using default parameters.
-    - Key Encryption
+    - RSA Encryption Scheme con Optimal Asymmetric Encryption Padding (OAEP) utilizzando parametri predefiniti.
+    - Cifratura delle Chiavi
     - :rfc:`7518`, `[SOG-IS] <https://www.sogis.eu/documents/cc/crypto/SOGIS-Agreed-Cryptographic-Mechanisms-1.3.pdf>`_.
   * - **HS256**
-    - HMAC using SHA256.
-    - Signature
+    - HMAC utilizzando SHA256.
+    - Firma
     - :rfc:`7518`.
   * - **HS384**
-    - HMAC using SHA384.
-    - Signature
+    - HMAC utilizzando SHA384.
+    - Firma
     - :rfc:`7518`.
   * - **HS512**
-    - HMAC using SHA512
-    - Signature
+    - HMAC utilizzando SHA512
+    - Firma
     - :rfc:`7518`.
-
-
-

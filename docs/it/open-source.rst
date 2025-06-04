@@ -1,39 +1,37 @@
 .. include:: ../common/common_definitions.rst
 
 
-Open Source Releases 
-=====================
+Rilasci Open Source 
+===================
 
-In line with the general principles of openness and transparency, Wallet Providers, Credential Issuers and Relying Parties are encouraged to consider adopting open-source approaches, including during the experimentation phase, to promote collaboration, peer review, and shared improvements across the ecosystem. This encouragement is part of an evolving framework, pending the definition of the relevant procedures by the `guidelines on the acquisition and reuse of software for public administrations <https://docs.italia.it/italia/developers-italia/gl-acquisition-and-reuse-software-for-pa-docs/en/stabile/index.html>`_ pursuant to Article 64-quater of the CAD, which refers to Article 69 regarding the release of source code. Open source is supported by the Italian Digital Administration Code (CAD) articles 68 and 69 (and related guidelines), European regulations (`Artificial Intelligence Act (AI Act) <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689>`_, `Cyber Resilience Act (CRA) <https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202402847>`_, `Interoperable Europe Act <https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202400903>`_).
+In linea con i principi generali di apertura e trasparenza, i Fornitori di Wallet, i Fornitori di Credenziali e le Relying Party sono incoraggiati a considerare l'adozione di approcci open-source, anche durante la fase di sperimentazione, per promuovere la collaborazione, la revisione tra pari e i miglioramenti condivisi in tutto l'ecosistema. Questo incoraggiamento fa parte di un quadro in evoluzione, in attesa della definizione delle procedure pertinenti dalle `linee guida sull'acquisizione e il riutilizzo del software per le pubbliche amministrazioni <https://docs.italia.it/italia/developers-italia/gl-acquisition-and-reuse-software-for-pa-docs/en/stabile/index.html>`_ ai sensi dell'articolo 64-quater del CAD, che fa riferimento all'articolo 69 riguardante il rilascio del codice sorgente. L'open source è supportato dagli articoli 68 e 69 del Codice dell'Amministrazione Digitale (CAD) (e relative linee guida), dai regolamenti europei (`Artificial Intelligence Act (AI Act) <https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689>`_, `Cyber Resilience Act (CRA) <https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202402847>`_, `Interoperable Europe Act <https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202400903>`_).
 
-All the implementers, be these Wallet Providers, Credential Issuers or Relying Parties, owning the product code (from now on Open Source Project Owner) SHOULD follow industry best practices for open-source software, including proper documentation, version control, and community engagement. In particular:
+Tutti gli implementatori, siano essi Fornitori di Wallet, Fornitori di Credenziali o Relying Party, proprietari del codice del prodotto (da ora in poi Proprietari di Progetti Open Source) DOVREBBERO seguire le migliori pratiche del settore per il software open-source, inclusa una documentazione adeguata, il controllo delle versioni e il coinvolgimento della comunità. In particolare:
 
-- **Transparency and Documentation**: Open Source Project Owners SHOULD produce clear documentation and contribution guidelines.
-- **Community Engagement**: Open Source Project Owners SHOULD foster active community involvement for development and support.
-- **Software Version Control**: Open Source Project Owners SHOULD use version control systems, such as Git, for managing code changes.
-- **Security Practices**: Open Source Project Owners SHOULD produce regular code audits and secure coding standards.
-- **Licensing**: Open Source Project Owners MUST use appropriate open-source licenses, recognized as "free license" or "open source license" by the Free Software Foundation or the Open Source Initiative.
-- **Responsible Security Disclosure**: Open Source Project Owners SHOULD configure responsible security disclosure procedures to handle the security issues in an appropriate way, mitigating any kind of threat derived by an unresponsible security issue disclosure. 
+- **Trasparenza e Documentazione**: I Proprietari di Progetti Open Source DOVREBBERO produrre una documentazione chiara e linee guida per i contributi.
+- **Coinvolgimento della Comunità**: I Proprietari di Progetti Open Source DOVREBBERO favorire il coinvolgimento attivo della comunità per lo sviluppo e il supporto.
+- **Controllo di Versione del Software**: I Proprietari di Progetti Open Source DOVREBBERO utilizzare sistemi di controllo delle versioni, come Git, per gestire le modifiche al codice.
+- **Pratiche di Sicurezza**: I Proprietari di Progetti Open Source DOVREBBERO produrre audit regolari del codice e standard di codifica sicura.
+- **Licenze**: I Proprietari di Progetti Open Source DEVONO utilizzare licenze open-source appropriate, riconosciute come "licenza libera" o "licenza open source" dalla Free Software Foundation o dalla Open Source Initiative.
+- **Divulgazione Responsabile della Sicurezza**: I Proprietari di Progetti Open Source DOVREBBERO configurare procedure di divulgazione responsabile della sicurezza per gestire i problemi di sicurezza in modo appropriato, mitigando qualsiasi tipo di minaccia derivante da una divulgazione irresponsabile di problemi di sicurezza.
 
-Wallet Providers
-^^^^^^^^^^^^^^^^
+Fornitori di Wallet
+^^^^^^^^^^^^^^^^^^^
 
-Wallet Providers are encouraged to release their source code, build system, and all other assets required to the reproducibility of the implementation in order to facilitate transparency, security auditing within the IT-Wallet ecosystem. Where applicable, the release of source code SHOULD follow the specifications below:
+I Fornitori di Wallet sono incoraggiati a rilasciare il loro codice sorgente, il sistema di build e tutti gli altri asset necessari alla riproducibilità dell'implementazione al fine di facilitare la trasparenza e l'audit di sicurezza all'interno dell'ecosistema IT-Wallet. Ove applicabile, il rilascio del codice sorgente DOVREBBE seguire le specifiche di seguito:
 
-- **European Regulations**: According to the Consolidated Regulation (EU) 910/2014, Art 5a item 3, `the source code of the application software components of European Digital Identity Wallets shall be open-source licensed. Member States may provide that, for duly justified reasons, the source code of specific components other than those installed on user devices shall not be disclosed`.
+- **Regolamenti Europei**: Secondo il Regolamento consolidato (UE) 910/2014, Art 5a punto 3, `il codice sorgente dei componenti software applicativi dei Wallet di Identità Digitale Europea deve essere concesso in licenza open-source. Gli Stati membri possono prevedere che, per motivi debitamente giustificati, il codice sorgente di componenti specifici diversi da quelli installati sui dispositivi degli utenti non sia divulgato`.
 
-Credential Issuers
-^^^^^^^^^^^^^^^^^^
+Fornitori di Credenziali
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-Credential Issuers are encouraged to release their source code under an open-source license, starting from the experimentation phase.
+I Fornitori di Credenziali sono incoraggiati a rilasciare il loro codice sorgente sotto una licenza open-source, a partire dalla fase di sperimentazione.
 
-Relying Parties
-^^^^^^^^^^^^^^^
-Relying Parties are are encouraged to follow the same conditions as Credential Issuers regarding the release of their source code.
+Relying Party
+^^^^^^^^^^^^^
+Le Relying Party sono incoraggiate a seguire le stesse condizioni dei Fornitori di Credenziali per quanto riguarda il rilascio del loro codice sorgente.
 
-Responsible Disclosure
-^^^^^^^^^^^^^^^^^^^^^^
+Divulgazione Responsabile
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the European context, the Cyber Resilience Act (CRA) mandates procedures for handling vulnerability reports and requires reporting actively exploited vulnerabilities to Computer Security Incident Response Teams (CSIRTs). The Directive on Security of Network and Information Systems Directive (EU) 2022/2555 (NIS2 <https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022L2555>_) also emphasizes vulnerability handling within cybersecurity risk management.
-
-
+Nel contesto europeo, il Cyber Resilience Act (CRA) impone procedure per la gestione delle segnalazioni di vulnerabilità e richiede la segnalazione delle vulnerabilità attivamente sfruttate ai Computer Security Incident Response Team (CSIRT). La Direttiva sulla sicurezza delle reti e dei sistemi informativi (UE) 2022/2555 (`NIS2 <https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022L2555>`_) sottolinea anche la gestione delle vulnerabilità nell'ambito della gestione del rischio di cybersecurity.

@@ -1,7 +1,5 @@
 .. include:: ../common/common_definitions.rst
 
-.. _pseudonyms.rst:
-
 
 Pseudonyms
 ==========
@@ -21,7 +19,6 @@ In a social media platform, a user might choose the pseudonym "SunflowerDreamer"
 instead of using their real name "Jane Smith". This allows Jane
 to participate in discussions while maintaining her privacy.
 
-.. _sec_p_general_properties:
 
 General Properties
 ------------------
@@ -30,7 +27,6 @@ General Properties
 - Reversibility (optional, depending on the system's requirements).
 - Non-linkability to the real identity (without additional information).
 
-.. _sec_p_Requirements:
 
 Requirements
 ------------

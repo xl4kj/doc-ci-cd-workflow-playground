@@ -1,71 +1,30 @@
 .. include:: ../common/common_definitions.rst
 
 
-How to contribute
-=================
+Come contribuire
+================
 
-The IT-Wallet project, including this document, follows an **open development process**. This approach ensures the development process is accessible to all, inviting all interested parties to participate.
+Il progetto IT-Wallet, incluso questo documento, segue un **processo di sviluppo aperto**. Questo approccio garantisce che il processo di sviluppo sia accessibile a tutti, invitando tutte le parti interessate a partecipare.
 
-Consequently, stakeholders, national and international community members are not only encouraged but also heartily welcomed to contribute to the refinement of these technical rules.
+Di conseguenza, gli stakeholder, i membri della comunità nazionale e internazionale non sono solo incoraggiati ma anche calorosamente invitati a contribuire al perfezionamento di queste regole tecniche.
 
-Below are several methods available for contributing to this project:
+Di seguito sono riportati diversi metodi disponibili per contribuire a questo progetto:
 
-- **GitHub issues**. By opening an issue, you can seek clarification, propose enhancements, or report editorial typos. If you are working on an issue, we encourage you to open a draft pull request and link it.
-- **Pull requests**. Pull requests represent active contributions to the project, typically, but not always following issue-based discussions. Once a pull request is initiated, it facilitates discussion and review of the proposed changes before they are merged into the main branch (`versione-corrente`).
-- **Developers Italia Slack channel**. Slack is a messaging application designed for businesses, connecting people to the information they need. *Developers Italia* is an open community based on contributions and participation from public administrations, developers, technicians, students, and citizens. *Developers Italia* has initiated a Slack channel that [everyone can join for free](https://slack.developers.italia.it/), where you can learn about all their activities and partake in discussions.
+- **GitHub issues**. Aprendo un'issue, puoi chiedere chiarimenti, proporre miglioramenti o segnalare errori editoriali. Se stai lavorando su un'issue, ti incoraggiamo ad aprire una pull request in bozza e collegarla.
+- **Pull requests**. Le pull request rappresentano contributi attivi al progetto, tipicamente, ma non sempre, a seguito di discussioni basate su issue. Una volta avviata una pull request, essa facilita la discussione e la revisione delle modifiche proposte prima che vengano unite al ramo principale (`versione-corrente`).
+- **Canale Slack di Developers Italia**. Slack è un'applicazione di messaggistica progettata per le aziende, che collega le persone alle informazioni di cui hanno bisogno. *Developers Italia* è una comunità aperta basata su contributi e partecipazione da parte di pubbliche amministrazioni, sviluppatori, tecnici, studenti e cittadini. *Developers Italia* ha avviato un canale Slack a cui [tutti possono unirsi gratuitamente](https://slack.developers.italia.it/), dove puoi conoscere tutte le loro attività e partecipare alle discussioni.
 
-Acknowledgements
-----------------
+Ringraziamenti
+--------------
 
-We would like to thank the following individuals for their comments,
-concerns, ideas, contributions, some of which substantial, to this
-implementation profile and to the initial set of implementations.
+Vorremmo ringraziare le seguenti persone per i loro commenti,
+preoccupazioni, idee, contributi, alcuni dei quali sostanziali, a questo
+profilo di implementazione e al set iniziale di implementazioni.
 
-- Alen Horvat
-- Amir Sharif
-- Andrea Moro
-- Andrea Prosseda
-- Chris Phillips
-- Elisa Nicolussi Paolaz
-- Emanuele De Cupis
-- Emiliano Vernini
-- Francesco Grauso
-- Francesco Marino
-- Francesco Ventola
-- Gabriella Cefalù
-- Giada Sciarretta
-- Giuseppe De Marco
-- Klaas Wierenga
-- Kristina Yasuda
-- Leif Johansson
-- Lorenzo Cerini
-- Marco Basili
-- Marco Pernpruner
-- Mart Aarma
-- Marta Sciunnach
-- Matteo Fortini
-- Michele Silletti
-- Nicola Saitto
-- Niels van Dijk
-- Oliver Terbu
-- Paul Bastien
-- Pasquale Cerqua
-- Pasquale De Rose
-- Peter Altmann
-- Riccardo Iaconelli
-- Roland Hedberg
-- Salvatore Laiso
-- Salvatore Manfredi
-- Stefano Alifuoco
-- Takahiko Kawasaki
-- Thomas Chiozzi
-- Torsten Lodderstedt
-- Valerio Bozzolan
-- Vladimir Duzhinov
-- Zahra Ebadi Ansaroudi
+.. include:: ../common/contributors.rst
 
-If anyone has been forgotten, please accept our apologies with the
-request to propose the modification of this page via a [Pull Request](https://github.com/italia/eid-wallet-it-docs)
-with a brief description of the contribution offered, during which
-event or channel, and during which period. We will then have the opportunity
-to apologize again and make amends as soon as possible, including you in the list.
+Se qualcuno è stato dimenticato, vi preghiamo di accettare le nostre scuse con la
+richiesta di proporre la modifica di questa pagina tramite una [Pull Request](https://github.com/italia/eid-wallet-it-docs)
+con una breve descrizione del contributo offerto, durante quale
+evento o canale, e durante quale periodo. Avremo quindi l'opportunità
+di scusarci nuovamente e rimediare il prima possibile, includendovi nell'elenco.

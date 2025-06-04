@@ -15,7 +15,12 @@ This guide provides guidelines for contributing to IT-Wallet Technical Documenta
       - [Referencing RFC Documents](#referencing-rfc-documents)
       - [Important Syntax Notes](#important-syntax-notes)
   - [Figures and Images](#figures-and-images)
-    - [Image Requirements](#image-requirements)
+    - [Image Formats and Requirements](#image-formats-and-requirements)
+    - [File Organization for Images](#file-organization-for-images)
+    - [Adding Images to Documentation](#adding-images-to-documentation)
+      - [SVG and PDF Images](#svg-and-pdf-images)
+      - [PlantUML Diagrams](#plantuml-diagrams)
+    - [Image Attributes](#image-attributes)
     - [Cross-Referencing Figures](#cross-referencing-figures)
   - [Tables](#tables)
     - [Table Requirements](#table-requirements)
@@ -131,28 +136,79 @@ These references will automatically link to the appropriate RFC document without
 
 ## Figures and Images
 
-Use the `figure` directive for images, preferably in SVG format for diagrams:
+This section describes how to include figures and images in the documentation, supporting both HTML and PDF output formats.
+
+### Image Formats and Requirements
+
+The documentation supports two main approaches for figures:
+
+1. **Static Images** (SVG and PDF)
+   - SVG format is required for HTML output
+   - PDF format is required for LaTeX/PDF output
+   - Both formats must be provided for each image
+   - A tool is available in `./docs/utils/svg2pdf.py` to automatically convert SVG to PDF
+
+2. **PlantUML Diagrams**
+   - All architecture, component, or sequence diagrams must be created using PlantUML
+   - PlantUML's official Standard Library (stdlib) may be used if required
+   - For technical details about available libraries, refer to [PlantUML's official Standard Library Documentation](https://plantuml.com/stdlib)
+
+The approaches are mutually exclusive - use either static images OR PlantUML diagrams for a given figure.
+
+### File Organization for Images
+
+Images must be organized in specific directories based on their format:
+
+- **SVG images**: Store in `./docs/en/images/svg/`
+- **PDF images**: Store in `./docs/en/images/pdf/`
+- **PlantUML diagrams**: Store source files in `./docs/en/plantuml/` with `.puml` extension
+
+### Adding Images to Documentation
+
+#### SVG and PDF Images
+
+For static images, use conditional directives to include the appropriate format based on the output target:
 
 ```rst
 .. _fig_reference_name:
-.. figure:: ../../images/diagram-name.svg
-    :figwidth: 90%
+
+.. only:: format_html
+
+  .. figure:: ./images/svg/diagram-name.svg
+    :alt: Description of the diagram
+    :width: 100%
     :align: center
-    :target: https://www.plantuml.com/plantuml/svg/ENCODED-URL
+
+    Caption text describing the figure.
+
+.. only:: format_latex
+
+  .. figure:: ./images/pdf/diagram-name.pdf
+    :alt: Description of the diagram
+    :width: 100%
+    :align: center
 
     Caption text describing the figure.
 ```
 
-### Image Requirements
+#### PlantUML Diagrams
 
-- **Format**: All images must be in SVG format for optimal rendering and scalability
-- **Diagrams**: All architecture, component or sequence diagrams must be created using PlantUML with C4 Component modeling
-- **Attributes**:
-  - `:figwidth:` - REQUIRED (usually specified as percentage, e.g., `90%`)
-  - `:align:` - REQUIRED (typically `center`)
-  - Caption text - REQUIRED (appears below the figure)
-  - `:target:` - REQUIRED for PlantUML diagrams (must link to the PlantUML source)
-  - Label (e.g., `.. _fig_reference_name:`) - Recommended for cross-referencing but optional. Use the prefix `_fig_` followed by the reference name
+For PlantUML diagrams, use the `plantuml` directive:
+
+```rst
+.. _fig_reference_name:
+.. plantuml:: plantuml/diagram-name.puml
+    :width: 99%
+    :align: center
+    :alt: Description of the diagram
+    :caption: `Caption text describing the figure. <https://www.plantuml.com/plantuml/svg/ENCODED-URL>`_
+```
+
+Note that for PlantUML diagrams:
+- The `:caption:` attribute must include a link to the preview SVG on the PlantUML website
+- You do not need to use the `only::` directives as Sphinx will handle the output format automatically
+
+### Image Attributes
 
 When working with figures, understand the difference between these key attributes:
 
@@ -160,22 +216,11 @@ When working with figures, understand the difference between these key attribute
 
 - **:width:** Controls only the width of the image itself, not the entire figure block. Use this when you need to resize just the image while allowing the caption to potentially be wider.
 
-Example with both attributes:
-```rst
-.. figure:: ../../images/diagram-name.svg
-    :figwidth: 90%  # The entire figure block is 90% of the available width
-    :width: 80%     # The image itself is 80% of the figure block width
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/ENCODED-URL
-
-    This is the caption that appears below the image.
-```
-
 Other useful figure attributes:
 - **:height:** Controls the height of the image
 - **:scale:** Scales the image (e.g., `:scale: 50%`)
-- **:alt:** Provides alternative text for accessibility
-- **:name:** Used for internal references (can also use the separate label format shown above)
+- **:alt:** Provides alternative text for accessibility (REQUIRED)
+- **:align:** Specifies the alignment of the figure (typically `center`)
 
 ### Cross-Referencing Figures
 

@@ -7,7 +7,7 @@ doc8==1.1.1
 docutils==0.20.1
 idna==3.7
 imagesize==1.4.1
-Jinja2==3.1.5
+Jinja2==3.1.6
 MarkupSafe==2.1.5
 packaging==24.1
 pbr==6.0.0
@@ -33,3 +33,7 @@ urllib3==2.2.2
 piccolo_theme
 sphinxcontrib-redoc==1.6.0
 myst-parser==4.0.1
+sphinxcontrib-plantuml==0.30
+pillow==11.2.1
+svglib==1.5.1
+reportlab==4.4.0

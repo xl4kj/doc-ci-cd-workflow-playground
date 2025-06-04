@@ -1,507 +1,540 @@
 .. include:: ../common/common_definitions.rst
+  
 
+Funzionalità
+============
 
-Functionalities
-===============
+Il Sistema IT-Wallet offre all'utente un'esperienza più semplice, veloce e sicura di accesso ai servizi. Tale servizio si concretizza per l'Utente nella possibilità di utilizzare una Soluzione Wallet, la cui esperienza di fruizione è scandita in tre macro-fasi: pre-utilizzo, utilizzo e post-utilizzo. 
 
-The IT-Wallet System provides Users with a simpler, faster, and more secure way to access services. This service is delivered through the use of a Wallet Solution, whose User Experience is structured into three main phases: pre-use, use, and post-use.
+.. only:: format_html
 
-.. figure:: ../../images/UX-phases-usage.svg
-  :name: User Experience phases of Wallet usage
-  :alt: User Experience phases of Wallet usage
-  :width: 100%
+  .. figure:: ./images/svg/UX-phases-usage.svg
+    :alt: Fasi dell'Esperienza Utente di utilizzo di un'Istanza del Wallet 
+    :width: 100%
 
-The following sections focus on the usage and post-usage phases. They define the functional requirements supporting the User Experience for the activation, acquisition, presentation, management, and deactivation phases, along with interaction requirements related to error management, assistance requests, and feedback collection.
+    Fasi dell'Esperienza Utente di utilizzo di un'Istanza del Wallet 
 
-The Official Resources include recommendations on the required User-Wallet Instance interactions and design best practices that promote consistency across different Wallet Solutions in terms of how functionalities are accessed and used.
+.. only:: format_latex
 
-Activation of the Wallet Instance
----------------------------------
+  .. figure:: ./images/pdf/UX-phases-usage.pdf
+    :alt: Fasi dell'Esperienza Utente di utilizzo di un'Istanza del Wallet 
+    :width: 100%
 
-Activation enables the User to access the Wallet Solution's functionalities for securely obtaining, presenting, and managing their Electronic Attestations. The activation process involves User Authentication with the Wallet Instance using their digital identity, which enables the generation of the PID.
+    Fasi dell'Esperienza Utente di utilizzo di un'Istanza del Wallet 
 
-Below are the functional and the User Experience requirements that the Wallet Provider MUST guarantee via their Wallet Solution:
+Le sezioni a seguire si focalizzano sulle macro-fasi di utilizzo e post-utilizzo. Esse definiscono i requisiti funzionali a supporto dell'Esperienza Utente relativi alle fasi di attivazione ottenimento, presentazione, gestione e disattivazione, unitamente ai requisiti di interazione con il servizio in termini di gestione degli errori, richiesta di assistenza e raccolta feedback. 
 
-- The User downloads the Wallet Solution onto their device to generate their Wallet Instance;
-- The User sets an unlock PIN for their Wallet Instance if one has not been previously set in the app. In addition to the PIN, the User can decide to use their own unlock mechanism used within the device and managed at the operating system level (e.g., biometric authentication) as an alternative to the PIN. The User uses the unlock method whenever an authorization is required to ensure security and protect their information;
-- The User reviews all relevant information regarding the activation process and service usage. Additionally, the User reads any policy from the Provider and PID Provider and/or the service's terms and conditions. The User gives their consent to proceed or declines to cancel the operation;
-- The User selects an Authentication option from those available;
-- The User completes the Authentication flow with the National Identity Provider's service;
-- The User receives confirmation of the Authentication process outcome. If successful, the User views a preview of their PID. The User confirms the previewed information to proceed with Wallet Instance activation, or cancels the operation;
-- The User authorizes the operation using the unlock method previously set;
-- The User receives confirmation of the successful activation of the Wallet Instance.
+Le Risorse Ufficiali descrivono le modalità di interazione Utente-Istanza del Wallet e le buone pratiche di progettazione al fine di promuovere coerenza tra le diverse Soluzioni Wallet, in termini di modalità di fruizione delle funzionalità. 
 
-The Wallet Provider MUST allow the User to remove the PID issued during the activation phase. In addition, the PID Provider SHOULD allow the User to revoke the issued PID through a specific Touchpoint. The Wallet Provider MUST allow the User to always have the option to request the deactivation of their Wallet Instance, even in the absence of the device on which it was installed. For further details, please refer to the `Deactivation of the Wallet Instance`_ and `Management of Electronic Attestations`_ sections.
-
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
-
-Issuance of Electronic Attestations of Attributes
--------------------------------------------------
-
-Once activation is complete, the User MAY obtain one or more Electronic Attestations of Attributes within their Wallet Instance.
-
-Depending on the User's specific needs, the type of Electronic Attestation of Attributes, and the offerings available from the Wallet Provider, the Electronic Attestation of Attributes Provider, and the Authentic Source, the request of Electronic Attestations of Attributes can occur in two ways:
-
-- **from the Wallet Instance Catalog**: the User explores the list of Electronic Attestations of Attributes provided by the Wallet Solution, selects the one of interest, and initiates the request process, concluding with the issuance of the Electronic Attestation of Attributes in the Wallet Instance.
-
-- **from a Touchpoint of the Authentic Source** (or the Electronic Attestation of Attributes Provider if it coincides with the Authentic Source): the User interacts with the digital service of the Authentic Source, allowing them to get a specific Electronic Attestation of Attributes in their Wallet Instance via an Engagement Button.
-
-Although the initiation methods for requesting the issuance may differ, the request flows share a similar structure and process. Below are the functional and the User Experience requirements of the issuance of an Electronic Attestation of Attributes from the Catalog that the Wallet Provider MUST guarantee via their Wallet Solution:
-
-- The User accesses their Wallet Instance using the unlock method previously set;
-- The User selects the Electronic Attestation of Attributes they wish to request from the available options in the Catalog;
-- The User views the PID data, if required by the Authentic Source for the request of the Electronic Attestation of Attributes, the name of the related Electronic Attestation of Attributes Provider, and any related information policy. The User gives their consent to proceed, presenting their PID data to the Electronic Attestation of Attributes Provider, or cancels the operation;
-- The User views a preview of the Electronic Attestation of Attributes. The User confirms the data shown in the preview to proceed with the request or cancels the operation;
-- The User authorizes the operation using the unlock method previously set;
-- The User views the positive outcome of the request;
-- The User views the details of the requested Electronic Attestation of Attributes, including: the data contained in it, the name of the Electronic Attestation of Attributes Provider who issued the Attestation, and the name of the Authentic Source;
-- The User has access to all issued Electronic Attestations by navigating the Wallet Instance.
-
-The Wallet Provider MUST allow the User to remove an Electronic Attestation of Attributes through their Wallet Instance at any moment. In case of absence of the device where the Wallet Instance was activated, the Wallet Provider MUST allow the User to deactivate the entire Wallet Instance through a specific Touchpoint. In addition, the Electronic Attestation of Attributes Providers SHOULD allow the User to revoke the issued Digital Credentials through specific Touchpoints. For more details, please refer to the `Deactivation of the Wallet Instance`_ and `Management of Electronic Attestations`_ sections.
-
-In the event of communication issues between the systems of the Electronic Attestation of Attributes Provider and the Authentic Source, or if administrative or technical processes prevent the immediate issuance of the Electronic Attestation of Attributes, the actors involved MAY support a deferred issuance process. In this case the Wallet Provider MUST guarantee that:
-
-- Upon reaching the final step of the process, the User visualizes a message prompting them to wait until the Electronic Attestation of Attributes can be issued.
-- The User is informed by the Electronic Attestation of Attributes Provider once the Electronic Attestation of Attributes becomes available.
-
-If the User encounters incorrect data in an already obtained or in-progress Electronic Attestation of Attributes, the Wallet Provider SHOULD guarantee the User appropriate assistance via their Wallet Instance. For more information, please refer to the :ref:`functionalities:User Assistance` section.
-
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
-
-If an Authentic Source (or an Electronic Attestation of Attributes Provider, should it coincide with the Authentic Source) intends to implement an Engagement Button to initiate the request process from their Touchpoint, they MUST ensure compliance with the graphical appearance and implementation requirements for the Engagement Button, as outlined in the :ref:`brand-identity:IT-Wallet System Brand Identity` section.
-
-Layout of Electronic Attestations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The Electronic Attestations obtained within the Wallet Instance SHOULD be displayed in a list within a Preview View. In this case, the Electronic Attestations MUST ensure a high level of recognizability and accessibility [REF_ACCESSIBILITY] of the information contained. Below are the requirements for displaying the Electronic Attestation that each Wallet Provider MUST adhere to in order to provide a consistent and accessible consultation and usage experience:
-
-- The Electronic Attestation MUST be displayed correctly across all devices, ensuring a consistent experience on screens of varying sizes;
-- The name of the Electronic Attestation MUST be clearly visible and always displayed in both the Detail View and the Preview View;
-- The Electronic Attestation, both in the Preview View and the Detailed View, MUST display its status if different from valid and MAY display it if valid. The Preview View MAY also include additional attributes to enhance the User Experience and management; for example, it MAY display the name or logo of the Electronic Attestation of Attributes Provider or the PID Provider;
-- The layout of elements in the Preview View of the Electronic Attestation MUST be optimized for scalability and usability, especially when multiple Electronic Attestations are displayed on the same screen;
-- The Electronic Attestation MAY adopt a card format, in line with approaches already used by other Wallets in the market, to mirror the appearance of a corresponding physical document. When applicable, the digital nature of the document MAY be indicated, such as by labeling it as a "digital version" in the layout;
-- The Electronic Attestation MUST display the same information in the Detail View as shown in the Preview View and MAY include additional details;
-- The Electronic Attestation MUST include Action Buttons in the Detail View to allow for management, as outlined in the `Management of Electronic Attestations`_ section.
-
-
-Presentation of Electronic Attestations
----------------------------------------
-
-The presentation process allows the User to access a service or demonstrate ownership of certain data or their eligibility to perform a specific action. The presentation of Electronic Attestations and their subsequent verification involves interaction between two parties: the User and the Relying Party. This can take place in two main ways, depending on the circumstances and context of the interaction:
-
-- **Proximity Presentation**: the User presents the PID and/or EAA data through the Wallet Instance, directly to a Verifier or to a Relying Party's device designated for in-person verification.
-
-- **Remote Presentation**: the User presents the PID and/or EAA data through the Wallet Instance, to a Relying Party configured for online verification, for instance, to Authenticate and access the services offered.
-
-Proximity Presentation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Proximity presentation allows the User to present the PID and/or EAA data via their Wallet Instance, using one of two methods:
-
-- **Supervised mode**: the User presents the PID and/or EAA data through the Wallet Instance to a Verifier equipped with a dedicated verification app or system (e.g., law enforcement officer, pharmacist).
-
-- **Unsupervised mode**: the User presents the PID and/or EAA data through the Wallet Instance to a designated device (e.g., turnstile, ATM).
-
-Below are the functional and the User Experience requirements that the Wallet Provider MUST guarantee via their Wallet Solution.
-
-**Supervised Mode**
-
-- The User accesses their Wallet Instance using the unlock method previously set;
-- The User navigates to the feature dedicated to QR Code generation;
-- The User presents the generated QR Code to the Verifier acting on behalf of the Relying Party, who scans it using the designated verification app or system;
-- The User reviews the requested PID and/or EAA data, the name of the requesting Service Provider, and any related policy. The User decides whether to present any non-mandatory PID and/or EAA data (Selective Disclosure). The User provides consent to proceed or cancels the operation;
-- The User authorizes the operation using the unlock method previously set;
-- The User receives confirmation of the successful presentation.
-
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
-
-**Unsupervised Mode**
-
-- The User accesses their Wallet Instance using the unlock method previously set;
-- The User navigates to the feature dedicated to QR Code generation;
-- The User presents the generated QR Code to the designated device (e.g., a turnstile) of the Relying Party for scanning;
-- The User reviews the requested PID and/or EAA data, the name of the requesting Relying Party, and any related policy. The User decides whether to present any non-mandatory PID and/or EAA (Selective Disclosure). The User provides consent to proceed or cancels the operation;
-- The User authorizes the operation using the unlock method previously set;
-- The User receives confirmation of the successful presentation.
-
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
-
-Remote Presentation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Remote presentation allows the User to present the PID and/or EAA data by interacting with a Relying Party's Touchpoint through a designated Engagement Button.
-
-This presentation can occur in two different modes, depending on the type of device used to access the service:
-
-- **Same-device mode**: when the User accesses an online digital service using the same device on which the Wallet Instance is installed;
-
-- **Cross-device mode**: when the User accesses a digital service using a different device from the one where the Wallet Instance is installed.
-
-Below are the functional and the User Experience requirements that the Wallet Provider MUST guarantee via their Wallet Solution.
-
-**Same-Device Mode**
-
-- The User clicks the Engagement Button provided on the Relying Party's Touchpoint;
-- The User accesses their Wallet Instance using the unlock method previously set;
-- The User reviews the requested PID and/or EAA data, the name of the requesting Relying Party, and any related policy. The User decides whether to present any non-mandatory PID and/or EAA data (Selective Disclosure). The User provides consent to proceed or cancels the operation;
-- The User authorizes the operation using the unlock method previously set;
-- The User receives confirmation of the successful presentation within the Wallet Instance;
-- The User returns to the Relying Party's Touchpoint, where they see confirmation of the completed presentation.
-
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
-
-**Cross-Device Mode**
-
-- The User clicks the Engagement Button provided on the Touchpoint of the Relying Party while accessing the service from a different device than the one where the Wallet Instance is installed;
-- The User accesses the desired Wallet Instance from the device where it is installed, using the unlock method previously set;
-- The User scans the QR Code provided by the Relying Party using their Wallet Instance;
-- The User reviews the requested PID and/or EAA data, the name of the requesting Relying Party, and any related policy. The User decides whether to present any non-mandatory personal data (Selective Disclosure). The User provides consent to proceed or cancels the operation.
-- The User authorizes the operation using the unlock method previously set;
-- The User receives confirmation of the successful presentation within the Wallet Instance;
-- The User returns to the Relying Party's Touchpoint and views confirmation of the completed presentation.
-
-
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For further details, please refer to the `Error Management`_ section.
-
-
-Authentication
-""""""""""""""
-
-Authentication is a specific use case of remote presentation that allows the User to securely access services provided by both public and private Relying Parties. This is achieved by presenting the PID and, if necessary, a set of Attributes contained in the obtained Electronic Attestations of Attributes. This process ensures that the User retains control over their data, including the ability to present only the information strictly necessary for verification by Relying Parties. At the same time, it guarantees the reliability, authenticity, and validity of the data presented.
-
-The Authentication process can be carried out using both the same-device and cross-device modes described above. For the User Experience functional requirements that MUST be addressed, please refer to the functional requirements for `remote presentation`_ in same-device and cross-device modes.
-
-From a User Experience perspective, the Authentication process differs from the Presentation process only in how it is initiated, which is through a dedicated :ref:`brand-identity:Authentication Button`.
-
-To ensure a consistent and seamless Authentication process across all Relying Parties, each Relying Party MUST follow the visual and User Experience requirements outlined below and SHOULD use the open-source assets available in the Official Resources.
-
-Relying Parties that choose not to adopt these resources MAY implement custom Technical Solutions supporting the Authentication process. However, these MUST comply with the requirements specified below, adhere to [REF_ACCESSIBILITY], and, for public entities, follow the [GL_DESIGN].
-
-Relying Parties MUST implement and provide the following pages as part of the Authentication process:
-
-- **Discovery Page**: lists all the available Authentication methods;
-- **QR Code page** (*cross-device only*): prompts the User to scan a QR code;
-- **waiting page** (*cross-device only*): instructs the User to continue the Authentication process on their Wallet Instance;
-- **thank you page**: confirms the successful Authentication;
-- **error page**: displays error messages related to the Authentication process.
-
-Each of these pages MUST include the following recurring elements, in line with the Visual Identity of the Relying Party's Touchpoint:
-
-- A **header and/or subheader** allowing Users to navigate back to the previous page.
-- A **footer** including the privacy policy, legal notice, and accessibility statement, where required by current regulations.
-
-Specific requirements for each individual page are detailed below.
-
-**Discovery Page**
-
-To enable authentication via the IT-Wallet System, the Relying Party MAY replace its existing Discovery Page with the version provided in the Official Resources.
-
-Alternatively, the Relying Party MAY maintain its own Discovery Page but MUST integrate the Authentication Button as specified in the :ref:`brand-identity:Authentication Button` section.
-
-In all cases:
-
-- the page MUST display all available Digital Identity Authentication methods, including the IT-Wallet System Authentication through the Authentication Button;
-- the page MAY also include other available Authentication methods;
-- the page SHOULD provide essential supporting information to help the User make an informed and conscious choice.
-
-If the User accesses the Discovery Page from a different Touchpoint than the one where the Wallet Instance is activated (cross-device), selecting IT-Wallet System Authentication MUST redirect the User to the QR code page.
-
-If the User accesses the Discovery Page from the same Touchpoint where the Wallet Instance is activated (same-device), the selection MUST trigger the opening of the User's Wallet Instance.
-
-**QR code page (cross-device only)**
-
-The QR code page is presented to the User who selects IT-Wallet System Authentication within a cross-device process. Its purpose is to prompt the User to scan the generated QR code using their Wallet Instance.
-
-Relying Parties SHOULD implement the QR code page (cross-device) provided in the Official Resources. In any case:
-
-- The page MUST include the Visual Identity elements of the IT-Wallet System, including the logo;
-- The page MUST display the QR code along with a clear and concise message instructing the User to scan it using their Wallet Instance;
-- The page MUST indicate the validity period of the QR code with a short and clear message;
-- The page MUST include a Call To Action allowing the User to generate a new QR code in case of timeout;
-- The page MUST include a Call To Action allowing the User to cancel the operation and return to the Discovery Page.
-
-To ensure QR code readability:
-
-- Minimum recommended dimensions MUST be respected to ensure successful scanning. A size of 150×150 pixels is generally sufficient; for high-density codes (e.g., long URLs or many characters), 300×300 pixels or larger is recommended;
-- Adequate contrast MUST be maintained between the QR code and the background (ideal: black code on a white background);
-- Color inversion between the QR code and the background MUST be avoided;
-- Only one QR code SHOULD be displayed per page;
-- The QR code MUST be sharp and high-quality (SVG format is recommended);
-- No text or other visual elements SHOULD overlap or obscure the QR code.
-
-**Waiting page (cross-device only)**
-
-The waiting page is shown after the QR code has been scanned and prompts the User to continue the Authentication process within their Wallet Instance.
-
-Relying Parties SHOULD implement the waiting page (cross-device) provided in the Official Resources. In any case:
-
-- The page MUST include visual identity elements of the IT-Wallet System, including the logo and an icon or graphical element that reinforces the page message;
-- The page MUST include a clear and concise message instructing the User to continue the process on their Wallet Instance.
-
-**Thank you page**
-
-The thank you page is displayed after the User completes the Authentication process via their Wallet Instance. Its purpose is to prompt the User to proceed to the authenticated area of the Relying Party's Touchpoint.
-
-Relying Parties SHOULD implement the thank you page provided in the Official Resources. In any case:
-
-- The page MUST include the visual identity elements of the IT-Wallet System, including the logo and an icon or graphical element that reinforces the page message;
-- The page MUST provide a clear and concise message confirming that the authentication process was successfully completed;
-- The page MUST include a Call To Action prompting the User to proceed to the Touchpoint authenticated area.
-
-**Error page**
-
-The error page is displayed when an issue occurs during the Authentication process. Its purpose is to inform the User about the nature of the error (e.g., technical issue, network issues, Wallet Instance malfunction, denied data sharing, etc.) and to present the available next steps. For further details, refer to the `Error Management`_ section.
-
-Relying Parties SHOULD implement the error page provided in the Official Resources. In any case:
-
-- The page MUST include the visual identity elements of the IT-Wallet System, including the logo and an icon or graphical element that conveys the type of error;
-- The page MUST include a clear and concise message explaining the nature of the error, the error code, and a simple description;
-- The page MUST include one or more Call To Action guiding the User toward the appropriate next step (e.g., retry, contact support, etc.).
-
-Management of Electronic Attestations
--------------------------------------
-
-The Wallet Provider, via their Wallet Solution, and the PID provider or Electronic Attestations of Attributes Provider, via dedicated Touchpoints, MUST let the User manage their Electronic Attestations at any time.
-
-This section outlines three different categories of requirements for managing each Electronic Attestations, specifically regarding:
-
-- **Its status**: to allow the User to verify whether an Electronic Attestation is valid or invalid;
-- **Its usage**: to enable the User to view and manage the history of presentations carried out with an Electronic Attestation;
-- **Its data**: to allow the User to backup and restore each Electronic Attestation of Attributes in compliance with the principle of data portability.
-
-Below are the key aspects that impact and define the User Experience in managing Electronic Attestations though the Wallet Instance, along with the functional requirements associated with each category.
-
-Status of Electronic Attestations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To ensure reliability and promote the proper use of a Wallet Solution, the Wallet Provider MUST guarantee the User to always have visibility of the status of the Electronic Attestations stored within their Wallet Instance, based on the information received from the Electronic Attestation Provider, which manages their lifecycle.
-
-Each Electronic Attestation can be either valid or invalid, with corresponding impacts on its usage opportunities:
-
-- **Valid**: Valid Electronic Attestations MUST be usable and therefore presentable. This category also includes Electronic Attestations that are nearing expiration. If an Electronic Attestation is about to expire, the Wallet Instance SHOULD inform the User with adequate advance notice to allow sufficient time to request its reissuance or, if necessary, revoke it.
-
-- **Invalid**: Invalid Electronic Attestations MUST NOT be usable or presentable. This category includes expired or revoked Electronic Attestations. In such cases, the Wallet Instance MUST inform the User of the invalid status and SHOULD give the reason why. If an Electronic Attestation is no longer valid and cannot be used in any scenario, the Wallet Solution MAY implement mechanisms to restrict access to the Detailed View of that Electronic Attestation. This is intended to encourage the User to update or delete the Electronic Attestation by providing appropriate informational text and a Call to Action.
-
-Revocation of Electronic Attestations
-"""""""""""""""""""""""""""""""""""""
-
-Revocation is the procedure that turns an Electronic Attestation from a valid state to an invalid state. Revocation can occur in either an active or passive mode:
-
-- **Active revocation**: This refers to the revocation of an Electronic Attestation at the User's request. This process affects only the Electronic Attestation and not its corresponding physical document, if one exists. Below is an illustrative list of scenarios in which the Wallet Provider MUST give the User the ability to request the revocation of an Electronic Attestation:
-
-	- The User decides they no longer wish to use a specific Electronic Attestation;
-	- The User decides to deactivate their Wallet Instance, thereby revoking all previously obtained Electronic Attestations;
-	- The User no longer has possession of the device on which their Wallet Instance is installed due to loss or theft.
-
-- **Passive revocation**: This refers to the revocation of an Electronic Attestation managed by the respective Electronic Attestation Provider on behalf of the Authentic Source. In this case, the Wallet Instance MUST inform the User of the status change of the Electronic Attestation and the Electronic Attestation Provider MAY additionally notify the User via other Touchpoints . Below is an illustrative list of scenarios that could lead to the revocation of an Electronic Attestation:
-
-	- The physical document corresponding to the Electronic Attestation has been reported lost or damaged by the User through the appropriate channel/ Touchpoint;
-	- The physical document corresponding to the Electronic Attestation has been revoked by the competent authorities;
-	- The minimum security and/ or reliability requirements for one or more involved parties are no longer met.
-	- The User's device no longer meets the minimum security requirements (rooted or jailbroken).
-
-
-History of Electronic Attestations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To ensure the principles of visibility and transparency, the Wallet Provider MUST guarantee the User to view the history of all Electronic Attestations presentations performed using their Wallet Instance. In particular:
-
-- The Wallet Instance MUST show the User see which Relying Party they have interacted with and which Electronic Attestations have been presented and verified;
-- The Wallet Instance MUST allow the User to easily request the Relying Party to delete their information related to previous presentations.
-
-
-Backup and Restore of Electronic Attestation of Attributes
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-With the aim of ensuring the principle of data portability, the Wallet Solution MUST guarantee the User to have access to specific functionalities, particularly to:
-
-- Request the backup and storage of Electronic Attestations of Attributes obtained through their Wallet Instance;
-- Request the restore of their Electronic Attestations of Attributes on another Wallet Instance.
-
-
-Deactivation of the Wallet Instance
+Attivazione dell'Istanza del Wallet 
 -----------------------------------
 
-The deactivation of the Wallet Instance is the functionality that makes the Wallet Instance inactive and therefore no longer operational. The deactivation process can be triggered by different actors depending on the circumstances, specifically:
+L'attivazione è il passaggio necessario per abilitare l'Utente all'utilizzo delle funzionalità della Soluzione Wallet per l'ottenimento, la presentazione e la gestione dei propri Attestati Elettronici in modo sicuro. Il processo di attivazione consiste in un'operazione di Autenticazione dell'Utente sull'Istanza del Wallet tramite la propria identità digitale che consente la generazione del PID.
 
-- By the User, in cases such as:
+Di seguito i requisiti di Esperienza Utente che il Wallet Provider DEVE garantire attraverso la propria Soluzione Wallet: 
 
-	- The device has been lost or stolen;
-	- The device has been compromised;
-	- The device has been reset to factory settings.
+- l'Utente scarica la Soluzione Wallet sul suo dispositivo così da generare la propria Istanza del Wallet; 
+- l'Utente imposta un metodo di sblocco per la sua Istanza del Wallet se non è già stato impostato in precedenza nell'app. In aggiunta al PIN, l'Utente può decidere di usare il metodo di sblocco usato per il dispositivo e gestito a livello di sistema operativo (e.g. autenticazione biometrica) come alternativa al PIN. L'Utente utilizza il metodo di sblocco ogni qual volta è richiesta un'autorizzazione a garanzia della sicurezza e della protezione delle proprie informazioni; 
+- l'Utente prende visione di tutte le informazioni rilevanti sull'attivazione e sulle modalità di utilizzo del servizio. L'Utente inoltre prende visione di eventuali informative del Fornitore di Wallet e del PID Provider e/o termini e condizioni d'uso del servizio. L'Utente dà il proprio consenso per proseguire oppure lo nega per annullare l'operazione; 
+- l'Utente sceglie una tra le modalità di Autenticazione disponibili; 
+- l‘Utente conclude il flusso di Autenticazione sul servizio del National Identity Provider; 
+- l'Utente riceve conferma dell'esito del processo di Autenticazione e, se positivo, visualizza l'anteprima del proprio PID. L'Utente conferma le informazioni mostrate in anteprima per procedere all'attivazione dell'Istanza del Wallet oppure annulla l'operazione; 
+- l'Utente autorizza l'operazione utilizzando la modalità di sblocco precedentemente impostata; 
+- l'Utente visualizza l'esito positivo dell'avvenuta attivazione dell'Istanza del Wallet. 
 
-- By an authorized third party, in cases such as:
+Il Fornitore di Wallet DEVE permettere all'Utente in ogni momento di rimuovere il PID ottenuto durante la fase di Attivazione. Inoltre, il PID Provider DOVREBBE permettere all'Utente di revocare il PID ottenuto, tramite uno specifico Touchpoint. Il Fornitore di Wallet DEVE permettere all'Utente di richiedere la disattivazione della propria Istanza del Wallet, anche in assenza del dispositivo su cui è stata installata. Per approfondimenti si rimanda alle sezioni :ref:`functionalities:Disattivazione dell'Istanza del Wallet` e :ref:`functionalities:Gestione degli Attestati Elettronici`. 
 
-	- The Wallet Solution no longer meets the minimum security requirements.
+In caso di errori nell'utilizzo della Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`.
 
-The Wallet Provider MUST guarantee the User the ability to voluntarily deactivate their Wallet Instance through:
+Focus sul PID – Dati di Identificazione della Persona
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- The Wallet Instance itself;
-- A Touchpoint (e.g., a website) provided by the Wallet Provider;
-- The device's app store, by uninstalling the Wallet Instance.
+Il PID (Person Identification Data) si riferisce a un set minimo verificato di informazioni sull'identità dell'Utente (vedere :ref:`credential-data-model:Modello di Dati degli Attestati Elettronici`) emesso come risultato del processo di attivazione e reso disponibile nell'Istanza Wallet.
+Di seguito sono riportati i requisiti per la visualizzazione e l'utilizzo del PID a cui ogni Fornitore di Wallet DEVE aderire, al fine di fornire un'esperienza di consultazione e utilizzo coerente e accessibile:
 
-Below are the functional and User Experience requirements that the Wallet Provider MUST guarantee via their Wallet Solution:
+- Il PID DEVE essere visualizzato correttamente su tutti i dispositivi, garantendo un'esperienza coerente su schermi di dimensioni diverse;
+- Il PID DEVE essere denominato come definito dal Fornitore PID;
+- Il PID DEVE visualizzare il suo stato se diverso da valido per fornire trasparenza sul suo ciclo di vita e PUÒ visualizzarlo se valido. Dettagli specifici sullo stato del PID, se non valido, POSSONO essere forniti (ad esempio, il motivo per cui il PID è stato revocato);
+- Il PID DEVE includere Pulsanti di Ingaggio per consentire la gestione del ciclo di vita e permettere all'Utente di revocare il PID, quindi l'intera Istanza Wallet con tutte le EAA emesse, o di aggiornare il PID in qualsiasi momento (vedere :ref:`functionalities:Gestione degli Attestati Elettronici`);
+- Il PID DEVE essere un elemento interattivo, affinché l'Utente possa essere autenticato da un Relying Party in un contesto digitale (vedere :ref:`functionalities:Autenticazione`), per accedere ai servizi in contesti di prossimità e per richiedere l'emissione di ulteriori EAA (vedere :ref:`functionalities:Ottenimento degli Attestati Elettronici di Attributi`);
+- Il PID DEVE visualizzare un metodo di assistenza da parte del Fornitore PID (vedere :ref:`functionalities:Assistenza Utente`);
+- Il PID DEVE essere riconoscibile dall'Utente e distinguibile da altri EAA;
+- Il PID DEVE essere denominato con la convenzione di denominazione che sarà definita nella versione futura di questo documento, evitando termini personalizzati o tecnici come "Person Identification Data" o il suo acronimo "PID";
+- La rappresentazione del PID DEVE aderire a un insieme definito di specifiche fornite dal Fornitore PID per garantire riconoscibilità, coerenza e omogeneità tra diverse Soluzioni Wallet.
 
-- The User accesses their Wallet Instance using the previously configured unlock method or Authenticates at the Touchpoint provided by the Wallet Provider;
-- The User selects the Wallet Instance deactivation functionality;
-- The User is informed that deactivating the Wallet Instance will invalidate previously obtained Electronic Attestations;
-- The User confirms the action to proceed with deactivation, or cancels the operation;
-- The User receives confirmation of successful deactivation;
-- The User is notified that the Wallet Instance is inactive when logging in again;
-- The User has the ability to reactivate the Wallet Instance by re-downloading the app from the app store (if uninstalled) and/or by following the activation process again. For further details, please refer to the `Activation of the Wallet Instance`_ section.
+Il Fornitore PID DEVE:
 
-Once the Wallet Instance is reactivated, Electronic Attestations of Attributes can be re-obtained by starting the issuance or restore process again. For more details, please refer to sections `Issuance of Electronic Attestations of Attributes`_ and `Backup and Restore of Electronic Attestation of Attributes`_.
+- Implementare un nome/convenzione di denominazione per riferirsi al PID, per garantire coerenza tra tutte le Soluzioni Wallet;
+- Definire un insieme chiaro di specifiche per il PID per garantire l'identificazione e la rappresentazione coerenti del PID tra diverse Soluzioni Wallet, in termini di format, struttura e standard di aspetto (ad esempio colore, immagine di sfondo, ecc.).
 
-In case of errors using the Wallet Instance, the Wallet Provider MUST guarantee that the User receives consistent messages that inform them and guide them toward resolving the issue. For more details, please refer to the `Error Management`_ section.
+Ottenimento degli Attestati Elettronici di Attributi 
+----------------------------------------------------
 
+Ad attivazione conclusa, l'Utente PUÒ ottenere uno o più Attestati Elettronici di Attributi all'interno della sua Istanza del Wallet. 
 
-Error Management
-----------------
+A seconda delle specifiche esigenze dell'Utente, della tipologia di Attestato Elettronico di Attributi e delle disponibilità offerte dal Fornitore di Wallet, dal Fornitore di Attestati Elettronici di Attributi e dalla Fonte Autentica, l'ottenimento degli Attestati Elettronici di Attributi può avvenire attraverso due modalità: 
 
-The IT-Wallet System involves the interaction of multiple services provided by different actors. It is therefore important to define an effective error management model with the goal of improving the perception and reliability of the entire ecosystem and enabling the User to feel guided during interactions with the various Technical Solutions and to and to consciously manage any issues while using the service.
+- **dal Catalogo dell'Istanza del Wallet**: l'Utente esplora l'elenco degli Attestati Elettronici di Attributi messi a disposizione dalla Soluzione Wallet, seleziona quello di suo interesse e avvia la procedura di richiesta che si conclude con l'ottenimento dell'Attestato Elettronico di Attributi nell'Istanza del Wallet (vedi :ref:`registry-catalogue:Catalogo degli Attestati Elettronici`); 
 
-Effective communication in case of an error also provides benefits for the actors involved, as it contributes to the reduction of assistance requests and, thus, to the minimisation of the impact on support systems.
+- **da un Touchpoint della Fonte Autentica** (o del Fornitore di Attestati Elettronici di Attributi qualora coincida con la Fonte Autentica): l'Utente interagisce col servizio digitale della Fonte Autentica che gli permette di ottenere nella sua Istanza del Wallet uno specifico Attestato Elettronico di Attributi tramite un Pulsante di Ingaggio (vedi :ref:`registry-catalogue:Catalogo degli Attestati Elettronici`).
 
-Below are the requirements and main best practices for error management, specifically related to the interaction between the User and their Wallet Instance. All Primary Actors involved in providing the service MUST cooperate to enable the User to receive timely and granular inputs through their Wallet Instance, each within their scope of responsibility. Each actor involved MUST, therefore, define a list of errors so as to ensure that the Wallet Provider can prepare an effective model for their management within the Wallet Solution considering the following dimensions and variables:
+Nonostante le modalità di avvio della richiesta siano diverse, i flussi di ottenimento condividono una struttura e un processo simili. Di seguito, sono illustrati i requisiti dell'Esperienza Utente del flusso di ottenimento di un Attestato Elettronico di Attributi dal Catalogo che il Fornitore di Wallet DEVE garantire attraverso la propria Soluzione Wallet: 
 
-- **The stage of the User Experience** where the error may occur: activation or deactivation of the Wallet Instance, obtaining, presenting, or managing Electronic Attestations of Attributes;
-- **The type of error**: system error, communication error between actors, etc.;
-- **The actor responsible** for the error: Wallet Provider, PID Provider, Electronic Attestations of Attributes Provider, Authentic Source;
-- **The way the error is displayed**: message on the page, banner, toast message, and so on;
-- **Suggested actions for the User** to resolve the error: suggestion to wait, request to try again, referral to FAQs and/or customer care, etc.;
-- **The method for error management**: opening an assistance request through the Wallet Instance, linking to other detailed channels, and so on. For further details, please refer to the :ref:`functionalities:User Assistance` section.
+- l'Utente accede alla propria Istanza del Wallet utilizzando la modalità di sblocco precedentemente impostata; 
+- l'Utente seleziona l'Attestato Elettronico di Attributi che intende aggiungere alla sua Istanza del Wallet scegliendo tra quelli disponibili nel Catalogo; 
+- l'Utente prende visione dei dati del PID, qualora richiesti dalla Fonte Autentica per l'ottenimento dell'Attestato Elettronico di Attributi, il nome del relativo Fornitore di Attestati Elettronici di Attributi e di eventuali informative. L'Utente dà il proprio consenso per poter proseguire presentando i dati del PID o altri Attributi al Fornitore di Attestati Elettronici di Attributi oppure annulla l'operazione; 
+- l'Utente visualizza l'anteprima dell'Attestato Elettronico di Attributi. L'Utente conferma i dati mostrati in anteprima per procedere all'ottenimento oppure annulla l'operazione; 
+- l'Utente autorizza l'operazione utilizzando la modalità di sblocco precedentemente impostata; 
+- l'Utente visualizza l'esito positivo dell'ottenimento avvenuto; 
+- l'Utente visualizza i dettagli dell'Attestato Elettronico di Attributi ottenuto ovvero: i dati in esso contenuti, il nome del Fornitore di Attestati Elettronici di Attributi che ha emesso l'Attestato Elettronico di Attributi e il nome della Fonte Autentica; 
+- l'Utente ha evidenza di tutti gli Attestati Elettronici ottenuti navigando la sua Istanza del Wallet. 
 
-Below is a non-exhaustive list of the main error cases, with reference to the actor responsible for their management, for each phase of the User Experience.
+Il Fornitore di Wallet DEVE permettere all'Utente di rimuovere un Attestato Elettronico di Attributi dalla sua Istanza del Wallet in ogni momento. In caso di assenza del dispositivo su cui è stata attivata l'Istanza del Wallet, il Fornitore di Wallet DEVE permettere all'Utente di disattivare l'interaIstanza del Wallet tramite un Touchpoint dedicato. Inoltre, i Fornitori di Attestati Elettronici di Attributi DOVREBBERO permettere all'Utente la revoca degli Attestati Elettronici ottenuti, tramite specifici Touchpoint. Per approfondimenti si rimanda alle sezioni :ref:`functionalities:Disattivazione dell'Istanza del Wallet` e :ref:`functionalities:Gestione degli Attestati Elettronici`. 
 
-Activation of the Wallet Instance Errors
-----------------------------------------
+In caso di problemi di comunicazione tra i sistemi del Fornitore di Attestati Elettronici di Attributi e della Fonte Autentica o in presenza di processi amministrativi o tecnici che non consentono di fornire immediatamente l'Attestato Elettronico di Attributi, gli attori coinvolti POSSONO gestire il flusso di ottenimento in modalità differita. In questo caso, il Fornitore di Wallet DEVE garantire che: 
+
+- l'Utente, giunto all'ultimo step del processo, visualizzi un messaggio che lo invita ad attendere il momento in cui l'Attestato Elettronico di Attributi potrà essere rilasciato; 
+- l'Utente venga informato dal Fornitore di Attestati Elettronici di Attributi non appena l'Attestato Elettronico di Attributi è disponibile. 
+
+In caso di dati errati all'interno di un Attestato Elettronico di Attributi già ottenuto o in fase di ottenimento, il Fornitore di Wallet DOVREBBE garantire all'Utente un'adeguata assistenza attraverso la propria Istanza del Wallet. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Assistenza Utente`. 
+
+In caso di errori nell'utilizzo della Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+
+Qualora una Fonte Autentica (o un Fornitore di Attestati Elettronici di Attributi qualora coincida con la Fonte Autentica) intendesse implementare un Pulsante di Ingaggio per permettere l'avvio del processo di ottenimento da un proprio Touchpoint, questo DEVE garantire il rispetto dei requisiti relativi all'aspetto grafico e alle modalità di implementazione del Pulsante di Ingaggio, descritti nella sezione :ref:`brand-identity:Brand Identity del Sistema IT-Wallet`. 
+
+Focus sugli Attestati Elettronici di Attributi
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Gli Attestati Elettronici di Attributi (EAA) ottenute all'interno dell'Istanza Wallet DOVREBBERO essere visualizzate in un elenco all'interno di una Vista Anteprima. In questo caso, ogni EAA DEVE garantire un elevato livello di riconoscibilità e accessibilità [RIF_ACCESSIBILITY] delle informazioni contenute. Di seguito sono riportati i requisiti per la visualizzazione dell'EAA a cui ogni Fornitore di Wallet DEVE aderire per fornire un'esperienza di consultazione e utilizzo coerente e accessibile:
+
+- L'EAA DEVE essere visualizzata correttamente su tutti i dispositivi, garantendo un'esperienza coerente su schermi di dimensioni diverse;
+- Il nome dell'EAA DEVE essere chiaramente visibile e sempre visualizzato sia nella Vista Dettagliata che nella Vista Anteprima;
+- L'EAA, sia nella Vista Anteprima che nella Vista Dettagliata, DEVE visualizzare il suo stato se diverso da valido per fornire trasparenza sul suo ciclo di vita e PUÒ visualizzarlo se valido. La Vista Anteprima PUÒ anche includere Attributi aggiuntivi per migliorare l'Esperienza Utente e la gestione; ad esempio, PUÒ visualizzare il nome o il logo del Fornitore di Attestati Elettronici di Attributi o del Fornitore PID. La Vista Dettagliata PUÒ fornire dettagli specifici sullo stato se non valido (ad esempio, il motivo per cui l'EAA è revocata);
+- L'EAA DEVE includere Pulsanti d'Azione nella Vista Dettagliata per consentire la gestione del ciclo di vita e permettere all'Utente di revocare o aggiornare un'EAA in qualsiasi momento (vedere :ref:`functionalities:Gestione degli Attestati Elettronici`);
+- L'EAA DEVE essere un elemento interattivo, affinché l'Utente possa accedere ai servizi forniti dai Verificatori di Attestati Elettronici in contesti digitali e di prossimità (vedere :ref:`functionalities:Presentazione degli Attestati Elettronici`);
+- L'EAA PUÒ essere visualizzata in formato tessera nella sua Vista Anteprima, in linea con gli approcci già utilizzati da altri portafogli digitali nel mercato, per rispecchiare l'aspetto di un documento fisico corrispondente. Quando applicabile, la natura digitale del documento PUÒ essere indicata, ad esempio etichettandolo come "versione digitale" nel layout;
+- L'EAA DEVE visualizzare le stesse informazioni nella Vista Dettagliata come mostrato nella Vista Anteprima e PUÒ includere dettagli aggiuntivi;
+- L'EAA DEVE visualizzare un metodo di assistenza (vedere :ref:`functionalities:Assistenza Utente`);
+- Il layout dell'EAA nella Vista Anteprima DEVE essere ottimizzato per scalabilità e usabilità, specialmente quando più EAA vengono visualizzate sulla stessa schermata;
+- La rappresentazione dell'EAA DEVE aderire a un insieme definito di specifiche fornite dal Fornitore di Attestati Elettronici di Attributi per garantire riconoscibilità, coerenza e omogeneità tra diverse Soluzioni Wallet.
+
+Il Fornitore di Attestati Elettronici di Attributi:
+
+- DEVE definire un nome/convenzione di denominazione per riferirsi agli EAA emessi, per garantire coerenza tra tutte le Soluzioni Wallet; il nome dell'EAA DEVE essere comprensibile e user-friendly evitando termini tecnici o acronimi quando possibile;
+- DEVE definire un insieme chiaro di specifiche per l'EAA per garantire un'identificazione e rappresentazione coerente dell'EAA tra diverse Soluzioni Wallet, in termini di formato, struttura e standard di aspetto (ad es. colore, immagine di sfondo, ecc.).
+
+Presentazione degli Attestati Elettronici 
+-----------------------------------------
+
+Il processo di presentazione permette all'Utente di accedere a un servizio o di dimostrare la titolarità di un dato o la sua idoneità a effettuare una determinata azione. La presentazione degli Attestati Elettronici e la loro conseguente verifica, prevede l'interazione tra due soggetti, l'Utente e il Verificatore di Attestati Elettronici, e può avvenire in due modalità principali a seconda delle circostanze e del contesto di interazione: 
+
+- **Presentazione in prossimità**: l'Utente presenta il PID e/o un set di Attributi contenuti in uno o più Attestati Elettronici tramite l'Istanza del Wallet direttamente a un Verifier o a un dispositivo del Verificatore di Attestati Elettronici preposto alla verifica in presenza; 
+
+- **Presentazione da remoto**: l'Utente presenta il PID e/o un set di Attributi contenuti in uno o più Attestati Elettronici tramite l'Istanza del Wallet ad un Verificatore di Attestati Elettronici predisposto per la verifica online al fine, ad esempio, di Autenticarsi e fruire dei servizi erogati. 
+
+Presentazione in prossimità 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+La presentazione in prossimità consente all'Utente di esibire il PID e/o un set di Attributi contenuti in uno o più Attestati Elettronici tramite la propria Istanza del Wallet, secondo due diverse modalità: 
+
+- **Modalità supervisionata**: l'Utente, tramite l'Istanza del Wallet, presenta il PID e/o uno o più Attestati Elettronici di Attributi, a un Verificatore di Attestati Elettronici dotato di un'apposita app o sistema di verifica (e.g. agente delle forze dell'ordine, farmacista, etc.); 
+
+- **Modalità non supervisionata**: l'Utente, tramite l'Istanza del Wallet, presenta il PID e/o un set di Attributi contenuti in uno o più Attestati Elettronici a un dispositivo preposto (e.g. tornello, ATM, etc.). 
+
+Di seguito i requisiti dell'Esperienza Utente relativi a entrambe le modalità che il Fornitori di Wallet DEVE garantire attraverso la propria Soluzione Wallet. 
+
+**Modalità supervisionata** 
+
+- L'Utente accede alla propria Istanza del Wallet utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente accede alla funzionalità dedicata alla generazione del QR Code; 
+- L'Utente mostra il QR Code generato al soggetto che opera per conto del Verificatore di Attestati Elettronici, il quale provvede a scansionarlo tramite apposita app o sistema di verifica; 
+- L'Utente prende visione dei dati del PID e/o degli Attributi richiesti per la presentazione, del nome del Verificatore di Attestati Elettronici che li richiede e delle relative eventuali informative. L'Utente sceglie se presentare o meno eventuali dati del PID o Attributi non obbligatori ai fini della presentazione (Divulgazione Selettiva). L'Utente dà il proprio consenso per poter proseguire oppure annulla l'operazione; 
+- L'Utente autorizza l'operazione utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente visualizza l'esito positivo della presentazione avvenuta. 
+
+In caso di errori nell'utilizzo dell'Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+
+**Modalità non supervisionata** 
+
+- L'Utente accede alla propria Istanza del Wallet utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente accede alla funzionalità dedicata alla generazione del QR Code; 
+- L'Utente mostra il QR Code generato al dispositivo preposto (ad esempio un tornello) del Verificatore di Attestati Elettronici per permetterne la scansione;
+- L'Utente prende visione dei dati del PID e/o gli Attributi richiesti per la presentazione, del nome del Verificatore di Attestati Elettronici che li richiede e delle relative eventuali informative. L'Utente sceglie se presentare o meno eventuali dati del PID o degli Attributi non obbligatori ai fini della presentazione (Divulgazione Selettiva). L'Utente dà il proprio consenso per poter proseguire oppure annulla l'operazione; 
+- L'Utente autorizza l'operazione utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente visualizza l'esito positivo della presentazione avvenuta. 
+
+In caso di errori nell'utilizzo dell'Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+
+Presentazione da remoto 
+^^^^^^^^^^^^^^^^^^^^^^^
+
+La presentazione da remoto consente all'Utente di esibire il PID e/o un set di Attributi contenuti in uno o più Attestati Elettronici, facendo interagire la propria Istanza del Wallet con il Touchpoint di un Verificatore di Attestati Elettronici, tramite un apposito Pulsante di Ingaggio. 
+
+Tale presentazione può avvenire in due diverse modalità, sulla base del tipo di dispositivo utilizzato per accedere al servizio di interesse: 
+
+- **Same-device**: nel caso in cui l'Utente voglia accedere a un servizio digitale online utilizzando lo stesso dispositivo su cui ha installato l'Istanza del Wallet; 
+- **Cross-device**: nel caso in cui l'Utente voglia accedere a un servizio digitale utilizzando un dispositivo differente rispetto a quello in cui ha installato l'Istanza del Wallet. 
+
+Di seguito i requisiti dell'Esperienza Utente relativi a entrambe le modalità che il Fornitore di Wallet DEVE garantire attraverso la propria Soluzione Wallet. 
+
+**Same-device** 
+
+- L'Utente clicca sul Pulsante di Ingaggio reso disponibile nel Touchpoint del Verificatore di Attestati Elettronici; 
+- L'Utente accede alla propria Istanza del Wallet utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente prende visione dei dati del PID e/o gli Attributi richiesti per la presentazione, del nome del Verificatore di Attestati Elettronici che li richiede e delle relative eventuali informative. L'Utente sceglie se presentare o meno eventuali dati del PID e/o Attributi non obbligatori ai fini della presentazione (Divulgazione Selettiva). L'Utente dà il proprio consenso per poter proseguire oppure annulla l'operazione; 
+- L'Utente autorizza l'operazione utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente visualizza nell'Istanza del Wallet l'esito positivo della presentazione avvenuta; 
+- L'Utente torna al flusso nel Touchpoint del Verificatore di Attestati Elettronici su cui DEVE visualizzare l'esito della presentazione completata. 
+
+In caso di errori nell'utilizzo dell'Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+
+**Cross-device** 
+
+- L'Utente clicca il Pulsante di Ingaggio reso disponibile nel Touchpoint del Verificatore di Attestati Elettronici che l'Utente sta navigando da un dispositivo diverso da quello su cui è installata l'Istanza del Wallet; 
+- L'Utente accede all'Istanza del Wallet che desidera utilizzare dal dispositivo su cui è installata utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente inquadra il QR Code reso disponibile dal Verificatore di Attestati Elettronici, utilizzando la sua Istanza del Wallet; 
+- L'Utente prende visione dei dati del PID e/o degli Attributi richiesti per la presentazione, del nome del Verificatore di Attestati Elettronici che li richiede e delle relative eventuali informative. L'Utente sceglie se presentare o meno eventuali dati del PID e/o Attributi non obbligatori ai fini della presentazione (Divulgazione Selettiva). L'Utente dà il proprio consenso per poter proseguire oppure annulla l'operazione; 
+- L'Utente autorizza l'operazione utilizzando la modalità di sblocco precedentemente impostata; 
+- L'Utente visualizza nell'Istanza del Wallet l'esito positivo della presentazione avvenuta; 
+- L'Utente torna sul Touchpoint del Verificatore di Attestati Elettronici e visualizza l'esito della presentazione completata. 
+
+In caso di errori nell'utilizzo dell'Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+
+Autenticazione 
+""""""""""""""
+
+L'Autenticazione è un caso d'uso specifico della presentazione remota e consente all'Utente di accedere in modo sicuro ai servizi resi disponibili da Verificatori di Attestati Elettronici pubblici e privati, presentando il PID ed eventualmente un set di Attributi contenuti negli Attestati Elettronici di Attributi ottenuti. Questo garantisce all'Utente il pieno controllo sui propri dati e la possibilità di condividere anche i soli dati strettamente necessari alla verifica da parte del Verificatore di Attestati Elettronici. 
+
+Il processo di Autenticazione può avvenire in entrambe le modalità same-device e cross-device descritte sopra. Per quanto riguarda i requisiti funzionali a supporto dell'Esperienza Utente, si DEVONO rispettare gli stessi requisiti previsti per la presentazione in remoto nelle due modalità (same-device e cross-device).
+
+Infatti, a livello di Esperienza Utente, il processo di Autenticazione si distingue da un generico flusso di presentazione principalmente per le modalità di avvio del processo, in questo caso reso possibile a partire da uno specifico pulsante, il Pulsante di Autenticazione. 
+
+Al fine di garantire un processo di Autenticazione adeguato e coerente tra tutti i Verificatori di Attestati Elettronici, ciascun Verificatore di Attestati Elettronici DEVE rispettare i requisiti relativi all'aspetto grafico e all'Esperienza Utente descritti di seguito, unitamente al rispetto di [RIF_ACCESSIBILITÀ] e, nel caso di enti pubblici, delle [LG_DESIGN].
+
+I Verificatori di Attestati Elettronici DOVREBBERO utilizzare le Risorse Ufficiali open source. Qualora non intendano utilizzare tali risorse open source, i Verificatori di Attestati Elettronici POSSONO sviluppare in autonomia le Soluzioni Tecniche abilitanti il flusso di Autenticazione.
+ 
+I Verificatori di Attestati Elettronici, in ogni caso, DEVONO abilitare il processo di Autenticazione rendendo disponibili le seguenti pagine: 
+
+- **Discovery Page**: ha l'obiettivo di mostrare all'Utente tutti i metodi di Autenticazione disponibili; 
+- **QR code page** (*solo per modalità cross-device*): ha lo scopo di invitare l'Utente a inquadrare il codice QR; 
+- **waiting page** (*solo per modalità cross-device*): ha lo scopo di invitare l'Utente a continuare il processo di Autenticazione sulla propria Istanza del Wallet; 
+- **thank you page**: ha lo scopo di comunicare all'Utente l'avvenuta Autenticazione; 
+- **error page**: ha lo scopo di comunicare all'Utente eventuali errori legati al flusso di Autenticazione. 
+
+Tali pagine DEVONO prevedere i seguenti elementi trasversali ricorrenti, in continuità con l'Identità Visiva del Touchpoint del Verificatore di Attestati Elettronici:
+
+- un **header e/o un subheader**, che permette all'Utente di tornare alla pagina precedente; 
+- un **footer** che include l'informativa privacy, le note legali e la Dichiarazione di Accessibilità, ove previsto da normativa. 
+
+Di seguito invece gli elementi specifici caratteristici delle diverse pagine. 
+
+**Discovery Page** 
+
+Per garantire l'Autenticazione tramite il Sistema IT-Wallet, il Verificatore di Attestati Elettronici PUÒ aggiornare la propria Discovery Page con quella resa disponibile nelle Risorse Ufficiali. 
+
+In alternativa, il Verificatore di Attestati Elettronici PUÒ mantenere la propria Discovery Page, ma DEVE in ogni caso integrare il Pulsante di Autenticazione, come da indicazioni presenti nella sezione :ref:`brand-identity:Pulsante di Autenticazione`.
+
+In ogni caso, nella pagina, il Verificatore di Attestati Elettronici:
+
+- DEVE garantire la presenza di tutte le modalità di Autenticazione attraverso l'identità digitale tra cui la modalità di Autenticazione del Sistema IT-Wallet, quindi tramite il Pulsante di Autenticazione; 
+- PUÒ presentare anche modalità di Autenticazione alternative, se disponibili; 
+- DOVREBBE garantire informazioni minime a supporto, per permettere all'Utente di compiere una scelta consapevole e informata. 
+
+Nel caso l'Utente stia navigando la pagina del Verificatore di Attestati Elettronici da un Touchpoint diverso da quello su cui ha attivato l'Istanza del Wallet (modalità cross-device), la scelta di Autenticazione tramite il Sistema IT-Wallet DEVE condurre l'Utente alla QR code page. 
+
+Nel caso in cui invece l'Utente stia navigando la pagina del Verificatore di Attestati Elettronici dallo stesso Touchpoint su cui ha attivato l'Istanza del Wallet (modalità same-device) tale pagina DEVE condurre l'Utente all'apertura della propria Istanza del Wallet. 
+
+**QR code page (*solo per modalità cross-device*)** 
+
+La QR code page è la pagina su cui atterra l'Utente che ha scelto l'Autenticazione tramite il Sistema IT-Wallet in un flusso cross-device, e ha lo scopo di invitare l'Utente a scannerizzare, con la propria Istanza del Wallet, il codice QR generato. 
+
+Il Verificatore di Attestati Elettronici DOVREBBE implementare la QR code page (flusso cross-device) resa disponibile nelle Risorse Ufficiali. Il Verificatore di Attestati Elettronici che implementa la pagina:
+
+- DEVE includere gli elementi propri dell'Identità Visiva del Sistema IT-Wallet, tra cui il Logo; 
+- DEVE esporre il codice QR e un testo sintetico e chiaro che inviti l'Utente a scannerizzarlo con la propria Istanza del Wallet; 
+- DEVE includere un testo sintetico e chiaro che permetta all'Utente di conoscere la validità temporale del codice QR; 
+- DEVE includere una Call to Action che, in caso di timeout, permetta all'Utente di generare un nuovo codice QR; 
+- DEVE includere una Call to Action che permetta all'Utente di annullare l'operazione e tornare alla Discovery Page. 
+
+Inoltre, nei rispetto di [RIF_ACCESSIBILITÁ], relativamente al codice QR, il Verificatore di Attestati Elettronici: 
+
+- DEVE rispettare le dimensioni minime raccomandate per garantire una scansione efficace. Una misura di 150x150 pixel è generalmente adeguata, ma per codici con alta densità di dati (e.g. URL lunghi o numerosi caratteri), è consigliabile aumentarla a 300x300 pixel o più; 
+- DEVE garantire un contrasto minimo tra il codice QR e lo sfondo (la condizione ideale prevede uno sfondo bianco con un codice QR nero); 
+- DEVE evitare inversioni di colore tra sfondo e codice QR; 
+- DEVE limitare la presenza a un solo codice QR per pagina; 
+- DEVE garantire nitidezza e alta qualità; 
+- DEVE garantire il formato SVG; 
+- DEVE garantire che non venga parzialmente nascosto da testo o altri elementi.
+
+**Waiting page (*solo per modalità cross-device*)** 
+
+La waiting page è la pagina che invita l'Utente a proseguire il processo di Autenticazione sulla propria Istanza del Wallet, a valle della scansione del codice QR. 
+
+Il Verificatore di Attestati Elettronici DOVREBBE implementare la waiting page (cross-device) resa disponibile nelle Risorse Ufficiali. Il Verificatore di Attestati Elettronici che implementa la pagina: 
+
+- DEVE includere gli elementi propri dell'Identità Visiva del Sistema IT-Wallet, tra cui il Logo e un'icona o altro elemento grafico che aiuti a veicolare il messaggio della pagina; 
+- DEVE prevedere un testo sintetico e chiaro che lo inviti a proseguire sulla sua Istanza del Wallet. 
+
+**Thank you page** 
+
+La thank you page è la pagina sui cui l'Utente atterra una volta concluso il processo di Autenticazione attraverso la propria Istanza del Wallet e ha l'obiettivo di invitare l'Utente a proseguire nell'area riservata. 
+
+Il Verificatore di Attestati Elettronici DOVREBBE implementare la thank you page resa disponibile nelle Risorse Ufficiali. Il Verificatore di Attestati Elettronici che implementa la pagina: 
+
+- DEVE includere gli elementi propri dell'Identità Visiva del Sistema IT-Wallet, tra cui il Logo e un'icona o altro elemento grafico che aiuti a veicolare il messaggio della pagina; 
+- DEVE prevedere un testo sintetico e chiaro che spieghi all'Utente che il processo di Autenticazione si è concluso con successo; 
+- DEVE prevedere una Call to Action che inviti l'Utente a proseguire nell'area riservata del Verificatore di Attestati Elettronici. 
+
+**Error page** 
+
+La pagina di errore rappresenta quella tipologia di pagina su cui l'Utente atterra in caso di errori nel corso del flusso di Autenticazione, e ha lo scopo di comunicare all'Utente la natura di tali errori (es. errore tecnico, assenza di rete, malfunzionamento dell'Istanza del Wallet, consenso alla presentazione dei dati negato etc.) e di presentare le azioni che l'Utente può intraprendere. Per approfondimenti sulle casistiche di errore si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+ 
+Il Verificatore di Attestati Elettronici DOVREBBE implementare la error page resa disponibile nelle Risorse Ufficiali. Il Verificatore di Attestati Elettronici che implementa la pagina: 
+
+- DEVE includere gli elementi propri dell'Identità Visiva del Sistema IT-Wallet, tra cui il Logo e un'icona o altro elemento grafico che aiuti a veicolare la natura dell'errore; 
+- DEVE prevedere un testo sintetico e chiaro che spieghi all'Utente la natura dell'errore, il codice errore e una sua spiegazione semplice; 
+- DEVE prevedere una o più Call to Action che invitino l'Utente a intraprendere le azioni previste (es. riprova, contatta l'assistenza, etc.). 
+
+Gestione degli Attestati Elettronici
+------------------------------------
+
+Il Fornitore di Wallet, attraverso la propria Soluzione Wallet, e il PID Provider o il Fornitore di Attestati Elettronici di Attributi, attraverso Touchpoint dedicati, DEVONO dare all'Utente la possibilità di gestire in ogni momento i propri Attestati Elettronici. 
+
+In questa sezione sono illustrate tre diverse categorie di requisiti per la gestione del ciclo di vita di ogni Attestato Elettronico e nello specifico per la gestione: 
+
+- **del suo stato**: per consentire all'Utente di appurare la condizione di validità o invalidità di un Attestato Elettronico; 
+- **dei suoi utilizzi**: per consentire all'Utente di visualizzare e gestire lo storico delle transazioni effettuate utilizzando un Attestato Elettronico; 
+- **dei suoi dati**: per consentire all'Utente di archiviare e ripristinare ogni Attestato Elettronico di Attributi in linea col principio di *data portability*. 
+
+Di seguito i principali aspetti che impattano e determinano l'Esperienza Utente nell'ambito della gestione degli Attestati Elettronici per mezzo di un'Istanza del Wallet e i requisiti funzionali riferiti a ciascuna categoria. 
+
+Stato degli Attestati Elettronici 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Per garantire l'affidabilità e promuovere il corretto utilizzo della propria Soluzione Wallet, il Fornitore di Wallet DEVE dare all'Utente visibilità dello stato degli Attestati Elettronici ottenuti nella propria Istanza del Wallet sulla base delle informazioni ricevute dal Fornitore di Attestati Elettronici, gestore del loro ciclo di vita. 
+
+Ogni Attestato Elettronico può assumere lo stato valido o non valido, con conseguenti impatti circa le sue possibilità di utilizzo, in particolare: 
+
+- **valido**: gli Attestati Elettronici validi DEVONO essere utilizzabili quindi presentabili. Tra questi rientrano anche gli Attestati Elettronici in scadenza. Qualora un Attestato Elettronico fosse in scadenza, l'Istanza del Wallet DOVREBBE informare l'Utente con un adeguato preavviso utile ad avviare per tempo una richiesta di ri-ottenimento o, se necessario, di revoca; 
+
+- **non valido**: gli Attestati Elettronici non validi NON DEVONO essere utilizzabili quindi presentabili. Rientrano in questa categoria gli Attestati Elettronici scaduti o revocati. In questi casi l'Istanza del Wallet DEVE essere informare l'Utente circa lo stato di non validità e DOVREBBE dare evidenza della motivazione. Qualora l'Attestato Elettronico non fosse più valido, e non fosse quindi più possibile alcuno scenario di utilizzo, l'Istanza del Wallet PUÒ prevedere dei meccanismi per inibire la Vista di Dettaglio di tale Attestato Elettronico, al fine di incoraggiare l'Utente ad aggiornarlo o cancellarlo tramite apposito testo informativo e Call To Action. 
+
+Revoca degli Attestati Elettronici 
+""""""""""""""""""""""""""""""""""
+
+La revoca si configura come quel meccanismo che determina il passaggio di un Attestato Elettronico da uno stato valido a uno stato non valido. La revoca può avvenire in modalità attiva o passiva: 
+
+- **Revoca attiva**: ovvero la revoca di un Attestato Elettronico su richiesta dell'Utente. Tale processo comporta la sola revoca dell'Attestato Elettronico e non del corrispettivo documento fisico, se esistente. Di seguito un elenco esemplificativo di scenari in cui il Fornitore di Wallet DEVE dare possibilità all'Utente di richiedere la revoca di un Attestato Elettronico: 
+
+   - l'Utente decide di non voler più possedere uno specifico Attestato Elettronico;
+   - l'Utente decide di disattivare la propria Istanza del Wallet e, di conseguenza, tutti gli Attestati Elettronici precedentemente ottenuti; 
+   - l'Utente non è più in possesso del dispositivo su cui è installata la propria Istanza del Wallet a causa di uno smarrimento o un furto. 
+
+- **Revoca passiva**: ovvero la revoca di un Attestato Elettronico gestita dal relativo Fornitore di Attestati Elettronici per conto della Fonte Autentica. In questo caso l'Istanza del Wallet DEVE informare l'Utente del cambiamento di stato dell'Attestato Elettronico e, in aggiunta, il Fornitore di Attestati Elettronici PUÒ informare l'Utente attraverso altri Touchpoint. Di seguito un elenco esemplificativo di scenari che porterebbero alla revoca di un Attestato Elettronico: 
+
+   - il documento fisico corrispondente all'Attestato Elettronico è stato dichiarato smarrito o danneggiato da parte dell'Utente tramite apposito canale/ Touchpoint; 
+   - il documento fisico corrispondente all'Attestato Elettronico è stato revocato dalle autorità competenti; 
+   - non sussistono più i requisiti minimi di sicurezza e/o affidabilità di una o più delle parti coinvolte; 
+   - il dispositivo dell'Utente non soddisfa più i requisiti minimi di sicurezza (dispositivo rootato o jailbroken). 
+ 
+Storico degli Attestati Elettronici 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Al fine di garantire i principi di visibilità e trasparenza, il Fornitore di Wallet DEVE permettere all'Utente di visualizzare lo storico di tutte le transazioni effettuate, ovvero l'utilizzo degli Attestati Elettronici di Attributi tramite l'Istanza del Wallet. In particolare: 
+
+- l'Istanza del Wallet DEVE mostrare all'Utente con quali Verificatori di Attestati Elettronici ha interagito e quali Attestati Elettronici sono stati oggetto di presentazione e verifica; 
+- l'Istanza del Wallet DEVE permettere all'Utente di richiedere facilmente al Verificatore di Attestati Elettronici la cancellazione delle proprie informazioni oggetto delle precedenti presentazioni. 
+
+Archiviazione e ripristino degli Attestati Elettronici di Attributi 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Con l'obiettivo di garantire il principio di data portability, la Soluzione Wallet DEVE garantire all'Utente l'accesso a specifiche funzionalità per: 
+
+- richiedere l'archiviazione, quindi il salvataggio, degli Attestati Elettronici di Attributi ottenuti su una specifica Istanza del Wallet; 
+- richiedere il ripristino dei propri Attestati Elettronici di Attributi su un'altra Istanza del Wallet. 
+
+Disattivazione dell'Istanza del Wallet 
+--------------------------------------
+
+La disattivazione dell'Istanza del Wallet è la funzionalità che rende l'Istanza del Wallet disattiva e quindi non più operativa. La disattivazione dell'Istanza del Wallet può essere scatenata da attori differenti a seconda delle circostanze, in particolare: 
+
+- da parte dell'Utente nel caso in cui, ad esempio: 
+
+   - il dispositivo sia stato smarrito o rubato; 
+   - il dispositivo risulti compromesso; 
+   - il dispositivo sia stato resettato alle impostazioni di fabbrica. 
+
+- da parte di un ente terzo titolato nel caso in cui, ad esempio: 
+
+   - la Soluzione Wallet non rispetti più i requisiti minimi di sicurezza. 
+ 
+Il Fornitore di Wallet DEVE, quindi, garantire all'Utente la possibilità di disattivare volontariamente la propria Istanza del Wallet tramite: 
+
+- l'Istanza del Wallet stessa; 
+- un Touchpoint (e.g. un sito web) fornito dal Fornitore di Wallet; 
+- l'app store del proprio dispositivo, disinstallando l'Istanza del Wallet. 
+
+Di seguito i requisiti funzionali a supporto dell'Esperienza Utente relativi alla disattivazione dell'Istanza del Wallet che il Fornitore di Wallet DEVE garantire attraverso la propria Soluzione Wallet: 
+
+- l'Utente accede alla propria Istanza del Wallet utilizzando la modalità di sblocco precedentemente impostata oppure si Autentica presso il Touchpoint reso disponibile dal Fornitore di Wallet; 
+- l'Utente seleziona la funzionalità di disattivazione dell'Istanza del Wallet; 
+- l'Utente viene informato che la disattivazione dell'Istanza del Wallet renderà non più utilizzabili gli Attestati Elettronici precedentemente ottenuti; 
+- l'Utente conferma l'azione per procedere con la disattivazione oppure annulla l'operazione; 
+- l'Utente visualizza l'esito positivo della disattivazione avvenuta; 
+- l'Utente, in caso di nuovo accesso, prende visione del fatto che l'Istanza del Wallet è disattiva; 
+- l'Utente ha la possibilità di riattivare l'Istanza del Wallet riscaricando l'app dall'app store, in caso di cancellazione, e/o ripercorrendo il processo di attivazione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Attivazione dell'Istanza del Wallet`. 
+
+Una volta riattivata l'Istanza del Wallet, gli Attestati Elettronici di Attributi potranno essere ri-ottenuti avviando nuovamente il processo di ottenimento o di ripristino. Per approfondimenti si rimanda rispettivamente alle sezioni :ref:`functionalities:Ottenimento degli Attestati Elettronici di Attributi` e :ref:`functionalities:Archiviazione e ripristino degli Attestati Elettronici di Attributi`. 
+
+In caso di errori nell'utilizzo dell'Istanza del Wallet, il Fornitore di Wallet DEVE garantire all'Utente la visualizzazione di messaggi coerenti che lo informino e guidino alla loro risoluzione. Per approfondimenti si rimanda alla sezione :ref:`functionalities:Gestione degli errori`. 
+
+Gestione degli errori 
+---------------------
+
+Il Sistema IT-Wallet prevede l'interazione di una molteplicità di servizi erogati da diversi attori. È quindi importante che venga definito un modello di gestione degli errori efficace, con l'obiettivo di migliorare la percezione e il senso di affidabilità dell'interno ecosistema e permettere all'Utente di sentirsi guidato nell'interazione con le diverse Soluzioni Tecniche e nella gestione consapevole di eventuali criticità durante la fruizione del servizio. 
+
+Una comunicazione efficace in caso di errore determina un vantaggio anche per gli attori coinvolti, in quanto concorre alla riduzione delle richieste di assistenza e, quindi, alla minimizzazione dell'impatto sui sistemi.
+
+Di seguito vengono presentati i requisiti e le principali buone pratiche di gestione dell'errore, riferite alle modalità di interazione tra l'Utente e la propria Istanza del Wallet. Ciascun Attore Primario deve implementare una corretta gestione degli errori, in conformità alle attuali regole tecniche, al fine di comunicarli, direttamente o indirettamente, all'Utente e tramite l'Istanza del Wallet. Gli errori possono essere declinati, sulla base della loro natura, come segue: 
+
+- **la fase dell'Esperienza Utente** in cui l'errore può verificarsi: attivazione o disattivazione dell'Istanza del Wallet, ottenimento, presentazione o gestione degli Attestati Elettronici; 
+- **la tipologia di errore**: di sistema, di comunicazione tra attori, etc.; 
+- **l'attore responsabile dell'errore**: Fornitore di Wallet, PID Provider, Fornitore di Attestati Elettronici di Attributi, Fonte Autentica; 
+- **la modalità di restituzione dell'errore**: messaggio in pagina, banner, toast message, etc.; 
+- **le azioni suggerite all'Utente per risolvere l'errore**: suggerimento di attesa, richiesta di effettuare un nuovo tentativo, rimando alle domande frequenti e/o al servizio di assistenza, etc.; 
+- **le modalità di presa in carico dell'errore**: apertura di una richiesta di assistenza tramite l'Istanza del Wallet, rimando ad altri canali di approfondimento, etc. Per approfondimenti si rimanda alla sezione Assistenza Utente. 
+
+Di seguito, una lista non esaustiva delle principali casistiche di errore, con riferimento all'attore responsabile della loro gestione, per ciascuna fase dell'Esperienza Utente.
+
+Errori di Attivazione dell'Istanza del Wallet 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 
+.. list-table::
+   :widths: 80 20
+   :header-rows: 1
+
+   * - Tipologia di errore
+     - Attore responsabile 
+   * - Il dispositivo non supporta la Soluzione Wallet (e.g. assenza dei requisiti minimi di sicurezza o tecnologici)
+     - Fornitore di Wallet 
+   * - I servizi del Fornitore di Wallet non rispondono (e.g. errori tecnici o assenza connessione) 
+     - Fornitore di Wallet 
+   * - I servizi del PID Provider non rispondono (e.g. errori tecnici) 
+     - PID Provider
+   * - Il processo di Autenticazione sul servizio del National Identity Provider non è andato a buon fine (e.g. errori tecnici, identità non riconosciuta, etc.)
+     - National Identity Provider 
+
+Errori di ottenimento degli Attestati Elettronici di Attributi
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-  :widths: 80 20
-  :header-rows: 1
+   :widths: 80 20
+   :header-rows: 1
 
-  * - Error type
-    - Actor in charge
-  * - The device does not support the Wallet Solution (e.g. absence of minimum security or technological requirements)
-    - Wallet Provider
-  * - The Wallet Provider's services are unresponsive (e.g. technical errors or lack of connection)
-    - Wallet Provider
-  * - The PID Provider's services are unresponsive (e.g. technical errors)
-    - PID Provider
-  * - The Authentication process on the National Identity Provider's service was unsuccessful (e.g. technical errors, unrecognized identity, etc.)
-    - National Identity Provider
+   * - Tipologia di errore
+     - Attore responsabile 
+   * - L'Istanza del Wallet e/o il PID non risultano attivi 
+     - Fornitore di Wallet
+   * - Il servizio di ottenimento di un Attestato Elettronico di Attributi non è disponibile (e.g. errori tecnici) 
+     - Fornitore di Attestati Elettronici di Attributi, Fonte Autentica
+   * - L'Utente non riesce ad ottenere nella propria Istanza del Wallet un certo Attestato Elettronico di Attributi (e.g. assenza di titolarità, versione fisica non valida o scaduta, etc.) 
+     - Fonte Autentica  
 
-Issuance of Electronic Attestations of Attributes Errors
---------------------------------------------------------
+Errori di presentazione degli Attestati Elettronici
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-  :widths: 80 20
-  :header-rows: 1
+   :widths: 80 20
+   :header-rows: 1
 
-  * - Error type
-    - Actor in charge
-  * - The Wallet Instance and/or the PID are not active
-    - Wallet Provider
-  * - The service for obtaining an Electronic Attestation of Attributes is unavailable (e.g. technical errors)
-    - Electronic Attestations of Attributes Provider, Authentic Source
-  * - The User is unable to obtain a specific Electronic Attestation of Attributes in their Wallet Instance (e.g. no eligibility, invalid or expired physical version, etc.)
-    - Authentic Source
+   * - Tipologia di errore
+     - Attore responsabile 
+   * - L'Utente non possiede all'interno della propria Istanza del Wallet gli Attributi contenuti in uno o più Attestati Elettronici richiesti per la fruizione di un determinato servizio 
+     - Fornitore di Wallet 
+   * - I servizi del Fornitore di Wallet e/o del Verificatore di Attestati Elettronici non rispondono (e.g. errori tecnici o assenza connessione) 
+     - Fornitore di Wallet, Verificatore di Attestati Elettronici 
 
-Presentation of Electronic Attestations Errors
-----------------------------------------------
+Errori di gestione degli Attestati Elettronici
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-  :widths: 80 20
-  :header-rows: 1
+   :widths: 80 20
+   :header-rows: 1
 
-  * - Error type
-    - Actor in charge
-  * - The User does not hold the required Attributes contained in one or more Electronic Attestations within their Wallet Instance to access a specific service
-    - Wallet Provider
-  * - The Wallet Provider's services or the Relying Party's services are unresponsive (e.g. technical errors or lack of connection)
-    - Wallet Provider, Relying Party
+   * - Tipologia di errore
+     - Attore responsabile
+   * - Il servizio di revoca / archiviazione/ ripristino di un Attestato Elettronico di Attributi non è disponibile (e.g. errori tecnici) 
+     - Fornitore di Attestati Elettronici di Attributi 
+   * - Il servizio di revoca del PID non è disponibile (e.g. errori tecnici) 
+     - PID Provider 
 
-Management of Electronic Attestations Errors
-----------------------------------------------
-
-.. list-table::
-  :widths: 80 20
-  :header-rows: 1
-
-  * - Error type
-    - Actor in charge
-  * - The service for revocation/ backup/ restore of an Electronic Attestation of Attributes is unavailable (e.g. technical errors)
-    - Electronic Attestations of Attributes Provider
-  * - The service for revocation of PID is unavailable (e.g. technical errors)
-    - PID Provider
-
-Deactivation of the Wallet Instance Errors
-------------------------------------------
+Errori di disattivazione dell'Istanza del Wallet
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-  :widths: 80 20
-  :header-rows: 1
+   :widths: 80 20
+   :header-rows: 1
 
-  * - Error type
-    - Actor in charge
-  * - The service for deactivating the Wallet Instance is unavailable (e.g. technical errors)
-    - Wallet Provider
+   * - Tipologia di errore
+     - Attore responsabile
+   * - Il servizio di disattivazione dell'Istanza del Wallet non è disponibile (e.g. errori tecnici) 
+     - Fornitore di Wallet 
 
-In addition to error management, all Primary Actors MUST also deal with negative feedback resulting from the User's decision to abandon or cancel a flow (e.g. Activation, Acquisition, Presentation, etc.). In such cases, feedback MUST be provided to confirm the User's choice, and it MAY include a Call to Action to continue.
+Oltre alla gestione degli errori, DEVE essere garantita da parte di tutti gli Attori Primari anche la gestione di esiti negativi dovuti alla volontà dell'Utente di abbandonare o annullare un flusso (es. attivazione, ottenimento, presentazione, etc.). In questi casi DEVE essere previsto un feedback che dia conferma all'Utente della scelta intrapresa e che PUÒ includere una Call to Action per proseguire.
 
-User Assistance
+Assistenza Utente 
+-----------------
+
+Per un'efficace gestione degli errori e di eventuali altre problematiche, gli Attori Primari DEVONO garantire un'adeguata assistenza all'Utente, strutturando un modello di assistenza semplice ed efficace basato sui seguenti principi: 
+
+- **Risoluzione autonoma**: permettere all'Utente di consultare domande frequenti (FAQ) sui contenuti e sulle funzionalità dell'Istanza del Wallet, al fine di risolvere eventuali casistiche di errore o problematiche in maniera autonoma. 
+
+- **Apertura guidata di una segnalazione**: guidare l'Utente all'eventuale apertura di una segnalazione, in modo da circoscrivere la problematica e facilitare la sua gestione. 
+
+- **Collaborazione tra attori**: rendere possibile un adeguato coordinamento tra tutti gli attori coinvolti (Fornitore di Wallet, Fornitore di Attestati Elettronici di Attributi, PID Provider e Fonte Autentica) in base al proprio ruolo e alle modalità operative specifiche. 
+
+- **Comunicazione efficiente**: garantire all'Utente la possibilità di monitorare lo stato aggiornato della propria richiesta durante tutte le fasi di lavorazione, attraverso una comunicazione chiara, continua e coordinata. 
+
+Per applicare queste buone pratiche, gli attori coinvolti DOVREBBERO implementare i seguenti livelli di assistenza gerarchici: 
+
+	1. **I Livello – Gestione autonoma**: il Fornitore di Wallet DOVREBBE permettere all'Utente di disporre di una sezione di domande frequenti (FAQ) all'interno della propria Istanza del Wallet per chiarire dubbi e risolvere in autonomia alcune problematiche. Ogni attore DOVREBBE formulare delle domande frequenti e relative risposte specifiche rispetto a dati e funzionalità messe a disposizione al Fornitore di Wallet o nei propri Touchpoint. Per alcune casistiche di errore, il Fornitore di Wallet DOVREBBE rendere direttamente disponibile il canale di assistenza di un altro attore, per facilitare una gestione tempestiva ed evitare l'apertura di una richiesta di assistenza nell'Istanza del Wallet. 
+
+	2. **II Livello – Richiesta di assistenza al Fornitore di Wallet**: se il I livello non fosse sufficiente, il Fornitore di Wallet DOVREBBE permettere all'Utente di aprire una o più richieste di assistenza, effettuare una diagnosi e procedere alla risoluzione della problematica, se di sua competenza. Tali richieste DOVREBBERO essere gestite tramite l'Istanza del Wallet o altri Touchpoint del Fornitore di Wallet.
+
+	3. **III Livello – Inoltro della richiesta all'attore responsabile della problematica**: se il II livello non fosse sufficiente, il Fornitore di Wallet DOVREBBE garantire che la richiesta sia inoltrata all'attore responsabile (Fornitore di Attestati Elettronici di Attributi, PID Provider e Fonte Autentica) che si fa carico della risoluzione della problematica e comunicare l'esito all'Utente. 
+
+Di seguito i requisiti di Esperienza Utente che il Fornitore di Wallet DEVE garantire attraverso la propria Soluzione Wallet: 
+
+- l'Utente ha accesso a modalità di assistenza in ogni momento dell'Esperienza Utente, attraverso una chiara indicazione del punto di accesso; 
+- l'Utente ha la possibilità di aprire una richiesta di assistenza tramite la propria Istanza del Wallet o altri Touchpoint messi a disposizione dal Fornitore di Wallet; 
+- nel caso di apertura di una richiesta di assistenza, l'Utente riceve conferma tempestiva dell'avvenuta presa in carico; 
+- l'Utente è informato preventivamente nel caso in cui sia necessario condividere i propri dati con soggetti terzi; 
+- l'Utente è informato nei casi in cui la richiesta di assistenza debba essere gestita al di fuori della propria Istanza del Wallet, quindi su canali terzi; 
+- l'Utente monitora l'esito della richiesta in ogni momento attraverso funzionalità che DEVONO essere messe a disposizione dagli attori che hanno preso in carico la richiesta. 
+
+Feedback Utente 
 ---------------
 
-For effective error management and the resolution of any other issues, Primary Actors MUST ensure adequate support to the User by structuring a simple and effective assistance model based on the following principles:
+La raccolta dei feedback degli Utenti permette di monitorare l'Esperienza Utente, identificare le aree per una possibile ottimizzazione e misurare l'efficacia del servizio in maniera continuativa. Ogni Fornitore di Wallet DOVREBBE predisporre un sistema strutturato di raccolta feedback, per monitorare e migliorare l'Esperienza Utente. 
 
-- **Self-resolution**: to allow the User to consult the frequently asked questions (FAQs) about the content and functionalities of the Wallet Instance, in order to resolve any error cases or issues independently.
+Tale sistema di feedback POTREBBE essere alimentato da due diverse tipologie di raccolta feedback: 
 
-- **Guided issue reporting**: to guide the User through the process of opening an assistance ticket, in order to clearly define the issue and facilitate its resolution.
+- **feedback transazionali** (Customer Effort Score, Customer Satisfaction): raccolta contestuale ad azioni specifiche, come l'aggiunta di un Attestato Elettronico o il completamento di un'operazione di presentazione e verifica;  
+- **feedback relazionali** (Net Promoter Score): raccolta non contestuale ad azioni specifiche, per la misurazione della percezione generale dell'Utente, in termini di soddisfazione, fedeltà e possibile raccomandazione ad Utenti terzi. 
 
-- **Collaboration between actors**: to allow the coordination among each actor involved (Wallet Provider, Electronic Attestations of Attributes Provider, PID Provider, and Authentic Source), according to their specific roles and operational procedures.
+Di seguito, le indicazioni proposte per l'implementazione di tali tipologie di feedback: 
 
-- **Efficient communication**: to allow the User to track the updated status of their request throughout all stages of processing, with clear, continuous, and coordinated communication.
+**Raccolta di feedback transazionale** 
 
-To implement these best practices, the Wallet Provider SHOULD establish a hierarchical assistance model:
+- **Customer Effort Score (CES)**: per misurare la facilità di utilizzo delle funzionalità POSSONO essere predisposti questionari, ad esempio tramite componenti quali modali o pop-up nell'Istanza del Wallet, al termine di azioni specifiche o specifici processi, ad esempio: 
 
-	1. **Level I | Self-management**: the Wallet Provider SHOULD allow the User to access to a Frequently Asked Questions (FAQ) section within their Wallet Instance to clarify doubts and resolve certain issues independently. Each actor SHOULD create specific FAQs and corresponding answers regarding the data and functionalities they provide to the Wallet Provider or in their Touchpoints. For certain error cases, the Wallet Provider SHOULD provide another actor's direct channel of support to facilitate timely management and avoid opening an assistance request within the Wallet Instance.
+   - a conclusione del processo di ottenimento di un Attestato Elettronico;  
+   - a conclusione del processo di Autenticazione, se positivo; 
+   - a conclusione del processo di presentazione, in particolare a conclusione della prima occasione di presentazione e non più di una volta ogni 6 mesi; 
+   - a conclusione dei processi di revoca e disattivazione, per approfondirne le motivazioni. 
 
-	2. **Level II | Requesting assistance** from the Wallet Provider: if Level I is insufficient, the Wallet Provider MUST give the User the possibility to open one or more assistance requests. These requests SHOULD be managed through the Wallet Instance or other Wallet Provider Touchpoints. The Wallet Provider MUST diagnose and resolve the issue if it falls under their responsibility.
+- **Customer Satisfaction Survey (CSAT)**: per misurare la soddisfazione generale dell'Utente dopo un periodo prolungato di utilizzo dell'Istanza del Wallet POSSONO essere predisposti questionari, ad esempio tramite componenti quali modali o pop-up nell'Istanza del Wallet. Si consiglia di utilizzare il CSAT ad intervalli non inferiori a sei mesi e come alternativa al CES, per evitare di somministrare questionari con troppa frequenza. 
 
-	3. **Level III | Forwarding the request to the responsible actor**: if Level II is insufficient, the Wallet Provider SHOULD ensure that the request is forwarded to the responsible actor (Electronic Attestations of Attributes Provider, PID Provider, or Authentic Source), who MUST ensure the availability of dedicated back-office channels to resolve the issue and communicate the outcome to the User.
+**Raccolta di feedback relazionale** 
 
-Here are the functional and User Experience requirements that the Wallet Provider MUST guarantee via their Wallet Solution:
-
-- The User accesses to assistance options at any point during the User Experience, with a clear indication of how to access them;
-- The User opens an assistance request through their Wallet Instance or other Touchpoints provided by the Wallet Provider;
-- When a support request is open, the User receives prompt confirmation that the request has been acknowledged;
-- The User is informed in advance if it is necessary to present their data with third parties;
-- The User is informed when an assistance request needs to be managed outside of their Wallet Instance, such as on third-party channels;
-- The User tracks the status of the request at any time through functionalities that MUST be made available by the actors dealing with the request.
-
-User Feedback
--------------
-
-User feedback collection allows for monitoring the User Experience, identifying potential areas for optimization, and continuously measuring the effectiveness of the service. Each Wallet Provider SHOULD establish a structured feedback collection system to monitor and improve the User Experience.
-
-This feedback system MAY be fed by two different types of feedback collection:
-
-- **Transactional Feedback** (Customer Effort Score, Customer Satisfaction): collected in response to specific actions, such as adding an Electronic Attestation or completing a presentation and verification process;
-- **Relational Feedback** (Net Promoter Score): not in connection with specific actions, collected to measure the overall perception of the User in terms of satisfaction, loyalty, and likelihood of recommending the service to third-party users.
-
-Here are some suggestions for implementing these types of feedback tools:
-
-**Transactional Feedback Collection**
-
-- **Customer Effort Score (CES)**: To measure the ease of use of the functionalities, surveys MAY be provided, for example, through components like modals or pop-ups within the Wallet Instance, triggered at the conclusion of specific actions or processes. Examples include:
-
-	- After completing the process of obtaining an Electronic Attestation;
-	- After the Authentication process, if positive;
-	- After the presentation process, particularly at the end of the first presentation opportunity and no more than once every 6 months;
-	- After the revocation and deactivation processes, to explore the reasons behind these actions.
-
-- **Customer Satisfaction Survey (CSAT)**: To measure the overall satisfaction of the User after a prolonged period of using the Wallet Instance, surveys MAY be provided, for example, through modals or pop-ups within the Wallet Instance. It is recommended to use the CSAT at intervals of no less than six months and as an alternative to CES, to avoid overwhelming Users with too frequent surveys.
-
-**Relational Feedback Collection**
-
-- **Net Promoter Score (NPS)**: To measure User loyalty and the likelihood of recommending the service to others, an evaluation MAY be requested from the User once or twice a year, either through the same service delivery channel (e.g. the Wallet Instance) or external channels such as email or SMS. This should be aligned with the overall feedback collection strategy.
+- **Net Promoter Score (NPS)**: per misurare la fedeltà dell'Utente e la probabilità di raccomandazione ad Utenti terzi, si PUÒ richiedere di esprimere una valutazione una o due volte l'anno attraverso lo stesso canale di erogazione del servizio (e.g. l'Istanza del Wallet) o canali esterni, quali e-mail o SMS, e comunque in linea con la strategia di raccolta feedback adottata.

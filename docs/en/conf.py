@@ -5,7 +5,7 @@
 settings_project_name = "IT-Wallet Technical Documentation"
 # settings_copyright_copyleft = 'Dipartimento per la Trasformazione Digitale'
 settings_editor_name = 'Dipartimento per la Trasformazione Digitale'
-settings_doc_version = '1.0.0'
+settings_doc_version = '1.0.1'
 settings_doc_release = "versione-corrente"
 settings_basename = 'eid-wallet-it-docs'
 settings_file_name = 'eid-wallet-it-docs'
@@ -13,6 +13,11 @@ settings_file_name = 'eid-wallet-it-docs'
 version = settings_doc_version
 
 import sys, os
+import shlex
+import subprocess
+
+from pathlib import Path
+confdir = Path(__file__).resolve().parent
 
 # -- RTD configuration -------------------------------------------------
 
@@ -47,7 +52,8 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.autosectionlabel',
     'sphinxcontrib.redoc',
-    'myst_parser',  
+    'myst_parser',
+    'sphinxcontrib.plantuml'
 ]
 
 redoc = [
@@ -76,6 +82,14 @@ redoc_uri = 'https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js'
 rst_epilog = """
 .. _blank: target="_blank"
 """
+
+plantuml_jar = confdir.parent.parent / "utils/plantuml/plantuml-1.2025.2.jar"
+#plantuml = f'java -Djava.awt.headless=true -jar {shlex.quote(str(plantuml_jar))}'
+plantuml = f'java -Djava.awt.headless=true -jar {str(plantuml_jar)}'
+plantuml_output_format = 'svg'
+plantuml_latex_output_format = 'pdf'
+plantuml_server = ''
+#plantuml_cache_path = './cache'
 
 images_config = {
     "default_image_width": "99%",
@@ -187,7 +201,7 @@ html_css_files = [
 
 # The name for this set of Sphinx documents. If None, it defaults to
 # "<project> v<release> documentation".
-html_title = f"{settings_project_name} - {version}"
+html_title = f"{settings_project_name}"
 
 # A shorter title for the navigation bar. Default is the same as html_title.
 # html_short_title = "IT-Wallet"
@@ -257,44 +271,116 @@ htmlhelp_basename = settings_basename + 'doc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
-
+latex_engine = 'lualatex'
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-'papersize': 'a4paper',
-
-# The font size ('10pt', '11pt' or '12pt').
-'pointsize': '10pt',
-
-# Additional stuff for the LaTeX preamble.
-#'preamble': '',
+    'papersize': 'a4paper',
+    'pointsize': '11pt',
+    'sphinxsetup': r'''
+        verbatimforcewraps=true,
+        verbatimwithframe=false,
+        verbatimwrapslines=true,
+        verbatimhintsturnover=false
+    ''',
+    'preamble': r'''
+        \usepackage{luatex85}
+        \usepackage{polyglossia}
+        \setmainlanguage{english}
+        
+        % -- Fix for fancyhdr warning --
+        \setlength{\headheight}{14pt}
+        \addtolength{\topmargin}{-2pt}
+        
+        % -- Geometry settings (note that sphinx already include Geomerty pkg) --
+        \geometry{margin=2.5cm,top=3cm,bottom=3cm}
+        
+        % -- handling overfull/underfull --
+        \tolerance=9999
+        \emergencystretch=3em
+        \hbadness=10000
+        \vbadness=10000
+        \hfuzz=2pt
+        \vfuzz=2pt
+        
+        % -- prevent too big dim  --
+        \maxdimen=16383.99999pt
+        
+        % -- improvment space interruption --
+        \widowpenalty=10000
+        \clubpenalty=10000
+        \brokenpenalty=10000
+        
+        % -- Spacing --
+        \linespread{1.2}
+        
+        % -- Header and footer --
+        \renewcommand{\headrulewidth}{0.4pt}
+        \renewcommand{\footrulewidth}{0.4pt}
+        
+        % -- Handling special characters --
+        \makeatletter
+        % temporally save the original command
+        \let\original@includegraphics\includegraphics
+        
+        %  includegraphics is redefined for special characters 
+        \renewcommand{\includegraphics}[2][]{%
+            \begingroup
+            \catcode`\-=12\relax
+            \catcode`\_=12\relax
+            \original@includegraphics[#1]{#2}%
+            \endgroup
+        }
+        
+        % improvements for images
+        \@ifundefined{sphinxincludegraphics}{}{%
+            \let\original@sphinxincludegraphics\sphinxincludegraphics
+            \renewcommand{\sphinxincludegraphics}[2][]{%
+                \begingroup
+                \catcode`\-=12\relax
+                \catcode`\_=12\relax
+                \original@sphinxincludegraphics[#1]{#2}%
+                \endgroup
+            }%
+        }
+        \makeatother
+        
+        % -- Improvment for long verbatim  --
+        \makeatletter
+        \def\sphinx@verbatim@space{\leavevmode\kern.5\fontdimen2\font}
+        \makeatother
+    ''',
+    'extrapackages': r'''
+        % No extra pks is required 
+    ''',
+    'passoptionstopackages': r'''
+        % Minimal options for xcolor if required
+        \PassOptionsToPackage{table}{xcolor}
+    ''',
+    'fontpkg': r'''
+        % Font setup for LuaLaTeX
+        \usepackage{fontspec}
+        \defaultfontfeatures{Ligatures=TeX}
+        \setmainfont{Latin Modern Roman}
+        \setsansfont{Latin Modern Sans}
+        \setmonofont{Latin Modern Mono}
+    ''',
 }
+
+# Additional latex conf
+latex_show_pagerefs = True
+latex_show_urls = 'no'
+latex_use_parts = True
+latex_domain_indices = True
+latex_use_modindex = True
+latex_table_style = ['booktabs']
+
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 # author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', settings_file_name + '.tex', settings_project_name, "This document was prepared by a team of contributors", 'manual'),
+  ('index', settings_file_name + '.tex', settings_project_name, " ", 'manual'),
 ]
 
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-#latex_logo = "images/..."
-
-# For "manual" documents, if this is true, then toplevel headings are parts,
-# not chapters.
-latex_use_parts = True
-
-# If true, show page references after internal links.
-#latex_show_pagerefs = False
-
-# If true, show URL addresses after external links.
-#latex_show_urls = False
-
-# Documents to append as an appendix to all manuals.
-#latex_appendices = []
-
-# If false, no module index is generated.
-#latex_domain_indices = True
 
 # -- Options for manual page output ---------------------------------------
 

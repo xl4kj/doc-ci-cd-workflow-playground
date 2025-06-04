@@ -2,61 +2,65 @@
 
 .. "included" file, so we start with '-' title level
 
-Wallet Provider Endpoints
--------------------------
-
-The Wallet Provider, responsible for delivering a Wallet Solution, MUST expose the endpoints to support trust establishment and essential Wallet Instance functionalities. These include the ``/.well-known/openid-federation`` Federation Endpoint which MUST adhere to the OpenID Federation 1.0 specification to reliably establish trust with the Wallet Provider's as well as, endpoints for Wallet Instance registration, nonce generation (required for registration), attestation issuance, and revocation. Aside from the Federation endpoint, the implementation details of the others are left to the Wallet Provider's discretion.
-
-Federation Endpoint
-^^^^^^^^^^^^^^^^^^^
-
-The ``/.well-known/openid-federation`` endpoint serves as the discovery mechanism for trust establishment by retrieving the Wallet Provider Entity Configuration. 
-
-See Section :ref:`wallet-provider-entity-configuration:Wallet Provider Entity Configuration` for technical details.
+.. role:: raw-html(raw)
+  :format: html
 
 
-Wallet Solution Nonce Endpoint 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint del Fornitore di Wallet
+--------------------------------
 
-This is a RESTful API endpoint that allows the Wallet Instance to request a cryptographic nonce from the Wallet Provider. The nonce serves as an unpredictable, single-use challenge to ensure freshness and prevent replay attacks.
+Il Fornitore di Wallet, responsabile della fornitura di una Soluzione Wallet, DEVE esporre gli endpoint per supportare l'instaurazione della fiducia e le funzionalità essenziali dell'Istanza di Wallet. Questi includono l'endpoint di Federazione ``/.well-known/openid-federation`` che DEVE aderire alla specifica OpenID Federation 1.0 per stabilire in modo affidabile la fiducia con il Fornitore di Wallet, nonché endpoint per la registrazione dell'Istanza di Wallet, la generazione di nonce (richiesta per la registrazione), l'emissione di attestati e la revoca. A parte l'endpoint di Federazione, i dettagli di implementazione degli altri sono lasciati alla discrezione del Fornitore di Wallet.
 
-See :ref:`mobile-application-instance:Mobile Application Nonce Request` and :ref:`mobile-application-instance:Mobile Application Nonce Response` for details on the Nonce Request and Nonce Response.
+Endpoint di Federazione
+^^^^^^^^^^^^^^^^^^^^^^^
 
-Wallet Instance Management Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+L'endpoint ``/.well-known/openid-federation`` serve come meccanismo di discovery per l'instaurazione della fiducia recuperando la Entity Configuration del Fornitore di Wallet.
 
-This is a RESTful API endpoint provided by the Wallet Provider that enables Wallet Instance management, including registration, status retrieval, revocation upon request (e.g., by the User), and deletion.
-The following sections describe the registration, status retrieval and revocation requests, along with their corresponding responses, handled by this endpoint, which are required for core :ref:`wallet-instance-functionalities:Wallet Instance Functionalities`.
+Vedere la Sezione :ref:`wallet-provider-entity-configuration:Entity Configuration del Fornitore di Wallet` per i dettagli tecnici.
 
-Wallet Instance Registration Request
-"""""""""""""""""""""""""""""""""""""
 
-To register a Wallet Instance, the request to the Wallet Provider MUST use the HTTP POST method with ``Content-Type`` set to `application/json`. The request body MUST contain the claims described in :ref:`mobile-application-instance:Mobile Application Instance Initialization Request`.
+Endpoint Nonce della Soluzione Wallet
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Wallet Instance Registration Response
-"""""""""""""""""""""""""""""""""""""""""
+Questo è un endpoint API RESTful che consente all'Istanza di Wallet di richiedere un nonce crittografico dal Fornitore di Wallet. Il nonce serve come sfida imprevedibile, monouso per garantire la freschezza e prevenire attacchi di replay.
 
-If a Wallet Instance Registration Request is successfully validated, the Wallet Provider provides an HTTP Response with status code 204 (No Content). For detatails see :ref:`mobile-application-instance:Mobile Application Instance Initialization Response`.
+Vedere :ref:`mobile-application-instance:Richiesta di Nonce dell'Applicazione Mobile` e :ref:`mobile-application-instance:Risposta di Nonce dell'Applicazione Mobile` per i dettagli sulla Richiesta di Nonce e sulla Risposta di Nonce.
 
-Wallet Instance Retrieval Request
-"""""""""""""""""""""""""""""""""""
+Endpoint di Gestione dell'Istanza di Wallet
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To retrieve all Wallet Instances associated with a User, a request MUST be sent using the HTTP GET method to the Wallet Provider.
+Questo è un endpoint API RESTful fornito dal Fornitore di Wallet che consente la gestione dell'Istanza di Wallet, inclusa la registrazione, il recupero dello stato, la revoca su richiesta (ad esempio, da parte dell'Utente) e l'eliminazione.
+Le seguenti sezioni descrivono le richieste di registrazione, recupero dello stato e revoca, insieme alle relative risposte, gestite da questo endpoint, che sono necessarie per le funzionalità di base dell':ref:`wallet-instance-functionalities:Funzionalità dell'Istanza del Wallet`.
+
+Richiesta di Registrazione dell'Istanza di Wallet
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+Per registrare un'Istanza di Wallet, la richiesta al Fornitore di Wallet DEVE utilizzare il metodo HTTP POST con ``Content-Type`` impostato su `application/json`. Il corpo della richiesta DEVE contenere i claim descritti in :ref:`mobile-application-instance:Richiesta di Inizializzazione dell'Istanza dell'Applicazione Mobile`.
+
+Risposta alla Registrazione dell'Istanza di Wallet
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+Se una Richiesta di Registrazione dell'Istanza di Wallet viene convalidata con successo, il Fornitore di Wallet fornisce una Risposta HTTP con codice di stato 204 (No Content). Per i dettagli vedere :ref:`mobile-application-instance:Risposta di Inizializzazione dell'Istanza dell'Applicazione Mobile`.
+
+Richiesta di Recupero dell'Istanza di Wallet
+""""""""""""""""""""""""""""""""""""""""""""
+
+Per recuperare tutte le Istanze di Wallet associate a un Utente, una richiesta DEVE essere inviata utilizzando il metodo HTTP GET al Fornitore di Wallet.
 
 .. note::
-  For retrieving a specific Wallet Instance, the request MUST include the Wallet Instance ID as a path parameter.
+  Per recuperare una specifica Istanza di Wallet, la richiesta DEVE includere l'ID dell'Istanza di Wallet come parametro di percorso.
 
 
-Wallet Instance Retrieval Response
-"""""""""""""""""""""""""""""""""""
+Risposta al Recupero dell'Istanza di Wallet
+"""""""""""""""""""""""""""""""""""""""""""
 
-If a Wallet Instance Retrieval Request is successfully processed, the Wallet Provider MUST return an HTTP Response with a 200 (OK) status code.
-The response body MUST be in JSON format and include the relevant Wallet Instance information, such as its unique ID, status, and issuance date.
-When retrieving all Wallet Instances, the response MUST return an array containing the details of all associated instances.
+Se una Richiesta di Recupero dell'Istanza di Wallet viene elaborata con successo, il Fornitore di Wallet DEVE restituire una Risposta HTTP con un codice di stato 200 (OK).
+Il corpo della risposta DEVE essere in formato JSON e includere le informazioni rilevanti dell'Istanza di Wallet, come il suo ID univoco, lo stato e la data di emissione.
+Quando si recuperano tutte le Istanze di Wallet, la risposta DEVE restituire un array contenente i dettagli di tutte le istanze associate.
 
-If any errors occur during the retrieval process, an error response MUST be returned. Refer to :ref:`wallet-provider-endpoint:Error Handling for Wallet Instance Management` for details on error codes and descriptions.
+Se si verificano errori durante il processo di recupero, DEVE essere restituita una risposta di errore. Fare riferimento a :ref:`wallet-provider-endpoint:Gestione degli Errori per la Gestione dell'Istanza di Wallet` per i dettagli sui codici di errore e le descrizioni.
 
-Below is a non-normative example of an error response:
+Di seguito è riportato un esempio non normativo di una risposta di errore:
 
 .. code:: http
 
@@ -72,22 +76,22 @@ Below is a non-normative example of an error response:
    }
 
 
-Wallet Instance Revocation Request
-""""""""""""""""""""""""""""""""""
+Richiesta di Revoca dell'Istanza di Wallet
+""""""""""""""""""""""""""""""""""""""""""
 
-To revoke an active Wallet Instance, a revocation request MUST be sent using the HTTP PATCH method with Content-Type set to ``application/json``. The request body MUST contain a ``status`` parameter set to ``REVOKED``.
+Per revocare un'Istanza di Wallet attiva, una richiesta di revoca DEVE essere inviata utilizzando il metodo HTTP PATCH con Content-Type impostato su ``application/json``. Il corpo della richiesta DEVE contenere un parametro ``status`` impostato su ``REVOKED``.
 
 .. note::
-  While PATCH is the recommended method, the revocation request MAY also be sent using the POST method, depending on implementation preferences.
+  Mentre PATCH è il metodo consigliato, la richiesta di revoca PUÒ anche essere inviata utilizzando il metodo POST, a seconda delle preferenze di implementazione.
 
-Wallet Instance Revocation Response
-"""""""""""""""""""""""""""""""""""
+Risposta alla Revoca dell'Istanza di Wallet
+"""""""""""""""""""""""""""""""""""""""""""
 
-If a Wallet Instance Revocation Request is successfully processed, the Wallet Provider provides an HTTP Response with a 204 (No Content) status code.
+Se una Richiesta di Revoca dell'Istanza di Wallet viene elaborata con successo, il Fornitore di Wallet fornisce una Risposta HTTP con un codice di stato 204 (No Content).
 
-If any errors occur during the Wallet Instance Revocation, an error response MUST be returned. Refer to :ref:`wallet-provider-endpoint:Error Handling for Wallet Instance Management` for details on error codes and descriptions.
+Se si verificano errori durante la Revoca dell'Istanza di Wallet, DEVE essere restituita una risposta di errore. Fare riferimento a :ref:`wallet-provider-endpoint:Gestione degli Errori per la Gestione dell'Istanza di Wallet` per i dettagli sui codici di errore e le descrizioni.
 
-Below is a non-normative example of an error response:
+Di seguito è riportato un esempio non normativo di una risposta di errore:
 
 .. code:: http
 
@@ -102,170 +106,170 @@ Below is a non-normative example of an error response:
      "error_description": "The request is missing status parameter."
    }
 
-Error Handling for Wallet Instance Management
-"""""""""""""""""""""""""""""""""""""""""""""""
+Gestione degli Errori per la Gestione dell'Istanza di Wallet
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-To ensure robustness and security, the Wallet Provider MUST handle errors consistently across all Wallet Instance Management requests, including Registration, Retrieval, and Revocation.
+Per garantire robustezza e sicurezza, il Fornitore di Wallet DEVE gestire gli errori in modo coerente in tutte le richieste di Gestione dell'Istanza di Wallet, incluse Registrazione, Recupero e Revoca.
 
-In case of an error, the Wallet Provider MUST return an error response as defined in :rfc:`7231`, with additional details available in :rfc:`7807`. The response MUST use the Content-Type set to ``application/json`` and MUST include the following parameters:
+In caso di errore, il Fornitore di Wallet DEVE restituire una risposta di errore come definito in :rfc:`7231`, con ulteriori dettagli disponibili in :rfc:`7807`. La risposta DEVE utilizzare il Content-Type impostato su ``application/json`` e DEVE includere i seguenti parametri:
 
-- *error*. The error code.
-- *error_description*. Text in human-readable form providing further details to clarify the nature of the error encountered.
+- *error*. Il codice di errore.
+- *error_description*. Testo in forma leggibile dall'uomo che fornisce ulteriori dettagli per chiarire la natura dell'errore riscontrato.
 
-The following sections categorize errors into **common errors**, which apply to all requests, and **request-specific errors**, which are relevant to particular operations.
+Le seguenti sezioni classificano gli errori in **errori comuni**, che si applicano a tutte le richieste, ed **errori specifici della richiesta**, che sono rilevanti per operazioni particolari.
 
-Common Error Responses
-"""""""""""""""""""""""
+Risposte di Errore Comuni
+"""""""""""""""""""""""""
 
-The following errors apply to all Wallet Instance Management operations (Registration, Retrieval, and Revocation), and MUST be supported for the error response, unless otherwise specified:
+I seguenti errori si applicano a tutte le operazioni di Gestione dell'Istanza di Wallet (Registrazione, Recupero e Revoca) e DEVONO essere supportati per la risposta di errore, se non diversamente specificato:
 
 .. list-table::
    :class: longtable
    :widths: 20 20 50
    :header-rows: 1
 
-   * - **HTTP Status Code**
-     - **Error Code**
-     - **Description**
+   * - **Codice di Stato HTTP**
+     - **Codice di Errore**
+     - **Descrizione**
    * - ``400 Bad Request``
      - ``bad_request``
-     - The request is malformed, missing required parameters, or includes invalid and unknown parameters.
-   * - ``422 Unprocessable Content`` [OPTIONAL]
+     - La richiesta è malformata, mancano parametri richiesti o include parametri non validi e sconosciuti.
+   * - ``422 Unprocessable Content`` [OPZIONALE]
      - ``validation_error``
-     - The request does not adhere to the required format.
+     - La richiesta non aderisce al formato richiesto.
    * - ``500 Internal Server Error``
      - ``server_error``
-     - An internal error occurred while processing the request.
+     - Si è verificato un errore interno durante l'elaborazione della richiesta.
    * - ``503 Service Unavailable``
      - ``temporarily_unavailable``
-     - The service is unavailable. Please try again later.
+     - Il servizio non è disponibile. Si prega di riprovare più tardi.
 
-Request-Specific Error Responses
-"""""""""""""""""""""""""""""""""
+Risposte di Errore Specifiche della Richiesta
+"""""""""""""""""""""""""""""""""""""""""""""
 
-The errors in :ref:`mobile-application-instance:Mobile Application Instance Initialization Error Response` MUST be supported for error responses related to **Wallet Instance Registration**.
+Gli errori in :ref:`mobile-application-instance:Risposta di Errore di Inizializzazione dell'Istanza dell'Applicazione Mobile` DEVONO essere supportati per le risposte di errore relative alla **Registrazione dell'Istanza di Wallet**.
 
-The following errors MUST be supported for error responses related to **Wallet Instance Retrieval**:
+I seguenti errori DEVONO essere supportati per le risposte di errore relative al **Recupero dell'Istanza di Wallet**:
 
 .. list-table::
    :class: longtable
    :widths: 20 20 50
    :header-rows: 1
 
-   * - **HTTP Status Code**
-     - **Error Code**
-     - **Description**
+   * - **Codice di Stato HTTP**
+     - **Codice di Errore**
+     - **Descrizione**
    * - ``403 Forbidden``
      - ``forbidden``
-     - The user does not have permission to retrieve this Wallet Instance.
+     - L'utente non ha il permesso di recuperare questa Istanza di Wallet.
    * - ``401 Unauthorized``
      - ``unauthorized``
-     - The request lacks valid authentication credentials.
+     - La richiesta manca di Credenziali di autenticazione valide.
 
-The following errors MUST be supported for error responses related to **Wallet Instance Revocation**:
+I seguenti errori DEVONO essere supportati per le risposte di errore relative alla **Revoca dell'Istanza di Wallet**:
 
 .. list-table::
    :class: longtable
    :widths: 20 20 50
    :header-rows: 1
 
-   * - **HTTP Status Code**
-     - **Error Code**
-     - **Description**
+   * - **Codice di Stato HTTP**
+     - **Codice di Errore**
+     - **Descrizione**
    * - ``403 Forbidden``
      - ``invalid_request``
-     - The user does not have permission to revoke this Wallet Instance.
+     - L'utente non ha il permesso di revocare questa Istanza di Wallet.
    * - ``401 Unauthorized``
      - ``unauthorized``
-     - The request cannot be authenticated or authorized.
+     - La richiesta non può essere autenticata o autorizzata.
 
-Wallet Attestation Issuance Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Endpoint di Emissione della Wallet Attestation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This is a RESTful API endpoint provided by the Wallet Provider that enables the Wallet Instance to obtain a Wallet Attestation, by sending a Wallet Attestation Issuance Request.
+Questo è un endpoint API RESTful fornito dal Fornitore di Wallet che consente all'Istanza di Wallet di ottenere una Wallet Attestation, inviando una Richiesta di Emissione della Wallet Attestation.
 
-Wallet Attestation Issuance Request
-"""""""""""""""""""""""""""""""""""""
+Richiesta di Emissione della Wallet Attestation
+"""""""""""""""""""""""""""""""""""""""""""""""
 
-Further details on the Wallet Attestation Issuance Request are provided in the :ref:`mobile-application-instance:Mobile Application Key Binding Request` section.
+Ulteriori dettagli sulla Richiesta di Emissione della Wallet Attestation sono forniti nella sezione :ref:`mobile-application-instance:Richiesta di Associazione Chiave dell'Applicazione Mobile`.
 
-The ``typ`` header of the Integrity Request JWT assumes the value ``wp-war+jwt``.
+L'header ``typ`` del JWT della Richiesta di Integrità assume il valore ``wp-war+jwt``.
 
-Wallet Attestation Issuance Response
-"""""""""""""""""""""""""""""""""""""
+Risposta all'Emissione della Wallet Attestation
+"""""""""""""""""""""""""""""""""""""""""""""""
 
-If the Wallet Attestation Issuance Request is successfully validated, the Wallet Provider returns an HTTP response with a status code of ``200 OK`` and Content-Type ``application/json``. The returned JSON Object MUST possess the ``wallet_attestations`` parameter whose value is an array of JSON Objects (see :ref:`wallet-attestation-issuance:Wallet Attestation Issuance`) containing the Wallet Attestations in JWT, SD-JWT and mdoc format signed by the Wallet Provider. The JWT formatted Wallet Attestation is to be used for the Issuance phase, as an OAuth Client Attestation, and will be sent to the Credential Issuer as discussed in :ref:`credential-issuance:Digital Credential Issuance`. The SD-JWT and mdoc formatted Wallet Attestation will instead be used during presentation respectively in the remote (:ref:`remote-flow:Remote Flow`) and proximity (:ref:`proximity-flow:Proximity Flow`) flows.
+Se la Richiesta di Emissione della Wallet Attestation viene convalidata con successo, il Fornitore di Wallet restituisce una risposta HTTP con un codice di stato ``200 OK`` e Content-Type ``application/json``. L'Oggetto JSON restituito DEVE possedere il parametro ``wallet_attestations`` il cui valore è un array di Oggetti JSON (vedi :ref:`wallet-attestation-issuance:Emissione della Wallet Attestation`) contenente gli Attestati di Wallet in formato JWT, SD-JWT e mdoc firmati dal Fornitore di Wallet. la Wallet Attestation in formato JWT deve essere utilizzato per la fase di Emissione, come Attestato Client OAuth, e sarà inviato al Credential Issuer come discusso in :ref:`credential-issuance:Emissione di Attestati Elettronici`. la Wallet Attestation in formato SD-JWT e mdoc sarà invece utilizzato durante la presentazione rispettivamente nei flussi remoto (:ref:`remote-flow:Flusso Remoto`) e di prossimità (:ref:`proximity-flow:Flusso di Prossimità`).
 
 
-The JSON Object returned in the response has the following claim:
+L'Oggetto JSON restituito nella risposta ha il seguente claim:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Parameter**
-      - **Description**
-      - **Reference**
+    * - **Parametro**
+      - **Descrizione**
+      - **Riferimento**
     * - **wallet_attestations**
-      - REQUIRED. Contains an array of one or more issued Wallet Attestation. The elements of the array MUST be JSON Objects. At least two JSON Objects MUST be present.
-      - This specification.
+      - OBBLIGATORIO. Contiene un array di uno o più Attestati di Wallet emessi. Gli elementi dell'array DEVONO essere Oggetti JSON. Devono essere presenti almeno due Oggetti JSON.
+      - Questa specifica.
 
-Each JSON Object contained in the ``wallet_attestations`` array MUST have the following form:
+Ogni Oggetto JSON contenuto nell'array ``wallet_attestations`` DEVE avere la seguente forma:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Parameter**
-      - **Description**
-      - **Reference**
+    * - **Parametro**
+      - **Descrizione**
+      - **Riferimento**
     * - **format**
-      - A string identifying the Data Model used to create and represent the Wallet Attestation. It MUST be either ``jwt``, ``dc+sd-jwt`` or ``mso_mdoc`` depending on the credential format.
-      - This specification.
+      - Una stringa che identifica il Modello di Dati utilizzato per creare e rappresentare la Wallet Attestation. DEVE essere ``jwt``, ``dc+sd-jwt`` o ``mso_mdoc`` a seconda del formato della Credenziale.
+      - Questa specifica.
     * - **wallet_attestation**
-      - A string representing the Wallet Attestation. If
+      - Una stringa che rappresenta la Wallet Attestation. Se
 
-        - the Wallet Attestation is in JWT format, then the claim's value MUST be a string that is a JWT.
-        - the Wallet Attestation is in SD-JWT format, then the claim's value MUST be a string that is an SD-JWT VC.
-        - the Wallet Attestation is in mdoc format, then the claim's value is the base64url-encoded representation of the CBOR-encoded IssuerSigned structure, as defined in [ISO.18013-5]. This structure MUST contain all Namespaces and IssuerSignedItems that are included in the MobileSecurityObject.
+        - la Wallet Attestation è in formato JWT, allora il valore del claim DEVE essere una stringa che è un JWT.
+        - la Wallet Attestation è in formato SD-JWT, allora il valore del claim DEVE essere una stringa che è un SD-JWT VC.
+        - la Wallet Attestation è in formato mdoc, allora il valore del claim è la rappresentazione codificata in base64url della struttura IssuerSigned codificata in CBOR, come definito in [ISO.18013-5]. Questa struttura DEVE contenere tutti i Namespace e gli IssuerSignedItems inclusi nel MobileSecurityObject.
 
-      - This specification.
+      - Questa specifica.
 
-If any errors occur during the process, an error response is returned. Further details on the error response are provided in the :ref:`mobile-application-instance:Mobile Application Key Binding Error Response` section.
+Se si verificano errori durante il processo, viene restituita una risposta di errore. Ulteriori dettagli sulla risposta di errore sono forniti nella sezione :ref:`mobile-application-instance:Risposta di Errore di Associazione Chiave dell'Applicazione Mobile`.
 
 
-Wallet Attestation JWT
-"""""""""""""""""""""""
+JWT della Wallet Attestation
+""""""""""""""""""""""""""""
 
-The JOSE header of the Wallet Attestation JWT contains the following parameters:
+L'header JOSE del JWT della Wallet Attestation contiene i seguenti parametri:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **Header JOSE**
+      - **Descrizione**
+      - **Riferimento**
     * - **alg**
-      - REQUIRED. A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms listed in the Section :ref:`algorithms:cryptographic algorithms` and MUST NOT be set to ``none`` or any symmetric algorithm (MAC) identifier.
+      - OBBLIGATORIO. Un identificatore di algoritmo di firma digitale come da registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati nella Sezione :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere impostato su ``none`` o qualsiasi identificatore di algoritmo simmetrico (MAC).
       - :rfc:`7516#section-4.1.1`.
     * - **kid**
-      - REQUIRED. Unique identifier of the public key associated to the private key the Wallet Provider used to sign the Wallet Attestation.
+      - OBBLIGATORIO. Identificatore univoco della chiave pubblica associata alla chiave privata che il Fornitore di Wallet ha utilizzato per firmare la Wallet Attestation.
       - :rfc:`7638#section_3`.
     * - **typ**
-      - REQUIRED. It MUST be set to ``oauth-client-attestation+jwt``
+      - OBBLIGATORIO. DEVE essere impostato su ``oauth-client-attestation+jwt``
       - `OPENID4VC-HAIP`_.
     * - **trust_chain**
-      - REQUIRED. Sequence of Entity Statements that composes the Trust Chain related to the Wallet Provider.
-      - `OID-FED`_ Section 4.3 *Trust Chain Header Parameter*.
+      - OBBLIGATORIO. Sequenza di Entity Statement che compone la Catena di Fiducia relativa al Fornitore di Wallet.
+      - `OID-FED`_ Sezione 4.3 *Trust Chain Header Parameter*.
     * - **x5c**
-      - OPTIONAL. Contains the X.509 public key certificate or certificate chain (:rfc:`5280`) corresponding to the key used to digitally sign the JWT.
-      - :rfc:`7515` Section 4.1.8 and `SD-JWT-VC`_ Section 3.5.
+      - OPZIONALE. Contiene il certificato di chiave pubblica X.509 o la catena di certificati (:rfc:`5280`) corrispondente alla chiave utilizzata per firmare digitalmente il JWT.
+      - :rfc:`7515` Sezione 4.1.8 e `SD-JWT-VC`_ Sezione 3.5.
 
-The body of the Wallet Attestation JWT contains the following claims:
+Il corpo del JWT della Wallet Attestation contiene i seguenti claim:
 
 .. list-table::
     :class: longtable
@@ -273,34 +277,34 @@ The body of the Wallet Attestation JWT contains the following claims:
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **iss**
-      - REQUIRED. Identifier of the Wallet Provider.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Identificatore del Fornitore di Wallet.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **exp**
-      - REQUIRED. UNIX Timestamp with the expiry time of the JWT.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Timestamp UNIX con il tempo di scadenza del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **iat**
-      - REQUIRED. UNIX Timestamp with the time of JWT issuance.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Timestamp UNIX con il tempo di emissione del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **cnf**
-      - REQUIRED. JSON object, containing the public part of an asymmetric key pair owned by the Wallet Instance.
+      - OBBLIGATORIO. Oggetto JSON, contenente la parte pubblica di una coppia di chiavi asimmetriche posseduta dall'Istanza di Wallet.
       - :rfc:`7800`.
     * - **wallet_link**
-      - OPTIONAL. String containing a URL to get further information about the Wallet and the Wallet Provider.
+      - OPZIONALE. Stringa contenente un URL per ottenere ulteriori informazioni sul Wallet e sul Fornitore di Wallet.
       - `OpenID4VCI`_.
     * - **wallet_name**
-      - OPTIONAL. String containing a human-readable name of the Wallet.
+      - OPZIONALE. Stringa contenente un nome leggibile dall'uomo del Wallet.
       - `OpenID4VCI`_.
     * - **sub**
-      - REQUIRED. Identifier of the Wallet Instance which is the thumbprint of the Wallet Attestation JWK.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Identificatore dell'Istanza di Wallet che è l'impronta digitale della JWK della Wallet Attestation.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **aal**
-      - REQUIRED. JSON String asserting the authentication level of the Wallet and the key as asserted in the cnf claim.
-      - This specification.
+      - OBBLIGATORIO. Stringa JSON che attesta il livello di autenticazione del Wallet e della chiave come affermato nel claim cnf.
+      - Questa specifica.
 
-Below is a non-normative example of the SD-JWT Wallet Attestation header and payload without encoding and signature applied:
+Di seguito è riportato un esempio non normativo dell'header e del payload della Wallet Attestation SD-JWT senza codifica e firma applicata:
 
 .. code-block:: json
 
@@ -314,7 +318,7 @@ Below is a non-normative example of the SD-JWT Wallet Attestation header and pay
     ],
     "typ": "jwt"
   }
-  
+
 .. code-block:: json
 
   {
@@ -339,36 +343,36 @@ Below is a non-normative example of the SD-JWT Wallet Attestation header and pay
   }
 
 
-Wallet Attestation SD-JWT
-"""""""""""""""""""""""""""
+SD-JWT della Wallet Attestation
+"""""""""""""""""""""""""""""""
 
-The JOSE header of the Wallet Attestation SD-JWT MUST contain the following parameters:
+L'header JOSE dell'SD-JWT della Wallet Attestation DEVE contenere i seguenti parametri:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **JOSE header**
-      - **Description**
-      - **Reference**
+    * - **Header JOSE**
+      - **Descrizione**
+      - **Riferimento**
     * - **alg**
-      - REQUIRED. A digital signature algorithm identifier such as per IANA "JSON Web Signature and Encryption Algorithms" registry. It MUST be one of the supported algorithms listed in :ref:`algorithms:cryptographic algorithms` and MUST NOT be set to ``none`` or any symmetric algorithm (MAC) identifier.
+      - OBBLIGATORIO. Un identificatore di algoritmo di firma digitale come da registro IANA "JSON Web Signature and Encryption Algorithms". DEVE essere uno degli algoritmi supportati elencati in :ref:`algorithms:Algoritmi Crittografici` e NON DEVE essere impostato su ``none`` o qualsiasi identificatore di algoritmo simmetrico (MAC).
       - :rfc:`7516#section-4.1.1`.
     * - **kid**
-      - REQUIRED. Unique identifier of the public key associated to the private key the Wallet Provider used to sign the Wallet Attestation.
+      - OBBLIGATORIO. Identificatore univoco della chiave pubblica associata alla chiave privata che il Fornitore di Wallet ha utilizzato per firmare la Wallet Attestation.
       - :rfc:`7638#section_3`.
     * - **typ**
-      - REQUIRED. It MUST be set to ``dc+sd-jwt``
+      - OBBLIGATORIO. DEVE essere impostato su ``dc+sd-jwt``
       - `OPENID4VC-HAIP`_.
     * - **trust_chain**
-      - REQUIRED. Sequence of Entity Statements that composes the Trust Chain related to the Wallet Provider.
-      - `OID-FED`_ Section 4.3 *Trust Chain Header Parameter*.
+      - OBBLIGATORIO. Sequenza di Entity Statement che compone la Catena di Fiducia relativa al Fornitore di Wallet.
+      - `OID-FED`_ Sezione 4.3 *Trust Chain Header Parameter*.
     * - **x5c**
-      - OPTIONAL. Contains the X.509 public key certificate or certificate chain (:rfc:`5280`) corresponding to the key used to digitally sign the JWT.
-      - :rfc:`7515` Section 4.1.8 and `SD-JWT-VC`_ Section 3.5.
+      - OPZIONALE. Contiene il certificato di chiave pubblica X.509 o la catena di certificati (:rfc:`5280`) corrispondente alla chiave utilizzata per firmare digitalmente il JWT.
+      - :rfc:`7515` Sezione 4.1.8 e `SD-JWT-VC`_ Sezione 3.5.
 
-The body of the Wallet Attestation SD-JWT contains the following claims:
+Il corpo dell'SD-JWT della Wallet Attestation contiene i seguenti claim:
 
 .. list-table::
     :class: longtable
@@ -376,80 +380,68 @@ The body of the Wallet Attestation SD-JWT contains the following claims:
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **iss**
-      - REQUIRED. Identifier of the Wallet Provider.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Identificatore del Fornitore di Wallet.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **exp**
-      - REQUIRED. UNIX Timestamp with the expiry time of the JWT.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Timestamp UNIX con il tempo di scadenza del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **iat**
-      - REQUIRED. UNIX Timestamp with the time of JWT issuance.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Timestamp UNIX con il tempo di emissione del JWT.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **cnf**
-      - REQUIRED. JSON object, containing the public part of an asymmetric key pair owned by the Wallet Instance.
+      - OBBLIGATORIO. Oggetto JSON, contenente la parte pubblica di una coppia di chiavi asimmetriche posseduta dall'Istanza di Wallet.
       - :rfc:`7800`.
     * - **vct**
-      - REQUIRED. Credential type value MUST be an HTTPS URL String and it MUST be set to ``wallet.atestation.example/v1.0``.
-      - Section 3.2.2.2 `SD-JWT-VC`_.
+      - OBBLIGATORIO. Il valore del tipo di Credenziale DEVE essere una Stringa URL HTTPS e DEVE essere impostato su ``wallet.atestation.example/v1.0``.
+      - Sezione 3.2.2.2 `SD-JWT-VC`_.
     * - **_sd**
-      - REQUIRED. String containing the hash algorithm used by the Wallet Provider to generate the digests.
+      - OBBLIGATORIO. Array JSON contenente un elenco di tutti i digest delle divulgazioni.
       - `SD-JWT`_.
     * - **sd_alg**
-      - REQUIRED. JSON array containing a list of the signing algorithms (alg values) supported.
+      - OBBLIGATORIO. Stringa contenente l'algoritmo di hash utilizzato dal Fornitore di Wallet per generare i digest delle divulgazioni.
       - `SD-JWT`_.
     * - **sub**
-      - REQUIRED. Identifier of the Wallet Instance which is the thumbprint of the Wallet Attestation JWK.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Identificatore dell'Istanza di Wallet che è l'impronta digitale della JWK della Wallet Attestation.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **aal**
-      - REQUIRED. JSON String asserting the authentication level of the Wallet and the key as asserted in the cnf claim.
-      - This specification.
+      - OBBLIGATORIO. Stringa JSON che attesta il livello di autenticazione del Wallet e della chiave come affermato nel claim cnf.
+      - Questa specifica.
 
-The following disclosures MAY be present:
+Le seguenti divulgazioni POSSONO essere presenti:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Disclosure**
-      - **Description**
-      - **Reference**
+    * - **Divulgazione**
+      - **Descrizione**
+      - **Riferimento**
     * - **wallet_link**
-      - OPTIONAL. String containing a URL to get further information about the Wallet and the Wallet Provider.
+      - OPZIONALE. Stringa contenente un URL per ottenere ulteriori informazioni sul Wallet e sul Fornitore di Wallet.
       - `OpenID4VCI`_.
     * - **wallet_name**
-      - OPTIONAL. String containing a human-readable name of the Wallet.
+      - OPZIONALE. Stringa contenente un nome leggibile dall'uomo del Wallet.
       - `OpenID4VCI`_.
 
-Below are described examples of values for the disclosures:
-
-.. **Claim** ``sub``:
-..
-.. - SHA-256 Hash: ``DTZRbQgOWJlLaBfe6pr+j1vL4B4t6LLWyt9loaEJKe0=``
-.. - Disclosure: ``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgInN1YiIsICJ2YmVYSmtzTTQ1eHBodEFObkNpRzZtQ3l1VTRqZkdOem9wR3VLdm9nZzljIl0=``
-.. - Contents: ``["2GLC42sKQveCfGfryNRN9w", "sub", "vbeXJksM45xphtANnCiG6mCyuU4jfGNzopGuKvogg9c"]``
-..
-.. **Claim** ``aal``:
-..
-.. - SHA-256 Hash: ``h+w4Q4dWcHebykPpS4jRsBZVvBhEKszyLeZGmEunDJ4=``
-.. - Disclosure: ``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImFhbCIsICJodHRwczovL3RydXN0LWxpc3QuZXUvYWFsL2hpZ2giXQ==``
-.. - Contents: ``["2GLC42sKQveCfGfryNRN9w", "aal", "https://trust-list.eu/aal/high"]``
+Di seguito sono descritti esempi di valori per le divulgazioni:
 
 **Claim** ``wallet_link``:
 
-- SHA-256 Hash: ``cD9/XC7t7QVHvmSiE1dGW0WYr0jcqm8n0GA6MGitaik=``
-- Disclosure: ``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgIndhbGxldF9saW5rIiwgImh0dHBzOi8vZXhhbXBsZS5jb20vd2FsbGV0L2RldGFpbF9pbmZvLmh0bWwiXQ==``
-- Contents: ``["2GLC42sKQveCfGfryNRN9w", "wallet_link", "https://example.com/wallet/detail_info.html"]``
+- Hash SHA-256: ``cD9/XC7t7QVHvmSiE1dGW0WYr0jcqm8n0GA6MGitaik=``
+- Divulgazione: ``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgIndhbGxldF9saW5rIiwgImh0dHBzOi8vZXhhbXBsZS5jb20vd2FsbGV0L2RldGFpbF9pbmZvLmh0bWwiXQ==``
+- Contenuti: ``["2GLC42sKQveCfGfryNRN9w", "wallet_link", "https://example.com/wallet/detail_info.html"]``
 
 **Claim** ``wallet_name``:
 
-- SHA-256 Hash: ``iQQhzf6+saYCzHH92N1QyJisKsZbApbTrJ1amHgLoOk=``
-- Disclosure:n``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgIndhbGxldF9uYW1lIiwgIldhbGxldF9Ib2JiaXRvbl92MSJd``
-- Contents: ``["2GLC42sKQveCfGfryNRN9w", "wallet_name", "Wallet_v1"]``
+- Hash SHA-256: ``iQQhzf6+saYCzHH92N1QyJisKsZbApbTrJ1amHgLoOk=``
+- Divulgazione:n``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgIndhbGxldF9uYW1lIiwgIldhbGxldF9Ib2JiaXRvbl92MSJd``
+- Contenuti: ``["2GLC42sKQveCfGfryNRN9w", "wallet_name", "Wallet_v1"]``
 
-Below is a non-normative example of the SD-JWT Wallet Attestation header and payload without encoding and signature applied:
+Di seguito è riportato un esempio non normativo dell'header e del payload della Wallet Attestation SD-JWT senza codifica e firma applicata:
 
 .. code-block:: json
 
@@ -463,7 +455,7 @@ Below is a non-normative example of the SD-JWT Wallet Attestation header and pay
     ],
     "typ": "dc+sd-jwt"
   }
-  
+
 .. code-block:: json
 
   {
@@ -487,15 +479,15 @@ Below is a non-normative example of the SD-JWT Wallet Attestation header and pay
   }
 
 Wallet Attestation mdoc
-"""""""""""""""""""""""
+""""""""""""""""""""""""
 
-This description further specializes the guidelines given in ref:`pid-eaa-data-model:MDOC-CBOR Credential Format` to represent the Wallet Attestation in mdoc format. The latter MUST:
+Questa descrizione specializza ulteriormente le linee guida fornite in ref:`pid-eaa-data-model:MDOC-CBOR Credential Format` per rappresentare la Wallet Attestation in formato mdoc. Quest'ultimo DEVE:
 
-- Have the domestic namespace ``org.iso.18013.5.1.it``;
-- Have **docType** set to ``org.iso.18013.5.1.it.WalletAttestation``; and
-- Have **issuerAuth** as described in :ref:`credential-data-model:Mobile security Object`.
+- Avere il namespace domestico ``org.iso.18013.5.1.it``;
+- Avere **docType** impostato su ``org.iso.18013.5.1.it.WalletAttestation``; e
+- Avere **issuerAuth** come descritto in :ref:`credential-data-model:Mobile security Object`.
 
-The ``nameSpaces`` for the domestic nameSpace Json Objects are defined as follows:
+I ``nameSpaces`` per gli Oggetti Json del nameSpace domestico sono definiti come segue:
 
 .. list-table:: org.iso.18013.5.1.it
     :class: longtable
@@ -503,22 +495,22 @@ The ``nameSpaces`` for the domestic nameSpace Json Objects are defined as follow
     :header-rows: 1
 
     * - **elementIdentifier**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **sub**
-      - REQUIRED. Identifier of the Wallet Instance which is the thumbprint of the Wallet Attestation COSE Key.
-      - :rfc:`9126` and :rfc:`7519`.
+      - OBBLIGATORIO. Identificatore dell'Istanza di Wallet che è l'impronta digitale della Chiave COSE della Wallet Attestation.
+      - :rfc:`9126` e :rfc:`7519`.
     * - **aal**
-      - JSON String asserting the authentication level of the Wallet Instance in relation to the COSE Key contained in the ``IssuerAuth.deviceKeyInfo.deviceKey`` claim of the **issuerAuth** Object.
+      - Stringa JSON che attesta il livello di autenticazione dell'Istanza di Wallet in relazione alla Chiave COSE contenuta nel claim ``IssuerAuth.deviceKeyInfo.deviceKey`` dell'Oggetto **issuerAuth**.
       - :rfc:`9679`.
     * - **wallet_link**
-      - JSON String containing a URL to get further information about the Wallet and the Wallet Provider.
+      - Stringa JSON contenente un URL per ottenere ulteriori informazioni sul Wallet e sul Fornitore di Wallet.
       - `OpenID4VCI`_.
     * - **wallet_name**
-      - JSON String, it MUST be the Identifier of the Wallet Provider.
+      - Stringa JSON, DEVE essere l'Identificatore del Fornitore di Wallet.
       - `OpenID4VCI`_.
 
-Below is a non-normative example of the mdoc Wallet Attestation in CBOR diagnostic notation:
+Di seguito è riportato un esempio non normativo della Wallet Attestation mdoc in notazione diagnostica CBOR:
 
 .. code-block:: text
 
@@ -594,3 +586,34 @@ Below is a non-normative example of the mdoc Wallet Attestation in CBOR diagnost
     ]
   }
 
+
+Catalogo e-Service PDND del Fornitore di Wallet
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+La morte dell'Utente porta alla revoca delle Istanze di Wallet dell'Utente e all'eliminazione dell'account dell'Utente presso il Fornitore di Wallet. Per questo motivo, il Fornitore di Wallet fornisce il seguente e-service tramite PDND.
+Un Fornitore di Attestati Elettronici di Dati di Identificazione Personale che è stato notificato dalla Fonte Autentica del PID della morte dell'Utente DEVE inviare una notifica ai Fornitori di Wallet utilizzando questo endpoint.
+
+.. only:: html
+
+  .. note::
+    Una Specifica OpenAPI completa è disponibile :raw-html:`<a href="OAS3-PDND-WP.html" target="_blank">qui</a>`.
+
+.. only:: latex
+
+  .. note::
+    Una Specifica OpenAPI completa è disponibile :ref:`appendix-oas-pdnd-wp:Specifica OpenAPI del Fornitore di Wallet PDND`.
+
+Notifica Morte Utente
+"""""""""""""""""""""
+
+.. list-table::
+    :class: longtable
+    :widths: 20 80
+    :stub-columns: 1
+
+    * - **Descrizione**
+      - Questo servizio viene utilizzato per notificare al Fornitore di Wallet la necessità di revocare l'Istanza di Wallet ed eliminare l'account dell'Utente a causa della morte dell'Utente.
+    * - **Fornitore**
+      - Fornitore di Wallet
+    * - **Consumatore**
+      - Fornitore di Attestati Elettronici di Dati di Identificazione Personale

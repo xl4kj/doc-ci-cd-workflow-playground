@@ -1,13 +1,13 @@
 .. include:: ../common/common_definitions.rst
 
 
-Wallet Instance Initialization and Registration
-===============================================
+Inizializzazione e Registrazione dell'Istanza del Wallet
+========================================================
 
-This process allows the User who has just installed the Wallet Instance application to register the Wallet Instance with the Wallet Provider Backend. During this process, the Wallet Instance application will request a security and integrity assertion from the OS manufacturer, which also binds a long-lived key pair stored in a proper secure storage within the device itself. This assertion will be validated by the Wallet Provider, and if the validation is successful, the Wallet Provider will authenticate the Wallet Instance. For details see :ref:`mobile-application-instance:Mobile Application Instance Initialization`.
+Questo processo consente all'Utente che ha appena installato l'applicazione di registrare l'Istanza del Wallet presso il Backend del Fornitore di Wallet. Durante questo processo, l'applicazione richiederà un'attestazione di sicurezza e integrità dal produttore del sistema operativo, che associa anche una coppia di chiavi a lunga durata memorizzata in un adeguato storage sicuro all'interno del dispositivo stesso. Questa attestazione sarà convalidata dal Fornitore di Wallet e, se la convalida ha esito positivo, il Fornitore di Wallet autenticherà l'Istanza del Wallet. Per i dettagli vedere :ref:`mobile-application-instance:Inizializzazione dell'Istanza dell'Applicazione Mobile`.
 
 .. warning::
-  During the registration phase of the Wallet Instance with the Wallet Provider it is also necessary to associate the Wallet Instance with a specific User, authenticating the User with the Wallet Provider. The authentication mechanism is at the discretion of the Wallet Provider and it will not be addressed within these guidelines, as each Wallet Provider may have its User authentication systems already implemented.
+  Durante la fase di registrazione dell'Istanza del Wallet presso il Fornitore di Wallet è necessario anche associare l'Istanza del Wallet ad un Utente specifico, autenticando l'Utente con il Fornitore di Wallet. Il meccanismo di autenticazione è a discrezione del Fornitore di Wallet e non sarà trattato all'interno di queste linee guida, poiché ogni Fornitore di Wallet potrebbe avere già implementato i propri sistemi di autenticazione dell'Utente.
 
 .. note::
-  The Wallet Provider SHOULD associate the Wallet Instance (through the ``hardware_key_tag`` identifier) with a specific User uniquely identified within the Wallet Provider's systems. This will be useful for the lifecycle of the Wallet Instance and for a future revocation. For details see :ref:`mobile-application-instance:Mobile Application Instance`.
+  Il Fornitore di Wallet DOVREBBE associare l'Istanza del Wallet (tramite l'identificatore ``hardware_key_tag``) a un Utente specifico identificato in modo univoco all'interno dei sistemi del Fornitore di Wallet. Questo sarà utile per il ciclo di vita dell'Istanza del Wallet e per una futura revoca. Per i dettagli far riferimento all':ref:`mobile-application-instance:Istanza dell'Applicazione Mobile`.

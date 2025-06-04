@@ -1,20 +1,17 @@
 .. include:: ../common/common_definitions.rst
 
-.. "included" file, so we start with '-' title level
+.. level 2 "included" file, so we start with '^' title level
 
-Wallet Instance
----------------
+Istanza del Wallet
+^^^^^^^^^^^^^^^^^^
 
-The Wallet Instance establishes a strong and reliable mechanism for the User to engage in various digital transactions in a secure and privacy-preserving manner.
+L'Istanza del Wallet stabilisce un meccanismo forte e affidabile per garantire all'Utente transazioni digitali in modo sicuro e rispettoso della privacy.
 
-The Wallet Instance allows other entities within the ecosystem to establish trust with it, by consistently
-presenting a Wallet Attestation during interactions with PID Providers,
-(Q)EAA Providers, and Relying Parties. These verifiable attestations, provided by the Wallet Provider,
-serve to authenticate the Wallet Instance itself, ensuring its reliability when engaging with other ecosystem actors.
+L'Istanza del Wallet permette ad altre entità all'interno dell'ecosistema di stabilire un rapporto di fiducia con essa, presentando costantemente una Wallet Attestation durante le interazioni con i Fornitori di Attestati Elettronici di Dati di Identificazione Personale, i Fornitori di Attestati Elettronici di Attributi (Qualificati) e le Relying Party. Questi attestati verificabili, forniti dal Fornitore di Wallet, servono ad autenticare l'Istanza del Wallet stessa, garantendone l'affidabilità durante le interazioni con altri attori dell'ecosistema.
 
 
 .. toctree::
-  :caption: Wallet Instance Table of Contents
+  :caption: Indice dei Contenuti dell'Istanza del Wallet
   :maxdepth: 3
 
   wallet-instance-lifecycle.rst

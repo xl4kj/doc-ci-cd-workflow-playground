@@ -1,101 +1,100 @@
-
 .. include:: ../common/common_definitions.rst
+  
 
+Modello di Dati degli Attestati Elettronici
+==============================================
 
-Digital Credential Data Model
-==============================
+Il Modello di Dati degli Attestati Elettronici struttura gli Attestati ELettronici per un uso sicuro e interoperabile. Gli elementi chiave includono:
 
-The Digital Credential Data Model structures Digital Credentials for secure, interoperable use. Key elements include:
+    - Soggetto dell'Attestato Elettronico: L'individuo o l'entità che riceve l'Attestato Elettronico.
+    - Fornitore di Attestato Elettronico: il soggetto che emette e firma l'Attestato Elettronico.
+    - Metadata: Dettagli sull'Attestato Elettronico, come tipologia e validità.
+    - Attributi dell'Utente: Informazioni sul soggetto, come identità o titoli/qualifiche.
+    - Elementi crittografici: Verifica crittografica dell'autenticità e della legittimità di possesso.
 
-    - Credential Subject: The individual or entity receiving the Credential.
-    - Issuer: The Credential Issuer issuing and signing the Credential.
-    - Metadata: Details about the Credential, like type and validity.
-    - Claims: Information about the subject, such as identity or qualifications.
-    - Proof: Cryptographic verification of authenticity and legitimate ownership.
+L'Attestato Elettronico di Dati di Identificazione Personale (PID) è rilasciato dal Fornitore di Attestati Elettronici di Dati di Identificazione Personale secondo le leggi nazionali. Lo scopo principale del PID è consentire alle persone fisiche di essere autenticate per accedere a un servizio o a una risorsa protetta.
+Gli attributi dell'Utente forniti all'interno del PID italiano sono quelli elencati di seguito:
 
-The Person Identification Data (PID) is issued by the PID Provider according to national laws. The main scope of the PID is allowing natural persons to be authenticated for access to a service or to a protected resource.
-The User attributes provided within the Italian PID are the ones listed below:
+    - Cognome
+    - Nome
+    - Data di Nascita
+    - Codice fiscale
 
-    - Current Family Name
-    - Current First Name
-    - Date of Birth
-    - Taxpayer identification number
+Gli Attestati Elettronici di Attributi (Qualificati) ((Q)EAA) sono rilasciati dai Fornitori di Attestati Elettronici di Attributi (Qualificati) ((Q)EAA) a un'Istanza del Wallet e DEVONO essere forniti in formato SD-JWT-VC o mdoc-CBOR.
 
-The (Q)EAAs are issued by (Q)EAA Issuers to a Wallet Instance and MUST be provided in SD-JWT-VC or mdoc-CBOR data format.
+Il formato dei dati dell'Attestato Elettronico e il meccanismo attraverso il quale un Attestato Elettronico viene rilasciato all'Istanza del Wallet e presentato a una Relying Party sono descritti nelle sezioni seguenti.
 
-The Digital Credential data format and the mechanism through which a Digital Credential is issued to the Wallet Instance and presented to a Relying Party are described in the following sections.
+Attestato Elettronico in formato SD-JWT-VC
+------------------------------------------
 
-SD-JWT-VC Credential Format
----------------------------
+Il PID/(Q)EAA è rilasciato sotto forma di Attestato Elettronico. Il formato dell'Attestato Elettronico in `SD-JWT`_ segue le specifiche di `SD-JWT-VC`_.
 
-The PID/(Q)EAA is issued in the form of a Digital Credential. The Digital Credential format is `SD-JWT`_ as specified in `SD-JWT-VC`_.
+SD-JWT DEVE essere firmato utilizzando la chiave privata del Fornitore di Attestati Elettronici. SD-JWT DEVE essere fornito insieme a un *Type Metadata* relativo all'Attestato Elettronico rilasciato secondo quanto indicato nelle Sezioni 6 e 6.3 di [`SD-JWT-VC`_]. Il payload DEVE contenere il claim **_sd_alg** descritto nella Sezione 4.1.1 `SD-JWT`_ e gli altri claim specificati in questa sezione.
 
-SD-JWT MUST be signed using the Issuer's private key. SD-JWT MUST be provided along with a Type Metadata related to the issued Digital Credential according to Sections 6 and 6.3 of [`SD-JWT-VC`_]. The payload MUST contain the **_sd_alg** claim described in Section 4.1.1 `SD-JWT`_ and other claims specified in this section.
+Il claim **_sd_alg** indica l'algoritmo di hash utilizzato dal Fornitore di Attestati Elettronici per generare i digest come descritto nella Sezione 4.1.1 di `SD-JWT`_. **_sd_alg** DEVE essere valorizzato con uno degli algoritmi specificati nella Sezione :ref:`Cryptographic Algorithms <algorithms:Algoritmi Crittografici>`.
 
-The claim **_sd_alg** indicates the hash algorithm used by the Issuer to generate the digests as described in Section 4.1.1 of `SD-JWT`_. **_sd_alg** MUST be set to one of the specified algorithms in Section :ref:`Cryptographic Algorithms <algorithms:Cryptographic Algorithms>`.
+I claim che non sono divulgabili selettivamente DEVONO essere inclusi nel SD-JWT così come sono. I digest delle disclosure, insieme a eventuali decoy digest se presenti, DEVONO essere contenuti nell'array **_sd**, come specificato nella Sezione 4.2.4.1 di `SD-JWT`_.
 
-Claims that are not selectively disclosable MUST be included in the SD-JWT as they are. The digests of the disclosures, along with any decoy if present, MUST be contained in the **_sd** array, as specified in Section 4.2.4.1 of `SD-JWT`_.
+Ogni valore di digest, calcolato applicando una funzione di hash sulle disclosure, verifica l'integrità e corrisponde a una specifica disclosure. Ogni disclosure include:
 
-Each digest value, calculated using a hash function over the disclosures, verifies the integrity and corresponds to a specific Disclosure. Each disclosure includes:
+  - un *salt* casuale,
+  - il nome del claim (solo quando il claim è un object element),
+  - il valore del claim.
 
-  - a random salt,
-  - the claim name (only when the claim is an object element),
-  - the claim value.
+In caso di oggetti annidati (nested object) nel payload SD-JWT, ogni claim di ogni livello del JSON dovrebbe essere individualmente contrassegnato come divulgabile selettivamente o meno. Pertanto il claim **_sd** contenente i digest PUÒ apparire più volte nei diversi livelli del SD-JWT.
 
-In case of nested objects in a SD-JWT payload, each claim at every level of the JSON, should be individually marked as selectively disclosable or not. Therefore **_sd** claim containing digests MAY appear multiple times at different levels in the SD-JWT.
+Per ogni claim che è un elemento di un array, i digest delle rispettive disclosure e i decoy digest vengono aggiunti all'array nella stessa posizione dei valori del claim originali come specificato nella Sezione 4.2.4.2 di `SD-JWT`_.
 
-For each claim that is an array element the digests of the respective disclosures and decoy digests are added to the array in the same position of the original claim values as specified in Section 4.2.4.2 of `SD-JWT`_.
+In caso di elementi di un array, i valori di digest vengono calcolati applicando una funzione di hash sulle disclosure, contenenti:
 
-In case of array elements, digest values are calculated using a hash function over the disclosures, containing:
+  - un *salt* casuale,
+  - l'elemento dell'array.
 
-  - a random salt,
-  - the array element.
+In presenza di più elementi in un array, il Fornitore di Attestati Elettronici può nascondere il valore dell'intero array oppure di qualsiasi elemento contenuta all'interno dell'array, il Titolare può divulgare sia l'intero array che qualsiasi singola voce all'interno dell'array, come definito nella Sezione 4.2.6 di `SD-JWT`_.
 
-In case of multiple array elements, the Issuer may hide the value of the entire array or any of the entry contained within the array, the Holder can disclose both the entire array and any single entry within the array, as defined in Section 4.2.6 of `SD-JWT`_.
-
-The Disclosures are provided to the Holder together with the SD-JWT in the *Combined Format for Issuance* that is an ordered series of base64url-encoded values, each separated from the next by a single tilde ('~') character as follows:
+Le disclosure vengono fornite al Titolare insieme al SD-JWT nel *Combined Format for Issuance* che è una serie ordinata di valori codificati in base64url, ciascuno separato dal successivo da un singolo carattere tilde ('~') come segue:
 
 .. code-block:: text
 
   <Issuer-Signed-JWT>~<Disclosure 1>~<Disclosure 2>~...~<Disclosure N>
 
-See `SD-JWT-VC`_ and `SD-JWT`_ for additional details.
+
+Vedere `SD-JWT-VC`_ e `SD-JWT`_ per ulteriori dettagli.
 
 
-Credential SD-JWT Parameters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Parametri SD-JWT della Credenziale
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The JOSE header contains the following mandatory parameters:
+Il JOSE Header contiene i seguenti parametri obbligatori:
 
-.. _table_pid_jose_header:
 .. list-table::
   :class: longtable
   :widths: 20 60 20
   :header-rows: 1
 
   * - **Claim**
-    - **Description**
-    - **Reference**
+    - **Descrizione**
+    - **Riferimento**
   * - **typ**
-    - REQUIRED. It MUST be set to ``dc+sd-jwt`` as defined in `SD-JWT-VC`_.
-    - :rfc:`7515` Section 4.1.9.
+    - OBBLIGATORIO. DEVE essere valorizzato con ``dc+sd-jwt`` come definito in `SD-JWT-VC`_.
+    - :rfc:`7515` Sezione 4.1.9.
   * - **alg**
-    - REQUIRED. Signature Algorithm.
-    - :rfc:`7515` Section 4.1.1.
+    - OBBLIGATORIO. Algoritmo di firma.
+    - :rfc:`7515` Sezione 4.1.1.
   * - **kid**
-    - REQUIRED. Unique identifier of the public key.
-    - :rfc:`7515` Section 4.1.8.
+    - OBBLIGATORIO. Identificativo univoco della chiave pubblica.
+    - :rfc:`7515` Sezione 4.1.8.
   * - **trust_chain**
-    - OPTIONAL. JSON array containing the trust chain that proves the reliability of the issuer of the JWT.
-    - [`OID-FED`_] Section 4.3.
+    - OPZIONALE. Array JSON contenente la catena di fiducia che dimostra l'affidabilità di chi emette il JWT.
+    - [`OID-FED`_] Sezione 4.3.
   * - **x5c**
-    - OPTIONAL. Contains the X.509 public key certificate or certificate chain [:rfc:`5280`] corresponding to the key used to digitally sign the JWT.
-    - :rfc:`7515` Section 4.1.8 and [`SD-JWT-VC`_] Section 3.5.
+    - OPZIONALE. Contiene il certificato della chiave pubblica X.509 o la catena di certificati [:rfc:`5280`] corrispondente alla chiave utilizzata per firmare digitalmente il JWT.
+    - :rfc:`7515` Sezione 4.1.8 e [`SD-JWT-VC`_] Sezione 3.5.
   * - **vctm**
-    - OPTIONAL. JSON array of base64url-encoded Type Metadata JSON documents. In case of extended type metadata, this claim contains the entire chain of JSON documents.
-    - [`SD-JWT-VC`_] Section 6.3.5.
+    - OPZIONALE. Array JSON di documenti JSON di *Type Metadata* codificati in base64url. In caso di *Type Metadata* che ne estende un altro, questo claim contiene l'intera catena di documenti JSON.
+    - [`SD-JWT-VC`_] Sezione 6.3.5.
 
-The JWT payload contains the following claims. Some of these claims can be disclosed, these are listed in the following tables that specify whether a claim is selectively disclosable [SD] or not [NSD].
+Il payload JWT contiene i seguenti claim. Alcuni di questi claim possono essere divulgati, questi sono elencati nelle seguenti tabelle che specificano se un claim è divulgabile selettivamente [SD] o meno [NSD].
 
 .. _table_sd-jwt-vc_parameters:
 .. list-table::
@@ -104,94 +103,94 @@ The JWT payload contains the following claims. Some of these claims can be discl
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **iss**
-      - [NSD]. REQUIRED. URL string representing the Credential Issuer unique identifier.
-      - `[RFC7519, Section 4.1.1] <https://www.iana.org/go/rfc7519>`_.
+      - [NSD]. OBBLIGATORIO. Stringa URL che rappresenta l'identificativo univoco del Fornitore di Attestati Elettronici.
+      - `[RFC7519, Sezione 4.1.1] <https://www.iana.org/go/rfc7519>`_.
     * - **sub**
-      - [NSD]. REQUIRED. The identifier of the subject of the Digital Credential, the User, MUST be opaque and MUST NOT correspond to any anagraphic data or be derived from the User's anagraphic data via pseudonymization. Additionally, it is required that two different Credentials issued MUST NOT use the same ``sub`` value.
-      - `[RFC7519, Section 4.1.2] <https://www.iana.org/go/rfc7519>`_.
+      - [NSD]. OBBLIGATORIO. L'identificativo del soggetto dell'Attestato Elettronico, l'Utente, DEVE essere un valore opaco e NON DEVE corrispondere a nessun dato anagrafico o essere derivato dai dati anagrafici dell'Utente tramite pseudonimizzazione. Inoltre, due diversi Attestati Elettronici emessi NON DEVONO utilizzare lo stesso valore di ``sub``.
+      - `[RFC7519, Sezione 4.1.2] <https://www.iana.org/go/rfc7519>`_.
     * - **iat**
-      - [SD]. REQUIRED. UNIX Timestamp with the time of JWT issuance, coded as NumericDate as indicated in :rfc:`7519`.
-      - `[RFC7519, Section 4.1.6] <https://www.iana.org/go/rfc7519>`_.
+      - [SD]. OBBLIGATORIO. Timestamp UNIX con l'orario di emissione del JWT, codificato come NumericDate come indicato in :rfc:`7519`.
+      - `[RFC7519, Sezione 4.1.6] <https://www.iana.org/go/rfc7519>`_.
     * - **exp**
-      - [NSD]. REQUIRED. UNIX Timestamp with the expiry time of the JWT, coded as NumericDate as indicated in :rfc:`7519`.
-      - `[RFC7519, Section 4.1.4] <https://www.iana.org/go/rfc7519>`_.
+      - [NSD]. OBBLIGATORIO. Timestamp UNIX con l'orario di scadenza del JWT, codificato come NumericDate come indicato in :rfc:`7519`.
+      - `[RFC7519, Sezione 4.1.4] <https://www.iana.org/go/rfc7519>`_.
     * - **nbf**
-      - [NSD]. OPTIONAL. UNIX Timestamp with the start time of validity of the JWT, coded as NumericDate as indicated in :rfc:`7519`.
-      - `[RFC7519, Section 4.1.4] <https://www.iana.org/go/rfc7519>`_.
+      - [NSD]. OPZIONALE. Timestamp UNIX con l'orario di inizio validità del JWT, codificato come NumericDate come indicato in :rfc:`7519`.
+      - `[RFC7519, Sezione 4.1.4] <https://www.iana.org/go/rfc7519>`_.
     * - **issuing_authority**
-      - [NSD]. REQUIRED. Name of the administrative authority that has issued the Credential.
-      - Commission Implementing Regulation `EU_2024/2977`_.
+      - [NSD]. OBBLIGATORIO. Nome dell'autorità amministrativa che ha emesso l'Attestato Elettronico.
+      - Regolamento di esecuzione della Commissione `EU_2024/2977`_.
     * - **issuing_country**
-      - [NSD]. REQUIRED. Alpha-2 country code, as specified in ISO 3166-1, of the country or territory of the Credential Issuer.
-      - Commission Implementing Regulation `EU_2024/2977`_.
+      - [NSD]. OBBLIGATORIO. Codice paese Alpha-2, come specificato in ISO 3166-1, del paese o territorio del Fornitore di Attestati Elettronici.
+      - Regolamento di esecuzione della Commissione `EU_2024/2977`_.
     * - **status**
-      - [NSD]. REQUIRED only if the Digital Credential is long-lived. JSON object containing the information on how to read the status of the Verifiable Credential. It MUST contain either the JSON member *status_assertion* or *status_list*.
-      - Section 3.2.2.2 `SD-JWT-VC`_ and Section 11 `OAUTH-STATUS-ASSERTION`_.
+      - [NSD]. OBBLIGATORIO solo se l'Attestato Elettronico ha una durata superiore alle 24 ore (long-lived). Oggetto JSON contenente le informazioni su come leggere lo stato dell'Attestato Elettronico. DEVE contenere l'oggetto JSON *status_assertion* o *status_list*.
+      - Sezione 3.2.2.2 `SD-JWT-VC`_ e Sezione 11 `OAUTH-STATUS-ASSERTION`_.
     * - **cnf**
-      - [NSD]. REQUIRED. JSON object containing the proof-of-possession key materials. By including a **cnf** (confirmation) claim in a JWT, the Issuer of the JWT declares that the Holder is in control of the private key related to the public one defined in the **cnf** parameter. The recipient MUST cryptographically verify that the Holder is in control of that key.
-      - `[RFC7800, Section 3.1] <https://www.iana.org/go/rfc7800>`_ and Section 3.2.2.2 `SD-JWT-VC`_.
+      - [NSD]. OBBLIGATORIO. Oggetto JSON contenente il materiale crittografico da utilizzare come prova di possesso. L'inclusione del claim **cnf** (confirmation) in un JWT, permette al soggetto che emette il JWT di dichiarare che il Titolare ha il controllo della chiave privata relativa a quella pubblica definita nel parametro **cnf**. Il destinatario DEVE verificare crittograficamente che il Titolare abbia effettivamente il controllo di quella chiave.
+      - `[RFC7800, Sezione 3.1] <https://www.iana.org/go/rfc7800>`_ e Sezione 3.2.2.2 `SD-JWT-VC`_.
     * - **vct**
-      - [NSD]. REQUIRED. Credential type value MUST be an HTTPS URL String and it MUST be set using one of the values obtained from the Credential Issuer metadata. It is the identifier of the SD-JWT VC type and it MUST be set with a collision-resistant value as defined in Section 2 of :rfc:`7515`. It MUST contain also the number of version of the Credential type (for instance: ``https://trust-registry.eid-wallet.example.it/credentials/v1.0/personidentificationdata``).
-      - Section 3.2.2.2 `SD-JWT-VC`_.
+      - [NSD]. OBBLIGATORIO. Il valore del tipo di Attestato Elettronico DEVE essere una stringa URL HTTPS e DEVE essere valorizzata utilizzando uno dei valori ottenuti dai Metadata del Fornitore di Attestati Elettronici. È l'identificativo del tipo di SD-JWT VC e DEVE essere resistente alle collisioni come definito nella Sezione 2 di :rfc:`7515`. DEVE contenere anche il numero di versione dell'Attestato Elettronico (ad esempio: ``https://trust-registry.eid-wallet.example.it/credentials/v1.0/personidentificationdata``).
+      - Sezione 3.2.2.2 `SD-JWT-VC`_.
     * - **vct#integrity**
-      - [NSD]. REQUIRED. The value MUST be an "integrity metadata" string as defined in Section 3 of [`W3C-SRI`_]. *SHA-256*, *SHA-384* and *SHA-512* MUST be supported as cryptographic hash functions. *MD5* and *SHA-1* MUST NOT be used. This claim MUST be verified according to Section 3.3.5 of [`W3C-SRI`_].
-      - Section 6.1 `SD-JWT-VC`_, [`W3C-SRI`_]
+      - [NSD]. OBBLIGATORIO. Il valore DEVE essere una stringa "integrity metadata" come definito nella Sezione 3 di [`W3C-SRI`_]. *SHA-256*, *SHA-384* e *SHA-512* DEVONO essere supportati come funzioni crittografiche di hash. *MD5* e *SHA-1* NON DEVONO essere utilizzati. Questo claim DEVE essere verificato in base a quanto indicato nella la Sezione 3.3.5 di [`W3C-SRI`_].
+      - Sezione 6.1 `SD-JWT-VC`_, [`W3C-SRI`_]
     * - **verification**
-      - [SD]. CONDITIONAL. REQUIRED if Credential type is set to `PersonIdentificationData`, otherwise is OPTIONAL. Object containing User authentication and User data verification information. If present MUST include the following sub-value:
+      - [SD]. CONDIZIONALE. OBBLIGATORIO se il tipo di Attestato Elettronico è `PersonIdentificationData`, altrimenti è OPZIONALE. Oggetto contenente informazioni sull'autenticazione dell'Utente e sulla verifica dei dati dell'Utente. Se presente DEVE includere il seguente parametri:
 
-          * ``trust_framework``: String identifying the trust framework used for User authentication. It MUST be set using one of the values described in the `trust_frameworks_supported` map provided within the Credential Issuer Metadata.
-          * ``assurance_level``: String identifying the level of identity assurance guaranteed during the User authentication process.
-          * ``evidence``: Each entry of the array MUST contain the following members:
+          * ``trust_framework``: Stringa che identifica il trust framework utilizzato per l'autenticazione dell'Utente. DEVE essere valorizzato con uno dei valori descritti nel `trust_frameworks_supported` fornito nei Metadata del Fornitore di Attestati Elettronici.
+          * ``assurance_level``: Stringa che identifica il Livello di Garanzia dell'identità garantito durante il processo di autenticazione dell'Utente.
+          * ``evidence``: Ogni voce dell'array DEVE contenere i seguenti parametri:
 
-            - ``type``: It represents evidence type. It MUST be set to ``vouch``.
-            - ``time``: UNIX Timestamps with the time of the authentication or verification.
-            - ``attestation``: It MUST contain the following members:
+            - ``type``: Rappresenta il tipo di evidenza. DEVE essere valorizzato con ``vouch``.
+            - ``time``: Timestamp UNIX con l'orario dell'autenticazione o della verifica.
+            - ``attestation``: DEVE contenere i seguenti parametri:
 
-                - ``type``: It MUST be set to ``digital_attestation``.
-                - ``reference_number``: identifier of the authentication or verification response.
-                - ``date_of_issuance``: date of issuance of the attestation.
-                - ``voucher``: It MUST contains ``organization`` claim.
+                - ``type``: DEVE essere valorizzato con ``digital_attestation``.
+                - ``reference_number``: identificativo della risposta di autenticazione o verifica.
+                - ``date_of_issuance``: data di emissione dell'attestazione.
+                - ``voucher``: DEVE contenere il claim ``organization``.
 
-      - `OIDC-IDA`_.
+      - `OIDC-IDA`.
     * - **_sd**
-      - [NSD]. REQUIRED. Array of strings, where each string represents a digest of a Disclosure.
+      - [NSD]. OBBLIGATORIO. Array di stringhe, dove ogni stringa rappresenta un digest di una disclosure.
       - 4.2.4.1 `SD-JWT`_
     * - **_sd_alg**
-      - [NSD]. REQUIRED. Hash algorithm used by the Issuer to generate the digests.
+      - [NSD]. OBBLIGATORIO. Algoritmo di hash utilizzato dal Fornitore di Attestati Elettronici per generare i digest.
       - 4.1.1 `SD-JWT`_
 
-If the ``status`` parameter is set to ``status_list``, it is a JSON Object containing the following sub-parameters:
+Se il parametro ``status`` è valorizzato con ``status_list``, l'oggetto JSON contiene i seguenti sub parametri:
 
 .. list-table::
    :class: longtable
    :widths: 20 60 20
    :header-rows: 1
 
-   * - **Parameter**
-     - **Description**
-     - **Reference**
+   * - **Parametro**
+     - **Descrizione**
+     - **Riferimento**
    * - **idx**
-     - REQUIRED. The idx (index) claim MUST specify an Integer that represents the index to check for status information in the Status List for the current Digital Credential. The value of idx MUST be a non-negative number, containing a value of zero or greater.
+     - OBBLIGATORIO. Il claim idx (index) DEVE contenere un numero intero che rappresenta l'indice da controllare per recuperare le informazioni relative allo stato nella Status List per l'Attestato Elettronico corrente. Il valore di idx DEVE essere un numero non negativo, contenente un valore uguale o superiore a zero.
      - TOKEN-STATUS-LIST_
    * - **uri**
-     - REQUIRED. The uri (URI) claim MUST specify a String value that identifies the Status List Token containing the status information for the Digital Credential. The value of uri MUST be a URI conforming to [:rfc:`3986`].
+     - OBBLIGATORIO. Il claim ``uri`` (URI) DEVE contenere una stringa che identifica la Status List Token contenente le informazioni dello stato per l'Attestato Elettronico. Il valore di ``uri`` DEVE essere un URI conforme a [:rfc:`3986`].
      - TOKEN-STATUS-LIST_
 
 
-If the ``status`` parameter is set to ``status_assertation``, it is a JSON Object containing the *credential_hash_alg* claim indicating the Algorithm used for hashing the Digital Credential to which the Status Assertion is bound. It is RECOMMENDED to use *sha-256*.
+Se il parametro ``status`` è valorizzato con ``status_assertion``, l'oggetto JSON contiene il claim *credential_hash_alg* che indica l'algoritmo utilizzato per l'hashing dell'Attestato Elettronico a cui è associato la Status Assertion. Si RACCOMANDA di utilizzare *sha-256*.
 
 
 .. note::
-  Credential Type Metadata JSON Document MAY be retrieved directly from the URL contained in the claim **vct**, using the HTTP GET method or using the vctm header parameter if provided. Unlike specified in Section 6.3.1 of `SD-JWT-VC`_ the **.well-known** endpoint is not included in the current implementation profile. Implementers may decide to use it for interoperability with other systems.
+  Il documento JSON di *Type Metadata* dell'Attestato Elettronico PUÒ essere recuperato direttamente dall'URL contenuto nel claim **vct**, utilizzando il metodo GET HTTP o utilizzando il parametro di header ``vctm`` se presente. A differenza di quanto specificato nella Sezione 6.3.1 di `SD-JWT-VC`_ l'endpoint **.well-known** non è incluso nell'attuale profilo di implementazione. Gli implementatori possono comunque decidere di utilizzarlo ai fini di interoperabilità con gli altri sistemi.
 
 
-Digital Credential Metadata Type
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Type Metadata dell'Attestato Elettronico
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Metadata type document MUST be a JSON object and contains the following parameters.
+Il documento di *Type Metadata* DEVE essere un oggetto JSON che contiene i seguenti parametri.
 
 .. list-table::
     :class: longtable
@@ -199,93 +198,93 @@ The Metadata type document MUST be a JSON object and contains the following para
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **name**
-      - REQUIRED. Human-readable name of the Digital Credential type. In case of multiple languages, the language tags are added to the member name, delimited with the character ``#`` as defined in :rfc:`5646` (e.g. *name#it-IT*).
-      - [`SD-JWT-VC`_] Section 6.2 and [`OIDC`_] Section 5.2.
+      - OBBLIGATORIO. Nome *human-readable* del tipo di Attestato Elettronico. In casistiche multilingua, i tag di lingua vengono aggiunti al nome del claim, delimitandoli con il carattere `#` come definito in :rfc:`5646` (ad es. *name#it-IT*).
+      - [`SD-JWT-VC`_] Sezione 6.2 e [`OIDC`_] Sezione 5.2.
     * - **description**
-      - REQUIRED. A human-readable description of the Digital Credential type. In case of multiple languages, the language tags are added to the member name, delimited by a # character as defined in :rfc:`5646`.
-      - [`SD-JWT-VC`_] Section 6.2 and [`OIDC`_] Section 5.2.
+      - OBBLIGATORIO. Una descrizione leggibile del tipo di Attestato Elettronico. In casistiche multilingua, i tag di lingua vengono aggiunti al nome del claim, delimitandoli da un carattere `#` come definito in :rfc:`5646`.
+      - [`SD-JWT-VC`_] Sezione 6.2 e [`OIDC`_] Sezione 5.2.
     * - **extends**
-      - OPTIONAL. String Identifier of an extended metadata type document.
-      - [`SD-JWT-VC`_] Section 6.2.
+      - OPZIONALE. Stringa identificativa di un documento *Type Metadata* che ne estende un altro.
+      - [`SD-JWT-VC`_] Sezione 6.2.
     * - **extends#integrity**
-      - CONDITIONAL. REQUIRED if **extends** is present.
-      - [`SD-JWT-VC`_] Section 6.2.
+      - CONDIZIONALE. OBBLIGATORIO se **extends** è presente.
+      - [`SD-JWT-VC`_] Sezione 6.2.
     * - **schema**
-      - CONDITIONAL. REQUIRED if **schema_uri** is not present.
-      - [`SD-JWT-VC`_] Section 6.2.
+      - CONDIZIONALE. OBBLIGATORIO se **schema_uri** non è presente.
+      - [`SD-JWT-VC`_] Sezione 6.2.
     * - **schema_uri**
-      - CONDITIONAL. REQUIRED if **schema** is not present.
-      - [`SD-JWT-VC`_] Section 6.2.
+      - CONDIZIONALE. OBBLIGATORIO se **schema** non è presente.
+      - [`SD-JWT-VC`_] Sezione 6.2.
     * - **schema_uri#integrity**
-      - CONDITIONAL. REQUIRED if **schema_uri** is present.
-      - [`SD-JWT-VC`_] Section 6.2.
+      - CONDIZIONALE. OBBLIGATORIO se **schema_uri** è presente.
+      - [`SD-JWT-VC`_] Sezione 6.2.
     * - **data_source**
-      - REQUIRED. Object containing information about the data origin. It MUST contain the object ``verification`` with the following sub-value:
+      - OBBLIGATORIO. Oggetto contenente informazioni sull'origine dei dati. DEVE contenere l'oggetto ``verification`` con il seguente sub parametro:
 
-          * ``trust_framework``: MUST contain trust framework used for digital authentication towards Authentic Source system.
-          * ``authentic_source``: MUST contain the following claims related to information about the Authentic Source:
+          * ``trust_framework``: DEVE contenere il trust framework utilizzato per l'autenticazione digitale verso il sistema della Fonte Autentica.
+          * ``authentic_source``: DEVE contenere i seguenti claim relativi alle informazioni sulla Fonte Autentica:
 
-               * ``organization_name`` name of the Authentic Source.
-               * ``organization_code`` code identifier of the Authentic Source.
-               * ``homepage_uri`` uri pointing to the Authentic Source's homepage.
-               * ``contacts`` contact list for info and assistance.
-               * ``logo_uri`` URI pointing to the logo image.
+               * ``organization_name`` nome della Fonte Autentica.
+               * ``organization_code`` codice identificativo della Fonte Autentica.
+               * ``homepage_uri`` uri che punta alla homepage della Fonte Autentica.
+               * ``contacts`` elenco dei contatti per informazioni e assistenza.
+               * ``logo_uri`` URI che punta all'immagine del logo.
 
-      - This specification
+      - Questa specifica
     * - **display**
-      - REQUIRED. Array of objects, one for each language supported, containing display information for the Digital Credential type. It contains for each object the following properties:
+      - OBBLIGATORIO. Array di oggetti, uno per ogni lingua supportata, contenente informazioni di visualizzazione per il tipo di Attestato Elettronico. Contiene per ogni oggetto le seguenti proprietà:
 
-          * ``lang``: language tag as defined in :rfc:`5646` Section 2. [REQUIRED].
-          * ``name``: human-readable label for the Digital Credential type. [REQUIRED].
-          * ``description``: human-readable description for the Digital Credential type. [REQUIRED].
-          * ``rendering``: object containing rendering methods supported by the Digital Credential type. [REQUIRED]. The rendering method `svg_template` MUST be supported.
+          * ``lang``: tag di lingua come definito in :rfc:`5646` Sezione 2. [OBBLIGATORIO].
+          * ``name``: nome *human-readable* del tipo di Attestato Elettronico. [OBBLIGATORIO].
+          * ``description``: descrizione *human-readable* per il tipo di Attestato Elettronico. [OBBLIGATORIO].
+          * ``rendering``: oggetto contenente i metodi di rendering supportati dal tipo di Attestato Elettronico. [OBBLIGATORIO]. Il metodo di rendering `svg_template` DEVE essere supportato.
             
-            The ``svg_templates`` array of objects contains for each SVG template supported the following properties:
+            L'array ``svg_templates`` di oggetti contiene per ogni template SVG supportato le seguenti proprietà:
 
-                * ``uri``: URI pointing to the SVG template. [REQUIRED].
-                * ``uri#integrity``: integrity metadata as defined in Section 3 of `W3C-SRI`_. [REQUIRED].
-                * ``properties``: object containing SVG template properties. This property is REQUIRED if more than one SVG template is present. The object MUST contain at least one of the properties defined in `SD-JWT-VC`_ Section 8.1.2.1.
+                * ``uri``: URI che punta al template SVG. [OBBLIGATORIO].
+                * ``uri#integrity``: "integrity metadata" come definito nella Sezione 3 di `W3C-SRI`_. [OBBLIGATORIO].
+                * ``properties``: oggetto contenente le proprietà del template SVG. Questa proprietà è OBBLIGATORIA se è presente più di un template SVG. L'oggetto DEVE contenere almeno una delle proprietà definite in `SD-JWT-VC`_ Sezione 8.1.2.1.
 
-            If rendering method `simple` is also supported, the ``simple`` object contains the following properties:
+            Se è supportato anche il metodo di rendering `simple`, l'oggetto ``simple`` contiene le seguenti proprietà:
 
-                * ``logo``: object containing information about the logo to display. This property is REQUIRED. The object contains the following sub-values:
+                * ``logo``: oggetto contenente informazioni sul logo da visualizzare. Questa proprietà è OBBLIGATORIA. L'oggetto contiene i seguenti sotto-valori:
 
-                    * ``uri``: URI pointing to the logo image. [REQUIRED]
-                    * ``uri#integrity``: integrity metadata as defined in Section 3 of `W3C-SRI`_. [REQUIRED].
-                    * ``alt_text``: A string containing alternative text to display instead of the logo image. [OPTIONAL].
+                    * ``uri``: URI che punta all'immagine del logo. [OBBLIGATORIO]
+                    * ``uri#integrity``: "integrity metadata" come definito nella Sezione 3 di `W3C-SRI`_. [OBBLIGATORIO].
+                    * ``alt_text``: stringa contenente del testo alternativo da visualizzare al posto dell'immagine del logo. [OPZIONALE].
 
-                * ``background_color``: RGB color value as defined in `W3C.CSS-COLOR`_ for the background of the Digital Credential. [OPTIONAL].
-                * ``text_color``: RGB color value as defined in `W3C.CSS-COLOR`_ for the text of the Digital Credential. [OPTIONAL].
+                * ``background_color``: valore del colore in RGB come definito in `W3C.CSS-COLOR`_ per lo sfondo dell'Attestato Elettronico. [OPZIONALE].
+                * ``text_color``: valore del colore in RGB come definito in `W3C.CSS-COLOR`_ per il testo dell'Attestato Elettronico. [OPZIONALE].
 
           .. note::
-            The use of the SVG template is RECOMMENDED for all applications that support it.
+            L'uso del template SVG è RACCOMANDATO per tutte le applicazioni che lo supportano.
 
-      - [`SD-JWT-VC`_] Section 8.
+      - [`SD-JWT-VC`_] Sezione 8.
     * - **claims**
-      - REQUIRED. Array of objects containing information for displaying and validating Digital Credential claims. It contains for each Credential claim the following properties:
+      - OBBLIGATORIO. Array di oggetti contenenti informazioni per la visualizzazione e la convalida dei claim dell'Attestato Elettronico. Contiene per ogni claim dell'Attestato Elettronico le seguenti proprietà:
 
-          * ``path``: array indicating the claim or claims that are being addressed. [REQUIRED].
-          * ``display``: array containing display information about the claim indicated in the ``path``. The array contains an object for each language supported by the Digital Credential type. This property is REQUIRED. It contains the following members:
-             * ``lang``: language tag as defined in :rfc:`5646` Section 2. [REQUIRED].
-             * ``label``: human-readable label for the claim. [REQUIRED].
-             * ``description``: human-readable description for the claim. [REQUIRED].
-          * ``sd``: string indicating whether the claim is selectively disclosable. It MUST be set to `always` if the claim is selectively disclosure or `never` if not. [REQUIRED].
-          * ``svg_id``: alphanumeric string containing ID of the claim referenced in the SVG template as defined in [`SD-JWT-VC`_] Section 9. [REQUIRED].
-      - [`SD-JWT-VC`_] Section 9.
+          * ``path``: array che indica i/il claim a cui ci si riferisce. [OBBLIGATORIO].
+          * ``display``: array contenente informazioni di visualizzazione sul claim indicato nel ``path``. L'array contiene un oggetto per ogni lingua supportata dal tipo di Attestato Elettronico. Questa proprietà è OBBLIGATORIA. Contiene i seguenti parametri:
+             * ``lang``: tag di lingua come definito in :rfc:`5646` Sezione 2. [OBBLIGATORIO].
+             * ``label``: etichetta *human-readable* per il claim. [OBBLIGATORIO].
+             * ``description``: descrizione *human-readable* per il claim. [OBBLIGATORIO].
+          * ``sd``: stringa che indica se il claim è divulgabile selettivamente. DEVE essere impostato su `always` se il claim è divulgabile selettivamente o `never` se non lo è. [OBBLIGATORIO].
+          * ``svg_id``: stringa alfanumerica contenente l'ID del claim referenziato nel template SVG come definito in [`SD-JWT-VC`_] Sezione 9. [OBBLIGATORIO].
+      - [`SD-JWT-VC`_] Sezione 9.
 
 
-A non-normative Digital Credential metadata type is provided below.
+Un esempio non normativo di *Type Metadata* dell'Attestato Elettronico è fornito di seguito.
 
 .. literalinclude:: ../../examples/vc-metadata-type.json
   :language: JSON
 
-PID Claims
-^^^^^^^^^^
+Attributi PID dell'Utente
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Depending on the Digital Credential type **vct**, additional claims data MAY be added. The PID supports the following data:
+A seconda del tipo di Attestato Elettronico **vct**, possono essere aggiunti dei claim aggiuntivi, il PID supporta i seguenti:
 
 .. list-table::
     :class: longtable
@@ -293,40 +292,40 @@ Depending on the Digital Credential type **vct**, additional claims data MAY be 
     :header-rows: 1
 
     * - **Claim**
-      - **Description**
-      - **Reference**
+      - **Descrizione**
+      - **Riferimento**
     * - **given_name**
-      - [SD]. REQUIRED. Current First Name.
-      - Section 5.1 of `OIDC`_ and Commission Implementing Regulation `EU_2024/2977`_
+      - [SD]. OBBLIGATORIO. Nome. (*Stringa*)
+      - Sezione 5.1 di `OIDC`_ e Regolamento di esecuzione della Commissione `EU_2024/2977`_
     * - **family_name**
-      - [SD]. REQUIRED. Current Family Name.
-      - Section 5.1 of `OIDC`_ and Commission Implementing Regulation `EU_2024/2977`_
+      - [SD]. OBBLIGATORIO. Cognome. (*Stringa*)
+      - Sezione 5.1 di `OIDC`_ e Regolamento di esecuzione della Commissione `EU_2024/2977`_
     * - **birth_date**
-      - [SD]. REQUIRED. Date of Birth.
-      - Commission Implementing Regulation `EU_2024/2977`_
+      - [SD]. OBBLIGATORIO. Data di Nascita. (*Stringa, formato [ISO8601‑1] YYYY-MM-DD*)
+      - Regolamento di esecuzione della Commissione `EU_2024/2977`_
     * - **birth_place**
-      - [SD]. REQUIRED. Place of Birth.
-      - Commission Implementing Regulation `EU_2024/2977`_
-    * - **nationality**
-      - [SD]. REQUIRED. One or more alpha-2 country codes as specified in ISO 3166-1.
-      - Commission Implementing Regulation `EU_2024/2977`_
+      - [SD]. OBBLIGATORIO. Luogo di Nascita. (*Stringa*)
+      - Regolamento di esecuzione della Commissione `EU_2024/2977`_
+    * - **nationalities**
+      - [SD]. OBBLIGATORIO. Uno o più codici paese alpha-2 come specificato in ISO 3166-1. (*Array di stringhe*)
+      - Regolamento di esecuzione della Commissione `EU_2024/2977`_
     * - **personal_administrative_number**
-      - [SD]. CONDITIONAL. REQUIRED if ``tax_id_code`` is not present. National unique identifier of a natural person generated by ANPR in string format.
-      - Commission Implementing Regulation `EU_2024/2977`_
+      - [SD]. CONDIZIONALE. OBBLIGATORIO se ``tax_id_code`` non è presente. Identificativo univoco nazionale di una persona fisica generato da ANPR. (*Stringa*)
+      - Regolamento di esecuzione della Commissione `EU_2024/2977`_
     * - **tax_id_code**
-      - [SD]. CONDITIONAL. REQUIRED if ``personal_administrative_number`` is not present. National tax identification code of natural person as a String format. It MUST be set according to ETSI EN 319 412-1. For example ``TINIT-<ItalianTaxIdentificationNumber>``
+      - [SD]. CONDIZIONALE. OBBLIGATORIO se ``personal_administrative_number`` non è presente. Codice di identificazione fiscale nazionale della persona fisica. DEVE essere conforme a ETSI EN 319 412-1. Ad esempio ``TINIT-<ItalianTaxIdentificationNumber>``. (*Stringa*)
       -
 
 
-PID Non-Normative Examples
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Esempi Non Normativi di PID
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In the following, the non-normative example of the payload of a PID represented in JSON format.
+Di seguito, l'esempio non normativo del payload di un PID rappresentato in formato JSON.
 
 .. literalinclude:: ../../examples/pid-json-example-payload.json
   :language: JSON
 
-The corresponding SD-JWT version for PID is given by
+La versione SD-JWT corrispondente per il PID è data da
 
 .. literalinclude:: ../../examples/pid-sd-jwt-example-header.json
   :language: JSON
@@ -334,18 +333,18 @@ The corresponding SD-JWT version for PID is given by
 .. literalinclude:: ../../examples/pid-sd-jwt-example-payload.json
   :language: JSON
 
-The disclosure list is presented below.
+L'elenco delle disclosure è presentato di seguito.
 
 **Claim** ``iat``:
 
-- SHA-256 Hash: ``Yrc-s-WSr4exEYtqDEsmRl7spoVfmBxixP12e4syqNE``
+- Hash SHA-256: ``Yrc-s-WSr4exEYtqDEsmRl7spoVfmBxixP12e4syqNE``
 - Disclosure:
    ``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImlhdCIsIDE2ODMwMDAwMDBd``
-- Contents: ``["2GLC42sKQveCfGfryNRN9w", "iat", 1683000000]``
+- Contenuto: ``["2GLC42sKQveCfGfryNRN9w", "iat", 1683000000]``
 
 **Claim** ``verification``:
 
-- SHA-256 Hash: ``h7Egl5H9gTPC_FCU845aadvsC--dTjy9Nrstxh-caRo``
+- Hash SHA-256: ``h7Egl5H9gTPC_FCU845aadvsC--dTjy9Nrstxh-caRo``
 - Disclosure:
    ``WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BIiwgInZlcmlmaWNhdGlvbiIsIHsi``
    ``dHJ1c3RfZnJhbWV3b3JrIjogIml0X2NpZSIsICJhc3N1cmFuY2VfbGV2ZWwi``
@@ -355,7 +354,7 @@ The disclosure list is presented below.
    ``ICI2NDg1LTE2MTktMzk3Ni02NjcxIiwgImRhdGVfb2ZfaXNzdWFuY2UiOiAi``
    ``MjAyMC0wMy0xOVQxMjo0M1oiLCAidm91Y2hlciI6IHsib3JnYW5pemF0aW9u``
    ``IjogIk1pbmlzdGVybyBkZWxsJ0ludGVybm8ifX19fV0``
-- Contents: ``["eluV5Og3gSNII8EYnsxA_A", "verification",``
+- Contenuto: ``["eluV5Og3gSNII8EYnsxA_A", "verification",``
    ``{"trust_framework": "it_cie", "assurance_level": "high", "evidence": {"type": "vouch",``
    ``"time": "2020-03-19T12:42Z", "attestation": {"type":``
    ``"digital_attestation", "reference_number":``
@@ -365,117 +364,117 @@ The disclosure list is presented below.
 
 **Claim** ``given_name``:
 
-- SHA-256 Hash: ``zVdghcmClMVWlUgGsGpSkCPkEHZ4u9oWj1SlIBlCc1o``
+- Hash SHA-256: ``zVdghcmClMVWlUgGsGpSkCPkEHZ4u9oWj1SlIBlCc1o``
 - Disclosure:
    ``WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgImdpdmVuX25hbWUiLCAiTWFy``
    ``aW8iXQ``
-- Contents: ``["6Ij7tM-a5iVPGboS5tmvVA", "given_name", "Mario"]``
+- Contenuto: ``["6Ij7tM-a5iVPGboS5tmvVA", "given_name", "Mario"]``
 
 **Claim** ``family_name``:
 
-- SHA-256 Hash: ``VQI-S1mT1Kxfq2o8J9io7xMMX2MIxaG9M9PeJVqrMcA``
+- Hash SHA-256: ``VQI-S1mT1Kxfq2o8J9io7xMMX2MIxaG9M9PeJVqrMcA``
 - Disclosure:
    ``WyJlSThaV205UW5LUHBOUGVOZW5IZGhRIiwgImZhbWlseV9uYW1lIiwgIlJv``
    ``c3NpIl0``
-- Contents: ``["eI8ZWm9QnKPpNPeNenHdhQ", "family_name", "Rossi"]``
+- Contenuto: ``["eI8ZWm9QnKPpNPeNenHdhQ", "family_name", "Rossi"]``
 
 **Claim** ``birth_date``:
 
-- SHA-256 Hash: ``s1XK5f2pM3-aFTauXhmvd9pyQTJ6FMUhc-JXfHrxhLk``
+- Hash SHA-256: ``s1XK5f2pM3-aFTauXhmvd9pyQTJ6FMUhc-JXfHrxhLk``
 - Disclosure:
    ``WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImJpcnRoX2RhdGUiLCAiMTk4``
    ``MC0wMS0xMCJd``
-- Contents: ``["Qg_O64zqAxe412a108iroA", "birth_date", "1980-01-10"]``
+- Contenuto: ``["Qg_O64zqAxe412a108iroA", "birth_date", "1980-01-10"]``
 
 **Claim** ``birth_place``:
 
-- SHA-256 Hash: ``tSL-e1nLdWOU9sFMTCUu5P1tCzxA-TW-VWbHGzYtU7E``
+- Hash SHA-256: ``tSL-e1nLdWOU9sFMTCUu5P1tCzxA-TW-VWbHGzYtU7E``
 - Disclosure:
   ``WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgImJpcnRoX3BsYWNlIiwgIlJv``
   ``bWEiXQ``
-- Contents: ``["AJx-095VPrpTtN4QMOqROA", "birth_place", "Roma"]``
-
-**Claim** ``nationality``:
-
-- SHA-256 Hash: ``hP79TuWGBwIN0j9NH_fxn8Cvj-dNH_R7nFleeWCE2I4``
-- Disclosure:
-  ``WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgIm5hdGlvbmFsaXR5IiwgIklU``
-  ``Il0``
-- Contents: ``["Pc33JM2LchcU_lHggv_ufQ", "nationality", "IT"]``
+- Contenuto: ``["AJx-095VPrpTtN4QMOqROA", "birth_place", "Roma"]``
 
 **Claim** ``personal_administrative_number``:
 
-- SHA-256 Hash: ``6WLNc09rBr-PwEtnWzxGKdzImjrpDxbr4qoIx838a88``
+- Hash SHA-256: ``6WLNc09rBr-PwEtnWzxGKdzImjrpDxbr4qoIx838a88``
 - Disclosure:
    ``WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgInBlcnNvbmFsX2FkbWluaXN0``
    ``cmF0aXZlX251bWJlciIsICJYWDAwMDAwWFgiXQ``
-- Contents: ``["G02NSrQfjFXQ7Io09syajA", "personal_administrative_number",``
+- Contenuto: ``["G02NSrQfjFXQ7Io09syajA", "personal_administrative_number",``
    ``"XX00000XX"]``
 
 **Claim** ``tax_id_code``:
 
-- SHA-256 Hash: ``LqrtU2rlA51U97cMiYhqwa-is685bYiOJImp8a5KGNA``
+- Hash SHA-256: ``LqrtU2rlA51U97cMiYhqwa-is685bYiOJImp8a5KGNA``
 - Disclosure:
    ``WyJsa2x4RjVqTVlsR1RQVW92TU5JdkNBIiwgInRheF9pZF9jb2RlIiwgIlRJ``
    ``TklULVhYWFhYWFhYWFhYWFhYWFgiXQ``
-- Contents: ``["lklxF5jMYlGTPUovMNIvCA", "tax_id_code",``
+- Contenuto: ``["lklxF5jMYlGTPUovMNIvCA", "tax_id_code",``
    ``"TINIT-XXXXXXXXXXXXXXXX"]``
 
-The combined format for the PID issuance is given by:
+**Voce Array** di ``nationalities``:
+
+- Hash SHA-256: ``yKeP1CWTQK8Sd9BeNvFhkLXgEu/1G3QQz4CWSlqEOFw``
+- Disclosure: ``WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgIklUIl0``
+- Contenuto: ``["Pc33JM2LchcU_lHggv_ufQ", "IT"]``
+
+Il *combined format* per l'emissione del PID è dato da:
 
 .. code-block:: text
 
   eyJhbGciOiAiRVMyNTYiLCAidHlwIjogImRjK3NkLWp3dCIsICJraWQiOiAiZEI2N2dM
-  N2NrM1RGaUlBZjdONl83U0h2cWswTURZTUVRY29HR2xrVUFBdyJ9.eyJfc2QiOiBbIjZ
-  XTE5jMDlyQnItUHdFdG5XenhHS2R6SW1qcnBEeGJyNHFvSXg4MzhhODgiLCAiTHFydFU
-  ycmxBNTFVOTdjTWlZaHF3YS1pczY4NWJZaU9KSW1wOGE1S0dOQSIsICJWUUktUzFtVDF
-  LeGZxMm84Sjlpbzd4TU1YMk1JeGFHOU05UGVKVnFyTWNBIiwgIllyYy1zLVdTcjRleEV
-  ZdHFERXNtUmw3c3BvVmZtQnhpeFAxMmU0c3lxTkUiLCAiaDdFZ2w1SDlnVFBDX0ZDVTg
-  0NWFhZHZzQy0tZFRqeTlOcnN0eGgtY2FSbyIsICJoUDc5VHVXR0J3SU4wajlOSF9meG4
-  4Q3ZqLWROSF9SN25GbGVlV0NFMkk0IiwgInMxWEs1ZjJwTTMtYUZUYXVYaG12ZDlweVF
-  USjZGTVVoYy1KWGZIcnhoTGsiLCAidFNMLWUxbkxkV09VOXNGTVRDVXU1UDF0Q3p4QS1
-  UVy1WV2JIR3pZdFU3RSIsICJ6VmRnaGNtQ2xNVldsVWdHc0dwU2tDUGtFSFo0dTlvV2o
-  xU2xJQmxDYzFvIl0sICJleHAiOiAxODgzMDAwMDAwLCAiaXNzIjogImh0dHBzOi8vcGl
-  kcHJvdmlkZXIuZXhhbXBsZS5vcmciLCAic3ViIjogIk56YkxzWGg4dURDY2Q3bm9XWEZ
-  aQWZIa3hac1JHQzlYcyIsICJpc3N1aW5nX2F1dGhvcml0eSI6ICJJc3RpdHV0byBQb2x
-  pZ3JhZmljbyBlIFplY2NhIGRlbGxvIFN0YXRvIiwgImlzc3VpbmdfY291bnRyeSI6ICJ
-  JVCIsICJzdGF0dXMiOiB7InN0YXR1c19hc3NlcnRpb24iOiB7ImNyZWRlbnRpYWxfaGF
-  zaF9hbGciOiAic2hhLTI1NiJ9fSwgInZjdCI6ICJodHRwczovL3RydXN0LXJlZ2lzdHJ
-  5LmVpZC13YWxsZXQuZXhhbXBsZS5pdC9jcmVkZW50aWFscy92MS4wL3BlcnNvbmlkZW5
-  0aWZpY2F0aW9uZGF0YSIsICJ2Y3QjaW50ZWdyaXR5IjogImM1ZjczZTI1MGZlODY5ZjI
-  0ZDE1MTE4YWNjZTI4NmM5YmI1NmI2M2E0NDNkYzg1YWY2NTNjZDczZjYwNzhiMWYiLCA
-  iX3NkX2FsZyI6ICJzaGEtMjU2IiwgImNuZiI6IHsiandrIjogeyJrdHkiOiAiRUMiLCA
-  iY3J2IjogIlAtMjU2IiwgIngiOiAiVENBRVIxOVp2dTNPSEY0ajRXNHZmU1ZvSElQMUl
-  MaWxEbHM3dkNlR2VtYyIsICJ5IjogIlp4amlXV2JaTVFHSFZXS1ZRNGhiU0lpcnNWZnV
-  lY0NFNnQ0alQ5RjJIWlEifX19.ISeLw-Tqpmcos9ms7KQTfUhSm4srAtGOMNQe3M-toa
-  YhCcT4JnvZANmtBb8rOXdJ60oTtya4krCOjFNirEg3-g~WyIyR0xDNDJzS1F2ZUNmR2Z
-  yeU5STjl3IiwgImlhdCIsIDE2ODMwMDAwMDBd~WyJlbHVWNU9nM2dTTklJOEVZbnN4QV
-  9BIiwgInZlcmlmaWNhdGlvbiIsIHsidHJ1c3RfZnJhbWV3b3JrIjogIml0X2NpZSIsIC
-  Jhc3N1cmFuY2VfbGV2ZWwiOiAiaGlnaCIsICJldmlkZW5jZSI6IHsidHlwZSI6ICJ2b3
-  VjaCIsICJ0aW1lIjogIjIwMjAtMDMtMTlUMTI6NDJaIiwgImF0dGVzdGF0aW9uIjogey
-  J0eXBlIjogImRpZ2l0YWxfYXR0ZXN0YXRpb24iLCAicmVmZXJlbmNlX251bWJlciI6IC
-  I2NDg1LTE2MTktMzk3Ni02NjcxIiwgImRhdGVfb2ZfaXNzdWFuY2UiOiAiMjAyMC0wMy
-  0xOVQxMjo0M1oiLCAidm91Y2hlciI6IHsib3JnYW5pemF0aW9uIjogIk1pbmlzdGVyby
-  BkZWxsJ0ludGVybm8ifX19fV0~WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgImdpdm
-  VuX25hbWUiLCAiTWFyaW8iXQ~WyJlSThaV205UW5LUHBOUGVOZW5IZGhRIiwgImZhbWl
-  seV9uYW1lIiwgIlJvc3NpIl0~WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImJpcnR
-  oX2RhdGUiLCAiMTk4MC0wMS0xMCJd~WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgIm
-  JpcnRoX3BsYWNlIiwgIlJvbWEiXQ~WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgIm5
-  hdGlvbmFsaXR5IiwgIklUIl0~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgInBlcnN
-  vbmFsX2FkbWluaXN0cmF0aXZlX251bWJlciIsICJYWDAwMDAwWFgiXQ~WyJsa2x4RjVq
-  TVlsR1RQVW92TU5JdkNBIiwgInRheF9pZF9jb2RlIiwgIlRJTklULVhYWFhYWFhYWFhY
-  WFhYWFgiXQ~
+  N2NrM1RGaUlBZjdONl83U0h2cWswTURZTUVRY29HR2xrVUFBdyJ9.ewogICJfc2QiOiB
+  bCiAgICAiNldMTmMwOXJCci1Qd0V0bld6eEdLZHpJbWpycER4YnI0cW9JeDgzOGE4OCI
+  sCiAgICAiTHFydFUycmxBNTFVOTdjTWlZaHF3YS1pczY4NWJZaU9KSW1wOGE1S0dOQSI
+  sCiAgICAiVlFJLVMxbVQxS3hmcTJvOEo5aW83eE1NWDJNSXhhRzlNOVBlSlZxck1jQSI
+  sCiAgICAiWXJjLXMtV1NyNGV4RVl0cURFc21SbDdzcG9WZm1CeGl4UDEyZTRzeXFORSI
+  sCiAgICAiaDdFZ2w1SDlnVFBDX0ZDVTg0NWFhZHZzQy0tZFRqeTlOcnN0eGgtY2FSbyI
+  sCiAgICAiczFYSzVmMnBNMy1hRlRhdVhobXZkOXB5UVRKNkZNVWhjLUpYZkhyeGhMayI
+  sCiAgICAidFNMLWUxbkxkV09VOXNGTVRDVXU1UDF0Q3p4QS1UVy1WV2JIR3pZdFU3RSI
+  sCiAgICAielZkZ2hjbUNsTVZXbFVnR3NHcFNrQ1BrRUhaNHU5b1dqMVNsSUJsQ2MxbyI
+  KICBdLAogICJleHAiOiAxODgzMDAwMDAwLAogICJpc3MiOiAiaHR0cHM6Ly9waWRwcm9
+  2aWRlci5leGFtcGxlLm9yZyIsCiAgInN1YiI6ICJOemJMc1hoOHVEQ2NkN25vV1hGWkF
+  mSGt4WnNSR0M5WHMiLAogICJpc3N1aW5nX2F1dGhvcml0eSI6ICJJc3RpdHV0byBQb2x
+  pZ3JhZmljbyBlIFplY2NhIGRlbGxvIFN0YXRvIiwKICAiaXNzdWluZ19jb3VudHJ5Ijo
+  gIklUIiwKICAic3RhdHVzIjogewogICAgInN0YXR1c19hc3NlcnRpb24iOiB7CiAgICA
+  gICJjcmVkZW50aWFsX2hhc2hfYWxnIjogInNoYS0yNTYiCiAgICB9CiAgfSwKICAibmF
+  0aW9uYWxpdGllcyI6IFsKCXsKICAgICAgIi4uLiI6ICJ5S2VQMUNXVFFLOFNkOUJlTnZ
+  GaGtMWGdFdS8xRzNRUXo0Q1dTbHFFT0Z3IgogICAgfQogIF0sCiAgInZjdCI6ICJodHR
+  wczovL3RydXN0LXJlZ2lzdHJ5LmVpZC13YWxsZXQuZXhhbXBsZS5pdC9jcmVkZW50aWF
+  scy92MS4wL3BlcnNvbmlkZW50aWZpY2F0aW9uZGF0YSIsCiAgInZjdCNpbnRlZ3JpdHk
+  iOiAiYzVmNzNlMjUwZmU4NjlmMjRkMTUxMThhY2NlMjg2YzliYjU2YjYzYTQ0M2RjODV
+  hZjY1M2NkNzNmNjA3OGIxZiIsCiAgIl9zZF9hbGciOiAic2hhLTI1NiIsCiAgImNuZiI
+  6IHsKICAgICJqd2siOiB7CiAgICAgICJrdHkiOiAiRUMiLAogICAgICAiY3J2IjogIlA
+  tMjU2IiwKICAgICAgIngiOiAiVENBRVIxOVp2dTNPSEY0ajRXNHZmU1ZvSElQMUlMaWx
+  EbHM3dkNlR2VtYyIsCiAgICAgICJ5IjogIlp4amlXV2JaTVFHSFZXS1ZRNGhiU0lpcnN
+  WZnVlY0NFNnQ0alQ5RjJIWlEiCiAgICB9CiAgfQp9.ISeLw-Tqpmcos9ms7KQTfUhSm4
+  srAtGOMNQe3M-toaYhCcT4JnvZANmtBb8rOXdJ60oTtya4krCOjFNirEg3-g~WyIyR0x
+  DNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImlhdCIsIDE2ODMwMDAwMDBd~WyJlbHVWNU9nM2
+  dTTklJOEVZbnN4QV9BIiwgInZlcmlmaWNhdGlvbiIsIHsidHJ1c3RfZnJhbWV3b3JrIj
+  ogIml0X2NpZSIsICJhc3N1cmFuY2VfbGV2ZWwiOiAiaGlnaCIsICJldmlkZW5jZSI6IH
+  sidHlwZSI6ICJ2b3VjaCIsICJ0aW1lIjogIjIwMjAtMDMtMTlUMTI6NDJaIiwgImF0dG
+  VzdGF0aW9uIjogeyJ0eXBlIjogImRpZ2l0YWxfYXR0ZXN0YXRpb24iLCAicmVmZXJlbm
+  NlX251bWJlciI6ICI2NDg1LTE2MTktMzk3Ni02NjcxIiwgImRhdGVfb2ZfaXNzdWFuY2
+  UiOiAiMjAyMC0wMy0xOVQxMjo0M1oiLCAidm91Y2hlciI6IHsib3JnYW5pemF0aW9uIj
+  ogIk1pbmlzdGVybyBkZWxsJ0ludGVybm8ifX19fV0~WyI2SWo3dE0tYTVpVlBHYm9TNX
+  RtdlZBIiwgImdpdmVuX25hbWUiLCAiTWFyaW8iXQ~WyJlSThaV205UW5LUHBOUGVOZW5
+  IZGhRIiwgImZhbWlseV9uYW1lIiwgIlJvc3NpIl0~WyJRZ19PNjR6cUF4ZTQxMmExMDh
+  pcm9BIiwgImJpcnRoX2RhdGUiLCAiMTk4MC0wMS0xMCJd~WyJBSngtMDk1VlBycFR0Tj
+  RRTU9xUk9BIiwgImJpcnRoX3BsYWNlIiwgIlJvbWEiXQ~WyJQYzMzSk0yTGNoY1VfbEh
+  nZ3ZfdWZRIiwgIklUIl0~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgInBlcnNvbmF
+  sX2FkbWluaXN0cmF0aXZlX251bWJlciIsICJYWDAwMDAwWFgiXQ~WyJsa2x4RjVqTVls
+  R1RQVW92TU5JdkNBIiwgInRheF9pZF9jb2RlIiwgIlRJTklULVhYWFhYWFhYWFhYWFhY
+  WFgiXQ~
 
+Esempi Non Normativi di (Q)EAA
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-(Q)EAA non-normative Examples
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Below is a non-normative example of (Q)EAA in JSON.
+Di seguito è riportato un esempio non normativo di (Q)EAA in JSON.
 
 .. literalinclude:: ../../examples/qeaa-json-example-payload.json
   :language: JSON
 
-The corresponding SD-JWT for the previous data is represented as follow, as decoded JSON for both header and payload.
+Il corrispondente SD-JWT è rappresentato di seguito, con header e payload decodificati in JSON.
 
 .. literalinclude:: ../../examples/qeaa-sd-jwt-example-header.json
   :language: JSON
@@ -483,77 +482,77 @@ The corresponding SD-JWT for the previous data is represented as follow, as deco
 .. literalinclude:: ../../examples/qeaa-sd-jwt-example-payload.json
   :language: JSON
 
-In the following the disclosure list is given:
+Di seguito è riportato l'elenco delle disclosure:
 
 **Claim** ``iat``:
 
-- SHA-256 Hash: ``Yrc-s-WSr4exEYtqDEsmRl7spoVfmBxixP12e4syqNE``
+- Hash SHA-256: ``Yrc-s-WSr4exEYtqDEsmRl7spoVfmBxixP12e4syqNE``
 - Disclosure:
    ``WyIyR0xDNDJzS1F2ZUNmR2ZyeU5STjl3IiwgImlhdCIsIDE2ODMwMDAwMDBd``
-- Contents: ``["2GLC42sKQveCfGfryNRN9w", "iat", 1683000000]``
+- Contenuto: ``["2GLC42sKQveCfGfryNRN9w", "iat", 1683000000]``
 
 **Claim** ``document_number``:
 
-- SHA-256 Hash: ``Dx-6hjvrcxNzF0slU6ukNmzHoL-YvBN-tFa0T8X-bY0``
+- Hash SHA-256: ``Dx-6hjvrcxNzF0slU6ukNmzHoL-YvBN-tFa0T8X-bY0``
 - Disclosure:
    ``WyJlbHVWNU9nM2dTTklJOEVZbnN4QV9BIiwgImRvY3VtZW50X251bWJlciIs``
    ``ICJYWFhYWFhYWFhYIl0``
-- Contents:
+- Contenuto:
    ``["eluV5Og3gSNII8EYnsxA_A", "document_number", "XXXXXXXXXX"]``
 
 **Claim** ``given_name``:
 
-- SHA-256 Hash: ``zVdghcmClMVWlUgGsGpSkCPkEHZ4u9oWj1SlIBlCc1o``
+- Hash SHA-256: ``zVdghcmClMVWlUgGsGpSkCPkEHZ4u9oWj1SlIBlCc1o``
 - Disclosure:
    ``WyI2SWo3dE0tYTVpVlBHYm9TNXRtdlZBIiwgImdpdmVuX25hbWUiLCAiTWFy``
    ``aW8iXQ``
-- Contents: ``["6Ij7tM-a5iVPGboS5tmvVA", "given_name", "Mario"]``
+- Contenuto: ``["6Ij7tM-a5iVPGboS5tmvVA", "given_name", "Mario"]``
 
 **Claim** ``family_name``:
 
-- SHA-256 Hash: ``VQI-S1mT1Kxfq2o8J9io7xMMX2MIxaG9M9PeJVqrMcA``
+- Hash SHA-256: ``VQI-S1mT1Kxfq2o8J9io7xMMX2MIxaG9M9PeJVqrMcA``
 - Disclosure:
    ``WyJlSThaV205UW5LUHBOUGVOZW5IZGhRIiwgImZhbWlseV9uYW1lIiwgIlJv``
    ``c3NpIl0``
-- Contents: ``["eI8ZWm9QnKPpNPeNenHdhQ", "family_name", "Rossi"]``
+- Contenuto: ``["eI8ZWm9QnKPpNPeNenHdhQ", "family_name", "Rossi"]``
 
 **Claim** ``birth_date``:
 
-- SHA-256 Hash: ``s1XK5f2pM3-aFTauXhmvd9pyQTJ6FMUhc-JXfHrxhLk``
+- Hash SHA-256: ``s1XK5f2pM3-aFTauXhmvd9pyQTJ6FMUhc-JXfHrxhLk``
 - Disclosure:
    ``WyJRZ19PNjR6cUF4ZTQxMmExMDhpcm9BIiwgImJpcnRoX2RhdGUiLCAiMTk4``
    ``MC0wMS0xMCJd``
-- Contents: ``["Qg_O64zqAxe412a108iroA", "birth_date", "1980-01-10"]``
+- Contenuto: ``["Qg_O64zqAxe412a108iroA", "birth_date", "1980-01-10"]``
 
 **Claim** ``expiry_date``:
 
-- SHA-256 Hash: ``aBVdfcnxT0Z5RrwdxZSUhuUxz3gM2vcEZLeYIj61Kas``
+- Hash SHA-256: ``aBVdfcnxT0Z5RrwdxZSUhuUxz3gM2vcEZLeYIj61Kas``
 - Disclosure:
    ``WyJBSngtMDk1VlBycFR0TjRRTU9xUk9BIiwgImV4cGlyeV9kYXRlIiwgIjIw``
    ``MjQtMDEtMDEiXQ``
-- Contents: ``["AJx-095VPrpTtN4QMOqROA", "expiry_date", "2024-01-01"]``
+- Contenuto: ``["AJx-095VPrpTtN4QMOqROA", "expiry_date", "2024-01-01"]``
 
 **Claim** ``personal_administrative_number``:
 
-- SHA-256 Hash: ``o1cHG8JbEEYv0HeJINYKbFLd-TnEDUuNzI1XpzV32aU``
+- Hash SHA-256: ``o1cHG8JbEEYv0HeJINYKbFLd-TnEDUuNzI1XpzV32aU``
 - Disclosure:
    ``WyJQYzMzSk0yTGNoY1VfbEhnZ3ZfdWZRIiwgInBlcnNvbmFsX2FkbWluaXN0``
    ``cmF0aXZlX251bWJlciIsICJYWDAwMDAwWFgiXQ``
-- Contents: ``["Pc33JM2LchcU_lHggv_ufQ", "personal_administrative_number",``
+- Contenuto: ``["Pc33JM2LchcU_lHggv_ufQ", "personal_administrative_number",``
    ``"XX00000XX"]``
 
 **Claim** ``constant_attendance_allowance``:
 
-- SHA-256 Hash: ``GE3Sjy_zAT34f8wa5DUkVB0FslaSJRAAc8I3lN11Ffc``
+- Hash SHA-256: ``GE3Sjy_zAT34f8wa5DUkVB0FslaSJRAAc8I3lN11Ffc``
 - Disclosure:
    ``WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgImNvbnN0YW50X2F0dGVuZGFu``
    ``Y2VfYWxsb3dhbmNlIiwgdHJ1ZV0``
-- Contents:
+- Contenuto:
    ``["G02NSrQfjFXQ7Io09syajA", "constant_attendance_allowance",``
    ``true]``
 
 
-The combined format for the (Q)EAA issuance is represented below:
+Il *combined format* per l'emissione del (Q)EAA è rappresentato di seguito:
 
 .. code-block:: text
 
@@ -590,67 +589,67 @@ The combined format for the (Q)EAA issuance is represented below:
   FgiXQ~WyJHMDJOU3JRZmpGWFE3SW8wOXN5YWpBIiwgImNvbnN0YW50X2F0dGVuZGFuY2
   VfYWxsb3dhbmNlIiwgdHJ1ZV0~
 
-mdoc-CBOR Credential Format
----------------------------
+Attestato Elettronico in formato mdoc-CBOR
+------------------------------------------
 
-The mdoc data model is based on the ISO/IEC 18013-5 standard.
-The mdoc data elements MUST be encoded in CBOR as defined in :rfc:`8949`.
+Il modello dati mdoc si basa sullo standard ISO/IEC 18013-5.
+I dati in mdoc DEVONO essere codificati in CBOR come definito in :rfc:`8949`.
 
-This data model structures mdoc Digital Credentials into distinct components: namespaces (**nameSpaces**), and cryptographic proof (**issuerAuth**).
-Namespaces categorize and structure data elements (or attributes, see :ref:`credential-data-model:Attribute Namespaces`). While the cryptographic proof ensures integrity and authenticity through the Mobile Security Object (MSO).
+Questo modello dati struttura gli Attestati Elettronici in componenti distinti: namespaces (**nameSpaces**) e prova crittografica (**issuerAuth**).
+I namespace categorizzano e strutturano i dati (o attributi, vedi :ref:`credential-data-model:Attributi dei Namespaces`). Mentre la prova crittografica garantisce integrità e autenticità attraverso il Mobile Security Object (MSO).
 
-The MSO securely stores cryptographic digests of attributes within the `nameSpaces`. This allows Relying Parties to validate disclosed attributes against corresponding **digestID** values without revealing the entire Credential.
-See :ref:`credential-data-model:Mobile Security Object` for details.
+L'MSO memorizza in modo sicuro i digest crittografici degli attributi all'interno dei `nameSpaces`. Ciò consente alle Relying Party di convalidare gli attributi divulgati rispetto ai valori **digestID** corrispondenti senza rivelare l'intero Attestato Elettronico.
+Vedere :ref:`credential-data-model:Mobile Security Object` per i dettagli.
 
-An mdoc-CBOR Digital Credential MUST be compliant with the following structure:
+Un Attestato Elettronico in formato mdoc-CBOR DEVE avere la seguente struttura:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Parameter**
-      - **Description**
-      - **Reference**
+    * - **Parametro**
+      - **Descrizione**
+      - **Riferimento**
     * - **nameSpaces**
-      - *(map)*. The namespaces within which the data elements are defined. A Digital Credential MAY include multiple namespaces. Mandatory mDL attributes utilize the standard namespace `org.iso.18013.5.1`. However, it MAY have a domestic namespace, such as `org.iso.18013.5.1.IT`, to include additional attributes defined in this implementation profile. Each namespace within the `nameSpaces` MUST share the same issued document type (`docType`) value, which identifies the nature of the Digital Credential, as defined in the `issuerAuth`.
+      - *(map)*. All'interno dei ``namespaces`` vengono definiti i dati. Un Attestato Elettronico PUÒ includere più namespace. Gli attributi mDL obbligatori utilizzano il namespace standard `org.iso.18013.5.1`. Tuttavia, PUÒ avere anche un namespace domestico definito a livello nazionale, come `org.iso.18013.5.1.IT`, per includere attributi aggiuntivi definiti nel profilo di implementazione corrente. Ogni namespace all'interno di `nameSpaces` DEVE condividere lo stesso valore del tipo di documento emesso (`docType`), che identifica la natura dell'Attestato Elettronico, come definito in `issuerAuth`.
       - [ISO 18013-5#8.3.2.1.2]
     * - **issuerAuth**
-      - *(COSE_Sign1)*. Contains *Mobile Security Object* (MSO), a COSE Sign1 Document, issued by the Credential Issuer.
+      - *(COSE_Sign1)*. Contiene *Mobile Security Object* (MSO), un documento COSE Sign1, emesso dal Fornitore di Attestati Elettronici.
       - [ISO 18013-5#9.1.2.4]
 
-The structure of an mdoc-CBOR Credential is further elaborated in the following sections.
+La struttura di una Credenziale in formato mdoc-CBOR è ulteriormente descritta nelle sezioni seguenti.
 
-Attribute Namespaces
-^^^^^^^^^^^^^^^^^^^^
+Attributi dei Namespaces
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-The **nameSpaces** contains one or more *nameSpace* entries, each identified by a name. Within each **nameSpace**, it includes one or more *IssuerSignedItemBytes*, each encoded as a CBOR byte string with Tag 24 (#6.24(bstr .cbor)), which appears as 24(<<... >>) in diagnostic notation. It represents the disclosure information for each digest within the `Mobile Security Object` and MUST contain the following attributes:
+**nameSpaces** contiene una o più voci *nameSpace*, ciascuna identificata da un nome. All'interno di ogni **nameSpace**, sono inclusi uno o più *IssuerSignedItemBytes*, ciascuno codificato in una stringa di byte codificata in CBOR con Tag 24 (#6.24(bstr .cbor)), che appare come 24(<<... >>) nella notazione diagnostica. Essa rappresenta le informazioni da divulgare, una per ogni digest presente all'interno del `Mobile Security Object` e DEVE contenere i seguenti attributi:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Name**
-      - **Description**
-      - **Reference**
+    * - **Nome**
+      - **Descrizione**
+      - **Riferimento**
     * - **digestID**
-      - *(uint)*. Reference value to one of the ``ValueDigests`` provided in the *Mobile Security Object*.
+      - *(uint)*. Valore identificativo di uno dei ``ValueDigests`` forniti nel *Mobile Security Object*.
       - [ISO 18013-5#9.1.2.5]
     * - **random**
-      - *(bstr)*. Random byte value used as salt for the hash function. This value SHALL be different for each *IssuerSignedItem* and it SHALL have a minimum length of 16 bytes.
+      - *(bstr)*. Valore di byte casuale utilizzato come *salt* per la funzione di hash. Questo valore DEVE essere diverso per ogni *IssuerSignedItem* e DEVE avere una lunghezza minima di 16 byte.
       - [ISO 18013-5#9.1.2.5]
     * - **elementIdentifier**
-      - *(tstr)*. Data element identifier.
+      - *(tstr)*. Nome identificativo del dato.
       - [ISO 18013-5#8.3.2.1.2.3]
     * - **elementValue**
-      - *(any)*. Data element value.
+      - *(any)*. Valore del dato.
       - [ISO 18013-5#8.3.2.1.2.3]
 
-Attributes
-^^^^^^^^^^
+Attributi
+^^^^^^^^^
 
-The following **elementIdentifiers** MUST be included in a Digital Credential encoded in mdoc-CBOR within the respective *nameSpace*, unless otherwise specified:
+I seguenti **elementIdentifiers** DEVONO essere inclusi in un Attestato Elettronico codificato in mdoc-CBOR all'interno del rispettivo *nameSpace*, se non diversamente specificato:
 
 .. list-table::
    :class: longtable
@@ -658,142 +657,143 @@ The following **elementIdentifiers** MUST be included in a Digital Credential en
    :header-rows: 1
 
    * - **Element Identifier**
-     - **Description**
-     - **Reference**
+     - **Descrizione**
+     - **Riferimento**
 
    * - **issuing_country**
-     - *(tstr)*. Alpha-2 country code as defined in [ISO 3166-1], representing the issuing country or territory.
+     - *(tstr)*. Codice paese Alpha-2 come definito in [ISO 3166-1], che rappresenta il paese o territorio di emissione.
      - [ISO 18013-5#7.2]
 
    * - **issuing_authority**
-     - *(tstr)*. Name of the administrative authority that has issued the mDL.
-       The value shall only use Latin1b characters and shall have a maximum length of 150 characters.
+     - *(tstr)*. Nome dell'autorità amministrativa che ha emesso l'mDL.
+       Il valore deve contenere solo caratteri Latin1b e deve avere una lunghezza massima di 150 caratteri.
      - [ISO 18013-5#7.2]
 
    * - **sub**
-     - *(uuid)*. Identifies the subject of the mdoc Digital Credential (the User).
-       The identifier MUST be opaque, MUST NOT correspond to any anagraphic data, and MUST NOT be derived from the User's anagraphic data through pseudonymization. Additionally, different Credentials issued to the same User MUST NOT reuse the same `sub` value.
+     - *(uuid)*. Identifica il soggetto dell'Attestato Elettronico (l'Utente).
+       L'identificativo DEVE essere opaco, NON DEVE corrispondere a nessun dato anagrafico e NON DEVE essere derivato dai dati anagrafici dell'Utente attraverso la pseudonimizzazione. Inoltre, diversi Attestati Elettronici emessi allo stesso Utente NON DEVONO riutilizzare lo stesso valore `sub`.
      -
 
    * - **verification**
-     - *(map, OPTIONAL)*. Contains authentication and verification details of the User. It has the same logic structure and purpose as reported in the :ref:`Table of the SD-JWT parameters <table_sd-jwt-vc_parameters>`.
+     - *(map, OPZIONALE)*. Contiene dettagli di autenticazione e verifica dell'Utente. Ha la stessa struttura logica e scopo di quanto riportato nella :ref:`Tabella dei parametri SD-JWT <table_sd-jwt-vc_parameters>`.
      -
 
 .. note::
-  Digital Credential User-specific attributes are defined in the Catalogue of Digital Credentials.
-  User-specific attributes for mdoc Digital Credentials such as those used in mDL or PID are also included by referencing the appropriate `elementIdentifiers` defined in ISO/IEC 18013-5 or the `EIDAS-ARF`_ specification.
+  Gli attributi specifici dell'Utente dell'Attestato Elettronico sono definiti nel Catalogo degli Attestati Elettronici.
+  Gli attributi specifici dell'Utente per gli Attestati Elettronici in formato mdoc come quelli del PID o mDL sono inclusi facendo riferimento agli corrispettivi `elementIdentifiers` definiti in ISO/IEC 18013-5 o nella specifica `EIDAS-ARF`_.
 
 Mobile Security Object
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The **issuerAuth** represents the `Mobile Security Object` which is a `COSE Sign1 Document` defined in :rfc:`9052`. It has the following data structure:
+L'**issuerAuth** rappresenta il `Mobile Security Object` che è un `Documento COSE Sign1` definito in :rfc:`9052`. Ha la seguente struttura di dati:
 
    * protected header
    * unprotected header
    * payload
-   * signature.
+   * signature
 
-The **protected header** MUST contain the following parameter encoded in CBOR format:
+Il **protected header** DEVE contenere il seguente parametro codificato in formato CBOR:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Element**
-      - **Description**
-      - **Reference**
+    * - **Elemento**
+      - **Descrizione**
+      - **Riferimento**
     * - **1**
-      - *(int)*. Algorithm used to verify the cryptographic signature of the mdoc Digital Credential.
+      - *(int)*. Algoritmo utilizzato per verificare la firma crittografica dell'Attestato Elettronico in formato mdoc.
       - :rfc:`9053`
 
 .. note::
-  Only the signature algorithm MUST be present in the protected header, other elements SHOULD not be present in the protected header.
+  Solo l'algoritmo di firma DEVE essere presente nel protected header, altri elementi NON DOVREBBERO essere presenti.
 
-The **unprotected header** MUST contain the following parameters, unless otherwise specified:
+L'**unprotected header** DEVE contenere i seguenti parametri, se non diversamente specificato:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Element**
-      - **Description**
-      - **Reference**
+    * - **Elemento**
+      - **Descrizione**
+      - **Riferimento**
     * - **4**
-      - *(tstr, OPTIONAL)*. Unique identifier of the Issuer JWK. Required when the Issuer of mdoc uses OpenID Federation.
-      - :ref:`trust:The Infrastructure of Trust`
+      - *(tstr, OPZIONALE)*. Identificativo univoco del JWK dell'Emittente. Richiesto quando l'Emittente del documento mdoc utilizza OpenID Federation.
+      - :ref:`trust:L'Infrastruttura di Trust`
     * - **33**
-      - *(array)*. X.509 certificate chain about the Issuer. Required for X.509 certificate-based authentication.
+      - *(array)*. Catena di certificati X.509 relativa all'Emittente. Obbligatorio se l'autenticazione è basata su certificato X.509.
       - :rfc:`9360`
 
 .. note::
-  The `x5chain` is included in the unprotected header with the aim to allow the Holder to update the X.509 certificate chain, related to the `Mobile Security Object` issuer, without invalidating the signature.
+  `x5chain` è incluso nell'unprotected header con lo scopo di consentire al Titolare di aggiornare la catena di certificati X.509, relativa all'emittente del `Mobile Security Object`, senza invalidare la firma.
 
-The **payload** MUST contain the *MobileSecurityObject*, without the `content-type` COSE Sign header parameter and encoded as a *byte string* (bstr) using the *CBOR Tag* 24.
+Il **payload** DEVE contenere il *MobileSecurityObject*, senza il parametro di header COSE Sign `content-type` e codificato come una *byte string* (bstr) utilizzando il *CBOR Tag* 24.
 
-The `MobileSecurityObject` MUST have the following attributes, unless otherwise specified:
+Il `MobileSecurityObject` DEVE avere i seguenti attributi, se non diversamente specificato:
 
 .. list-table::
     :class: longtable
     :widths: 20 60 20
     :header-rows: 1
 
-    * - **Element**
-      - **Description**
-      - **Reference**
+    * - **Elemento**
+      - **Descrizione**
+      - **Riferimento**
     * - **docType**
-      - *(tstr)*. Defines the type of mdoc Digital Credential being issued. For example, for an mDL, the value MUST be ``org.iso.18013.5.1.mDL``. Specific `docType` MAY be defined for Digital Credential other than mDL.
+      - *(tstr)*. Definisce il tipo di Attestato Elettronico in formato mdoc. Ad esempio, per un mDL, il valore DEVE essere ``org.iso.18013.5.1.mDL``. Specifici `docType` POSSONO essere definiti per Attestati Elettronici diversi da mDL.
       - [ISO 18013-5#9.1.2.4]
     * - **version**
-      - *(tstr)*. Version of the `MobileSecurityObject`.
+      - *(tstr)*. Versione del `MobileSecurityObject`.
       - [ISO 18013-5#9.1.2.4]
     * - **validityInfo**
-      - *(map)*. Contains the `MobileSecurityObject` issuance and expiration datetimes. It MUST contain the following sub-value:
+      - *(map)*. Contiene le date e gli orari di emissione e scadenza del `MobileSecurityObject`. DEVE contenere i seguenti sub parametri:
 
-          * **signed** *(tdate)*. The timestamp indicating when the `MobileSecurityObject` was signed.
-          * **validFrom** *(tdate)*. Timestamp before which the `MobileSecurityObject` is not considered valid. MUST be equal to or later than the `signed` time.
-          * **validUntil** *(tdate)*. Timestamp after which the `MobileSecurityObject` is no longer considered valid.
+          * **signed** *(tdate)*. Il timestamp che indica quando il `MobileSecurityObject` è stato firmato.
+          * **validFrom** *(tdate)*. Timestamp prima del quale il `MobileSecurityObject` non è considerato valido. DEVE essere uguale o successivo a `signed`.
+          * **validUntil** *(tdate)*. Timestamp dopo il quale il `MobileSecurityObject` non è più considerato valido.
 
       - [ISO 18013-5#9.1.2.4]
     * - **digestAlgorithm**
-      - *(tstr)*. Identifier of the digest algorithm, which MUST match the algorithm defined in the protected header.
+      - *(tstr)*. Identificativo dell'algoritmo di digest, che DEVE corrispondere all'algoritmo definito nel protected header.
       - [ISO 18013-5#9.1.2.4]
     * - **valueDigests**
-      - *(map)*. Maps each namespace identifier to a set of digests, where each digest is keyed by a unique `digestID` and holds the digest value.
+      - *(map)*. Associa ogni namespace a un insieme di digest, dove ogni digest è indicizzato da un `digestID` univoco e contiene il valore del digest.
       - [ISO 18013-5#9.1.2.4]
     * - **deviceKeyInfo**
-      - *(map)*. Contains metadata about the Wallet Instance's public key. It MUST include the following sub-fields, unless otherwise specified:
+      - *(map)*. Contiene le informazioni relative alla chiave pubblica dell'Istanza del Wallet. DEVE includere i seguenti sub parametri, se non diversamente specificato:
 
-          * **deviceKey** *(COSE_Key)*. Contains the public key parameters.
-          * **keyAuthorizations** *(map, OPTIONAL)*. Defines authorizations for either full namespaces or individual data elements.
-          * **keyInfo** *(map, OPTIONAL)*. Contains additional metadata about the key.
+          * **deviceKey** *(COSE_Key)*. Contiene i parametri relativi alla chiave pubblica.
+          * **keyAuthorizations** *(map, OPZIONALE)*. Definisce le autorizzazioni per gli interi namespaces o per i singoli dati.
+          * **keyInfo** *(map, OPZIONALE)*. Contiene metadati aggiuntivi della chiave.
 
       - [ISO 18013-5#9.1.2.4]
     * - **status**
-      - *(map, CONDITIONAL)*. REQUIRED only if the Digital Credential is long-lived. Contains the MSO revocation information. If present, it includes a *status_list* based on the TOKEN-STATUS-LIST_ mechanism. This mechanism uses a bit array to mark revoked MSOs by their index position.
-        The `status_list` MUST contain the following sub-value:
+      - *(map, CONDIZIONALE)*. OBBLIGATORIO solo se l'Attestato Elettronico ha durata maggiore di 24 ore (long-lived). Contiene le informazioni relative allo stato di revoca del MSO. Se presente, include una *status_list* basata sul meccanismo TOKEN-STATUS-LIST_. Questo meccanismo utilizza un array di bit per contrassegnare gli MSO revocati in base alla loro posizione di indice.
+        La `status_list` DEVE contenere i seguenti sub parametri:
 
-          * **idx**. Position index in the status list.
-          * **uri**. URI pointing to the status list resource.
+          * **idx**. Indice di posizione nella status list.
+          * **uri**. URI che punta alla status list.
       - [ISO 18013-5#9.1.2.6]
 
 .. note::
-  The private key related to the public key stored in the `deviceKey` map is used to sign the `DeviceSignedItems` and to prove the possession of the Digital Credential during the presentation phase (see the presentation phase with mdoc-CBOR).
+  La chiave privata relativa alla chiave pubblica memorizzata nel `deviceKey` viene utilizzata per firmare i `DeviceSignedItems` e per dimostrare il possesso dell'Attestato Elettronico durante la fase di presentazione (vedere la fase di presentazione con mdoc-CBOR).
 
-mdoc-CBOR Examples
-^^^^^^^^^^^^^^^^^^
-A non-normative example of an mDL encoded in CBOR is shown below in binary encoding.
+Esempi mdoc-CBOR
+^^^^^^^^^^^^^^^^
+
+Un esempio non normativo di un mDL codificato in CBOR è mostrato di seguito in codifica binaria.
 
 .. literalinclude:: ../../examples/mDL-cbor-encoded-example.txt
   :language: text
 
-The Diagnostic Notation of the CBOR-encoded mDL is given below.
+La Notazione Diagnostica del mDL codificato in CBOR è riportata di seguito.
 
 .. literalinclude:: ../../examples/mDL-mdoc-cbor-example.txt
   :language: text
 
-CBOR Acronyms
+Acronimi CBOR
 ^^^^^^^^^^^^^
 
 .. list-table::
@@ -801,45 +801,45 @@ CBOR Acronyms
    :widths: 20 80
    :header-rows: 1
 
-   * - **Acronym**
-     - **Meaning**
+   * - **Acronimo**
+     - **Significato**
    * - `tstr`
-     - Text String
+     - Text String (Stringa di Testo)
    * - `bstr`
-     - Byte String
+     - Byte String (Stringa di Byte)
    * - `int`
-     - Signed Integer
+     - Signed Integer (Intero con Segno)
    * - `uint`
-     - Unsigned Integer
+     - Unsigned Integer (Intero Senza Segno)
    * - `uuid`
-     - Universally Unique Identifier
+     - Universally Unique Identifier (Identificativo Univoco Universale)
    * - `bool`
-     - Boolean (true/false)
+     - Boolean (Booleano) (vero/falso)
    * - `tdate`
-     - Tagged Date (for example, Tag `0` is used to indicate a date/time string in RFC 3339 format)
+     - Tagged Date (ad esempio, il Tag `0` è usato per indicare una stringa di data/ora in formato RFC 3339)
 
-Cross-Format Credential Parameters Mapping
-------------------------------------------
+Mappatura dei Parametri degli Attestati Elettronici tra i vari Formati
+----------------------------------------------------------------------
 
-The following table provides a comparative mapping between the data structures of SD-JWT-VC and mdoc-CBOR Digital Credentials.
-It outlines the key data elements and parameters used in each format, highlighting both commonalities and differences.
-In particular, it shows how core concepts - such as Credential Issuer information, validity, Cryptographic Binding, and disclosures - are represented in these Credential formats.
+La seguente tabella fornisce una mappatura comparativa tra le strutture dati degli Attestati Elettronici nei formati SD-JWT-VC e mdoc-CBOR.
+Essa riporta gli elementi e i parametri chiave utilizzati in ciascun formato, evidenziando sia le somiglianze che le differenze.
+In particolare, evidenzia come i concetti fondamentali - come le informazioni sul Fornitore di Attestati Elettronici, la validità, l'Associazione Crittografica e le disclosure - sono rappresentati nei vari formati possibili di un Attestato Elettronico.
 
-For SD-JWT-VC, parameters are marked with `(hdr)` if they are located in the JOSE header, and `(pld)` if they appear in the payload of the JWT. In mdoc-CBOR, these parameters are identified within the issuerAuth or nameSpaces structures.
+Per SD-JWT-VC, i parametri sono contrassegnati con `(hdr)` se si trovano nell'header JOSE e con `(pld)` se appaiono nel payload del JWT. In mdoc-CBOR, questi parametri sono identificati all'interno delle strutture issuerAuth o nameSpaces.
 
 .. list-table::
    :class: longtable
    :widths: 20 40 40
    :header-rows: 1
 
-   * - **Information Related To**
-     - **SD-JWT-VC Parameters**
-     - **mdoc-CBOR Parameters**
-   * - Digital Credential definition
+   * - **Informazioni Relative A**
+     - **Parametri SD-JWT-VC**
+     - **Parametri mdoc-CBOR**
+   * - Definizione della Tipologia di Attestato Elettronico
      - vct (pld)
      - | issuerAuth.doctype
        | issuerAuth.version
-   * - Digital Credential metadata
+   * - Metadata della Credenziale Elettronica
      - | vctm.name (hdr)
        | vctm.description (hdr)
        | vctm.extends (hdr)
@@ -856,60 +856,60 @@ For SD-JWT-VC, parameters are marked with `(hdr)` if they are located in the JOS
        | -
        | -
        | nameSpaces
-   * - Issuer
+   * - Emittente
      - | iss (pld)
        | issuing_authority (pld)
        | issuing_country (pld)
      - | -
        | nameSpaces.elementIdentifier.issuing_authority
        | nameSpaces.elementIdentifier.issuing_country
-   * - Subject
+   * - Soggetto
      - sub (pld)
      - nameSpaces.elementIdentifier.sub
-   * - Validity period
+   * - Periodo di validità
      - | iat (pld)
        | exp (pld)
        | nbf (pld)
      - | issuerAuth.validityInfo.signed
        | issuerAuth.validityInfo.validUntil
        | issuerAuth.validityInfo.validFrom
-   * - Status mechanism
-     - | status_assertation (pld)
+   * - Meccanismo di verifica dello stato
+     - | status_assertion (pld)
        | status_list (pld)
      - | -
        | issuerAuth.status_list
-   * - Signature
+   * - Firma
      - | alg (hdr)
        | kid (hdr)
      - | issuerAuth.1 (alg)
        | issuerAuth.4 (kid)
-   * - Trust anchors
+   * - Trust Anchors
      - | trust_chain (OID-FED) (hdr)
        | x5c (hdr)
      - | -
        | issuerAuth.33 (x5chain)
-   * - Cryptographic Binding
+   * - Associazione Crittografica
      - cnf.jwk (pld)
      - issuerAuth.deviceKeyInfo.deviceKey
-   * - Selective Disclosure
+   * - Divulgazione Selettiva
      - | _sd_alg (pld)
        | _sd (pld)
      - | issuerAuth.digestAlgorithm
        | issuerAuth.valueDigests
-   * - Integrity
+   * - Integrità
      - | vct#integrity (pld)
        | vctm.extends#integrity (hdr)
        | vctm.schema_uri#integrity (hdr)
      - |
        | -
        |
-   * - Digital Credential format
+   * - Formato dell'Attestato Elettronico
      - typ (hdr)
      - -
-   * - Digital Credential auditability
+   * - Verificabilità dell'Attestato Elettronico
      - verification (pld)
      - nameSpaces.elementIdentifier.verification
-   * - Disclosures
+   * - Disclosure
      - | salt
        | claim name
        | claim value
@@ -918,12 +918,7 @@ For SD-JWT-VC, parameters are marked with `(hdr)` if they are located in the JOS
        |
 
 .. note::
-  - In the mdoc-CBOR format, the version of the Digital Credential is not explicitly defined; it is only available for the IssuerAuth. In contrast, the SD-JWT format includes version information via the `vct` URL.
-  - `Disclosures`, `_sd`, and `_sd_alg` enable Selective Disclosure of SD-JWT claims. The `_sd` and `_sd_alg` parameters are part of the SD-JWT payload, while `Disclosures` are sent separately in a Combined Format along with the SD-JWT.
-  - The `vctm.claims` parameter in SD-JWT and the `nameSpaces` structure in mdoc-CBOR are functionally equivalent, as both define the claim names and their structure. SD-JWT `Disclosures` for disclosed attributes directly correspond to `nameSpaces`, including attribute names, values, and salt values.
-  - A domestic namespace accommodates attributes such as `verification` and `sub`, which are not defined in the standard ISO elementIdentifiers for mdoc-CBOR Digital Credentials.
-
-
-
-
-
+  - Nel formato mdoc-CBOR, la versione dell'Attestato Elettronico non è definita esplicitamente; è disponibile solo per l'IssuerAuth. Al contrario, il formato SD-JWT include informazioni sulla versione tramite l'URL `vct`.
+  - `Disclosures`, `_sd` e `_sd_alg` abilitano la Divulgazione Selettiva dei claim SD-JWT. I parametri `_sd` e `_sd_alg` fanno parte del payload SD-JWT, mentre le `Disclosures` vengono inviate separatamente in un *Combined Format* insieme al SD-JWT.
+  - Il parametro `vctm.claims` in SD-JWT e la struttura `nameSpaces` in mdoc-CBOR sono funzionalmente equivalenti, poiché entrambi definiscono i nomi dei claim e la loro struttura. Le `Disclosures` SD-JWT per gli attributi divulgati corrispondono esattamente ai `nameSpaces`, inclusi nomi e valori degli attributi, e i valori dei *salt*.
+  - Un namespace domestico accoglie attributi come `verification` e `sub`, che non sono definiti negli elementIdentifiers standard ISO per gli Attestati Elettronici in formato mdoc-CBOR.

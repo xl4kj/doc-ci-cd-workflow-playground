@@ -2,146 +2,158 @@
 
 .. "included" file, so we start with '-' title level
 
-Relying Party Instance
+App di Verifica 
+---------------
+
+L'App di Verifica è un'applicazione mobile o embedded progettata per richiedere, ricevere ed elaborare Attestati Elettronici dalle Istanze del Wallet in modo affidabile. Ogni App di Verifica garantisce l'integrità, la riservatezza e l'autenticità degli scambi di Attestati Elettronici, consentendo interazioni sicure tra Utenti e Relying Party.
+
+Esistono due tipi principali di App di Verifica, ciascuna destinata a diversi ambienti operativi:
+
+- **App di Verifica Embedded**: una soluzione hardware/software che opera su un dispositivo specializzato (ad es., varchi di accesso). Ogni App di Verifica corrisponde a un'installazione specifica dell'applicazione su un dispositivo embedded. Poiché la trust con l'App di Verifica Embedded è stabilita attraverso la trust instaurata con il Mobile Relying Party Provider, l'App di Verifica Embedded può essere considerata un Confidential Client di OAuth.
+- **App di Verifica Mobile**: un'applicazione nativa che opera su un dispositivo mobile (ad es., smartphone o tablet). Ogni istanza corrisponde a un'installazione specifica dell'applicazione su un dispositivo. Poiché la trust con la App di Verifica Mobile è stabilita attraverso la trust instaurata con il Mobile Relying Party Provider, l'App di Verifica Mobile può essere considerata un Confidential Client di OAuth.
+- **App di Verifica Web**: un'applicazione remota gestita dalla Relying Party. Un'App di Verifica Web opera come Confidential Client di OAuth, il che significa che può memorizzare in modo sicuro configurazioni riservate (come le sue chiavi crittografiche private) su un server remoto. In questo contesto, la Relying Party non è fornita da terzi e la richiesta di presentazione e la successiva validazione sono gestite automaticamente dal software.
+
+.. note::
+  Le App di Verifica Embedded e Mobile che agiscono come client pubblici non sono considerate all'interno di queste specifiche.
+
+.. note::
+  A differenza della App di Verifica Web, un'App di Verifica Mobile o Embedded richiedono una gestione appropriata del ciclo di vita e procedure ad hoc di registrazione gestite attraverso il Backend della Relying Party.
+
+Ulteriori dettagli tecnici e operativi sono discussi nelle sezioni seguenti.
+
+
+App di Verifica Mobile
 ----------------------
 
-The Relying Party Instance (RPI) is a mobile or embedded application designed to request, receive, and process Digital Credentials from Wallet Instances in a trusted manner. Each RPI ensures the integrity, confidentiality and authenticity of Credential exchanges, enabling secure interactions between Users and Relying Parties.
+Il ciclo di vita di un'App di Verifica include quattro stati principali: **Installed**, **Unverified**, **Verified** e **Uninstalled**, supportando funzionalità come registrazione, riemissione del Certificato di Accesso e revoca.
 
-There are two primary types of Relying Party Instances, each serving different operational environments:
+Ciclo di Vita App di Verifica Mobile 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- **Embedded Relying Party Instance**: an hardware/software solution running on a specialized device (e.g., turnstiles). Each instance corresponds to a specific installation of the application on an embedded device. Since the trust with the Embedded Relying Party Instance is established through the trust established with the Mobile Relying Party Provider, the Embedded Relying Party Instance can be considered a confidential client.
-- **Mobile Relying Party Instance**: a native application running on a mobile device (e.g., smartphone or tablet). Each instance corresponds to a specific installation of the application on a device. Since the trust with the Mobile Relying Party Instance is established through the trust established with the Mobile Relying Party Provider, the Mobile Relying Party Instance can be considered a confidential client.
-- **Web Relying Party Instance**: a remote application operated by the Relying Party. A Web Relying Party Instance operates as a confidential client, meaning it can securely store confidential configurations (such as its private cryptographic keys) on a remote server. In this context, the Relying Party is unprovisioned and the presentation request and validation is automatically handled by software.
-
-.. note::
-  Mobile and Embedded Relying Party Instances acting as public clients are not considered within these specifications.
-
-.. note::
-  Unlike the Web Relying Party Instance, a Mobile and Embedded Relying Party Instance requires proper lifecycle management and special registration procedures managed through the Relying Party Backend.
-
-Further technical and operational details are discussed in the following sections.
-
-
-Mobile Relying Party Instance
------------------------------
-
-A Mobile Relying Party Instance's lifecycle includes four main states: **Installed**, **Unverified**, **Verified**, and **Uninstalled**, supporting functionalities such as registration, Access Certificate reissuance, and revocation.
-
-Mobile Relying Party Instance Lifecycle
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In this section, state machines are presented to explain the Mobile Relying Party Instance states, as well as their transitions and relations.
+In questa sezione vengono presentati le macchine a stati finiti per spiegare gli stati dell'App di Verifica Mobile, nonché le loro transizioni e relazioni.
 
 .. _fig_RelyingParty_Instance_Mobile_Lifecycle:
-.. figure:: ../../images/RelyingParty_Instance_Mobile_Lifecycle.svg
-    :figwidth: 100%
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/XP5TQy8m58RlyoiEUhC9ObTqZ295jyRH6-bIbS7OHMTEPo3ze4qttAzVx48Z7M9lsfuylE_3oQ9MIQMQJ9A3u0YObUe87Ejz9KebYfmG3IY4CDTlAP73SBLQpXp7p0Sxh4Gga0yWgO5XmeymTDs7HzSrn3R_CWWCK_quJdSWR6XmFvrDPuIyZTvXp8llVEpRJWzO54AuZZUactMKZJ7STjqdA_5vK1fjzVuWHfz9-tirnr0IK_NVYT6T0MpyV5_8el8-P8D-50QJcvTRkbn2nEXyqXxvlMQx8G-UADi0VOs87LurF4URqegqMOo6SNoEz0elsuuwNSjVsaD0JmkrWXhKaBvCNL2B7_JkN7y-ENtvP84vRpBv2m00
-
-    Lifecycle of the Mobile Relying Party Instance
-
-As shown in :numref:`fig_RelyingParty_Instance_Mobile_Lifecycle`, the Mobile Relying Party Instance has four distinct states: **Installed**, **Unverified**, **Verified**, and **Uninstalled**. Each state represents a specific functional status and determines the actions that can be performed.
+.. plantuml:: plantuml/rp-mobile-instance-lifecycle.puml
+    :width: 99%
+    :alt: La figura illustra il Ciclo di vita dell'App di Verifica Mobile.
+    :caption: `Ciclo di vita della App di Verifica Mobile. <https://www.plantuml.com/plantuml/svg/XP7VQ_em5CNVyrTSzENx5SIkw1X5Ycx6KTYaYpyOZ3reSwk1c4gRRdH__M8DZJZ4FlMU--avXzjHeTUvBlSINaIAIPL8X2m5lKDupJR2J0nb9TGMOiDL42dpWKgGx0H7mFt1Q1oB91S7BJ95Y5bhF65I8eVsT3eUU9xLMolCHIgGjs1T6Eirhw3j-m-Flc-9fVgo2BHJytXUin3ET7BV7_G7X7nqFg7Bis_L3Lrc02oE89hD5wJH6ihQE6uvkoHpiTrfWzRrJX2ZpwGUR_fOIcAg_tPYT6K1PpzCCfdbmKQM6CRHfFVlxJyTZo5cTDYhL-55ihjG04-KBO2-nyI9DnkUe-N15Qcz68tcytFa8l1wsqvJr_7NxZ2XnuEwWWOqaFcP9g0GFnZS-U6mTtmBoGWLB_Vo5m00>`_
 
 
+.. .. figure:: ../../images/RelyingParty_Instance_Mobile_Lifecycle.svg
+..     :figwidth: 100%
+..     :align: center
+..     :target: https://www.plantuml.com/plantuml/svg/XP5TQy8m58RlyoiEUhC9ObTqZ295jyRH6-bIbS7OHMTEPo3ze4qttAzVx48Z7M9lsfuylE_3oQ9MIQMQJ9A3u0YObUe87Ejz9KebYfmG3IY4CDTlAP73SBLQpXp7p0Sxh4Gga0yWgO5XmeymTDs7HzSrn3R_CWWCK_quJdSWR6XmFvrDPuIyZTvXp8llVEpRJWzO54AuZZUactMKZJ7STjqdA_5vK1fjzVuWHfz9-tirnr0IK_NVYT6T0MpyV5_8el8-P8D-50QJcvTRkbn2nEXyqXxvlMQx8G-UADi0VOs87LurF4URqegqMOo6SNoEz0elsuuwNSjVsaD0JmkrWXhKaBvCNL2B7_JkN7y-ENtvP84vRpBv2m00
 
-Transition to Installed
+..     Lifecycle of the Mobile Relying Party Instance
+
+Come mostrato in :numref:`fig_RelyingParty_Instance_Mobile_Lifecycle`, l'App di Verifica Mobile ha quattro stati distinti: **Installed**, **Unverified**, **Verified** e **Uninstalled**. Ogni stato rappresenta uno stato funzionale specifico e determina le azioni che possono essere eseguite.
+
+
+
+Transizione a Installed
 """""""""""""""""""""""
 
-The state machine begins with the Relying Party Instance installation (**RPI INST** transition), where Users download and install a Relying Party Instance using the official app store of their device's operating system, leading to the **Installed** state.
+La macchina a stati inizia con l'installazione della App di Verifica (transizione **RPI INST**), dove gli Utenti scaricano e installano una App di Verifica utilizzando l'app store ufficiale del sistema operativo del loro dispositivo, portando allo stato **Installed**.
 
-While in this state, the Relying Party Instance MUST interact only with the Relying Party Backend to be registered (i.e., to verify the Instance integrity, register Hardware Cryptographic Keys and obtain an Access Certificate).
+In questo stato, l'App di Verifica DEVE interagire solo con il Backend della Relying Party per essere registrata (cioè, per verificare l'integrità dell'Istanza, registrare le Cryptographic Hardware Keys e ottenere un Certificato di Accesso).
 
-When the revocation of the Relying Party Instance occurs (**RPI REV** transition), the Relying Party Instance MUST get back from **Unverified** to **Installed**. This transition implies the following operations:
+Quando avviene la revoca dell'App di Verifica (transizione **RPI REV**), l'App di Verifica DEVE tornare da **Unverified** a **Installed**. Questa transizione implica le seguenti operazioni:
 
-1. The Access Certificate MUST be revoked.
-2. The Hardware Cryptographic Keys MUST be deleted.
+1. Il Certificato di Accesso DEVE essere revocato.
+2. Le Cryptographic Hardware Keys DEVONO essere cancellate.
 
-Revocation can occur in the following cases:
+La revoca può avvenire nei seguenti casi:
 
-- For security reasons (e.g., compromise of cryptographic material).
-- For technical reasons (e.g., deprecation of the Relying Party Solution).
-- In case of Relying Party de-registration (as detailed in `EIDAS-ARF`_, Section 6.4.3).
-- Illegal activities reported by Judicial or Supervisory Bodies.
+- Per motivi di sicurezza (ad es., compromissione del materiale crittografico).
+- Per motivi tecnici (ad es., deprecazione della Soluzione di Relying Party).
+- In caso di de-registrazione della Relying Party (come dettagliato in `EIDAS-ARF`_, Sezione 6.4.3).
+- Attività illegali segnalate da Organi Giudiziari o di Supervisione.
 
-In addition, each Relying Party SHOULD set an amount of time (grace period) during which the Relying Party Instance can request presentations of Digital Credentials by authenticating itself towards a Wallet Instance using an expired Access Certificate. After this period, the Relying Party Instance MUST be de-registered (**RPI DEREG** transition) and go back to the **Installed** state. This transition implies that the Hardware Cryptographic Keys MUST be deleted.
+Inoltre, ogni Relying Party DOVREBBE stabilire un periodo di tempo (periodo di grazia) durante il quale l'App di Verifica può richiedere presentazioni di Credenziali Elettroniche autenticandosi verso un'Istanza del Wallet utilizzando un Certificato di Accesso scaduto. Dopo questo periodo, l'App di Verifica DEVE essere de-registrata (transizione **RPI DEREG**) e tornare allo stato **Installed**. Questa transizione implica che le Cryptographic Hardware Keys DEVONO essere cancellate.
 
-Transition to Verified
+Transizione a Verified
 """"""""""""""""""""""
 
-The Relying Party Instance needs to obtain a proper Access Certificate, which will be used to authenticate itself towards Wallet Instances. This Certificate is obtained by interacting with the Relying Party Backend, which in turns communicates with the Relying Party Instance Access Certificate Authority. Specifically, the registration transition (**RPI REG**) consists of the following subphases, leading to the **Verified** state:
+L'App di Verifica deve ottenere un Certificato di Accesso appropriato, che sarà utilizzato per autenticarsi verso le Istanze del Wallet. Questo Certificato viene ottenuto interagendo con il Backend della Relying Party, che a sua volta comunica con l'Autorità di Certificazione per i Certificati di Accesso dell'App di Verifica. In particolare, la transizione di registrazione (**RPI REG**) consiste nelle seguenti sottofasi, che portano allo stato **Verified**:
 
-1. **Initialization**: After verification of the Relying Party Instance integrity, it registers a pair of Hardware Cryptographic Keys.
-2. **Access Certificate Issuance**: The Relying Party Instance obtains an Access Certificate.
+1. **Inizializzazione**: Dopo la verifica dell'integrità dell'App di Verifica, questa registra una coppia di Cryptographic Hardware Keys.
+2. **Emissione del Certificato di Accesso**: L'App di Verifica ottiene un Certificato di Accesso.
 
-In case the Access Certificate is expired, a new Certificate can be issued to the Relying Party Instance; this operation is represented by the **CERT REISS** transition towards the **Verified** state.
+Nel caso in cui il Certificato di Accesso sia scaduto, un nuovo Certificato di Accesso può essere emesso per l'App di Verifica; questa operazione è rappresentata dalla transizione **CERT REISS** verso lo stato **Verified**.
 
-While in this state, the Relying Party Instance can request the presentation of Digital Credentials to Wallet Instances (**PID/(Q)EAA PRE**), using the Access Certificate to authenticate itself.
+In questo stato, l'App di Verifica può richiedere la presentazione di Attestati Elettronici alle Istanze del Wallet (**PID/(Q)EAA PRE**), utilizzando il Certificato di Accesso per autenticarsi.
 
 
-Transition to Unverified
+Transizione a Unverified
 """"""""""""""""""""""""
 
-The expiration of the Access Certificate (**CERT EXP** transition) leads to the **Unverified** state.
+La scadenza del Certificato di Accesso (transizione **CERT EXP**) porta allo stato **Unverified**.
 
-While in this state, the Relying Party Instance can still request the presentation of Digital Credentials to Wallet Instances during the grace period. However, as the Certificate is expired, a specific disclaimer MUST be displayed to the User of the Wallet Instance during the presentation flow; for this reason, this operation is represented by the label **PID/(Q)EAA PRE**. This is required to support offline presentation flows. After the grace period has passed, the Relying Party Instance MUST NOT longer request presentations and will be de-registered.
+In questo stato, l'App di Verifica può ancora richiedere la presentazione di Attestati Elettronici alle Istanze del Wallet durante il periodo di grazia. Tuttavia, poiché il Certificato è scaduto, un disclaimer specifico DEVE essere mostrato all'Utente dell'Istanza del Wallet durante il flusso di presentazione; per questo motivo, questa operazione è rappresentata dall'etichetta **PID/(Q)EAA PRE**. Questo è necessario per supportare i flussi di presentazione offline. Dopo che il periodo di grazia è trascorso, la Relying Party Instance NON DEVE più richiedere presentazioni e sarà de-registrata.
 
 
 
-Transition to Uninstalled
+Transizione a Uninstalled
 """""""""""""""""""""""""
 
-Across the **Installed**, **Verified** and **Unverified** states, the Relying Party Instance can be removed entirely through the Relying Party Instance uninstall (**RPI UNINST**) transition, leading to the **Uninstalled** state. If a Relying Party Instance is **Uninstalled**, it ends its lifecycle.
+Attraverso gli stati **Installed**, **Verified** e **Unverified**, la Relying Party Instance può essere rimossa completamente attraverso la disinstallazione dell'App di Verifica (transizione **RPI UNINST**), portando allo stato **Uninstalled**. Se un'App di Verifica è **Uninstalled**, termina il suo ciclo di vita.
 
 
-Mobile Relying Party Instance Functionalities
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Funzionalità dell'App di Verifica Mobile
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A Mobile Relying Party Instance MUST support three fundamental functionalities: **Registration**, **Access Certificate Reissuance**, and **Revocation**. Each functionality is described in detail in the following sections.
-
-.. note::
-  Throughout this section, the services used to attest genuineness of the Relying Party Instance and the device in which it is installed are referred to as **Key Attestation API**. The Key Attestation API is considered in an abstract fashion and it is assumed to be a service provided by a trusted third party (i.e., the OS Provider's API) which is able to perform integrity checks on the Wallet Instance as well as on the device where it is installed.
+Un'App di Verifica DEVE supportare tre funzionalità fondamentali: **Registrazione**, **Riemissione del Certificato di Accesso** e **Revoca**. Ogni funzionalità è descritta in dettaglio nelle sezioni seguenti.
 
 .. note::
-  The details provided below are non-normative and are intended to clarify the functionalities of the Mobile Relying Party Instance. The actual implementation may vary based on the specific use case and requirements of the Relying Party.
+  In questa sezione, i servizi utilizzati per attestare l'autenticità dell'App di Verifica e del dispositivo in cui è installata sono indicati come **Servizio di Integrità del Dispositivo**. Il Servizio di Integrità del Dispositivo è considerato in modo astratto e si presume che sia un servizio fornito da una terza parte affidabile (cioè, l'API del fornitore del sistema operativo) in grado di eseguire controlli di integrità sull'Istanza del Wallet e sul dispositivo in cui è installata.
+
+.. note::
+  I dettagli forniti di seguito sono non normativi e sono destinati a chiarire le funzionalità dell'App di Verifica Mobile. L'implementazione effettiva può variare in base al caso d'uso specifico e ai requisiti della Relying Party.
 
 
-Mobile Relying Party Instance Registration
+Registrazione App di Verifica Mobile
 """"""""""""""""""""""""""""""""""""""""""
 
-This process allows for the registration of a Relying Party Instance with the Relying Party Backend, and the issuance of an Access Certificate that will be used for authentication purposes towards Wallet Instances during presentation flows. The process consists of two subphases:
+Questo processo consente la registrazione di un'App di Verifica con il Backend della Relying Party e l'emissione di un Certificato di Accesso che sarà utilizzato per autenticarsi verso le Istanze del Wallet durante i flussi di presentazione. Il processo consiste in due sottofasi:
 
-1. **Initialization**: The Relying Party Instance requests a security and integrity assertion from the OS manufacturer, which also binds a long-lived key pair stored in a proper secure storage within the device itself; the assertion is then validated by the Relying Party Backend. Further details are provided in Section :ref:`mobile-application-instance:Mobile Application Instance`.
-2. **Access Certificate Issuance**: The Relying Party Instance requests an Access Certificate from the Relying Party Backend. Before interacting with the Relying Party Instance Access Certificate Authority for the issuance of the Access Certificate, the Relying Party Backend validates the Relying Party Instance's integrity and security by leveraging the long-lived, attested keys generated in the previous subphase. The flow is displayed in :numref:`fig_RelyingParty_Instance_Mobile_Registration_AccessCertificateIssuance`, while a step-by-step description is provided below.
+1. **Inizializzazione**: L'App di Verifica richiede un'asserzione di sicurezza e integrità dal produttore del sistema operativo, che lega anche una coppia di chiavi crittografiche asimmetriche a lunga durata memorizzata in un adeguato storage sicuro all'interno del dispositivo stesso; l'asserzione viene quindi convalidata dal Backend della Relying Party. Ulteriori dettagli sono forniti nella Sezione :ref:`mobile-application-instance:Istanza dell'Applicazione Mobile`.
+2. **Emissione del Certificato di Accesso**: L'App di Verifica richiede un Certificato di Accesso dal Backend della Relying Party. Prima di interagire con l'Autorità di Certificazione per l'emissione del Certificato di Accesso, il Backend della Relying Party convalida l'integrità e la sicurezza dell'App di Verifica sfruttando le chiavi attestate a lunga durata generate nella sottofase precedente. Il flusso è mostrato in :numref:`fig_RelyingParty_Instance_Mobile_Registration_AccessCertificateIssuance`, mentre una descrizione passo-passo è fornita di seguito.
 
 .. note::
-  Access Certificates MAY be issued as short-lived (typically valid within 24 hours) or long-lived.
+  I Certificati di Accesso POSSONO essere emessi come a breve durata (tipicamente validi entro 24 ore) o a lunga durata.
 
 .. _fig_RelyingParty_Instance_Mobile_Registration_AccessCertificateIssuance:
-.. figure:: ../../images/RelyingParty_Instance_Mobile_Registration_AccessCertificateIssuance.svg
-    :figwidth: 100%
-    :align: center
-    :target: https://www.plantuml.com/plantuml/svg/ZPF1ZjCm48RlUOgHEG0Il40FQBFL0XL2MhNbjb8rSQQDrTGszgIGjsSIBDnK5jh3HbdFzu__-JDzY8o1XqjVuS3E3fU6GjMPbk3e73VkTrMzVHR2QEFHSgnGimkWVaGA2Z3244NWCm7gksjCJx2bVZJs19DwX8sDZ5RJh47lOQdvHYFKp2GG6sUXVjx4loXoX3VH1sbr2aHsgLjUyeZwJBQTXOq-Bz6odnTRQqqnmfg4FHgDJ50FtBbWU9mxQPGCTljwkuVrqtQ_-RnPr_kdIeRu-4aUArXtfCzWZh0EesTt2kWxe-4hXlON1W8PBiBqWbSqFJOzLJVgBsGf89CWS9OOF9e0xvIIzuCV6gK-GFedcAjIxvDMvbj9nZy7YYo0TLEuQleyvefCy_poDuFvaapEnMGX7xQqQ52mAR3k3La-jCYe5A1jNwns5p_S5myTnawQfYx8SLK4ikc94LoUsTeqEkRLo2QpeEYoI_4VeZbPv278V4Lqshr7OzjfELAWjncNowMOqoP4SBQiof7VrQDtDj8hqb-iwKu6k-a_BOsEuMv5qjdIST5o8bDHOq6hiQeqpiNvzgoHqtyNuloBEkXiTVdHD2wY-B-W4CQENQ1No0Ik7iYsmwN_0m00
-
-    Flow of the Mobile Relying Party Instance Access Certificate Issuance
+.. plantuml:: plantuml/rp-mobile-instance-access-certificate-issuance.puml
+    :width: 99%
+    :alt: La figura illustra il Flusso di Emissione del Certificato di Accesso dell'App di Verifica Mobile.
+    :caption: `Flusso di Emissione del Certificato di Accesso della App di Verifica Mobile. <https://www.plantuml.com/plantuml/svg/ZLF1ZjD03BtdAwpX04Zm0psWBMM1QeMqQijjfSYPkCsewSmmdXJozpXX89tL2EsXKMg_Ppy_EtSSCSJXqbSuH6U7IqEXwanBS7GkDkvNLRr-58JHngEDNA6EBe3wpXGK8CF0Gl0B0jGtrvYUO4VzQEm99lO8MokDhAQPWzv3plb4LwD9K95EmGX-Js6Eh1-tVoWO6Lwn3rBo58Xipi-RVKHz9jlEn4QVoz1SrvDTQqtCi2717et6ACs7sBb9pbn9etYnFwnt1zZSxmxRpzlD-d1VoJ3lFyXZ1PkEz1dC4JPXzD6T0lhEQFYAeVs9WU21HeRf1QzeUcnwgcxONyXIm4W2WJEDuD44UAEKlDT-Q9Hw1-bFC5UbtYQkpBSIhtyCn540raqcgsbDvegHvldbDmEN9WjoJYO9Ix2bh411fe1rRyZ6kiM8IW7QzibgT_73ysJT8NTID5N1oAiYO14zOGGkpqMQ-NiRDJ9FIt8s5vf89QLTMa7DvcGn3a5cB48VIAx7s7Owa6JghS_bTCdgT0qCpfPPDxRdUVREChrW0zcfxcMmc_hJuMWEpyuanNB5HSa9cP8Q2zpfSz0u9-Vk2qUY_nhY_5NLUf6QBqrZPiN_2GKpzj45UW5DmDKTsNQuzBy1>`_
 
 
-**Steps 1-2:** The Mobile Relying Party Instance:
+.. .. figure:: ../../images/RelyingParty_Instance_Mobile_Registration_AccessCertificateIssuance.svg
+..     :figwidth: 100%
+..     :align: center
+..     :target: https://www.plantuml.com/plantuml/svg/ZPF1ZjCm48RlUOgHEG0Il40FQBFL0XL2MhNbjb8rSQQDrTGszgIGjsSIBDnK5jh3HbdFzu__-JDzY8o1XqjVuS3E3fU6GjMPbk3e73VkTrMzVHR2QEFHSgnGimkWVaGA2Z3244NWCm7gksjCJx2bVZJs19DwX8sDZ5RJh47lOQdvHYFKp2GG6sUXVjx4loXoX3VH1sbr2aHsgLjUyeZwJBQTXOq-Bz6odnTRQqqnmfg4FHgDJ50FtBbWU9mxQPGCTljwkuVrqtQ_-RnPr_kdIeRu-4aUArXtfCzWZh0EesTt2kWxe-4hXlON1W8PBiBqWbSqFJOzLJVgBsGf89CWS9OOF9e0xvIIzuCV6gK-GFedcAjIxvDMvbj9nZy7YYo0TLEuQleyvefCy_poDuFvaapEnMGX7xQqQ52mAR3k3La-jCYe5A1jNwns5p_S5myTnawQfYx8SLK4ikc94LoUsTeqEkRLo2QpeEYoI_4VeZbPv278V4Lqshr7OzjfELAWjncNowMOqoP4SBQiof7VrQDtDj8hqb-iwKu6k-a_BOsEuMv5qjdIST5o8bDHOq6hiQeqpiNvzgoHqtyNuloBEkXiTVdHD2wY-B-W4CQENQ1No0Ik7iYsmwN_0m00
 
-  1. Verifies the existence of Cryptographic Hardware Keys. If none exist, the Relying Party Instance re-initialization is required.
-  2. Generates an asymmetric key pair for the Access Certificate (``key_pub``, ``key_priv``).
+    Flow of the App di Verifica Mobile Access Certificate Issuance
 
-**Steps 3-5:** The Mobile Relying Party Instance requests a ``nonce`` from the :ref:`relying-party-endpoint:Relying Party Nonce Endpoint` of the Relying Party Backend. This ``nonce`` MUST be unpredictable to serve as the main defense against replay attacks.
 
-Upon a successful request, the :ref:`relying-party-endpoint:Relying Party Nonce Endpoint` generates and returns the ``nonce`` to the Mobile Relying Party Instance. The :ref:`relying-party-endpoint:Relying Party Nonce Endpoint` MUST ensure that it is single-use and valid only within a specific time frame.
+**Passi 1-2:** La App di Verifica Mobile:
 
-Non-normative examples of the Nonce Request and Response can be found in the :ref:`mobile-application-instance:Mobile Application Nonce Request` and :ref:`mobile-application-instance:Mobile Application Nonce Response` sections, respectively.
+  1. Verifica l'esistenza delle Cryptographic Hardware Keys. Se non esistono, è necessaria la re-inizializzazione dell'App di Verifica.
+  2. Genera una coppia di chiavi asimmetriche per il Certificato di Accesso (``key_pub``, ``key_priv``).
 
-**Step 6:** The Mobile Relying Party Instance:
+**Passi 3-5:** L'App di Verifica Mobile richiede un ``nonce`` dall':ref:`relying-party-endpoint:Endpoint Nonce della Relying Party` del Backend della Relying Party. Questo ``nonce`` DEVE essere imprevedibile per servire come principale difesa contro i replay attack.
 
-  1. Generates ``client_data``, a JSON object that includes the challenge and the thumbprint of ``key_pub``, obtained from its ``JWK`` representation.
-  2. Computes ``client_data_hash`` by applying the SHA256 algorithm to ``client_data``.
+In caso di richiesta riuscita, l':ref:`relying-party-endpoint:Endpoint Nonce della Relying Party` genera e restituisce il ``nonce`` all'App di Verifica Mobile. L':ref:`relying-party-endpoint:Endpoint Nonce della Relying Party` DEVE garantire che sia monouso e valido solo entro un periodo di tempo specifico.
 
-Below is a non-normative example of the ``client_data`` JSON object.
+Esempi non normativi della Richiesta e Risposta del Nonce possono essere trovati rispettivamente nelle sezioni :ref:`mobile-application-instance:Richiesta di Nonce dell'Applicazione Mobile` e :ref:`mobile-application-instance:Risposta di Nonce dell'Applicazione Mobile`.
+
+**Passo 6:** L'App di Verifica:
+
+  1. Genera ``client_data``, un JSON Object che include ``nonce`` e l'impronta digitale di ``key_pub``, ottenuta dalla sua rappresentazione ``JWK``.
+  2. Calcola ``client_data_hash`` applicando l'algoritmo SHA256 a ``client_data``.
+
+Di seguito è riportato un esempio non normativo di ``client_data``.
 
 .. code-block:: json
 
@@ -150,86 +162,86 @@ Below is a non-normative example of the ``client_data`` JSON object.
       "jwk_thumbprint": "hT3v7KQjFZy6GvDkYgOZ1u2F6T4Nz5bPjX8o1MZ3dJY"
     }
 
-**Steps 7-8:** The Mobile Relying Party Instance:
+**Passi 7-8:** L'App di Verifica Mobile:
 
-  1. Requests the Key Attestation APIs to create a ``key_attestation`` value linked to the ``client_data_hash``.
-  2. Receives a signed ``key_attestation`` value from the Key Attestation APIs, authenticated by the OEM.
+  1. Richiede al Servizio di Integrità del Dispositivo di creare un valore ``integrity_assertion`` collegato al ``client_data_hash``.
+  2. Riceve un valore ``integrity_assertion`` firmato dal Servizio di Integrità del Dispositivo, autenticato dall'OEM.
 
-**Steps 9-11:** The Mobile Relying Party Instance:
+**Passi 9-11:** L'App di Verifica Mobile:
 
-  1. Generates an ``hardware_signature`` value by signing the ``client_data_hash`` with the Hardware Cryptographic private key, serving as a proof of possession for the Cryptographic Hardware Keys.
-  2. Generates the :ref:`relying-party-endpoint:Relying Party Key Binding Request` in the form of a JWT. This JWT includes ``key_attestation``, ``hardware_signature``, ``nonce``, ``hardware_key_tag``, and ``cnf`` (representing ``key_pub``); it is signed using ``key_priv``.
-  3. Sends the signed :ref:`relying-party-endpoint:Relying Party Key Binding Request` JWT as an ``assertion`` parameter in the body of an HTTP request to the :ref:`relying-party-endpoint:Relying Party Key Binding Endpoint`.
+  1. Genera un valore ``hardware_signature`` firmando il ``client_data_hash`` con la chiave privata Cryptographic Hardware, che servirà come prova di possesso per le Cryptographic Hardware Keys.
+  2. Genera la :ref:`relying-party-endpoint:Richiesta di Associazione Chiavi della Relying Party` sotto forma di JWT. Questo JWT include ``integrity_assertion``, ``hardware_signature``, ``nonce``, ``hardware_key_tag`` e ``cnf`` (che rappresenta ``key_pub``); è firmato utilizzando ``key_priv``.
+  3. Invia il JWT firmato :ref:`relying-party-endpoint:Richiesta di Associazione Chiavi della Relying Party` come parametro ``assertion`` nel corpo di HTTP request all':ref:`relying-party-endpoint:Endpoint di Associazione Chiavi della Relying Party`.
 
-**Step 12:** The Relying Party Backend evaluates the Key Binding Request and performs the following checks:
+**Passo 12:** Il Backend della Relying Party valuta la Richiesta di Key Binding ed esegue i seguenti controlli:
 
-  1. The request includes all required HTTP header parameters as defined in :ref:`relying-party-endpoint:Relying Party Key Binding Request`.
-  2. The signature of the Key Binding Request is valid and verifiable using the provided ``jwk``.
-  3. The ``nonce`` value has been generated by the Relying Party Backend and not previously used.
-  4. The Relying Party Instance has valid Cryptographic Hardware Keys registered.
-  5. The ``client_data`` can be reconstructed using ``nonce`` and ``cnf`` (representing ``key_pub``). The ``hardware_signature`` parameter value is then validated using the registered Cryptographic Hardware Key's public key associated with the Relying Party Instance.
-  6. The ``key_attestation`` can be validated according to the device manufacturer's guidelines. The specific checks performed by the Relying Party Backend are detailed in the operating system manufacturer's documentation.
-  7. The device in use is free of known security flaws and meets the minimum security requirements defined by the Relying Party.
-  8. The URL in the ``iss`` parameter matches the Relying Party's URL identifier.
+  1. La richiesta include tutti i parametri di intestazione HTTP richiesti come definito in :ref:`relying-party-endpoint:Richiesta di Associazione Chiavi della Relying Party`.
+  2. La firma della Richiesta di Key Binding è valida e verificabile utilizzando il ``jwk`` fornito.
+  3. Il valore ``nonce`` è stato generato dal Backend della Relying Party e non è stato utilizzato in precedenza.
+  4. L'App di Verifica possiede valide Cryptographic Hardware Keys registrate.
+  5. Il ``client_data`` può essere ricostruito utilizzando ``nonce`` e ``cnf`` (che rappresenta ``key_pub``). Il valore del parametro ``hardware_signature`` viene quindi convalidato utilizzando la chiave pubblica della Cryptographic Hardware Key registrata associata all'App di Verifica.
+  6. L'``integrity_assertion`` può essere convalidata secondo le linee guida del produttore del dispositivo. I controlli specifici eseguiti dal Backend della Relying Party sono dettagliati nella documentazione del produttore del sistema operativo.
+  7. Il dispositivo in uso è privo di difetti di sicurezza noti e soddisfa i requisiti minimi di sicurezza definiti dalla Relying Party.
+  8. L'URL nel parametro ``iss`` corrisponde all'identificatore URL della Relying Party.
 
-**Step 13:** If the checks are successful, the Relying Party Backend responds with a confirmation of success (:ref:`relying-party-endpoint:Relying Party Key Binding Response`).
+**Passo 13:** Se i controlli hanno successo, il Backend della Relying Party risponde con una conferma di successo (:ref:`relying-party-endpoint:Risposta di Associazione Chiavi della Relying Party`).
 
-**Step 14:** The Mobile Relying Party Instance generates a Certificate Signing Request (CSR, ``csr``) using ``key_pub`` and ``key_priv``.
+**Passo 14:** L'App di Verifica Mobile genera una Certificate Signing Request (CSR, ``csr``) utilizzando ``key_pub`` e ``key_priv``.
 
-**Step 15:** The Mobile Relying Party Instance sends the CSR to the :ref:`relying-party-endpoint:Relying Party Access Certificate Endpoint` of the Relying Party Backend, as part of the :ref:`relying-party-endpoint:Relying Party Access Certificate Request`.
+**Passo 15:** L'App di Verifica Mobile invia la CSR al :ref:`relying-party-endpoint:Endpoint del Certificato di Accesso della Relying Party` del Backend della Relying Party, come parte della :ref:`relying-party-endpoint:Richiesta del Certificato di Accesso della Relying Party`.
 
-**Steps 16-17:** The Relying Party Backend checks that the public key in the CSR corresponds to a Relying Party Instance that has been previously validated, i.e., that it matches the one bound to the Cryptographic Hardware Keys through ``hardware_signature``. If this check is successful, the Relying Party Backend sends the CSR to the Relying Party Instance Access Certificate Authority.
+**Passi 16-17:** Il Backend della Relying Party verifica che la chiave pubblica nella CSR corrisponda a un'App di Verifica che è stata precedentemente convalidata, cioè che corrisponda a quella legata alle Cryptographic Hardware Keys attraverso ``hardware_signature``. Se questo controllo ha successo, il Backend della Relying Party invia la CSR all'Autorità di Certificazione per i Certificati di Accesso dell'App di Verifica.
 
-**Steps 18-19:** The Relying Party Instance Access Certificate Authority signs the CSR, obtaining a valid Access Certificate (``access_certificate``) which it sends back to the Relying Party Backend.
+**Passi 18-19:** L'Autorità di Certificazione per i Certificati di Accesso dell'App di Verifica firma la CSR, ottenendo un Certificato di Accesso valido (``access_certificate``) che invia al Backend della Relying Party.
 
-**Steps 20-21:** The Relying Party Backend sends the Access Certificate (as part of the :ref:`relying-party-endpoint:Relying Party Access Certificate Response`) to the Mobile Relying Party Instance, which stores it for future authentication towards Wallet Instances.
-
-
-Mobile Relying Party Instance Access Certificate Reissuance
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-The issuance of a new Access Certificate follows the same flow described in the :ref:`relying-party-instance:Mobile Relying Party Instance Registration` section for **Access Certificate Issuance**. Those certificates MAY be issued as short-lived (typically valid within 24 hours) or long-lived.
+**Passi 20-21:** Il Backend della Relying Party invia il Certificato di Accesso (come parte della :ref:`relying-party-endpoint:Risposta del Certificato di Accesso della Relying Party`) all'App di Verifica Mobile, che lo memorizza per future autenticazioni verso le Istanze del Wallet.
 
 
-Mobile Relying Party Instance Revocation
+Riemissione de Certificato di Accesso App di Verifica Mobile
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+L'emissione di un nuovo Certificato di Accesso segue lo stesso flusso descritto nella sezione :ref:`relying-party-instance:Registrazione App di Verifica Mobile` per **Emissione del Certificato di Accesso**. Questi certificati POSSONO essere emessi come a breve durata (tipicamente validi entro 24 ore) o a lunga durata.
+
+
+Revoca App di Verifica Mobile
 """"""""""""""""""""""""""""""""""""""""
 
-Relying Parties MUST periodically verify the Relying Party Instance's authenticity and security.
-When security issues are detected, Relying Parties MUST revoke the Relying Party Instance, revoking its X.509 Access Certificate (in case of long-lived certificates), and in any case, Relying Parties MUST NOT allow the re-issue of certificates.
-As a result, Mobile Relying Party Instance revocation MUST be tied to X.509 Access Certificates validity.
+Le Relying Party DEVONO verificare periodicamente l'autenticità e la sicurezza delle App di Verifica.
+Quando vengono rilevati problemi di sicurezza, le Relying Party DEVONO revocare l'App di Verifica, revocando il suo Certificato di Accesso X.509 (in caso di certificati a lunga durata), e in ogni caso, le Relying Party NON DEVONO consentire la riemissione di certificati.
+Di conseguenza, la revoca dell'App di Verifica Mobile DEVE essere legata alla validità dei Certificati di Accesso X.509.
 
-Long-lived X.509 Certificates follows the requirements about their lifecycle, defined in :ref:`trust:The Infrastructure of Trust`.
+I Certificati X.509 a lunga durata seguono i requisiti relativi al loro ciclo di vita, definiti in :ref:`trust:L'Infrastruttura di Trust`.
 
 
-Web Relying Party Instance
+App di Verifica Web
 --------------------------
 
-Web Instances operates server-side security controls that safely store secrets and cryptographic keys in a controlled environment. Web Instances MUST be registered with the Trust Anchor or Intermediary Entities, according to :ref:`trust:The Infrastructure of Trust`.
+Le Web Instance operano controlli di sicurezza lato server che memorizzano in modo sicuro segreti e chiavi crittografiche in un ambiente controllato. Le App di Verifica Web DEVONO essere registrate presso la Trust Anchor o le Entità Intermediarie, secondo :ref:`trust:L'Infrastruttura di Trust`.
 
 
-Web Relying Party Instance Functionalities
+Funzionalità dell'App di Verifica Web
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A Web Relying Party Instance MUST support two fundamental functionalities: **Registration** and **Revocation**. Each functionality is described in the following sections.
+Un'App di Verifica Web DEVE supportare due funzionalità fondamentali: **Registrazione** e **Revoca**. Ogni funzionalità è descritta nelle sezioni seguenti.
 
 
-Web Relying Party Instance Registration
-"""""""""""""""""""""""""""""""""""""""
+Registrazione Revoca App di Verifica Web
+"""""""""""""""""""""""""""""""""""""""""
 
-Web Relying Party Instances, as confidential clients, are registered directly with the Trust Anchor or an Intermediary Entity. The registration involves:
+Le App di Verifica Web, in qualità di OAuth Confidential Client, sono registrate direttamente dalla Trust Anchor o un'Entità Intermediaria. La registrazione comporta:
 
-- The Relying Party MUST register its Web Instance with the Trust Anchor or Intermediary.
-- The Relying Party MUST expose an Entity Configuration as defined in the Trust Framework.
-- The Entity Configuration MUST contain all necessary metadata for federation, including endpoints and public keys.
-- No individual instance lifecycle management is required, as the Web Instance operates as part of the secured server environment.
+- La Relying Party DEVE registrare la sua App Web con la Trust Anchor o con le appropriate Entità Intermediarie della Federazione.
+- La Relying Party DEVE esporre una Entity Configuration come definito nel Trust Framework.
+- L'Entity Configuration DEVE contenere tutti i metadati necessari per la federazione, inclusi gli endpoint e le chiavi pubbliche.
+- Non è richiesta alcuna gestione del ciclo di vita delle singole istanze, poiché l'App Web opera come parte dell'ambiente server protetto.
 
 
-Web Relying Party Instance Revocation
+Revoca App di Verifica Web
 """""""""""""""""""""""""""""""""""""
 
-When a Web Relying Party Instance needs to be revoked:
+Quando una App di Verifica Web deve essere revocata:
 
-- The revocation MUST be performed according to the Trust Framework procedures.
-- The cryptographic keys used by the Web Instance MUST be revoked.
-- The Entity Configuration MUST be updated to reflect the revocation.
-- The Trust Anchor MUST be notified of the revocation to update federation metadata.
+- La revoca DEVE essere eseguita secondo le procedure del Trust Framework.
+- Le chiavi crittografiche utilizzate dall'App Web DEVONO essere revocate.
+- L'Entity Configuration DEVE essere aggiornata per riflettere la revoca.
+- La Trust Anchor DEVE essere notificata della revoca per aggiornare i metadata della federazione.
